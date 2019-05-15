@@ -5,7 +5,7 @@ import {ProjectService} from '../../service/project.service';
 import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT, MyDatatableItem} from '../../share/my-datatable/my-datatable.component';
 import * as _ from 'lodash';
 import {ToastrService} from 'ngx-toastr';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-projects',
@@ -109,6 +109,7 @@ export class ProjectsComponent implements OnInit {
       this.sortConfig.field, this.sortConfig.order,
       buildFilterParam(this.filter),
       buildFilterParam(this.pmFilter),
+      []
     )
       .subscribe((resp => {
         if (!resp || !resp.body) {
@@ -158,7 +159,7 @@ export class ProjectsComponent implements OnInit {
 
   openModal(template: TemplateRef<any>, id) {
     this.deleteId = id;
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'} as ModalOptions);
   }
 
   confirm(): void {

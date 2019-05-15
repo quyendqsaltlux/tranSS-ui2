@@ -44,7 +44,7 @@ export class MyDatatableComponent implements OnInit {
   dateConfig: Partial<BsDatepickerConfig> = {
     dateInputFormat: 'YYYY-MM-DD',
     containerClass: 'theme-blue'
-  };
+  } as Partial<BsDatepickerConfig>;
   locale = 'en';
 
   filterWrapper = {

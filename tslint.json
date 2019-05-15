@@ -4,6 +4,7 @@
     "codelyzer"
   ],
   "rules": {
+    "no-string-literal": false,
     "array-type": false,
     "arrow-parens": false,
     "deprecation": {
@@ -50,6 +51,7 @@
     "no-switch-case-fall-through": true,
     "no-use-before-declare": true,
     "no-var-requires": false,
+    "object-literal-sort-keys": false,
     "object-literal-key-quotes": [
       true,
       "as-needed"

@@ -19,12 +19,12 @@ export class ProjectService {
     return this.http.post<HttpResponse<any>>(API_PATH, project, {observe: 'response'});
   }
 
-  search(page, size, keyWord, orderBy, sortDirection, filters = [], assigmentFilters = []): Observable<HttpResponse<any>> {
+  search(page, size, keyWord, orderBy, sortDirection, filters = [], pmFilters, assignmentFilters = []): Observable<HttpResponse<any>> {
     const path = buildPathParams(page, size, keyWord, orderBy, sortDirection);
     const params = {
       rootFilters: filters,
-      joinFilters: [],
-      assignFilters: assigmentFilters,
+      joinFilters: pmFilters,
+      assignFilters: assignmentFilters,
     };
     return this.http.post<HttpResponse<any>>(API_PATH + '/search' + path, params, {observe: 'response'});
   }

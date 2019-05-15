@@ -87,7 +87,7 @@ export class ProjectHistoryComponent implements OnInit {
   getModelList() {
     this.projectService.search(this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order,
-      buildFilterParam(this.filter),
+      buildFilterParam(this.filter), [],
       buildFilterParam(this.assignmentFilter),
     )
       .subscribe((resp => {
