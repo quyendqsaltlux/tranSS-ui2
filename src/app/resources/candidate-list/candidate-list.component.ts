@@ -35,7 +35,13 @@ export class CandidateListComponent implements OnInit {
     catTool: {operation: EQUAL, value: null},
     mobile: {operation: EQUAL, value: null},
     messenger: {operation: EQUAL, value: null},
-    address: {operation: EQUAL, value: null}
+    socialpages: {operation: EQUAL, value: null},
+    address: {operation: EQUAL, value: null},
+    personalId: {operation: EQUAL, value: null},
+    gender: {operation: EQUAL, value: null},
+    dateOfBirth: {operation: EQUAL, value: null},
+    country: {operation: EQUAL, value: null},
+    updatedAt: {operation: EQUAL, value: null},
   };
   abilityFilter = {
     sourceLanguage: {operation: EQUAL, value: null},
@@ -47,6 +53,7 @@ export class CandidateListComponent implements OnInit {
     rate2unit: {operation: EQUAL, value: null},
     minimumCharge: {operation: EQUAL, value: null},
     task: {operation: EQUAL, value: null},
+    dailyCapacity: {operation: EQUAL, value: null},
   };
 
   orderFields = ['sourceLanguage', 'targetLanguage', 'projectType', 'rate', 'rateUnit', 'rate2', 'rate2unit', 'minimumCharge', 'task'];
@@ -63,9 +70,10 @@ export class CandidateListComponent implements OnInit {
   buildTableCols() {
     this.cols = [
       new MyDatatableItem(null, 'Action', false, false, null, null),
-      new MyDatatableItem('name', 'Name', true, true, null, null),
       new MyDatatableItem('code', 'Code', true, true, null, null),
-      new MyDatatableItem('email', 'Email', true, true, null, null),
+      new MyDatatableItem('grade', 'Grade', true, true, null, null),
+      new MyDatatableItem('name', 'Name', true, true, null, null),
+      new MyDatatableItem('majorField', 'Major Field', true, true, null, null),
       new MyDatatableItem('projectType', 'Project Type', false, true, FILTER_TYPE_JOIN, 'projectType'),
       new MyDatatableItem('sourceLanguage', 'Source', false, true, FILTER_TYPE_JOIN, 'sourceLanguage', 'text'),
       new MyDatatableItem('targetLanguage', 'Target', false, true, FILTER_TYPE_JOIN, 'targetLanguage', 'text'),
@@ -76,8 +84,16 @@ export class CandidateListComponent implements OnInit {
       new MyDatatableItem('rate2unit', '(hour)', false, true, FILTER_TYPE_JOIN, 'rateUnit2'),
       new MyDatatableItem('minimumCharge', 'Minimum Charge', true, true, null, null),
       new MyDatatableItem('catTool', 'CAT Tool', true, true, null, null),
+      new MyDatatableItem('email', 'Email', true, true, null, null),
       new MyDatatableItem('mobile', 'Mobile', true, true, null, null),
       new MyDatatableItem('messenger', 'Messenger', true, true, null, null),
+      new MyDatatableItem('socialpages', 'Other contact', true, true, null, null),
+      new MyDatatableItem('personalId', 'Personal Id', true, true, null, null),
+      new MyDatatableItem('gender', 'Gender', true, true, null, null),
+      new MyDatatableItem('dateOfBirth', 'DOB', true, true, null, null),
+      new MyDatatableItem('dailyCapacity', 'Daily Capacity', false, true, null, null),
+      new MyDatatableItem('country', 'Country', true, true, null, null),
+      new MyDatatableItem('updatedAt', 'Updated At', true, true, null, null),
       new MyDatatableItem('address', 'Address', true, true, null, null),
     ];
   }

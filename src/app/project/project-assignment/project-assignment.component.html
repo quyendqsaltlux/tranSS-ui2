@@ -132,7 +132,7 @@
                        *ngIf="assignment.progress === 'FINISHED'"
                        (click)="onToggleReviewForm()">
                     <button type="button" class="btn btn-ghost-primary btn-sm"
-                            *ngIf="!assignment.star">Review
+                            *ngIf="!assignment.star">Evaluate
                     </button>
                     <ng-container *ngIf="assignment.star && assignment.star > 0">
                       <span>{{assignment.star}} <i class="fa fa-star text-warning"></i></span>

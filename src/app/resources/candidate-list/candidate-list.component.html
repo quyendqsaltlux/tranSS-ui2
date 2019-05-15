@@ -58,21 +58,10 @@
                     </ul>
                   </div>
                 </td>
-                <td class="candidate-name">{{candidate.name}}</td>
                 <td>{{candidate.code}}</td>
-                <!--<td>{{candidate.type | candidateType}}</td>-->
-                <td class="position-relative">
-                  <span *ngIf="candidate.email2"
-                        class="email2 badge badge-danger cursor-pointer"
-                        popover="{{candidate.email2}}"
-                        popoverTitle="Email 2"
-                        [outsideClick]="true"
-                        triggers="mouseenter">
-                    <i class="fa fa-envelope"> 2</i>
-                  </span>
-                  <span class="email">{{candidate.email}}</span>
-                </td>
-                <!--<td>{{candidate.email2}}</td>-->
+                <td class="text-center">{{candidate.grade}}</td>
+                <td class="candidate-name">{{candidate.name}}</td>
+                <td class="mw150">{{candidate.majorField}}</td>
                 <!--PROJECT TYPE-->
                 <td class="p-0 multiple-row mw110">
                   <ul class="list-group">
@@ -157,12 +146,39 @@
                     </ng-container>
                   </ul>
                 </td>
-
                 <td class="mw350">{{candidate.catTool}}</td>
+                <!--EMAIL-->
+                <td class="position-relative">
+                  <span *ngIf="candidate.email2"
+                        class="email2 badge badge-danger cursor-pointer"
+                        popover="{{candidate.email2}}"
+                        popoverTitle="Email 2"
+                        [outsideClick]="true"
+                        triggers="mouseenter">
+                    <i class="fa fa-envelope"> 2</i>
+                  </span>
+                  <span class="email">{{candidate.email}}</span>
+                </td>
+
                 <td>{{candidate.mobile}}</td>
                 <td>{{candidate.messenger}}</td>
-                <td class="mw250">{{candidate.address}}</td>
+                <td>{{candidate.socialpages}}</td>
+                <td>{{candidate.personalId}}</td>
+                <td>{{candidate.gender}}</td>
+                <td>{{candidate.dateOfBirth | date}}</td>
 
+                <!--MINIMUM CHARGE-->
+                <td class="p-0 multiple-row text-right">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item"> {{ability.dailyCapacity || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
+                <td>{{candidate.country}}</td>
+                <td>{{candidate.updatedAt | date}}</td>
+                <td class="mw250">{{candidate.address}}</td>
               </tbody>
             </app-my-datatable>
           </div>
