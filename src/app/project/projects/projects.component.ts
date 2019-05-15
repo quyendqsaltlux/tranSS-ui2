@@ -6,7 +6,7 @@ import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT, MyDatatableItem} from '../../share/m
 import * as _ from 'lodash';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -14,6 +14,23 @@ import {Router} from "@angular/router";
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
+  columnDefs = [
+    {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left'},
+    {headerName: 'Athlete', field: 'athlete', width: 150, pinned: 'left'},
+    {headerName: 'Age', field: 'age', width: 90, pinned: 'left'},
+    {headerName: 'Country', field: 'country', width: 120},
+    {headerName: 'Year', field: 'year', width: 90},
+    {headerName: 'Date', field: 'date', width: 110},
+    {headerName: 'Sport', field: 'sport', width: 110},
+    {headerName: 'Gold', field: 'gold', width: 100},
+    {headerName: 'Silver', field: 'silver', width: 100},
+    {headerName: 'Bronze', field: 'bronze', width: 100},
+    {headerName: 'Total', field: 'total', width: 100, pinned: 'right'}
+  ];
+
+  rowData = [
+    {athlete: 'Toyota', age: 12, country: 'US', year: 2018, date: '2018-09-09', sport: 'footbal', gold: 1, silver: 3, bronze: 9, total: 20},
+  ];
   activedTab = 'ON_GOING';
   ignoreFilter = true;
   modalRef: BsModalRef;

@@ -1,5 +1,18 @@
 <div class="animated fadeIn">
   <div class="row">
+    <div class="card">
+      <div class="card-body">
+        <ag-grid-angular
+          style="width: 500px; height: 500px;"
+          class="ag-theme-balham"
+          [rowData]="rowData"
+          [columnDefs]="columnDefs"
+        >
+        </ag-grid-angular>
+      </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-sm-12">
       <div class="card mb-1">
         <div class="card-body toolbar">
