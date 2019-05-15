@@ -61,9 +61,9 @@
                 <ng-container *ngFor="let project of shownModelList; let index=index">
                   <tr>
                     <td class="text-center">{{project.no}}</td>
-                    <td>{{project.category}}</td>
+                    <!--<td>{{project.category}}</td>-->
                     <td class="text-center">{{project.code}}</td>
-                    <td class="text-center">{{project.contents}}</td>
+                    <td class="text-center mw350">{{project.contents}}</td>
                     <td class="text-center">{{project.field}}</td>
                     <td class="text-center">{{project.client}}</td>
 
@@ -94,20 +94,22 @@
                       </ul>
                     </td>
                     <!--STAR-->
-                    <td class="p-0 multiple-row">
-                      <ul class="list-group text-center">
-                        <ng-container *ngFor="let assignment of project.assignments; let last=last">
-                          <li class="list-group-item" *ngIf="!assignment.star"> -</li>
-                          <li class="list-group-item one-line" *ngIf="assignment.star"> {{assignment.star}} <i class="fa fa-star text-warning"></i></li>
-                          <div class="li-divider" *ngIf="!last"></div>
-                        </ng-container>
-                      </ul>
-                    </td>
+                    <!--<td class="p-0 multiple-row">-->
+                    <!--<ul class="list-group text-center">-->
+                    <!--<ng-container *ngFor="let assignment of project.assignments; let last=last">-->
+                    <!--<li class="list-group-item" *ngIf="!assignment.star"> -</li>-->
+                    <!--<li class="list-group-item one-line" *ngIf="assignment.star"> {{assignment.star}} <i class="fa fa-star text-warning"></i></li>-->
+                    <!--<div class="li-divider" *ngIf="!last"></div>-->
+                    <!--</ng-container>-->
+                    <!--</ul>-->
+                    <!--</td>-->
                     <!--REVIEW-->
                     <td class="p-0 multiple-row">
                       <ul class="list-group">
                         <ng-container *ngFor="let assignment of project.assignments; let last=last">
-                          <li class="list-group-item one-line" title="{{assignment.review}}">{{(assignment.review || '-' )| lmTo:30 }}</li>
+                          <li class="list-group-item one-line" title="{{assignment.review}}">{{(assignment.review || '-' )| lmTo:30 }}
+                            <span *ngIf="assignment.star" class="up-conner">{{assignment.star}}<i class="fa fa-star text-warning"></i></span>
+                          </li>
                           <div class="li-divider" *ngIf="!last"></div>
                         </ng-container>
                       </ul>

@@ -69,7 +69,7 @@ export class ProjectHistoryComponent implements OnInit {
   buildTableCols() {
     this.cols = [
       new MyDatatableItem('no', 'No', true, true, null, null),
-      new MyDatatableItem('category', 'Category', true, true, null, null),
+      // new MyDatatableItem('category', 'Category', true, true, null, null),
       new MyDatatableItem('code', 'Project code', true, true, null, null),
       new MyDatatableItem('contents', 'Contents', true, true, null, null),
       new MyDatatableItem('field', 'Field', true, true, null, null),
@@ -79,7 +79,7 @@ export class ProjectHistoryComponent implements OnInit {
       new MyDatatableItem('totalVolume', 'Quantity', true, true, null, null),
       new MyDatatableItem('progressStatus', 'Project progress', true, true, null, null),
       new MyDatatableItem('progress', 'Task progress', false, true, FILTER_TYPE_JOIN, null, null),
-      new MyDatatableItem('star', 'Star', false, true, FILTER_TYPE_JOIN, null, null),
+      // new MyDatatableItem('star', 'Star', false, true, FILTER_TYPE_JOIN, null, null),
       new MyDatatableItem('review', 'Comment', false, true, FILTER_TYPE_JOIN, null, null),
     ];
   }
