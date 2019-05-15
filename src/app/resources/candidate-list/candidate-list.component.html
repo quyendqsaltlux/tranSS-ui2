@@ -1,0 +1,188 @@
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card mb-1">
+        <div class="card-body toolbar">
+          <!--NEW-->
+          <a class="btn btn-sm btn-success" routerLink="/resources/new"> <i class="fa fa-plus"></i> New Candidate</a>
+          <!--FILTER-->
+          <div class="btn-group btn-group-sm pull-right" dropdown placement="bottom right">
+            <button dropdownToggle type="button" class="btn btn-sm btn-outline-secondary ml-1 dropdown-toggle"><i class="fa fa-cog"></i></button>
+            <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+              <li role="menuitem">
+                <a class="dropdown-item">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="option1" id="checkbox1"
+                           [(ngModel)]="showOtherAbility" (change)="onToggleShowOtherAbility()">
+                    <label class="form-check-label" for="checkbox1">
+                      Show other resources' rate info when filtering
+                    </label>
+                  </div>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!--SEARCH-->
+          <div class="d-inline-block pull-right">
+            <div class="input-prepend input-group">
+              <div class="input-group-prepend">
+                <span class="input-group-text cursor-pointer" (click)="onClickSearch()"><i class="fa fa-search"></i></span>
+              </div>
+              <input id="prependedInput" class="form-control form-control-sm custom-search-input" size="16" type="text"
+                     placeholder="Search" (keydown.enter)="onClickSearch()" [(ngModel)]="keyWord">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-sm-12">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive mh350">
+            <app-my-datatable [cols]="cols" [filter]="filter"
+                              [joinFilter]="abilityFilter"
+                              [sortConfig]="sortConfig"
+                              (nextSort)="toggleSort($event)"
+                              (filterChange)="onFilterChange($event)">
+              <tbody rows-data>
+              <tr *ngFor="let candidate of shownModelList">
+                <!--ACTION-->
+                <td class="text-center action">
+                  <div class="btn-group btn-group-sm" dropdown>
+                    <button dropdownToggle type="button" class="pt-0 pb-0 btn btn-sm btn-ghost-primary dropdown-toggle">
+                      Action <span class="caret"></span>
+                    </button>
+                    <ul *dropdownMenu class="dropdown-menu" role="menu">
+                      <li role="menuitem"><a class="dropdown-item" routerLink="/resources/edit/{{candidate.id}}">Edit</a></li>
+                    </ul>
+                  </div>
+                </td>
+                <td class="candidate-name">{{candidate.name}}</td>
+                <td>{{candidate.code}}</td>
+                <!--<td>{{candidate.type | candidateType}}</td>-->
+                <td class="position-relative">
+                  <span *ngIf="candidate.email2"
+                        class="email2 badge badge-danger cursor-pointer"
+                        popover="{{candidate.email2}}"
+                        popoverTitle="Email 2"
+                        [outsideClick]="true"
+                        triggers="mouseenter">
+                    <i class="fa fa-envelope"> 2</i>
+                  </span>
+                  <span class="email">{{candidate.email}}</span>
+                </td>
+                <!--<td>{{candidate.email2}}</td>-->
+                <!--PROJECT TYPE-->
+                <td class="p-0 multiple-row mw110">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item"> {{ability.projectType || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
+                <!--SOURCE LANGUAGE-->
+                <td class="p-0 multiple-row">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item"> {{ability.sourceLanguage || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
+                <!--TARGET LANGUAGE    -->
+                <td class="p-0 multiple-row">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item"> {{ability.targetLanguage || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
+
+                <!--TASK -->
+                <td class="p-0 multiple-row">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item"> {{ability.task || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
+
+                <!--RATE-->
+                <td class="p-0 multiple-row text-right">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item">{{ability.rate || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
+                <!--WORD CHAR-->
+                <td class="p-0 multiple-row text-right">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item">{{ability.rateUnit || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
+                <!--RATE2-->
+                <td class="p-0 multiple-row text-right">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item">{{ability.rate2 || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
+                <!--HOUR-->
+                <td class="p-0 multiple-row text-right">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item">{{ability.rate2unit || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
+
+                <!--MINIMUM CHARGE-->
+                <td class="p-0 multiple-row text-right">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item"> {{ability.minimumCharge || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
+
+                <td class="mw350">{{candidate.catTool}}</td>
+                <td>{{candidate.mobile}}</td>
+                <td>{{candidate.messenger}}</td>
+                <td class="mw250">{{candidate.address}}</td>
+
+              </tbody>
+            </app-my-datatable>
+          </div>
+        </div>
+
+        <div class="card-footer">
+          <span> Total: {{totalItems}}</span>
+          <div class="pull-right">
+            <pagination [totalItems]="totalItems" class="pagination" *ngIf="totalItems>0"
+                        [(ngModel)]="page"
+                        [maxSize]="5"
+                        [itemsPerPage]="size"
+                        (pageChanged)="pageChanged($event)"
+                        previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                        [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event">
+            </pagination>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

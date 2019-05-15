@@ -1,0 +1,252 @@
+<div class="animated fadeIn">
+  <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <table class="table table-sm my-datatable rates-table">
+      <thead *ngIf="index === 0">
+      <tr class="head1">
+        <th>#</th>
+        <th>Source <span class="text-danger"> *</span></th>
+        <th>Target <span class="text-danger"> *</span></th>
+        <th>Project type <span class="text-danger"> *</span></th>
+        <th>Task <span class="text-danger"> *</span></th>
+        <th>Daily capacity</th>
+        <th>Rate (word/char) <span class="text-danger"> *</span></th>
+        <th>Unit <span class="text-danger"> *</span></th>
+        <th>Rate (hour) <span class="text-danger"> *</span></th>
+        <th>Unit 2 <span class="text-danger"> *</span></th>
+        <th>Minimum Volume</th>
+        <th>Minimum Charge</th>
+        <th>W Rep % <span class="text-danger"> *</span></th>
+        <th>W 100% <span class="text-danger"> *</span></th>
+        <th>W 99%-95% <span class="text-danger"> *</span></th>
+        <th>W 94%-85% <span class="text-danger"> *</span></th>
+        <th>W 84%-75% <span class="text-danger"> *</span></th>
+        <th>W No match <span class="text-danger"> *</span></th>
+        <th>Note</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{index + 1}}</td>
+        <!--SOURCE-->
+        <td>
+          <input type="text" class="form-control form-control-sm" id="cSourceLanguage" placeholder="Ex: KO"
+                 name="sourceLanguage"
+                 [(ngModel)]="model.sourceLanguage"
+                 required maxlength="255"
+                 #source="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && source.invalid}">
+          <div *ngIf="source.invalid && (source.dirty || source.touched)" class="msg-invalid">
+            <div *ngIf="source.errors.required">This field is required.</div>
+            <div *ngIf="source.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--TARGET-->
+        <td>
+          <input type="text" class="form-control form-control-sm" id="cTargetLanguage" placeholder="Ex: VI"
+                 name="targetLanguage"
+                 [(ngModel)]="model.targetLanguage"
+                 required maxlength="255"
+                 #target="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && target.invalid}">
+          <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
+            <div *ngIf="target.errors.required">This field is required.</div>
+            <div *ngIf="target.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--PROJECT TYPE-->
+        <td>
+          <ng-select [(ngModel)]="model.projectType" [searchable]="false" [clearable]="false" name="projectType" id="projectType"
+                     #projectType="ngModel" class="sm"
+                     required
+                     [ngClass]="{'is-invalid': f.submitted && projectType.invalid}">
+            <ng-option [value]="'PV'">PV-Private</ng-option>
+            <ng-option [value]="'PB'">PB-Public</ng-option>
+            <ng-option [value]="'LG'">LG</ng-option>
+          </ng-select>
+        </td>
+        <!--TASK-->
+        <td>
+          <ng-select [(ngModel)]="model.task" [searchable]="false" [clearable]="false" name="task" id="task"
+                     #task="ngModel" class="sm"
+                     required
+                     [ngClass]="{'is-invalid': f.submitted && task.invalid}">
+            <ng-option [value]="'All'">All</ng-option>
+            <ng-option [value]="'DTP'">DTP</ng-option>
+            <ng-option [value]="'Translation'">Translation</ng-option>
+            <ng-option [value]="'Editing'">Editing</ng-option>
+            <ng-option [value]="'Proofreading'">Proofreading</ng-option>
+          </ng-select>
+        </td>
+        <!--DAILY CAPACITY-->
+        <td>
+          <input type="text" class="form-control form-control-sm" id="cDailyCapacity" placeholder="Ex:"
+                 name="dailyCapacity" [(ngModel)]="model.dailyCapacity">
+        </td>
+        <!--RATE 1 -->
+        <td>
+          <input type="number" class="form-control form-control-sm" id="rateWord" placeholder="Ex: 50"
+                 name="rateWord"
+                 [(ngModel)]="model.rate"
+                 required min="0"
+                 #rateWord="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && rateWord.invalid}">
+          <div *ngIf="rateWord.invalid && (rateWord.dirty || rateWord.touched)" class="msg-invalid">
+            <div *ngIf="rateWord.errors.required">This field is required.</div>
+            <div *ngIf="rateWord.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--UNIT-->
+        <td>
+          <ng-select [(ngModel)]="model.rateUnit" [searchable]="false" [clearable]="false" name="unit" id="unit"
+                     #rateUnit="ngModel" class="sm"
+                     required
+                     [ngClass]="{'is-invalid': f.submitted && rateUnit.invalid}">
+            <ng-option [value]="'Word'">Word</ng-option>
+            <ng-option [value]="'Character'">Character</ng-option>
+            <ng-option [value]="'Hour'">Hour</ng-option>
+            <ng-option [value]="'Page'">Page</ng-option>
+          </ng-select>
+        </td>
+        <!--RATE HOUR-->
+        <td>
+          <input type="number" class="form-control form-control-sm" id="rateHour" placeholder="Ex: 15000" name="rateHour"
+                 [(ngModel)]="model.rate2"
+                 required min="0"
+                 #rateHour="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && rateHour.invalid}">
+          <div *ngIf="rateHour.invalid && (rateHour.dirty || rateHour.touched)" class="msg-invalid">
+            <div *ngIf="rateHour.errors.required">This field is required.</div>
+            <div *ngIf="rateHour.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--UNIT2-->
+        <td>
+          <ng-select [(ngModel)]="model.rate2unit" [searchable]="false" [clearable]="false" name="unit2" id="unit2"
+                     #rate2unit="ngModel" class="sm"
+                     required
+                     [ngClass]="{'is-invalid': f.submitted && rateUnit.invalid}">
+            <ng-option [value]="'Word'">Word</ng-option>
+            <ng-option [value]="'Character  '">Character</ng-option>
+            <ng-option [value]="'Hour'">Hour</ng-option>
+            <ng-option [value]="'Page'">Page</ng-option>
+          </ng-select>
+        </td>
+        <!--MINIMUM VOLUM-->
+        <td>
+          <input type="text" class="form-control form-control-sm" id="minimumVolum" placeholder="Ex: 300" name="minimumVolum"
+                 [(ngModel)]="model.minimumVolum"
+                 maxlength="10"
+                 #minimumVolum="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && minimumVolum.invalid}">
+          <div *ngIf="minimumVolum.invalid && (minimumVolum.dirty || minimumVolum.touched)" class="msg-invalid">
+            <div *ngIf="minimumVolum.errors.required">This field is required.</div>
+            <div *ngIf="minimumVolum.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--MINIMUM CHARGE-->
+        <td>
+          <input type="text" class="form-control form-control-sm" id="minimumCharge" placeholder="Ex: 300" name="minimumCharge"
+                 [(ngModel)]="model.minimumCharge"
+                 maxlength="10"
+                 #minimumCharge="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && minimumCharge.invalid}">
+          <div *ngIf="minimumCharge.invalid && (minimumCharge.dirty || minimumCharge.touched)" class="msg-invalid">
+            <div *ngIf="minimumCharge.errors.required">This field is required.</div>
+            <div *ngIf="minimumCharge.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--Wrep-->
+        <td>
+          <input type="number" class="form-control form-control-sm" id="wRep" placeholder="Ex: 0.3" name="wRep"
+                 [(ngModel)]="model.wrep"
+                 required min="0" max="1"
+                 #wRep="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && wRep.invalid}">
+          <div *ngIf="wRep.invalid && (wRep.dirty || wRep.touched)" class="msg-invalid">
+            <div *ngIf="wRep.errors.required">This field is required.</div>
+            <div *ngIf="wRep.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--wrep 100-->
+        <td>
+          <input type="number" class="form-control form-control-sm" id="w100" placeholder="Ex: 0.3" name="w100"
+                 [(ngModel)]="model.w100"
+                 required min="0" max="1"
+                 #w100="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && w100.invalid}">
+          <div *ngIf="w100.invalid && (w100.dirty || w100.touched)" class="msg-invalid">
+            <div *ngIf="w100.errors.required">This field is required.</div>
+            <div *ngIf="w100.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--99-95-->
+        <td>
+          <input type="number" class="form-control form-control-sm" id="w99_95" placeholder="Ex: 0.3" name="w99_95"
+                 [(ngModel)]="model.w99_95"
+                 required min="0" max="1"
+                 #w99_95="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && w99_95.invalid}">
+          <div *ngIf="w99_95.invalid && (w99_95.dirty || w99_95.touched)" class="msg-invalid">
+            <div *ngIf="w99_95.errors.required">This field is required.</div>
+            <div *ngIf="w99_95.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--94-85-->
+        <td>
+          <input type="number" class="form-control form-control-sm" id="w94_85" placeholder="Ex: 0.3" name="w94_85"
+                 [(ngModel)]="model.w94_85"
+                 required min="0" max="1"
+                 #w94_85="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && w94_85.invalid}">
+          <div *ngIf="w94_85.invalid && (w94_85.dirty || w94_85.touched)" class="msg-invalid">
+            <div *ngIf="w94_85.errors.required">This field is required.</div>
+            <div *ngIf="w94_85.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--w84_75-->
+        <td>
+          <input type="number" class="form-control form-control-sm" id="w84_75" placeholder="Ex: 0.3" name="w84_75"
+                 [(ngModel)]="model.w84_75"
+                 required min="0" max="1"
+                 #w84_75="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && w84_75.invalid}">
+          <div *ngIf="w84_75.invalid && (w84_75.dirty || w84_75.touched)" class="msg-invalid">
+            <div *ngIf="w84_75.errors.required">This field is required.</div>
+            <div *ngIf="w84_75.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--wNoMatch>-->
+        <td>
+          <input type="number" class="form-control form-control-sm" id="wNoMatch" placeholder="Ex: 0.3" name="wNoMatch"
+                 [(ngModel)]="model.wnoMatch"
+                 required min="0" max="1"
+                 #wNoMatch="ngModel"
+                 [ngClass]="{'is-invalid': f.submitted && wNoMatch.invalid}">
+          <div *ngIf="wNoMatch.invalid && (wNoMatch.dirty || wNoMatch.touched)" class="msg-invalid">
+            <div *ngIf="wNoMatch.errors.required">This field is required.</div>
+            <div *ngIf="wNoMatch.errors.maxlength">Too long.</div>
+          </div>
+        </td>
+        <!--NOTE-->
+        <td>
+          <textarea class="form-control form-control-sm" id="note" name="note"
+                    [(ngModel)]="model.note" maxlength="512" rows="1"></textarea>
+        </td>
+      </tr>
+
+      </tbody>
+    </table>
+  </form>
+  <div *ngFor="let alert of alerts">
+    <alert [type]="alert.type" [dismissible]="true" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert>
+  </div>
+</div>
+
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to delete this ability?</p>
+    <button type="button" class="btn btn-secondary" (click)="confirm()">Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()">No</button>
+  </div>
+</ng-template>

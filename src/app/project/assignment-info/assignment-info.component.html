@@ -1,0 +1,18 @@
+<ul class="list-group">
+  <li *ngFor="let assignment of assignments" class="list-group-item">
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="row">
+          <span class="col-sm-2">{{assignment.candidate.name}}</span>
+          <span class="col-sm-1">{{assignment.task}}</span>
+          <span class="col-sm-1">
+            <span *ngIf="assignment.status == 'CONFIRMED'" class="badge badge-success">{{assignment.status | assignmentStatus}}</span>
+            <span *ngIf="assignment.status == 'NOT_CONFIRMED'" class="badge badge-warning">{{assignment.status | assignmentStatus}}</span>
+          </span>
+          <span class="col-sm-1"><span [outerHTML]="assignment.progress | projectProgress"></span></span>
+          <!--<span class="col-sm-2 text-primary font-italic">{{assignment.updatedAt | date:'yyyy-MM-dd hh:mm z'}}</span>-->
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>

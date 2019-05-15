@@ -1,0 +1,38 @@
+.candidates-table .multiple-row .list-group-item {
+  border: 0;
+  padding: 0.1rem 0.3rem;
+  background-color: inherit;
+}
+
+.candidates-table .multiple-row .li-divider {
+  border-bottom: 1px solid #d1dbe1;
+  height: 2px;
+}
+
+.candidates-table td {
+  vertical-align: middle !important;
+}
+
+.candidates-table thead tr.head1 th {
+  vertical-align: baseline !important;
+  white-space: nowrap;
+}
+
+.candidates-table th.actions {
+  min-width: 90px;
+  padding: 0.25rem;
+}
+
+.candidates-table td.candidate-name {
+  min-width: 250px;
+}
+
+.candidates-table .list-group-item:last-child {
+  margin-bottom: 1px;
+}
+
+.email2 {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+}

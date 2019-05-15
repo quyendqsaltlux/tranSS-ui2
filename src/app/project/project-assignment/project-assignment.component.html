@@ -1,0 +1,171 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body" [ngClass]="{'new-pro-assignment': !assignment || !assignment.id}">
+        <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+          <div class="row">
+            <!--CANDIDATE & TASK-->
+            <div class="col-sm-12 col-md-8">
+              <div class="row">
+                <!--RESOURCE-->
+                <div class="col-sm-12 col-md-2">
+                  <div class="form-group">
+                    <label for="candidate">Resource<span class="text-danger"> *</span></label>
+                    <input type="text" class=" form-control " id="candidate" name="candidate"
+                           placeholder="Enter resource code"
+                           required maxlength="127"
+                           [(ngModel)]="model.candidateCode"
+                           #candidate="ngModel"
+                           [ngClass]="{'is-invalid': f.submitted && candidate.invalid}">
+                    <div *ngIf="candidate.invalid && (candidate.dirty || candidate.touched)" class="msg-invalid">
+                      <div *ngIf="candidate.errors.maxlength">Too long.</div>
+                      <div *ngIf="candidate.errors.conflict">Duplicated.</div>
+                    </div>
+                  </div>
+                </div>
+                <!--TASK-->
+                <div class="col-sm-12 col-md-2">
+                  <div class="form-group">
+                    <label for="task">Task<span class="text-danger"> *</span></label>
+                    <ng-select [(ngModel)]="model.task" [searchable]="false" [clearable]="false" name="task" id="task"
+                               #task="ngModel"
+                               required
+                               [ngClass]="{'is-invalid': f.submitted && task.invalid}">
+                      <ng-option [value]="'All'">All</ng-option>
+                      <ng-option [value]="'DTP'">DTP</ng-option>
+                      <ng-option [value]="'Translation'">Translation</ng-option>
+                      <ng-option [value]="'Editing'">Editing</ng-option>
+                      <ng-option [value]="'Proofreading'">Proofreading</ng-option>
+                    </ng-select>
+                    <div *ngIf="task.invalid && (task.dirty || task.touched)" class="msg-invalid">
+                      <div *ngIf="task.errors.conflict">Duplicated.</div>
+                    </div>
+                  </div>
+                </div>
+                <!--Request date-->
+                <div class="col-sm-12 col-md-3">
+                  <div class="form-group">
+                    <label for="ho">HO<span class="text-danger"> *</span></label>
+                    <input type="date" class=" form-control" required id="ho" name="ho" [(ngModel)]="model.ho">
+                  </div>
+                </div>
+                <!--Request date-->
+                <div class="col-sm-12 col-md-3">
+                  <div class="form-group">
+                    <label for="hb">HB<span class="text-danger"> *</span></label>
+                    <input type="date" class=" form-control" required id="hb" name="hb" [(ngModel)]="model.hb">
+                  </div>
+                </div>
+                <!--BTN ASSIGN-->
+                <div class="col-sm-12 col-md-2">
+                  <div class="form-group">
+                    <label><span class="invisible">.</span></label>
+                    <div class="">
+                      <button type="submit" class="btn btn-primary" [disabled]="f.invalid">Assign <i class="fa fa-arrow-right"></i></button>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--RIGHT-->
+            <div class="col-sm-12 col-md-4" *ngIf="assignment && assignment.id">
+              <div class="d-flex flex-row justify-content-between">
+                <!--STATUS-->
+                <div class="card card-body mb-0 mr-5">
+                  <div class="media" *ngIf="assignment && assignment.candidate">
+                    <!--AVATAR-->
+                    <img *ngIf="assignment.candidate.avatar" class="mr-3" [src]="assignment.candidate.avatar" alt="Avatar" width="54" height="54">
+                    <img *ngIf="!assignment.candidate.avatar" class="mr-3" src="assets/img/avatars/default_avatar.png" alt="Avatar" width="54" height="54">
+                    <div class="media-body">
+                      <H6 class="mt-0">{{assignment.candidate.name}}</H6>
+                      <!--STATUS-->
+                      <div class="btn-group btn-group-sm mt-1" dropdown>
+                        <button type="button" class="btn btn-sm"
+                                [class.btn-dark]="assignment.status === 'NOT_CONFIRMED'"
+                                [class.btn-success]="assignment.status === 'CONFIRMED'">
+                          {{assignment.status | assignmentStatus}}
+                        </button>
+                        <button type="button" dropdownToggle class="btn dropdown-toggle dropdown-toggle-split"
+                                [class.btn-dark]="assignment.status === 'NOT_CONFIRMED'"
+                                [class.btn-success]="assignment.status === 'CONFIRMED'">
+                          <span class="caret"></span>
+                        </button>
+                        <ul *dropdownMenu class="dropdown-menu" role="menu">
+                          <li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeConfirmStatus('NOT_CONFIRMED')">Not confirmed</a></li>
+                          <li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeConfirmStatus('CONFIRMED')">Confirmed</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!--PROGRESS & RATE-->
+                <div class="pull-right">
+                  <!--PROGRESS-->
+                  <div class="form-group mb-2">
+                    <label>Progress</label>
+                    <div>
+                      <div class="btn-group btn-group-sm" dropdown placement="bottom right">
+                        <button type="button" class="btn btn-sm"
+                                [class.btn-dark]="assignment.progress === 'NOT_START'"
+                                [class.btn-warning]="assignment.progress === 'ON_GOING'"
+                                [class.btn-success]="assignment.progress === 'FINISHED'">
+                          {{assignment.progress | progress}}
+                        </button>
+                        <button type="button" dropdownToggle class="btn dropdown-toggle dropdown-toggle-split"
+                                [class.btn-dark]="assignment.progress === 'NOT_START'"
+                                [class.btn-warning]="assignment.progress === 'ON_GOING'"
+                                [class.btn-success]="assignment.progress === 'FINISHED'">
+                          <span class="caret"></span>
+                        </button>
+                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+                          <li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeProgress('NOT_START')">Not start</a></li>
+                          <li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeProgress('ON_GOING')">On going</a></li>
+                          <li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeProgress('FINISHED')">Finished</a></li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--RATE-->
+                  <div class="cursor-pointer d-flex justify-content-end"
+                       *ngIf="assignment.progress === 'FINISHED'"
+                       (click)="onToggleReviewForm()">
+                    <button type="button" class="btn btn-ghost-primary btn-sm"
+                            *ngIf="!assignment.star">Review
+                    </button>
+                    <ng-container *ngIf="assignment.star && assignment.star > 0">
+                      <span>{{assignment.star}} <i class="fa fa-star text-warning"></i></span>
+                    </ng-container>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <!--REVIEW FORM-->
+        <ng-container *ngIf="assignment.progress === 'FINISHED' && isShowReviewForm">
+          <form #fReview="ngForm" (ngSubmit)="reviewAssignment()" novalidate>
+            <div class="card card-body bg-light mt-3">
+              <div class="row justify-content-end">
+                <div class="col-md-6">
+                  <bar-rating [(rate)]="star" [max]="5"></bar-rating>
+                  <div class="form-group">
+                    <textarea class=" form-control " rows="4" placeholder="Enter your comment"
+                              name="review"
+                              [(ngModel)]="assignment.review"></textarea>
+                  </div>
+                  <button type="submit" class="btn btn-primary mr-1">Submit review</button>
+                  <button type="button" class="btn btn-secondary" (click)="onToggleReviewForm()">Close</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+</div>

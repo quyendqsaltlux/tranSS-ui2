@@ -1,0 +1,195 @@
+<form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+  <div class="card">
+    <div class="card-header">
+      <strong>Payment Info</strong>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <!--TYPE-->
+        <div class="col-sm-12 col-md-4">
+          <div class="form-group">
+            <label for="type">Type</label>
+            <ng-select [(ngModel)]="payment.type" [searchable]="false" [clearable]="false" id="type" name="type">
+              <ng-option [value]="'KOREA'">Korea</ng-option>
+              <ng-option [value]="'OVERSEA'">Oversea</ng-option>
+            </ng-select>
+          </div>
+        </div>
+        <!--BANK ID-->
+        <div class="col-sm-12 col-md-4" *ngIf="!isKorea()">
+          <div class="form-group">
+            <label for="bankId">Bank name</label>
+            <input type="text" class="form-control" id="bankId"
+                   name="bankId" [(ngModel)]="payment.bankId"
+                   #bankId="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && bankId.invalid}">
+            <div *ngIf="bankId.invalid && (bankId.dirty || bankId.touched)" class="msg-invalid">
+              <div *ngIf="bankId.errors.maxlength">Too long.</div>
+              <div *ngIf="bankId.errors.conflict">Duplicated.</div>
+            </div>
+          </div>
+        </div>
+        <!--IBan-->
+        <div class="col-sm-12 col-md-4" *ngIf="!isKorea()">
+          <div class="form-group">
+            <label for="iban">IBAN</label>
+            <input type="text" class="form-control" id="iban"
+                   name="iban" [(ngModel)]="payment.iban"
+                   #iban="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && iban.invalid}">
+            <div *ngIf="iban.invalid && (iban.dirty || iban.touched)" class="msg-invalid">
+              <div *ngIf="iban.errors.maxlength">Too long.</div>
+              <div *ngIf="iban.errors.conflict">Duplicated.</div>
+            </div>
+          </div>
+        </div>
+        <!--registrationNumber-->
+        <div class="col-sm-12 col-md-4" *ngIf="isKorea()">
+          <div class="form-group">
+            <label for="registrationNumber">Registration number</label>
+            <input type="text" class="form-control" id="registrationNumber"
+                   name="registrationNumber" [(ngModel)]="payment.registrationNumber"
+                   #registrationNumber="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && registrationNumber.invalid}">
+            <div *ngIf="registrationNumber.invalid && (registrationNumber.dirty || registrationNumber.touched)" class="msg-invalid">
+              <div *ngIf="registrationNumber.errors.maxlength">Too long.</div>
+              <div *ngIf="registrationNumber.errors.conflict">Duplicated.</div>
+            </div>
+          </div>
+        </div>
+        <!--BANK NAME-->
+        <div class="col-sm-12 col-md-4">
+          <div class="form-group">
+            <label for="bankName">Bank name</label>
+            <input type="text" class="form-control" id="bankName"
+                   name="bankName" [(ngModel)]="payment.bankName"
+                   #bankName="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && bankName.invalid}">
+            <div *ngIf="bankName.invalid && (bankName.dirty || bankName.touched)" class="msg-invalid">
+              <div *ngIf="bankName.errors.maxlength">Too long.</div>
+              <div *ngIf="bankName.errors.conflict">Duplicated.</div>
+            </div>
+          </div>
+        </div>
+        <!--Account-->
+        <div class="col-sm-12 col-md-4">
+          <div class="form-group">
+            <label for="account">Account</label>
+            <input type="text" class="form-control" id="account"
+                   name="account" [(ngModel)]="payment.account"
+                   #account="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && account.invalid}">
+            <div *ngIf="account.invalid && (account.dirty || account.touched)" class="msg-invalid">
+              <div *ngIf="account.errors.maxlength">Too long.</div>
+              <div *ngIf="account.errors.conflict">Duplicated.</div>
+            </div>
+          </div>
+        </div>
+        <!--Account owner-->
+        <div class="col-sm-12 col-md-4">
+          <div class="form-group">
+            <label for="accountOwner">Account owner</label>
+            <input type="text" class="form-control" id="accountOwner"
+                   name="accountOwner" [(ngModel)]="payment.accountOwner"
+                   #accountOwner="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && accountOwner.invalid}">
+            <div *ngIf="accountOwner.invalid && (accountOwner.dirty || accountOwner.touched)" class="msg-invalid">
+              <div *ngIf="accountOwner.errors.maxlength">Too long.</div>
+              <div *ngIf="accountOwner.errors.conflict">Duplicated.</div>
+            </div>
+          </div>
+        </div>
+        <!--visa-->
+        <div class="col-sm-12 col-md-4" *ngIf="isKorea()">
+          <div class="form-group">
+            <label for="visa">Visa</label>
+            <input type="text" class="form-control" id="visa"
+                   name="visa" [(ngModel)]="payment.visa"
+                   #visa="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && visa.invalid}">
+            <div *ngIf="visa.invalid && (visa.dirty || visa.touched)" class="msg-invalid">
+              <div *ngIf="visa.errors.maxlength">Too long.</div>
+            </div>
+          </div>
+        </div>
+        <!--bankAddress-->
+        <div class="col-sm-12 col-md-4" *ngIf="!isKorea()">
+          <div class="form-group">
+            <label for="bankAddress">Bank address</label>
+            <input type="text" class="form-control" id="bankAddress"
+                   name="bankAddress" [(ngModel)]="payment.bankAddress"
+                   #bankAddress="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && bankAddress.invalid}">
+            <div *ngIf="bankAddress.invalid && (bankAddress.dirty || bankAddress.touched)" class="msg-invalid">
+              <div *ngIf="bankAddress.errors.maxlength">Too long.</div>
+            </div>
+          </div>
+        </div>
+        <!--Owner address-->
+        <div class="col-sm-12 col-md-4" *ngIf="!isKorea()">
+          <div class="form-group">
+            <label for="ownerAddress">Owner address</label>
+            <input type="text" class="form-control" id="ownerAddress"
+                   name="ownerAddress" [(ngModel)]="payment.ownerAddress"
+                   #ownerAddress="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && ownerAddress.invalid}">
+            <div *ngIf="ownerAddress.invalid && (ownerAddress.dirty || ownerAddress.touched)" class="msg-invalid">
+              <div *ngIf="ownerAddress.errors.maxlength">Too long.</div>
+            </div>
+          </div>
+        </div>
+        <!--swiftCode-->
+        <div class="col-sm-12 col-md-4" *ngIf="!isKorea()">
+          <div class="form-group">
+            <label for="swiftCode">Swift code</label>
+            <input type="text" class="form-control" id="swiftCode"
+                   name="swiftCode" [(ngModel)]="payment.swiftCode"
+                   #swiftCode="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && swiftCode.invalid}">
+            <div *ngIf="swiftCode.invalid && (swiftCode.dirty || swiftCode.touched)" class="msg-invalid">
+              <div *ngIf="swiftCode.errors.maxlength">Too long.</div>
+            </div>
+          </div>
+        </div>
+        <!--payPal-->
+        <div class="col-sm-12 col-md-4" *ngIf="!isKorea()">
+          <div class="form-group">
+            <label for="payPal">PayPal</label>
+            <input type="text" class="form-control" id="payPal"
+                   name="payPal" [(ngModel)]="payment.payPal"
+                   #payPal="ngModel" maxlength="255"
+                   [ngClass]="{'is-invalid': f.submitted && payPal.invalid}">
+            <div *ngIf="payPal.invalid && (payPal.dirty || payPal.touched)" class="msg-invalid">
+              <div *ngIf="payPal.errors.maxlength">Too long.</div>
+            </div>
+          </div>
+        </div>
+
+        <!--ATTACHMENT-->
+        <div class="col-sm-12 col-md-12">
+          <div class="form-group">
+            <label>Attachment</label>
+            <div class="form-group">
+              <a class="download-fake-link" #downloadLink></a>
+              <button class="btn btn-outline-success btn-sm" type="button" (click)="openAttachmentModal()"
+                      title="{{payment.attachment | fileName}}">
+                <i class="fa fa-upload"></i> Upload
+              </button>
+              <button class="btn btn-link pl-0 text-left" type="button" (click)="downloadAttachment()" *ngIf="payment.attachment">
+                <i class="fa fa-download"></i> <span title="{{payment.attachment | fileName}}">{{payment.attachment | fileName | lmTo:30}}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!--&lt;!&ndash;CURENCY&ndash;&gt;-->
+        <!--<div class="col-sm-12 col-md-4">-->
+        <!--<div class="form-group">-->
+        <!--<label for="cCurrency">Currency</label>-->
+        <!--<input type="text" class="form-control" id="cCurrency" placeholder="Ex:"-->
+        <!--name="currency" [(ngModel)]="payment.defaultCurrency">-->
+        <!--</div>-->
+        <!--</div>-->
+      </div>
+    </div>
+  </div>
+</form>

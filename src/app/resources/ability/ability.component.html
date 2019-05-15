@@ -1,0 +1,337 @@
+<div class="animated fadeIn">
+  <div class="card" [ngClass]="{'card-accent-info':model.id && model.id > 0, 'card-accent-success':!model.id || model.id == 0}">
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)" novalidate>
+      <div class="card-header">
+        <i class="fa fa-caret-right cursor-pointer" (click)="isCollapsed = !isCollapsed" *ngIf="isCollapsed"></i>
+        <i class="fa fa-caret-down cursor-pointer" (click)="isCollapsed = !isCollapsed" *ngIf="!isCollapsed"></i>
+        <strong class="cursor-pointer" (click)="isCollapsed = !isCollapsed">{{(model.sourceLanguage || '?') + ' -> ' + (model.targetLanguage || '?')}}</strong>
+        <button type="submit" class="btn btn-sm btn-primary float-right" [disabled]="f.invalid">Save</button>
+        <button type="button" class="btn btn-sm btn-danger float-right mr-1" (click)="openModal(template)">Delete</button>
+      </div>
+      <div class="card-body" [collapse]="isCollapsed">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card mb-1">
+              <div class="card-header sm">
+                <strong>Rate</strong>
+                <small></small>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="cSourceLanguage">Source<span class="text-danger"> *</span></label>
+                      <input type="text" class="form-control" id="cSourceLanguage" placeholder="Ex: KO"
+                             name="sourceLanguage"
+                             [(ngModel)]="model.sourceLanguage"
+                             required maxlength="255"
+                             #source="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && source.invalid}">
+                      <div *ngIf="source.invalid && (source.dirty || source.touched)" class="msg-invalid">
+                        <div *ngIf="source.errors.required">This field is required.</div>
+                        <div *ngIf="source.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="cTargetLanguage">Target<span class="text-danger"> *</span></label>
+                      <input type="text" class="form-control" id="cTargetLanguage" placeholder="Ex: VI"
+                             name="targetLanguage"
+                             [(ngModel)]="model.targetLanguage"
+                             required maxlength="255"
+                             #target="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && target.invalid}">
+                      <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
+                        <div *ngIf="target.errors.required">This field is required.</div>
+                        <div *ngIf="target.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--SEARCH CODE-->
+                  <!--<div class="col-sm-4 col-md-2">-->
+                  <!--<div class="form-group">-->
+                  <!--<label for="cSearchCode">Search Code</label>-->
+                  <!--<input type="text" class="form-control" id="cSearchCode" placeholder="Ex: PBTF180087TBKORU"-->
+                  <!--name="searchCode" ngModel #searchCode="ngModel">-->
+                  <!--</div>-->
+                  <!--</div>-->
+                  <!--PROJECT TYPE-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="projectType">Project Type<span class="text-danger"> *</span></label>
+                      <ng-select [(ngModel)]="model.projectType" [searchable]="false" [clearable]="false" name="projectType" id="projectType"
+                                 #projectType="ngModel"
+                                 required
+                                 [ngClass]="{'is-invalid': f.submitted && projectType.invalid}">
+                        <ng-option [value]="'PV'">PV-Private</ng-option>
+                        <ng-option [value]="'PB'">PB-Public</ng-option>
+                        <ng-option [value]="'LG'">LG</ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+
+                  <!--<div class="form-group col-sm-4 col-md-2">-->
+                  <!--<label for="cFieldRate">Field (Rate) </label>-->
+                  <!--<select class="form-control" id="cFieldRate" name="fieldRate" ngModel #fieldRate="ngModel">-->
+                  <!--<option>TB</option>-->
+                  <!--<option>TM</option>-->
+                  <!--<option>TD</option>-->
+                  <!--<option>TI</option>-->
+                  <!--<option>TH</option>-->
+                  <!--<option>TG</option>-->
+                  <!--<option>PB</option>-->
+                  <!--<option>PD</option>-->
+                  <!--<option>EB</option>-->
+                  <!--<option>ED</option>-->
+                  <!--<option>DI</option>-->
+                  <!--<option>DA</option>-->
+                  <!--<option>DP</option>-->
+                  <!--<option>DW</option>-->
+                  <!--</select>-->
+                  <!--</div>-->
+
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="task">Task<span class="text-danger"> *</span></label>
+                      <ng-select [(ngModel)]="model.task" [searchable]="false" [clearable]="false" name="task" id="task"
+                                 #task="ngModel"
+                                 required
+                                 [ngClass]="{'is-invalid': f.submitted && task.invalid}">
+                        <ng-option [value]="'All'">All</ng-option>
+                        <ng-option [value]="'DTP'">DTP</ng-option>
+                        <ng-option [value]="'Translation'">Translation</ng-option>
+                        <ng-option [value]="'Editing'">Editing</ng-option>
+                        <ng-option [value]="'Proofreading'">Proofreading</ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+
+                  <!--DAILY CAPACITY-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="cDailyCapacity">Daily capacity</label>
+                      <input type="text" class="form-control" id="cDailyCapacity" placeholder="Ex:"
+                             name="dailyCapacity" [(ngModel)]="model.dailyCapacity">
+                    </div>
+                  </div>
+                  <div class="col-sm-4 col-md-2"></div>
+
+                  <!--RATE 1-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="rateWord">Rate (word/char)<span class="text-danger"> *</span></label>
+                      <input type="number" class="form-control" id="rateWord" placeholder="Ex: 50"
+                             name="rateWord"
+                             [(ngModel)]="model.rate"
+                             required min="0"
+                             #rateWord="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && rateWord.invalid}">
+                      <div *ngIf="rateWord.invalid && (rateWord.dirty || rateWord.touched)" class="msg-invalid">
+                        <div *ngIf="rateWord.errors.required">This field is required.</div>
+                        <div *ngIf="rateWord.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--UNIT-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="unit">Unit<span class="text-danger"> *</span></label>
+                      <ng-select [(ngModel)]="model.rateUnit" [searchable]="false" [clearable]="false" name="unit" id="unit"
+                                 #rateUnit="ngModel"
+                                 required
+                                 [ngClass]="{'is-invalid': f.submitted && rateUnit.invalid}">
+                        <ng-option [value]="'Word'">Word</ng-option>
+                        <ng-option [value]="'Character'">Character</ng-option>
+                        <ng-option [value]="'Hour'">Hour</ng-option>
+                        <ng-option [value]="'Page'">Page</ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <!--RATE HOUR-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="rateHour">Rate (hour)<span class="text-danger"> *</span></label>
+                      <input type="number" class="form-control" id="rateHour" placeholder="Ex: 15000" name="rateHour"
+                             [(ngModel)]="model.rate2"
+                             required min="0"
+                             #rateHour="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && rateHour.invalid}">
+                      <div *ngIf="rateHour.invalid && (rateHour.dirty || rateHour.touched)" class="msg-invalid">
+                        <div *ngIf="rateHour.errors.required">This field is required.</div>
+                        <div *ngIf="rateHour.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--UNIT-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="unit">Unit 2<span class="text-danger"> *</span></label>
+                      <ng-select [(ngModel)]="model.rate2unit" [searchable]="false" [clearable]="false" name="unit2" id="unit2"
+                                 #rate2unit="ngModel"
+                                 required
+                                 [ngClass]="{'is-invalid': f.submitted && rateUnit.invalid}">
+                        <ng-option [value]="'Word'">Word</ng-option>
+                        <ng-option [value]="'Character  '">Character</ng-option>
+                        <ng-option [value]="'Hour'">Hour</ng-option>
+                        <ng-option [value]="'Page'">Page</ng-option>
+                      </ng-select>
+                    </div>
+                  </div>
+                  <!--Minimum VOLUM-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="minimumCharge">Minimum Volume</label>
+                      <input type="text" class="form-control" id="minimumVolum" placeholder="Ex: 300" name="minimumVolum"
+                             [(ngModel)]="model.minimumVolum"
+                             maxlength="10"
+                             #minimumVolum="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && minimumVolum.invalid}">
+                      <div *ngIf="minimumVolum.invalid && (minimumVolum.dirty || minimumVolum.touched)" class="msg-invalid">
+                        <div *ngIf="minimumVolum.errors.required">This field is required.</div>
+                        <div *ngIf="minimumVolum.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!--Minimum Charge-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="minimumCharge">Minimum Charge</label>
+                      <input type="text" class="form-control" id="minimumCharge" placeholder="Ex: 300" name="minimumCharge"
+                             [(ngModel)]="model.minimumCharge"
+                             maxlength="10"
+                             #minimumCharge="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && minimumCharge.invalid}">
+                      <div *ngIf="minimumCharge.invalid && (minimumCharge.dirty || minimumCharge.touched)" class="msg-invalid">
+                        <div *ngIf="minimumCharge.errors.required">This field is required.</div>
+                        <div *ngIf="minimumCharge.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-sm-12">
+            <div class="card mb-1">
+              <div class="card-header sm">
+                <strong>W</strong>
+                <small></small>
+              </div>
+              <div class="card-body">
+                <div class="row">
+                  <!--W Rep %-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="wRep">W Rep %<span class="text-danger"> *</span></label>
+                      <input type="number" class="form-control" id="wRep" placeholder="Ex: 0.3" name="wRep"
+                             [(ngModel)]="model.wrep"
+                             required min="0" max="1"
+                             #wRep="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && wRep.invalid}">
+                      <div *ngIf="wRep.invalid && (wRep.dirty || wRep.touched)" class="msg-invalid">
+                        <div *ngIf="wRep.errors.required">This field is required.</div>
+                        <div *ngIf="wRep.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--W 100%(-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="w100">W 100%<span class="text-danger"> *</span></label>
+                      <input type="number" class="form-control" id="w100" placeholder="Ex: 0.3" name="w100"
+                             [(ngModel)]="model.w100"
+                             required min="0" max="1"
+                             #w100="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && w100.invalid}">
+                      <div *ngIf="w100.invalid && (w100.dirty || w100.touched)" class="msg-invalid">
+                        <div *ngIf="w100.errors.required">This field is required.</div>
+                        <div *ngIf="w100.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--W 99%-95%(%)-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="w99_95">W 99%-95%<span class="text-danger"> *</span></label>
+                      <input type="number" class="form-control" id="w99_95" placeholder="Ex: 0.3" name="w99_95"
+                             [(ngModel)]="model.w99_95"
+                             required min="0" max="1"
+                             #w99_95="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && w99_95.invalid}">
+                      <div *ngIf="w99_95.invalid && (w99_95.dirty || w99_95.touched)" class="msg-invalid">
+                        <div *ngIf="w99_95.errors.required">This field is required.</div>
+                        <div *ngIf="w99_95.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--W 94%-85%(%)-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="w94_85">W 94%-85%<span class="text-danger"> *</span></label>
+                      <input type="number" class="form-control" id="w94_85" placeholder="Ex: 0.3" name="w94_85"
+                             [(ngModel)]="model.w94_85"
+                             required min="0" max="1"
+                             #w94_85="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && w94_85.invalid}">
+                      <div *ngIf="w94_85.invalid && (w94_85.dirty || w94_85.touched)" class="msg-invalid">
+                        <div *ngIf="w94_85.errors.required">This field is required.</div>
+                        <div *ngIf="w94_85.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--W 84%-75%(%)-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="w84_75">W 84%-75%<span class="text-danger"> *</span></label>
+                      <input type="number" class="form-control" id="w84_75" placeholder="Ex: 0.3" name="w84_75"
+                             [(ngModel)]="model.w84_75"
+                             required min="0" max="1"
+                             #w84_75="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && w84_75.invalid}">
+                      <div *ngIf="w84_75.invalid && (w84_75.dirty || w84_75.touched)" class="msg-invalid">
+                        <div *ngIf="w84_75.errors.required">This field is required.</div>
+                        <div *ngIf="w84_75.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--W 84%-75%(%)-->
+                  <div class="col-sm-4 col-md-2">
+                    <div class="form-group">
+                      <label for="wNoMatch">W No match<span class="text-danger"> *</span></label>
+                      <input type="number" class="form-control" id="wNoMatch" placeholder="Ex: 0.3" name="wNoMatch"
+                             [(ngModel)]="model.wnoMatch"
+                             required min="0" max="1"
+                             #wNoMatch="ngModel"
+                             [ngClass]="{'is-invalid': f.submitted && wNoMatch.invalid}">
+                      <div *ngIf="wNoMatch.invalid && (wNoMatch.dirty || wNoMatch.touched)" class="msg-invalid">
+                        <div *ngIf="wNoMatch.errors.required">This field is required.</div>
+                        <div *ngIf="wNoMatch.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<ng-template #template>
+  <div class="modal-body text-center">
+    <p>Do you want to delete this ability?</p>
+    <button type="button" class="btn btn-secondary" (click)="confirm()" >Yes</button>
+    <button type="button" class="btn btn-primary" (click)="decline()" >No</button>
+  </div>
+</ng-template>

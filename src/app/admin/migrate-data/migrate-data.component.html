@@ -1,0 +1,19 @@
+<div class="animated fadeIn">
+  <div class="card card-body">
+    <div>
+      <button class="btn btn-primary" (click)="migrateResource()" [disabled]="isDone('RESOURCES')"><i class="fa fa-users"></i> Import Resources</button>
+      <button class="btn btn-primary" (click)="migrateUser()" [disabled]="isDone('USERS')"><i class="fa fa-users"></i> Import Users</button>
+      <button class="btn btn-primary" (click)="migrateFinishedProject()" [disabled]="isDone('USERS') && isDone('FINISHED_PROJECTS')"><i class="fa fa-tasks"></i> Import Finished Projects</button>
+      <button class="btn btn-primary" (click)="migrateOngoingProject()" [disabled]="isDone('USERS') && isDone('ONGOING_PROJECTS')"><i class="fa fa-tasks"></i> Import Ongoing Projects</button>
+      <button class="btn btn-primary" (click)="migrateKoreaPayment()" [disabled]="isDone('KOREA_PAYMENT')"><i class="fa fa-dollar"></i> Import Korea payments</button>
+      <button class="btn btn-primary" (click)="migrateOverseaPayment()" [disabled]="isDone('OVERSEA_PAYMENT')"><i class="fa fa-dollar"></i> Import Oversea payments</button>
+    </div>
+  </div>
+
+  <ul class="list-group col-md-6 col-sm-12">
+    <li class="list-group-item" *ngFor="let data of modelList">
+      <span [outerHTML]="data.type | migrateType:data.status"></span>
+      <span><i class="fa fa-check pull-right text-success"></i></span>
+    </li>
+  </ul>
+</div>

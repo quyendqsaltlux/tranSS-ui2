@@ -1,0 +1,19 @@
+
+.my-datatable .multiple-row .list-group-item {
+  border: 0;
+  padding: 0.1rem 0.3rem;
+  background-color: inherit;
+}
+
+.my-datatable .multiple-row .li-divider {
+  border-bottom: 1px solid #d1dbe1;
+  height: 2px;
+}
+
+.my-datatable .list-group-item:last-child {
+  margin-bottom: 1px;
+}
+
+.my-datatable td {
+  vertical-align: middle !important;
+}

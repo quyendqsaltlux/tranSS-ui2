@@ -1,0 +1,48 @@
+<table class="table table-bordered table-sm my-datatable">
+  <thead>
+  <tr class="head1 bg-primary">
+    <ng-container *ngFor="let col of cols">
+      <th class="text-center" *ngIf="!col.sortAble">{{col.label}}</th>
+      <th class="text-center" *ngIf="col.sortAble" (click)="toggleSort(col)">{{col.label}}
+        <ng-container *ngIf="col.sortAble && sortConfig.order === 'asc'  && sortConfig.field === col.field"><i class="fa fa-sort-asc pull-right"></i></ng-container>
+        <ng-container *ngIf="col.sortAble && sortConfig.order === 'desc'  && sortConfig.field === col.field"><i class="fa fa-sort-desc pull-right"></i></ng-container>
+      </th>
+    </ng-container>
+  </tr>
+
+  <tr class="head2">
+    <ng-container *ngFor="let col of cols">
+      <th *ngIf="!col.filterAble"></th>
+      <th *ngIf="col.filterAble === true">
+        <div class="form-group mb-0" *ngIf="filterWrapper[col.filterType]">
+          <!--DATE-->
+          <ng-container *ngIf="filterWrapper[col.filterType][col.filterKey] && col.inputType === 'date'">
+            <div class="input-group">
+              <input type="text"
+                     aria-label="" aria-describedby="basic-addon2"
+                     class="form-control form-control-sm border-right-0"
+                     [(ngModel)]="filterWrapper[col.filterType][col.filterKey].value"
+                     bsDatepicker (bsValueChange)="onFilter($event, col)" [bsConfig]="dateConfig">
+              <div class="input-group-append">
+                <span class="input-group-text slim cursor-pointer border-left-0" id="basic-addon2"
+                      (click)="filterWrapper[col.filterType][col.filterKey].value = null">
+                  <i class="fa fa-close" *ngIf="filterWrapper[col.filterType][col.filterKey].value"></i></span>
+              </div>
+            </div>
+          </ng-container>
+          <!--TEXT-->
+          <ng-container *ngIf="filterWrapper[col.filterType][col.filterKey] && col.inputType === 'text'">
+            <input type="{{col.inputType}}"
+                   class="form-control form-control-sm"
+                   [(ngModel)]="filterWrapper[col.filterType][col.filterKey].value"
+                   (keydown.enter)="onFilter()">
+          </ng-container>
+        </div>
+      </th>
+    </ng-container>
+  </tr>
+
+  </thead>
+
+  <ng-content select="[rows-data]"></ng-content>
+</table>

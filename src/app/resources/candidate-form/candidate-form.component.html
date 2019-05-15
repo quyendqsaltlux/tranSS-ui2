@@ -1,0 +1,368 @@
+<div class="animated fadeIn">
+  <ul class="nav nav-tabs mb-1">
+    <li class="nav-item">
+      <a class="nav-link active"><i class="fa fa-info text-info active"></i> Info</a>
+    </li>
+    <li class="nav-item" *ngIf="id && id > 0">
+      <a routerLink="/resources/{{id}}/abilities" class="nav-link"><i class="fa fa-asterisk text-warning"></i> Rates</a>
+    </li>
+    <li class="nav-item" *ngIf="id && id > 0">
+      <a routerLink="/resources/{{id}}/project-history" class="nav-link"><i class="fa fa-history text-primary"></i> Project history</a>
+    </li>
+  </ul>
+  <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="card">
+      <div class="card-header">
+        <strong>Resource</strong>
+        <small>form</small>
+        <div class="pull-right">
+          <button type="submit" class="btn btn-sm btn-primary" [disabled]="f.invalid">Save</button>
+          <a class="btn btn-sm btn-secondary" routerLink="/resources/list">Cancel</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+
+          <div class="pr-1 col-sm-6">
+            <div class="row">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <strong>Resource Info</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <!--TYPE-->
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="cType">Code assignment standard</label>
+                          <ng-select [(ngModel)]="model.type" [searchable]="false" [clearable]="false" name="cType" id="cType">
+                            <ng-option [value]="'TL'"> Translation LSP</ng-option>
+                            <ng-option [value]="'TF'"> Translation Freelancer</ng-option>
+                            <ng-option [value]="'DL'"> DTP LSP</ng-option>
+                            <ng-option [value]="'DF'"> DTP Freelancer</ng-option>
+                            <ng-option [value]="'IL'"> Interpretation LSP</ng-option>
+                            <ng-option [value]="'IF'"> Interpretation Freelancer</ng-option>
+                            <ng-option [value]="'VL'"> Voice-over LSP</ng-option>
+                            <ng-option [value]="'VF'"> Voice-over Freelancer</ng-option>
+                          </ng-select>
+                        </div>
+                      </div>
+                      <!--CODE-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="code">Code</label>
+                          <input type="text" class="form-control" id="code" readonly name="code" [(ngModel)]="model.code">
+                        </div>
+                      </div>
+                      <!--GRADE-->
+                      <div class="form-group col-sm-12 col-md-2">
+                        <label for="grade">Grade<span class="text-danger"> *</span></label>
+                        <ng-select [(ngModel)]="model.grade" [searchable]="false" [clearable]="false" name="grade" id="grade"
+                                   #grade="ngModel" required>
+                          <ng-option [value]="'A'">A</ng-option>
+                          <ng-option [value]="'B'">B</ng-option>
+                          <ng-option [value]="'C'">C</ng-option>
+                          <ng-option [value]="'S'">S</ng-option>
+                        </ng-select>
+                        <div *ngIf="grade.invalid && (grade.dirty || grade.touched)" class="msg-invalid">
+                          <div *ngIf="grade.errors.required">This field is required.</div>
+                        </div>
+                      </div>
+                      <!--NAME-->
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="cName">Name<span class="text-danger"> *</span></label>
+                          <input type="text" class="form-control" id="cName" placeholder="Ex: John"
+                                 [(ngModel)]="model.name" name="name"
+                                 required
+                                 #name="ngModel"
+                                 [ngClass]="{'is-invalid': f.submitted && name.invalid}">
+                          <div *ngIf="name.invalid && (name.dirty || name.touched)" class="msg-invalid">
+                            <div *ngIf="name.errors.required">This field is required.</div>
+                            <div *ngIf="name.errors.maxlength">Too long.</div>
+                            <div *ngIf="name.errors.conflict">Duplicated.</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--MAJOR FIELD-->
+                      <div class="col-sm-12 col-md-12">
+                        <div class="form-group">
+                          <label for="majorField">Major field</label>
+                          <input type="text" class="form-control" id="majorField" placeholder="" name="majorField" [(ngModel)]="model.majorField">
+                        </div>
+                      </div>
+                      <!--CAT TOOL-->
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="catTool">CAT tool</label>
+                          <textarea type="text" class="form-control" id="catTool" placeholder="" rows="1"
+                                    name="catTool" [(ngModel)]="model.catTool"></textarea>
+                        </div>
+                      </div>
+                      <!--AVAILABLE TIME-->
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label for="cAvailableTime">Available time</label>
+                          <input type="text" class="form-control" id="cAvailableTime" placeholder="Ex:"
+                                 name="availableTime" [(ngModel)]="model.availableTime">
+                        </div>
+                      </div>
+                      <!--REMARK-->
+                      <div class="form-group col-sm-12">
+                        <label for="cRemark">Remark</label>
+                        <textarea id="cRemark" rows="2" class="form-control" placeholder="Content.."
+                                  name="remark" [(ngModel)]="model.remark">
+                    </textarea>
+                      </div>
+                      <!--DBO-->
+                      <div class="form-group col-sm-12 col-md-4">
+                        <label for="cDOB">Date of birth</label>
+                        <input class="form-control" id="cDOB" type="date" name="date-input" placeholder="date"
+                               name="dateOfBirth" [(ngModel)]="model.dateOfBirth">
+                      </div>
+                      <!--PERSONAL ID-->
+                      <div class="4col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="personalId">Personal Id</label>
+                          <input type="text" class="form-control" id="personalId" placeholder="Ex: 123456789"
+                                 name="personalId" [(ngModel)]="model.personalId"
+                                 #personalId="ngModel"
+                                 [ngClass]="{'is-invalid': f.submitted && personalId.invalid}">
+                          <div *ngIf="personalId.invalid && (personalId.dirty || personalId.touched)" class="msg-invalid">
+                            <div *ngIf="personalId.errors.maxlength">Too long.</div>
+                            <div *ngIf="personalId.errors.conflict">Duplicated.</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--GENDER-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="cGender">Gender</label>
+                          <select class="form-control" id="cGender" name="gender" [(ngModel)]="model.gender">
+                            <option>Male</option>
+                            <option>Female</option>
+                          </select>
+                        </div>
+                      </div>
+                      <!--NATIVE LANGUAGE-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="cNativeLanguage">Native Language</label>
+                          <input type="text" class="form-control" id="cNativeLanguage" placeholder="Ex: Korea"
+                                 name="nativeLanguage" [(ngModel)]="model.nativeLanguage">
+                        </div>
+                      </div>
+                      <!--COUNTRY-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="cCountry">Country</label>
+                          <input type="text" class="form-control" id="cCountry" placeholder="Ex: Korea"
+                                 name="country" [(ngModel)]="model.country">
+                        </div>
+                      </div>
+                      <!--REGISTERED DATE-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="registerDate">Register date</label>
+                          <input type="date" class="form-control" id="registerDate" placeholder="Ex:"
+                                 name="registerDate" [(ngModel)]="model.registerDate">
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!--EDUCATION-->
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <strong>Education</strong>
+                    <small></small>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <!--EDUCATION-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="education">Education</label>
+                          <input type="text" class="form-control" id="education" placeholder="Ex: Bachelor"
+                                 name="education" [(ngModel)]="model.education">
+                        </div>
+                      </div>
+                      <!--DIPLOMA-->
+                      <div class="col-sm-12 col-md-6 offset-md-2">
+                        <div class="form-group">
+                          <label>Diploma</label>
+                          <div class="form-group">
+                            <a class="download-fake-link" #downloadLink></a>
+                            <button class="btn btn-outline-success btn-sm" type="button" (click)="openDiplomaModal()">
+                              <i class="fa fa-upload"></i> Upload
+                            </button>
+                            <button class="btn btn-link pl-0 text-left" type="button" (click)="downloadDiploma()" *ngIf="model.diploma"
+                                    title="{{model.diploma | fileName}}">
+                              <i class="fa fa-download"></i>{{model.diploma | fileName | lmTo:30}}
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--CV FILE-->
+                      <div class="form-group col-sm-12 col-md-6">
+                        <label>CV</label>
+                        <div class="form-group">
+                          <a class="download-fake-link" #downloadLink></a>
+                          <button class="btn btn-outline-success btn-sm" type="button" (click)="openCvModal()">
+                            <i class="fa fa-upload"></i> Upload
+                          </button>
+                          <button class="btn btn-link pl-0 text-left" type="button" (click)="downloadCv()" *ngIf="model.cv"
+                                  title="{{model.cv | fileName}}">
+                            <i class="fa fa-download"></i> <span title="{{model.cv | fileName}}">{{model.cv | fileName | lmTo:30}}</span>
+                          </button>
+                        </div>
+                      </div>
+                      <!--Other-->
+                      <div class="col-sm-12 col-md-6">
+                        <div class="form-group">
+                          <label>Other attachments</label>
+                          <div class="form-group">
+                            <a class="download-fake-link" #downloadLink></a>
+                            <button class="btn btn-outline-success btn-sm" type="button" (click)="openAttachmentModal()">
+                              <i class="fa fa-upload"></i> Upload
+                            </button>
+                            <ng-container *ngFor="let file of model.attachments">
+                              <button class="btn btn-link pl-0 text-left" type="button" (click)="downloadAttachments(file)" *ngIf="file"
+                                      title="{{file | fileName}}">
+                                <i class="fa fa-download"></i> {{file | fileName | lmTo:30}}
+                              </button>
+                            </ng-container>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="pl-1 col-sm-6">
+            <div class="row">
+              <!--PAYMENT-->
+              <div class="col-sm-12">
+                <app-payment #payment (saveOk)="_onPaymentSaved($event)"></app-payment>
+              </div>
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <strong>Contact</strong>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <!--EMAIL-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="email">Email</label>
+                          <input type="email" class="form-control" id="email" placeholder="Ex: john@gmail.com"
+                                 name="email" [(ngModel)]="model.email"
+                                 #email="ngModel"
+                                 [ngClass]="{'is-invalid': f.submitted && email.invalid}">
+                          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="msg-invalid">
+                            <div *ngIf="email.errors.maxlength">Too long.</div>
+                            <div *ngIf="email.errors.conflict">Duplicated.</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--EMAIL 2-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="email2">Email 2</label>
+                          <input type="email" class="form-control" id="email2" placeholder="Ex: john2@gmail.com"
+                                 name="email2" [(ngModel)]="model.email2"
+                                 #email2="ngModel"
+                                 [ngClass]="{'is-invalid': f.submitted && email2.invalid}">
+                          <div *ngIf="email2.invalid && (email2.dirty || email2.touched)" class="msg-invalid">
+                            <div *ngIf="email2.errors.maxlength">Too long.</div>
+                            <div *ngIf="email2.errors.conflict">Duplicated.</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--Mobile -->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="mobile">Mobile phone</label>
+                          <input type="text" class="form-control" id="mobile"
+                                 name="mobile" [(ngModel)]="model.mobile"
+                                 #mobile="ngModel"
+                                 [ngClass]="{'is-invalid': f.submitted && mobile.invalid}">
+                          <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="msg-invalid">
+                            <div *ngIf="mobile.errors.maxlength">Too long.</div>
+                            <div *ngIf="mobile.errors.conflict">Duplicated.</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--MESSENGER-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="messenger">Messenger</label>
+                          <input type="text" class="form-control" id="messenger"
+                                 name="messenger" [(ngModel)]="model.messenger"
+                                 #messenger="ngModel"
+                                 [ngClass]="{'is-invalid': f.submitted && messenger.invalid}">
+                          <div *ngIf="messenger.invalid && (messenger.dirty || messenger.touched)" class="msg-invalid">
+                            <div *ngIf="messenger.errors.maxlength">Too long.</div>
+                            <div *ngIf="messenger.errors.conflict">Duplicated.</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--SKYPE-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="skype">Skype</label>
+                          <input type="text" class="form-control" id="skype"
+                                 name="skype" [(ngModel)]="model.skype"
+                                 #skype="ngModel"
+                                 [ngClass]="{'is-invalid': f.submitted && skype.invalid}">
+                          <div *ngIf="skype.invalid && (skype.dirty || skype.touched)" class="msg-invalid">
+                            <div *ngIf="skype.errors.maxlength">Too long.</div>
+                            <div *ngIf="skype.errors.conflict">Duplicated.</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--SOCIAL PAGES-->
+                      <div class="col-sm-12 col-md-4">
+                        <div class="form-group">
+                          <label for="socialpages">Scocial pages</label>
+                          <input type="text" class="form-control" id="socialpages"
+                                 name="socialpages" [(ngModel)]="model.socialpages"
+                                 #socialpages="ngModel"
+                                 [ngClass]="{'is-invalid': f.submitted && socialpages.invalid}">
+                          <div *ngIf="socialpages.invalid && (socialpages.dirty || socialpages.touched)" class="msg-invalid">
+                            <div *ngIf="socialpages.errors.maxlength">Too long.</div>
+                            <div *ngIf="socialpages.errors.conflict">Duplicated.</div>
+                          </div>
+                        </div>
+                      </div>
+                      <!--ADDRESS-->
+                      <div class="col-sm-12 col-md-12">
+                        <div class="form-group">
+                          <label for="cAddress">Address</label>
+                          <textarea type="text" class="form-control" id="cAddress" placeholder="" rows="2"
+                                    name="address" [(ngModel)]="model.address"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </form>
+</div>

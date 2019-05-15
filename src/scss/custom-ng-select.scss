@@ -1,0 +1,28 @@
+.ng-select.sm .ng-select-container {
+  min-height: calc(1.5em + 0.5rem - 1px) !important;
+  height: calc(1.5em + 0.5rem - 1px) !important;
+  border-radius: 0.2rem;
+}
+
+.ng-select.sm .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  padding: 5px 10px;
+  font-size: 0.765625rem;
+}
+
+.ng-select.sm .ng-select-container .ng-value-container .ng-input {
+  font-size: 0.765625rem;
+}
+
+.ng-select .ng-select-container {
+  min-height: 33px;
+
+}
+
+.ng-select.ng-select-single .ng-select-container {
+  height: 33px;
+}
+
+.card-header.sm, .card-footer.sm {
+  padding-top: .25rem;
+  padding-bottom: .25rem;
+}
