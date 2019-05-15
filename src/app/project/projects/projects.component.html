@@ -1,11 +1,11 @@
 <div class="animated fadeIn">
   <div class="row">
-    <div class="card">
+    <div class="card w100">
       <div class="card-body">
         <ag-grid-angular
-          style="width: 500px; height: 500px;"
+          style="width: 100%; height: calc(100vh - 150px);"
           class="ag-theme-balham"
-          [rowData]="rowData"
+          [rowData]="modelList"
           [columnDefs]="columnDefs"
         >
         </ag-grid-angular>

@@ -16,21 +16,32 @@ import {Router} from '@angular/router';
 export class ProjectsComponent implements OnInit {
   columnDefs = [
     {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left'},
-    {headerName: 'Athlete', field: 'athlete', width: 150, pinned: 'left'},
-    {headerName: 'Age', field: 'age', width: 90, pinned: 'left'},
-    {headerName: 'Country', field: 'country', width: 120},
-    {headerName: 'Year', field: 'year', width: 90},
-    {headerName: 'Date', field: 'date', width: 110},
-    {headerName: 'Sport', field: 'sport', width: 110},
-    {headerName: 'Gold', field: 'gold', width: 100},
-    {headerName: 'Silver', field: 'silver', width: 100},
-    {headerName: 'Bronze', field: 'bronze', width: 100},
-    {headerName: 'Total', field: 'total', width: 100, pinned: 'right'}
+    {headerName: 'no', field: 'no', width: 150, pinned: 'left'},
+    {headerName: 'requestDate', field: 'requestDate', width: 90, pinned: 'left'},
+    {headerName: 'dueDate', field: 'dueDate', width: 120},
+    {headerName: 'dueTime', field: 'dueTime', width: 90},
+    {headerName: 'pm', field: 'pm.username', width: 110},
+    {headerName: 'category', field: 'category', width: 110},
+    {headerName: 'code', field: 'code', width: 100},
+    {headerName: 'folderName', field: 'folderName', width: 100},
+    {headerName: 'client', field: 'client', width: 100},
+    {headerName: 'contents', field: 'contents', width: 100},
+    {headerName: 'reference', field: 'reference', width: 100},
+    {headerName: 'termbase', field: 'termbase', width: 100},
+    {headerName: 'instruction', field: 'instruction', width: 100},
+    {headerName: 'remark', field: 'remark', width: 100},
+    {headerName: 'totalVolume', field: 'totalVolume', width: 100},
+    {headerName: 'unit', field: 'unit', width: 100},
+    {headerName: 'target', field: 'target', width: 100},
+    {headerName: 'progressStatus', field: 'progressStatus', width: 100},
+    {headerName: 'pmVtc', field: 'pmVtc', width: 100},
+    {headerName: 'ho', field: 'ho', width: 100},
+    {headerName: 'hb', field: 'hb', width: 100},
+    {headerName: 'reviewSchedule', field: 'reviewSchedule', width: 100},
+    {headerName: 'finalDelivery', field: 'finalDelivery', width: 100},
   ];
 
-  rowData = [
-    {athlete: 'Toyota', age: 12, country: 'US', year: 2018, date: '2018-09-09', sport: 'footbal', gold: 1, silver: 3, bronze: 9, total: 20},
-  ];
+  rowData = [];
   activedTab = 'ON_GOING';
   ignoreFilter = true;
   modalRef: BsModalRef;
@@ -138,7 +149,7 @@ export class ProjectsComponent implements OnInit {
           this.numPages = 0;
           return;
         }
-        this.modelList = resp.body.content;
+        this.modelList = [...resp.body.content];
         this.totalItems = resp.body.totalElements;
         this.numPages = resp.body.totalPages;
 
