@@ -3,12 +3,17 @@
     <div class="card w100">
       <div class="card-body">
         <ag-grid-angular
-          style="width: 100%; height: calc(100vh - 150px);"
+          #agGrid style="width: 100%; height: calc(100vh - 150px);"
+          id="myGrid"
           class="ag-theme-balham"
-          [rowData]="modelList"
           [columnDefs]="columnDefs"
-        >
-        </ag-grid-angular>
+          [defaultColDef]="defaultColDef"
+          [defaultColGroupDef]="defaultColGroupDef"
+          [columnTypes]="columnTypes"
+          [rowData]="modelList"
+          [floatingFilter]="true"
+          (gridReady)="onGridReady($event)"
+        ></ag-grid-angular>
       </div>
     </div>
   </div>

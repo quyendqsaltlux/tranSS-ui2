@@ -15,9 +15,9 @@ import {Router} from '@angular/router';
 })
 export class ProjectsComponent implements OnInit {
   columnDefs = [
-    {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left'},
-    {headerName: 'no', field: 'no', width: 150, pinned: 'left'},
-    {headerName: 'requestDate', field: 'requestDate', width: 90, pinned: 'left'},
+    {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false},
+    {headerName: 'no', field: 'no', width: 150, pinned: 'left', sortable: true, filter: true},
+    {headerName: 'requestDate', field: 'requestDate', width: 150, pinned: 'left', type: ['dateColumn']},
     {headerName: 'dueDate', field: 'dueDate', width: 120},
     {headerName: 'dueTime', field: 'dueTime', width: 90},
     {headerName: 'pm', field: 'pm.username', width: 110},
@@ -30,7 +30,7 @@ export class ProjectsComponent implements OnInit {
     {headerName: 'termbase', field: 'termbase', width: 100},
     {headerName: 'instruction', field: 'instruction', width: 100},
     {headerName: 'remark', field: 'remark', width: 100},
-    {headerName: 'totalVolume', field: 'totalVolume', width: 100},
+    {headerName: 'totalVolume', field: 'totalVolume', width: 100, type: 'numericColumn'},
     {headerName: 'unit', field: 'unit', width: 100},
     {headerName: 'target', field: 'target', width: 100},
     {headerName: 'progressStatus', field: 'progressStatus', width: 100},
@@ -41,7 +41,13 @@ export class ProjectsComponent implements OnInit {
     {headerName: 'finalDelivery', field: 'finalDelivery', width: 100},
   ];
 
-  rowData = [];
+  private gridApi;
+  private gridColumnApi;
+
+  private defaultColDef;
+  private defaultColGroupDef;
+  private columnTypes;
+
   activedTab = 'ON_GOING';
   ignoreFilter = true;
   modalRef: BsModalRef;
@@ -100,8 +106,54 @@ export class ProjectsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initTable();
     this.buildTableCols();
+  }
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
     this.getModelList();
+  }
+
+  initTable() {
+    this.defaultColDef = {
+      width: 150,
+      editable: false,
+      filter: 'agTextColumnFilter'
+    };
+    this.defaultColGroupDef = {marryChildren: true};
+    this.columnTypes = {
+      numericColumn: {
+        width: 83,
+        filter: 'agNumberColumnFilter'
+      },
+      medalColumn: {
+        width: 100,
+        columnGroupShow: 'open',
+        filter: false
+      },
+      nonEditableColumn: {editable: false},
+      dateColumn: {
+        filter: 'agDateColumnFilter',
+        filterParams: {
+          comparator(filterLocalDateAtMidnight, cellValue) {
+            const dateParts = cellValue.split('/');
+            const day = Number(dateParts[2]);
+            const month = Number(dateParts[1]) - 1;
+            const year = Number(dateParts[0]);
+            const cellDate = new Date(day, month, year);
+            if (cellDate < filterLocalDateAtMidnight) {
+              return -1;
+            } else if (cellDate > filterLocalDateAtMidnight) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+        }
+      }
+    };
   }
 
   buildTableCols() {
