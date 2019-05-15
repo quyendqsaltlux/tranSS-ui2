@@ -107,6 +107,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   getModelList() {
+    this.filter.progressStatus.value = this.activedTab;
     this.projectService.search(this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order,
       buildFilterParam(this.filter),
@@ -193,7 +194,6 @@ export class ProjectsComponent implements OnInit {
   onClickTab(tab) {
     if (tab !== this.activedTab) {
       this.activedTab = tab;
-      this.filter.progressStatus.value = tab;
       this.getModelList();
     }
   }

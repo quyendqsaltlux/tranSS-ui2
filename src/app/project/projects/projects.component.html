@@ -16,7 +16,7 @@
             </div>
           </div>
           <!--TABS-->
-          <div class="btn-group pull-right mr-2" role="group">
+          <div class="btn-group pull-right mr-2" role="group">{{activedTab}}
             <button type="button" class="btn btn-sm btn-secondary" [class.bg-primary]="activedTab === 'ON_GOING'" (click)="onClickTab('ON_GOING')">
               <i class="fa fa-refresh"></i> On Going
             </button>
