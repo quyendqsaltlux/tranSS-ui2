@@ -6,6 +6,7 @@ import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT, MyDatatableItem} from '../../share/m
 import * as _ from 'lodash';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-projects',
@@ -66,6 +67,7 @@ export class ProjectsComponent implements OnInit {
 
   constructor(private  projectService: ProjectService,
               private toastr: ToastrService,
+              public route: Router,
               private modalService: BsModalService) {
   }
 
