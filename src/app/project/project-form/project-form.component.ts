@@ -22,7 +22,7 @@ export class ProjectFormComponent implements OnInit {
   subscriptions: Subscription[] = [];
 
   id = null;
-  model: Project = <Project>{};
+  model: Project = {} as Project;
 
   constructor(private projectService: ProjectService,
               private toastr: ToastrService,
@@ -39,6 +39,8 @@ export class ProjectFormComponent implements OnInit {
         this.model = resp.body;
         this.extractModelFromApi(this.model);
       });
+    } else {
+      this.model.progressStatus = 'ON_GOING';
     }
   }
 
