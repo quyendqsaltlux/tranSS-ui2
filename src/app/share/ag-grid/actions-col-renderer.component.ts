@@ -13,13 +13,12 @@ export class ActionsColRendererComponent implements ICellRendererAngularComp {
     this.params = params;
   }
 
-  edit() {
+  onEdit() {
     this.params.context.componentParent.gotoEditForm(this.params.node.rowIndex);
-    // this.params.colDef.headerName
   }
 
-  delete() {
-    this.params.context.componentParent.onCickDelete(this.params.node.rowIndex);
+  onDelete() {
+    this.params.context.componentParent.onClickDelete(this.params.node.rowIndex);
   }
 
   refresh(): boolean {

@@ -18,9 +18,9 @@ export class ProjectsComponent implements OnInit {
   @ViewChild('template') template: TemplateRef;
   JOIN_FILTER_COLS = ['pm.code'];
   columnDefs = [
-    {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false},
-    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'childMessageRenderer', pinned: 'left', filter: false, width: 80},
-    {headerName: 'No', field: 'no', pinned: 'left', sortable: true, filter: true},
+    {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false, sortable: false},
+    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'childMessageRenderer', pinned: 'left', filter: false, width: 80, sortable: false},
+    {headerName: 'No', field: 'no', pinned: 'left', filter: true},
     {headerName: 'Request Date', field: 'requestDate', type: 'dateColumn', width: 170},
     {headerName: 'Due Date', field: 'dueDate', width: 170, type: 'dateColumn'},
     {headerName: 'Due Time', field: 'dueTime'},
@@ -51,6 +51,7 @@ export class ProjectsComponent implements OnInit {
   private columnTypes;
   private context;
   private frameworkComponents;
+  private sortingOrder;
 
   activedTab = 'ON_GOING';
   ignoreFilter = true;
@@ -98,7 +99,8 @@ export class ProjectsComponent implements OnInit {
       filter: 'agTextColumnFilter',
       suppressMenu: true,
       floatingFilterComponentParams: {suppressFilterButton: true},
-      filterParams: {newRowsAction: 'keep'}
+      filterParams: {newRowsAction: 'keep'},
+      sortable: true,
     };
     this.columnTypes = {
       numericColumn: {filter: 'agNumberColumnFilter'},
@@ -123,7 +125,7 @@ export class ProjectsComponent implements OnInit {
         }
       }
     };
-
+    this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
       childMessageRenderer: ActionsColRendererComponent
@@ -176,12 +178,6 @@ export class ProjectsComponent implements OnInit {
     }, 0);
   }
 
-  toggleSort(sortData) {
-    this.sortConfig.field = sortData.field;
-    this.sortConfig.order = sortData.order;
-    this.getModelList();
-  }
-
   onGridFilterChange(event) {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
     console.log(filters);
@@ -191,13 +187,21 @@ export class ProjectsComponent implements OnInit {
     this.getModelList();
   }
 
+  onGridSortChanged(event) {
+    const sortState = this.gridApi.getSortModel();
+    this.sortConfig.order = sortState[0].sort;
+    this.sortConfig.field = sortState[0].colId;
+    this.getModelList();
+    console.log(sortState);
+  }
+
   onFilterChange(event) {
     this.pmFilter = _.cloneDeep(event[FILTER_TYPE_JOIN]);
     this.filter = _.cloneDeep(event[FILTER_TYPE_ROOT]);
     this.onFilter();
   }
 
-  onCickDelete(index) {
+  onClickDelete(index) {
     this.openModal(this.template, this.modelList[index].id);
   }
 
