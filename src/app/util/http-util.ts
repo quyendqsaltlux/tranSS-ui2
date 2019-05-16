@@ -50,8 +50,8 @@ export function buildFilterParam(filterModel, booleanFields?: any[], trueValue?:
       'value': filterValue
     };
     if (booleanFields && booleanFields.findIndex((_field) => {
-      return _field === field;
-    }) >= 0) {
+        return _field === field;
+      }) >= 0) {
       if (trueValue && trueValue.toUpperCase() === filterValue.toUpperCase()) {
         obj.value = true;
       } else if (falseValue && falseValue.toUpperCase() === filterValue.toUpperCase()) {
@@ -95,8 +95,9 @@ export function separateFiltersFromGrid(filterModel, joinFilterFields: string[])
 }
 
 /**
- *
- * @param filterModel
+ * filter object to array
+ * {no: {operation: EQUAL, value: 123}} => [{field: 'no', operation: EQUAL, value: 123}]
+ * @param filterModel [{field: 'no', operation: EQUAL, value: 123}]
  */
 export function generateFilterParam(filterModel) {
   if (!filterModel) {
@@ -130,9 +131,14 @@ export function gridFilter2Filter(field, filter) {
     case 'text':
       targetFilter.value = filter.filter;
       break;
+    case 'number':
+      targetFilter.value = filter.filter;
+      break;
     case 'date':
       targetFilter.value = filter.dateFrom;
       break;
+    default:
+      targetFilter.value = filter.filter;
   }
   return targetFilter;
 }

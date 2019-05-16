@@ -14,8 +14,7 @@ import {ProgressPipe} from '../pipe/progress.pipe';
 import {BarRatingModule} from 'ngx-bar-rating';
 import {ProjectProgressPipe} from '../pipe/project-progress.pipe';
 import {MigrateTypePipe} from '../pipe/migrate-type.pipe';
-import {AgGridModule} from "ag-grid-angular";
-
+import {AgGridModule} from 'ag-grid-angular';
 
 @NgModule({
   declarations: [

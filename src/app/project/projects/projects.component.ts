@@ -18,7 +18,7 @@ export class ProjectsComponent implements OnInit {
   columnDefs = [
     {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false},
     {headerName: 'No', field: 'no', pinned: 'left', sortable: true, filter: true},
-    {headerName: 'Request Date', field: 'requestDate', pinned: 'left', type: ['dateColumn'], width: 170},
+    {headerName: 'Request Date', field: 'requestDate', type: ['dateColumn'], width: 170},
     {headerName: 'Due Date', field: 'dueDate', width: 170, type: 'dateColumn'},
     {headerName: 'Due Time', field: 'dueTime'},
     {headerName: 'PM', field: 'pm.code'},
@@ -44,7 +44,6 @@ export class ProjectsComponent implements OnInit {
 
   private gridApi;
   private gridColumnApi;
-
   private defaultColDef;
   private defaultColGroupDef;
   private columnTypes;
@@ -92,20 +91,13 @@ export class ProjectsComponent implements OnInit {
     this.defaultColDef = {
       width: 150,
       editable: false,
-      filter: 'agTextColumnFilter'
+      filter: 'agTextColumnFilter',
+      suppressMenu: true,
+      floatingFilterComponentParams: {suppressFilterButton: true},
+      filterParams: {newRowsAction: 'keep'}
     };
-    this.defaultColGroupDef = {marryChildren: true};
     this.columnTypes = {
-      numericColumn: {
-        width: 83,
-        filter: 'agNumberColumnFilter'
-      },
-      medalColumn: {
-        width: 100,
-        columnGroupShow: 'open',
-        filter: false
-      },
-      nonEditableColumn: {editable: false},
+      numericColumn: {filter: 'agNumberColumnFilter'},
       dateColumn: {
         filter: 'agDateColumnFilter',
         filterParams: {
@@ -128,9 +120,8 @@ export class ProjectsComponent implements OnInit {
     };
   }
 
-
   getModelList() {
-    this.filter['progressStatus'] = {operation: EQUAL, value: this.activedTab};
+    this.filter['progressStatus'] = {operation: EQUAL, value: this.activedTab, field: 'progressStatus'};
 
     this.projectService.search(this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order,
