@@ -5,3 +5,16 @@
 textarea {
   max-height: 150px;
 }
+
+.assignment-container .form-group.form-left {
+  padding-left: 1px;
+  padding-right: 1px;
+}
+
+.assignment-container .form-group.form-left:not(.date) {
+  width: 110px;
+}
+
+.assignment-container .form-group.form-left.date {
+  width: 130px;
+}
