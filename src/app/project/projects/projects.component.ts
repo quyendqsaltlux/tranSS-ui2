@@ -4,7 +4,6 @@ import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT} from '../../share/my-datatable/my-da
 import * as _ from 'lodash';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
-import {Router} from '@angular/router';
 import {generateFilterParam, separateFiltersFromGrid} from '../../util/http-util';
 import {EQUAL} from '../../AppConstant';
 
@@ -18,7 +17,7 @@ export class ProjectsComponent implements OnInit {
   columnDefs = [
     {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false},
     {headerName: 'No', field: 'no', pinned: 'left', sortable: true, filter: true},
-    {headerName: 'Request Date', field: 'requestDate', type: ['dateColumn'], width: 170},
+    {headerName: 'Request Date', field: 'requestDate', type: 'dateColumn', width: 170},
     {headerName: 'Due Date', field: 'dueDate', width: 170, type: 'dateColumn'},
     {headerName: 'Due Time', field: 'dueTime'},
     {headerName: 'PM', field: 'pm.code'},
@@ -36,16 +35,15 @@ export class ProjectsComponent implements OnInit {
     {headerName: 'Target', field: 'target'},
     {headerName: 'Progress', field: 'progressStatus', filter: false},
     {headerName: 'PM Vtc', field: 'pmVtc'},
-    {headerName: 'HO', field: 'ho'},
-    {headerName: 'HB', field: 'hb'},
-    {headerName: 'Review Schedule', field: 'reviewSchedule'},
-    {headerName: 'Final Delivery', field: 'finalDelivery'}
+    {headerName: 'HO', field: 'ho', width: 170, type: 'dateColumn'},
+    {headerName: 'HB', field: 'hb', width: 170, type: 'dateColumn'},
+    {headerName: 'Review Schedule', width: 170, field: 'reviewSchedule', type: 'dateColumn'},
+    {headerName: 'Final Delivery', width: 170, field: 'finalDelivery', type: 'dateColumn'}
   ];
 
   private gridApi;
   private gridColumnApi;
   private defaultColDef;
-  private defaultColGroupDef;
   private columnTypes;
 
   activedTab = 'ON_GOING';
@@ -73,7 +71,6 @@ export class ProjectsComponent implements OnInit {
 
   constructor(private  projectService: ProjectService,
               private toastr: ToastrService,
-              public route: Router,
               private modalService: BsModalService) {
   }
 
@@ -101,6 +98,7 @@ export class ProjectsComponent implements OnInit {
       dateColumn: {
         filter: 'agDateColumnFilter',
         filterParams: {
+          newRowsAction: 'keep',
           comparator(filterLocalDateAtMidnight, cellValue) {
             const dateParts = cellValue.split('/');
             const day = Number(dateParts[2]);
