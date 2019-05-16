@@ -5,13 +5,13 @@
         <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
           <div class="row">
             <!--CANDIDATE & TASK-->
-            <div class="col-sm-12 col-md-8">
+            <div class="col-sm-12 col-md-9">
               <div class="row">
                 <!--RESOURCE-->
                 <div class="col-sm-12 col-md-2">
                   <div class="form-group">
                     <label for="candidate">Resource<span class="text-danger"> *</span></label>
-                    <input type="text" class=" form-control " id="candidate" name="candidate"
+                    <input type="text" class=" form-control form-control-sm" id="candidate" name="candidate"
                            placeholder="Enter resource code"
                            required maxlength="127"
                            [(ngModel)]="model.candidateCode"
@@ -28,7 +28,7 @@
                   <div class="form-group">
                     <label for="task">Task<span class="text-danger"> *</span></label>
                     <ng-select [(ngModel)]="model.task" [searchable]="false" [clearable]="false" name="task" id="task"
-                               #task="ngModel"
+                               #task="ngModel" class="sm"
                                required
                                [ngClass]="{'is-invalid': f.submitted && task.invalid}">
                       <ng-option [value]="'All'">All</ng-option>
@@ -42,22 +42,68 @@
                     </div>
                   </div>
                 </div>
-                <!--Request date-->
-                <div class="col-sm-12 col-md-3">
+                <!--SOURCE-->
+                <div class="col-sm-12 col-md-2">
                   <div class="form-group">
-                    <label for="ho">HO<span class="text-danger"> *</span></label>
-                    <input type="date" class=" form-control" required id="ho" name="ho" [(ngModel)]="model.ho">
+                    <label for="source">Source<span class="text-danger"> *</span></label>
+                    <input type="text" class=" form-control form-control-sm" id="source" name="source"
+                           placeholder="Enter resource code"
+                           required maxlength="127"
+                           [(ngModel)]="model.source"
+                           #source="ngModel"
+                           [ngClass]="{'is-invalid': f.submitted && source.invalid}">
+                    <div *ngIf="source.invalid && (source.dirty || source.touched)" class="msg-invalid">
+                      <div *ngIf="source.errors.maxlength">Too long.</div>
+                      <div *ngIf="source.errors.conflict">Duplicated.</div>
+                    </div>
+                  </div>
+                </div>
+                <!--TARGET-->
+                <div class="col-sm-12 col-md-2">
+                  <div class="form-group">
+                    <label for="target">Target<span class="text-danger"> *</span></label>
+                    <input type="text" class=" form-control form-control-sm" id="target" name="target"
+                           placeholder="Enter retarget code"
+                           required maxlength="127"
+                           [(ngModel)]="model.target"
+                           #target="ngModel"
+                           [ngClass]="{'is-invalid': f.submitted && target.invalid}">
+                    <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
+                      <div *ngIf="target.errors.maxlength">Too long.</div>
+                      <div *ngIf="target.errors.conflict">Duplicated.</div>
+                    </div>
+                  </div>
+                </div>
+                <!--TOTAL-->
+                <div class="col-sm-12 col-md-2">
+                  <div class="form-group">
+                    <label for="total">Total<span class="text-danger"> *</span></label>
+                    <input type="number" class=" form-control form-control-sm" id="total" name="total"
+                           required
+                           [(ngModel)]="model.total"
+                           #total="ngModel"
+                           [ngClass]="{'is-invalid': f.submitted && total.invalid}">
+                    <div *ngIf="total.invalid && (total.dirty || total.touched)" class="msg-invalid">
+                      <div *ngIf="total.errors.maxlength">Too long.</div>
+                    </div>
                   </div>
                 </div>
                 <!--Request date-->
-                <div class="col-sm-12 col-md-3">
+                <div class="col-sm-12 col-md-2">
+                  <div class="form-group">
+                    <label for="ho">HO<span class="text-danger"> *</span></label>
+                    <input type="date" class=" form-control form-control-sm" required id="ho" name="ho" [(ngModel)]="model.ho">
+                  </div>
+                </div>
+                <!--Request date-->
+                <div class="col-sm-12 col-md-2">
                   <div class="form-group">
                     <label for="hb">HB<span class="text-danger"> *</span></label>
-                    <input type="date" class=" form-control" required id="hb" name="hb" [(ngModel)]="model.hb">
+                    <input type="date" class=" form-control form-control-sm" required id="hb" name="hb" [(ngModel)]="model.hb">
                   </div>
                 </div>
                 <!--BTN ASSIGN-->
-                <div class="col-sm-12 col-md-2">
+                <div class="col-sm-12 col-md-1">
                   <div class="form-group">
                     <label><span class="invisible">.</span></label>
                     <div class="">
@@ -69,7 +115,7 @@
               </div>
             </div>
             <!--RIGHT-->
-            <div class="col-sm-12 col-md-4" *ngIf="assignment && assignment.id">
+            <div class="col-sm-12 col-md-3" *ngIf="assignment && assignment.id">
               <div class="d-flex flex-row justify-content-between">
                 <!--STATUS-->
                 <div class="card card-body mb-0 mr-5">
@@ -153,7 +199,7 @@
                 <div class="col-md-6">
                   <bar-rating [(rate)]="star" [max]="5"></bar-rating>
                   <div class="form-group">
-                    <textarea class=" form-control " rows="4" placeholder="Enter your comment"
+                    <textarea class=" form-control form-control-sm" rows="4" placeholder="Enter your comment"
                               name="review"
                               [(ngModel)]="assignment.review"></textarea>
                   </div>
