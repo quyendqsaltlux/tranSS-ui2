@@ -18,6 +18,10 @@ export class ActionsColRendererComponent implements ICellRendererAngularComp {
     // this.params.colDef.headerName
   }
 
+  delete() {
+    this.params.context.componentParent.onCickDelete(this.params.node.rowIndex);
+  }
+
   refresh(): boolean {
     return false;
   }

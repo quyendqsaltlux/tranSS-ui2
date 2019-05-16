@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ProjectService} from '../../service/project.service';
 import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT} from '../../share/my-datatable/my-datatable.component';
 import * as _ from 'lodash';
@@ -7,7 +7,7 @@ import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {generateFilterParam, separateFiltersFromGrid} from '../../util/http-util';
 import {EQUAL} from '../../AppConstant';
 import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-renderer.component';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-projects',
@@ -15,6 +15,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
+  @ViewChild('template') template: TemplateRef;
   JOIN_FILTER_COLS = ['pm.code'];
   columnDefs = [
     {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false},
@@ -194,6 +195,10 @@ export class ProjectsComponent implements OnInit {
     this.pmFilter = _.cloneDeep(event[FILTER_TYPE_JOIN]);
     this.filter = _.cloneDeep(event[FILTER_TYPE_ROOT]);
     this.onFilter();
+  }
+
+  onCickDelete(index) {
+    this.openModal(this.template, this.modelList[index].id);
   }
 
   openModal(template: TemplateRef<any>, id) {
