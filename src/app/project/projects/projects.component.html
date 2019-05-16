@@ -29,111 +29,23 @@
     </div>
 
     <div class="col-sm-12">
-      <div class="card">
-        <div class="card w100">
-          <div class="card-body">
-            <ag-grid-angular
-              #agGrid style="width: 100%; height: calc(100vh - 250px);"
-              id="myGrid"
-              class="ag-theme-balham"
-              [columnDefs]="columnDefs"
-              [defaultColDef]="defaultColDef"
-              [columnTypes]="columnTypes"
-              [rowData]="modelList"
-              [floatingFilter]="true"
-              (gridReady)="onGridReady($event)"
-              (filterChanged)="onGridFilterChange($event)"
-            ></ag-grid-angular>
-          </div>
+      <div class="card w100">
+        <div class="card-body">
+          <ag-grid-angular
+            #agGrid style="width: 100%; height: calc(100vh - 250px);"
+            id="myGrid"
+            class="ag-theme-balham"
+            [context]="context"
+            [frameworkComponents]="frameworkComponents"
+            [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef"
+            [columnTypes]="columnTypes"
+            [rowData]="modelList"
+            [floatingFilter]="true"
+            (gridReady)="onGridReady($event)"
+            (filterChanged)="onGridFilterChange($event)"
+          ></ag-grid-angular>
         </div>
-        <!--<div class="card-body">-->
-          <!--<div class="table-responsive mh350">-->
-            <!--&lt;!&ndash;<app-my-datatable [cols]="cols" [filter]="filter" [joinFilter]="pmFilter"&ndash;&gt;-->
-                              <!--&lt;!&ndash;[sortConfig]="sortConfig"&ndash;&gt;-->
-                              <!--&lt;!&ndash;(nextSort)="toggleSort($event)"&ndash;&gt;-->
-                              <!--&lt;!&ndash;(filterChange)="onFilterChange($event)">&ndash;&gt;-->
-
-              <!--&lt;!&ndash;<tbody rows-data>&ndash;&gt;-->
-              <!--&lt;!&ndash;<ng-container *ngFor="let project of modelList; let index=index">&ndash;&gt;-->
-                <!--&lt;!&ndash;<tr>&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;ACTION&ndash;&gt;&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="text-center action">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<div class="btn-group btn-group-sm" dropdown>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<button dropdownToggle type="button" class="pt-0 pb-0 btn btn-sm btn-ghost-primary dropdown-toggle">&ndash;&gt;-->
-                        <!--&lt;!&ndash;Action <span class="caret"></span>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</button>&ndash;&gt;-->
-                      <!--&lt;!&ndash;<ul *dropdownMenu class="dropdown-menu" role="menu">&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li role="menuitem"><a class="dropdown-item" routerLink="/projects/edit/{{project.id}}">Edit</a></li>&ndash;&gt;-->
-                        <!--&lt;!&ndash;<li role="menuitem"><a class="dropdown-item" (click)="openModal(template, project.id)">Delete</a></li>&ndash;&gt;-->
-                      <!--&lt;!&ndash;</ul>&ndash;&gt;-->
-                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td *ngIf="project.assignments && project.assignments.length>0"&ndash;&gt;-->
-                      <!--&lt;!&ndash;class="text-primary cursor-pointer" (click)="onToggleResource(index)">&ndash;&gt;-->
-                    <!--&lt;!&ndash;{{project.no}}&ndash;&gt;-->
-                    <!--&lt;!&ndash;<i class="fa fa-address-book pull-right font-sm" title="Resources"></i>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td *ngIf="!(project.assignments && project.assignments.length>0)">{{project.no}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw110 text-center">{{project.requestDate}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw110 text-center">{{project.dueDate}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td>{{project.dueTime}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td>&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<ng-template #popTemplate>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<div class="media" *ngIf="project.pm">&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<img *ngIf="project.pm.avatar" class="mr-3" [src]="project.pm.avatar" alt="Avatar" width="60" height="60">&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<img *ngIf="!project.pm.avatar" class="mr-3" src="assets/img/avatars/default_avatar.png" alt="Avatar" width="60" height="60">&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<div class="media-body">&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<h6>{{project.pm.username}}</h6>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<div class="mt-0">{{project.pm.name}} ({{project.pm.code}})</div>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<div class="mt-0">{{project.pm.email}}</div>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;</div>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;</ng-template>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;<span [popover]="popTemplate" popoverTitle="PM" [outsideClick]="true" triggers="mouseenter" *ngIf="project.pm">&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;{{project.pm.code}}&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;&lt;!&ndash;</span>&ndash;&gt;&ndash;&gt;-->
-                    <!--&lt;!&ndash;{{project.pm.code}}&ndash;&gt;-->
-                  <!--&lt;!&ndash;</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td>{{project.category}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td>{{project.code}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw150">{{project.folderName}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw150">{{project.client}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw250">{{project.contents}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="text-center">{{project.reference}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="text-center">{{project.termbase}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="text-center">{{project.instruction}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw350">&ndash;&gt;-->
-                    <!--&lt;!&ndash;{{project.remark}}&ndash;&gt;-->
-                  <!--&lt;!&ndash;</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="text-right">{{project.totalVolume}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td>{{project.unit}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td>{{project.target}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw110 text-center"><span [outerHTML]="project.progressStatus | projectProgress"></span></td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td>{{project.pmVtc}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw110 text-center">{{project.ho}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw110 text-center">{{project.hb}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;Resources&ndash;&gt;&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;<td class="text-center">&ndash;&gt;&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;<span class="cursor-pointer" (click)="onToggleResource(index)" *ngIf="project.assignments && project.assignments.length>0">&ndash;&gt;&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;<i class="fa fa-users"></i>&ndash;&gt;&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;<span class="badge badge-default">{{project.assignments.length}}</span>&ndash;&gt;&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;</span>&ndash;&gt;&ndash;&gt;-->
-                  <!--&lt;!&ndash;&lt;!&ndash;</td>&ndash;&gt;&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw110 text-center">{{project.reviewSchedule}}</td>&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td class="mw110 text-center">{{project.finalDelivery}}</td>&ndash;&gt;-->
-                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-                <!--&lt;!&ndash;&lt;!&ndash;ASSIGNMENT-INFO&ndash;&gt;&ndash;&gt;-->
-                <!--&lt;!&ndash;<tr *ngIf="index === activeResourceIndex">&ndash;&gt;-->
-                  <!--&lt;!&ndash;<td colspan="26" class="bg-light">&ndash;&gt;-->
-                    <!--&lt;!&ndash;<app-assignment-info [assignments]="project.assignments"></app-assignment-info>&ndash;&gt;-->
-                  <!--&lt;!&ndash;</td>&ndash;&gt;-->
-                <!--&lt;!&ndash;</tr>&ndash;&gt;-->
-              <!--&lt;!&ndash;</ng-container>&ndash;&gt;-->
-              <!--&lt;!&ndash;</tbody>&ndash;&gt;-->
-            <!--&lt;!&ndash;</app-my-datatable>&ndash;&gt;-->
-          <!--</div>-->
-        <!--</div>-->
-
         <div class="card-footer">
           <span> Total: {{totalItems}}</span>
           <div class="pull-right">

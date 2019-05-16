@@ -15,6 +15,8 @@ import {BarRatingModule} from 'ngx-bar-rating';
 import {ProjectProgressPipe} from '../pipe/project-progress.pipe';
 import {MigrateTypePipe} from '../pipe/migrate-type.pipe';
 import {AgGridModule} from 'ag-grid-angular';
+import {ActionsColRendererComponent} from './ag-grid/actions-col-renderer.component';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import {AgGridModule} from 'ag-grid-angular';
     CandidateSearchComponent,
     AutofocusDirective,
     ProjectProgressPipe,
-    MigrateTypePipe
+    MigrateTypePipe,
+    ActionsColRendererComponent
   ],
   imports: [
     CommonModule,
@@ -44,7 +47,7 @@ import {AgGridModule} from 'ag-grid-angular';
     ProgressbarModule.forRoot(),
     AlertModule.forRoot(),
     BarRatingModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([ActionsColRendererComponent])
   ],
   exports: [
     CommonModule,
@@ -69,7 +72,8 @@ import {AgGridModule} from 'ag-grid-angular';
     ProjectProgressPipe,
     AlertModule,
     MigrateTypePipe,
-    AgGridModule
+    AgGridModule,
+    ActionsColRendererComponent
   ],
   entryComponents: [
     EmployeeSearchComponent

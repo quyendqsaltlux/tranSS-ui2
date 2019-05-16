@@ -6,6 +6,8 @@ import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {generateFilterParam, separateFiltersFromGrid} from '../../util/http-util';
 import {EQUAL} from '../../AppConstant';
+import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-renderer.component';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-projects',
@@ -16,6 +18,7 @@ export class ProjectsComponent implements OnInit {
   JOIN_FILTER_COLS = ['pm.code'];
   columnDefs = [
     {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false},
+    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'childMessageRenderer', pinned: 'left', filter: false, width: 80},
     {headerName: 'No', field: 'no', pinned: 'left', sortable: true, filter: true},
     {headerName: 'Request Date', field: 'requestDate', type: 'dateColumn', width: 170},
     {headerName: 'Due Date', field: 'dueDate', width: 170, type: 'dateColumn'},
@@ -40,11 +43,13 @@ export class ProjectsComponent implements OnInit {
     {headerName: 'Review Schedule', width: 170, field: 'reviewSchedule', type: 'dateColumn'},
     {headerName: 'Final Delivery', width: 170, field: 'finalDelivery', type: 'dateColumn'}
   ];
-
+  /*AG_GRID*/
   private gridApi;
   private gridColumnApi;
   private defaultColDef;
   private columnTypes;
+  private context;
+  private frameworkComponents;
 
   activedTab = 'ON_GOING';
   ignoreFilter = true;
@@ -71,6 +76,7 @@ export class ProjectsComponent implements OnInit {
 
   constructor(private  projectService: ProjectService,
               private toastr: ToastrService,
+              public route: Router,
               private modalService: BsModalService) {
   }
 
@@ -116,6 +122,15 @@ export class ProjectsComponent implements OnInit {
         }
       }
     };
+
+    this.context = {componentParent: this};
+    this.frameworkComponents = {
+      childMessageRenderer: ActionsColRendererComponent
+    };
+  }
+
+  gotoEditForm(index) {
+    this.route.navigate(['/projects/edit/' + this.modelList[index].id]);
   }
 
   getModelList() {
