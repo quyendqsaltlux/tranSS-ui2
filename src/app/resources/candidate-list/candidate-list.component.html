@@ -113,7 +113,8 @@
                 <td class="p-0 multiple-row text-right">
                   <ul class="list-group">
                     <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item">{{ability.rateUnit || '-'}}</li>
+                      <li class="list-group-item" *ngIf="ability.rateUnit">{{ability.rateUnit | unit}}</li>
+                      <li class="list-group-item" *ngIf="!ability.rateUnit">-</li>
                       <div class="li-divider" *ngIf="!last"></div>
                     </ng-container>
                   </ul>
@@ -131,7 +132,8 @@
                 <td class="p-0 multiple-row text-right">
                   <ul class="list-group">
                     <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item">{{ability.rate2unit || '-'}}</li>
+                      <li class="list-group-item" *ngIf="ability.rate2unit">{{ability.rate2unit | unit}}</li>
+                      <li class="list-group-item" *ngIf="!ability.rate2unit">-</li>
                       <div class="li-divider" *ngIf="!last"></div>
                     </ng-container>
                   </ul>

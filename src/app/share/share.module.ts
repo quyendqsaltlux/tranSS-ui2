@@ -4,18 +4,7 @@ import {FileNamePipe} from '../pipe/file-name.pipe';
 import {LmToPipe} from '../pipe/lm-to.pipe';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {FormsModule} from '@angular/forms';
-import {
-  AlertModule,
-  BsDatepickerModule,
-  BsDropdownModule,
-  CollapseModule,
-  ModalModule,
-  PaginationModule,
-  PopoverModule,
-  ProgressbarModule,
-  TabsModule,
-  TypeaheadModule
-} from 'ngx-bootstrap';
+import {AlertModule, BsDatepickerModule, BsDropdownModule, CollapseModule, ModalModule, PaginationModule, PopoverModule, ProgressbarModule, TabsModule, TypeaheadModule} from 'ngx-bootstrap';
 import {MyDatatableComponent} from './my-datatable/my-datatable.component';
 import {EmployeeSearchComponent} from './employee-search/employee-search.component';
 import {CandidateSearchComponent} from './candidate-search/candidate-search.component';
@@ -25,6 +14,7 @@ import {ProgressPipe} from '../pipe/progress.pipe';
 import {BarRatingModule} from 'ngx-bar-rating';
 import {ProjectProgressPipe} from '../pipe/project-progress.pipe';
 import {MigrateTypePipe} from '../pipe/migrate-type.pipe';
+import {UnitPipe} from '../pipe/unit.pipe';
 
 
 @NgModule({
@@ -38,7 +28,8 @@ import {MigrateTypePipe} from '../pipe/migrate-type.pipe';
     CandidateSearchComponent,
     AutofocusDirective,
     ProjectProgressPipe,
-    MigrateTypePipe
+    MigrateTypePipe,
+    UnitPipe
   ],
   imports: [
     CommonModule,
@@ -78,7 +69,8 @@ import {MigrateTypePipe} from '../pipe/migrate-type.pipe';
     BarRatingModule,
     ProjectProgressPipe,
     AlertModule,
-    MigrateTypePipe
+    MigrateTypePipe,
+    UnitPipe
   ],
   entryComponents: [
     EmployeeSearchComponent
