@@ -47,7 +47,7 @@
                           <label for="code">Code<span class="text-danger"> *</span></label>
                           <input type="text" class="form-control" id="code" placeholder="Ex: ITP19_0532"
                                  name="code" [(ngModel)]="model.code" maxlength="255" required
-                                 #code="ngModel"
+                                 #code="ngModel" [readonly]="model.isOld"
                                  [ngClass]="{'is-invalid': f.submitted && code.invalid}">
                           <div *ngIf="code.invalid && (code.dirty || code.touched)" class="msg-invalid">
                             <div *ngIf="code.errors.maxlength">Too long.</div>

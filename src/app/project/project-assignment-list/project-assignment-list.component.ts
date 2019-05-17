@@ -11,6 +11,9 @@ export class ProjectAssignmentListComponent implements OnInit {
   @Input() projectId;
   @Input() projectCode;
   assignments: any = [];
+  viewControl = {
+    ableToChange: true
+  };
 
   constructor(private  projectAssignmentService: ProjectAssignmentService,
               private toastr: ToastrService) {
@@ -35,7 +38,8 @@ export class ProjectAssignmentListComponent implements OnInit {
   getModelList() {
     this.projectAssignmentService.getListByProject(this.projectId).subscribe((resp) => {
       if (resp && resp.body) {
-        this.assignments = resp.body;
+        this.assignments = resp.body.list;
+        this.viewControl.ableToChange = resp.body.ableToChange;
       }
     }, (err) => {
       this.toastr.error('Fail to get list of assigments', '');

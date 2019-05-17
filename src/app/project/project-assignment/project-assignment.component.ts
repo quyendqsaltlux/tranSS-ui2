@@ -9,6 +9,7 @@ import {IndividualConfig, ToastrService} from 'ngx-toastr';
   styleUrls: ['./project-assignment.component.scss']
 })
 export class ProjectAssignmentComponent implements OnInit {
+  @Input() viewControl;
   @Input() assignment;
   @Input() projectId;
   @Input() projectCode;

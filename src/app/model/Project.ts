@@ -26,4 +26,5 @@ export interface Project {
   company: string;
   pmCode: string;
   field: string;
+  isOld: boolean;
 }

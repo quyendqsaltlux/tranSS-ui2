@@ -2,6 +2,7 @@
   <div class="col-sm-12">
     <div class="card mb-1">
       <div class="card-body p-1" [ngClass]="{'new-pro-assignment': !assignment || !assignment.id}">
+        <fieldset [disabled]="!viewControl.ableToChange">
         <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
           <div class="d-flex justify-content-between">
             <div class="d-flex form-left">
@@ -24,7 +25,7 @@
                 <label for="task">Task<span class="text-danger"> *</span></label>
                 <ng-select [(ngModel)]="model.task" [searchable]="false" [clearable]="false" name="task" id="task"
                            #task="ngModel" class="sm"
-                           required
+                           required [disabled]="!viewControl.ableToChange"
                            [ngClass]="{'is-invalid': f.submitted && task.invalid}">
                   <ng-option [value]="'All'">All</ng-option>
                   <ng-option [value]="'DTP'">DTP</ng-option>
@@ -123,7 +124,7 @@
                 </div>
               </div>
               <!--PROGRESS-->
-              <div class="form-group ml-2 mb-0gi">
+              <div class="form-group ml-2 mb-0">
                 <label>Progress</label>
                 <div>
                   <div class="btn-group btn-group-sm" dropdown placement="bottom right">
@@ -177,7 +178,7 @@
             </div>
           </form>
         </ng-container>
-
+        </fieldset>
       </div>
     </div>
   </div>
