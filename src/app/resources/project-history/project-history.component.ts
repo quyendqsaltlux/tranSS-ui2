@@ -7,6 +7,7 @@ import {ToastrService} from 'ngx-toastr';
 import {buildFilterParam} from '../../util/http-util';
 import * as _ from 'lodash';
 import {needRemove} from '../../util/string-util';
+import {ProjectAssignmentService} from '../../service/project-assignment.service';
 
 @Component({
   selector: 'app-project-history',
@@ -56,6 +57,7 @@ export class ProjectHistoryComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private  projectService: ProjectService,
+              private  assignmentService: ProjectAssignmentService,
               private toastr: ToastrService) {
   }
 
@@ -85,7 +87,7 @@ export class ProjectHistoryComponent implements OnInit {
   }
 
   getModelList() {
-    this.projectService.search(this.page, this.size, this.keyWord,
+    this.assignmentService.search(this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order,
       buildFilterParam(this.filter), [],
       buildFilterParam(this.assignmentFilter),
