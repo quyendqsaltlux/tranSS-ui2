@@ -6,15 +6,16 @@ textarea {
   max-height: 150px;
 }
 
-.assignment-container .form-group.form-left {
+.assignment-container .form-left .form-group {
   padding-left: 1px;
   padding-right: 1px;
+  margin-bottom: 0 !important;
 }
 
-.assignment-container .form-group.form-left:not(.date) {
+.assignment-container .form-left .form-group:not(.date) {
   width: 110px;
 }
 
-.assignment-container .form-group.form-left.date {
+.assignment-container .form-left .form-group.date {
   width: 130px;
 }
