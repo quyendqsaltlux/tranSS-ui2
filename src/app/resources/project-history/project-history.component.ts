@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EQUAL} from '../../AppConstant';
 import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT, MyDatatableItem} from '../../share/my-datatable/my-datatable.component';
-import {ProjectService} from '../../service/project.service';
 import {ToastrService} from 'ngx-toastr';
 import {buildFilterParam} from '../../util/http-util';
 import * as _ from 'lodash';
@@ -56,7 +55,6 @@ export class ProjectHistoryComponent implements OnInit {
   orderFields = ['task', 'progress', 'star', 'review'];
 
   constructor(private route: ActivatedRoute,
-              private  projectService: ProjectService,
               private  assignmentService: ProjectAssignmentService,
               private toastr: ToastrService) {
   }
@@ -70,24 +68,19 @@ export class ProjectHistoryComponent implements OnInit {
 
   buildTableCols() {
     this.cols = [
-      new MyDatatableItem('no', 'No', true, true, null, null),
-      // new MyDatatableItem('category', 'Category', true, true, null, null),
-      new MyDatatableItem('code', 'Project code', true, true, null, null),
-      new MyDatatableItem('contents', 'Contents', true, true, null, null),
-      new MyDatatableItem('field', 'Field', true, true, null, null),
-      new MyDatatableItem('client', 'Customer', true, true, null, null),
-      new MyDatatableItem('target', 'Source - Target', true, true, null, null),
-      new MyDatatableItem('task', 'Task', false, true, FILTER_TYPE_JOIN, null, null),
-      new MyDatatableItem('totalVolume', 'Quantity', true, true, null, null),
-      new MyDatatableItem('progressStatus', 'Project progress', true, true, null, null),
-      new MyDatatableItem('progress', 'Task progress', false, true, FILTER_TYPE_JOIN, null, null),
-      // new MyDatatableItem('star', 'Star', false, true, FILTER_TYPE_JOIN, null, null),
-      new MyDatatableItem('review', 'Comment', false, true, FILTER_TYPE_JOIN, null, null),
+      new MyDatatableItem('code', 'Project code', true, false, null, null),
+      new MyDatatableItem('contents', 'Contents', false, false, null, null),
+      new MyDatatableItem('field', 'Field', false, false, null, null),
+      new MyDatatableItem('client', 'Customer', false, false, null, null),
+      new MyDatatableItem('source', 'Source', false, false, null, null),
+      new MyDatatableItem('target', 'Target', false, false, null, null),
+      new MyDatatableItem('task', 'Task', false, false, null, null, null),
+      new MyDatatableItem('total', 'Quantity', true, true, null, null),
     ];
   }
 
   getModelList() {
-    this.assignmentService.search(this.page, this.size, this.keyWord,
+    this.assignmentService.search(this.candidateId, this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order,
       buildFilterParam(this.filter), [],
       buildFilterParam(this.assignmentFilter),
@@ -104,7 +97,7 @@ export class ProjectHistoryComponent implements OnInit {
         this.numPages = resp.body.totalPages;
 
         this.ignoreFilter = false;
-        this.onToggleShowOtherAbility();
+        // this.onToggleShowOtherAbility();
       }));
   }
 

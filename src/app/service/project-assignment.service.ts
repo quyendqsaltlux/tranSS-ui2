@@ -23,14 +23,15 @@ export class ProjectAssignmentService {
     return this.http.get<HttpResponse<any>>(API_PATH + '/getListByProjectWithStatus/' + projectId, {observe: 'response'});
   }
 
-  search(page, size, keyWord, orderBy, sortDirection, filters = [], pmFilters, assignmentFilters = []): Observable<HttpResponse<any>> {
+  search(candidateId, page, size, keyWord, orderBy, sortDirection,
+         filters = [], pmFilters, assignmentFilters = []): Observable<HttpResponse<any>> {
     const path = buildPathParams(page, size, keyWord, orderBy, sortDirection);
     const params = {
       rootFilters: filters,
       joinFilters: pmFilters,
       assignFilters: assignmentFilters,
     };
-    return this.http.post<HttpResponse<any>>(API_PATH + '/search' + path, params, {observe: 'response'});
+    return this.http.post<HttpResponse<any>>(API_PATH + '/search/' + candidateId + '/' + path, params, {observe: 'response'});
   }
 
   changeStatus(id: any, status): Observable<HttpResponse<any>> {
