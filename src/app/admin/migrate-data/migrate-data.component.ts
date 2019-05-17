@@ -66,6 +66,14 @@ export class MigrateDataComponent implements OnInit {
     });
   }
 
+  migrateAssignmentFromFile() {
+    this.migrateService.migrateAssignmentFromFile().subscribe((resp) => {
+      this.modelList = resp.body;
+    }, (err) => {
+      this.toastr.error(err.error.message);
+    });
+  }
+
   getAll() {
     this.migrateService.getAll().subscribe((resp) => {
       this.modelList = resp.body;
