@@ -1,10 +1,8 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ProjectService} from '../../service/project.service';
-import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT} from '../../share/my-datatable/my-datatable.component';
-import * as _ from 'lodash';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
-import {generateFilterParam, separateFiltersFromGrid} from '../../util/http-util';
+import {separateFiltersFromGrid} from '../../util/http-util';
 import {EQUAL} from '../../AppConstant';
 import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-renderer.component';
 import {Router} from '@angular/router';
@@ -38,7 +36,7 @@ export class ProjectsComponent implements OnInit {
     {headerName: 'Unit', field: 'unit', width: 70},
     {headerName: 'Target', field: 'target', width: 100},
     {headerName: 'Progress', field: 'progressStatus', filter: false, width: 100},
-    {headerName: 'PM VTC', field: 'pmVtc', width: 70},
+    {headerName: 'PM VTC', field: 'pmVtc', width: 100},
     {headerName: 'HO', field: 'ho', width: 160, type: 'dateColumn'},
     {headerName: 'HB', field: 'hb', width: 160, type: 'dateColumn'},
     {headerName: 'Review Schedule', width: 160, field: 'reviewSchedule', type: 'dateColumn'},
@@ -70,11 +68,9 @@ export class ProjectsComponent implements OnInit {
     order: null
   };
 
-  filter = {};
-  pmFilter = {};
-
+  filter = [];
+  pmFilter = [];
   deleteId = -1;
-  activeResourceIndex = -1;
 
   constructor(private  projectService: ProjectService,
               private toastr: ToastrService,
@@ -141,9 +137,7 @@ export class ProjectsComponent implements OnInit {
 
     this.projectService.search(this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order,
-      generateFilterParam(this.filter),
-      generateFilterParam(this.pmFilter),
-      [])
+      this.filter, this.pmFilter, [])
       .subscribe((resp => {
         if (!resp || !resp.body) {
           this.modelList = [];
@@ -172,8 +166,8 @@ export class ProjectsComponent implements OnInit {
     this.getModelList();
   }
 
-  pageChanged(event) {
-    setTimeout((e) => {
+  pageChanged() {
+    setTimeout(() => {
       this.getModelList();
     }, 0);
   }
@@ -182,8 +176,10 @@ export class ProjectsComponent implements OnInit {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
     console.log(filters);
     const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
-    this.filter = {...separatedFilter.root};
-    this.pmFilter = {...separatedFilter.join};
+    this.filter = [...separatedFilter.root];
+    this.pmFilter = [...separatedFilter.join];
+    console.log(this.filter);
+    console.log(this.pmFilter);
     this.getModelList();
   }
 
@@ -192,13 +188,6 @@ export class ProjectsComponent implements OnInit {
     this.sortConfig.order = sortState[0].sort;
     this.sortConfig.field = sortState[0].colId;
     this.getModelList();
-    console.log(sortState);
-  }
-
-  onFilterChange(event) {
-    this.pmFilter = _.cloneDeep(event[FILTER_TYPE_JOIN]);
-    this.filter = _.cloneDeep(event[FILTER_TYPE_ROOT]);
-    this.onFilter();
   }
 
   onClickDelete(index) {
@@ -226,14 +215,6 @@ export class ProjectsComponent implements OnInit {
 
   decline(): void {
     this.modalRef.hide();
-  }
-
-  onToggleResource(index) {
-    if (index === this.activeResourceIndex) {
-      this.activeResourceIndex = -1;
-      return;
-    }
-    this.activeResourceIndex = index;
   }
 
   onClickTab(tab) {

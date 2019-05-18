@@ -56,7 +56,7 @@
                         [(ngModel)]="page"
                         [maxSize]="5"
                         [itemsPerPage]="size"
-                        (pageChanged)="pageChanged($event)"
+                        (pageChanged)="pageChanged()"
                         previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
                         [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event">
             </pagination>

@@ -3,11 +3,11 @@ import {EQUAL} from '../AppConstant';
 
 /**
  *
- * @param page
- * @param size
- * @param keyWord
- * @param orderBy
- * @param sortDirection
+ * @param page page
+ * @param size size
+ * @param keyWord key
+ * @param orderBy order
+ * @param sortDirection sort
  */
 export function buildPathParams(page, size, keyWord, orderBy?, sortDirection?) {
   keyWord = keyWord ? keyWord : '';
@@ -68,8 +68,9 @@ export function buildFilterParam(filterModel, booleanFields?: any[], trueValue?:
 
 /**
  *
- * @param filterModel
- * @param joinFilterFields
+ * @param filterModel filterModel
+ * @param  joinFilterFields joinFilterFields
+ * @returns rootFilter & joinFilter
  */
 export function separateFiltersFromGrid(filterModel, joinFilterFields: string[]) {
   if (!filterModel) {
@@ -79,16 +80,15 @@ export function separateFiltersFromGrid(filterModel, joinFilterFields: string[])
   if (!keys) {
     return null;
   }
-  const rootFilter = {};
-  const joinFilter = {};
-
+  const rootFilter = [];
+  const joinFilter = [];
   keys.forEach((field) => {
     if (joinFilterFields.findIndex((joinField) => joinField === field) < 0) {
-      rootFilter[field] = gridFilter2Filter(field, filterModel[field]);
+      rootFilter.push(buildFilterItem(field, filterModel[field]));
     } else {
       const items = field.split('.');
       const last = items[items.length - 1];
-      joinFilter[last] = gridFilter2Filter(last, filterModel[field]);
+      joinFilter.push(buildFilterItem(last, filterModel[field]));
     }
   });
   return {root: rootFilter, join: joinFilter};
@@ -116,10 +116,10 @@ export function generateFilterParam(filterModel) {
 
 /**
  *
- * @param field
- * @param filter
+ * @param field no
+ * @param filter f
  */
-export function gridFilter2Filter(field, filter) {
+export function buildFilterItem(field, filter) {
   if (!filter) {
     return null;
   }
