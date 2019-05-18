@@ -133,7 +133,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   getModelList() {
-    this.filter['progressStatus'] = {operation: EQUAL, value: this.activedTab, field: 'progressStatus'};
+    this.filter.push({operation: EQUAL, value: this.activedTab, field: 'progressStatus'});
 
     this.projectService.search(this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order,
