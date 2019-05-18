@@ -17,7 +17,16 @@ export class ProjectsComponent implements OnInit {
   JOIN_FILTER_COLS = ['pm.code'];
   columnDefs = [
     {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false, sortable: false},
-    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'childMessageRenderer', pinned: 'left', filter: false, width: 80, sortable: false},
+    {
+      headerName: 'Actions',
+      colId: 'rowActions',
+      cellRenderer: 'childMessageRenderer',
+      pinned: 'left',
+      filter: false,
+      width: 80,
+      sortable: false,
+      cellClass: ['text-center']
+    },
     {headerName: 'No', field: 'no', pinned: 'left', filter: true, width: 120},
     {headerName: 'Request Date', field: 'requestDate', type: 'dateColumn', width: 160},
     {headerName: 'Due Date', field: 'dueDate', width: 160, type: 'dateColumn'},
@@ -27,11 +36,11 @@ export class ProjectsComponent implements OnInit {
     {headerName: 'Code', field: 'code'},
     {headerName: 'Folder Name', field: 'folderName', width: 150},
     {headerName: 'Client', field: 'client'},
-    {headerName: 'Contents', field: 'contents', width: 250},
+    {headerName: 'Contents', field: 'contents', width: 250, tooltipField: 'contents'},
     {headerName: 'Reference', field: 'reference', width: 80},
     {headerName: 'Termbase', field: 'termbase', width: 80},
     {headerName: 'Instruction', field: 'instruction', width: 90},
-    {headerName: 'Remark', field: 'remark', width: 250},
+    {headerName: 'Remark', field: 'remark', width: 250, tooltipField: 'remark'},
     {headerName: 'Total Volume', field: 'totalVolume', type: 'numericColumn', width: 100},
     {headerName: 'Unit', field: 'unit', width: 70},
     {headerName: 'Target', field: 'target', width: 100},
@@ -92,6 +101,8 @@ export class ProjectsComponent implements OnInit {
     this.defaultColDef = {
       width: 120,
       editable: false,
+      enableBrowserTooltips: true,
+      resizable: true,
       filter: 'agTextColumnFilter',
       suppressMenu: true,
       floatingFilterComponentParams: {suppressFilterButton: true},
