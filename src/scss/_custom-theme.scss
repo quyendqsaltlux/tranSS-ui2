@@ -26,7 +26,7 @@ ng-select.is-invalid .ng-select-container {
 }
 
 .card-header, .card-footer {
-  padding: 0.5rem $pdh;
+  padding: 0.3rem $pdh;
 }
 
 .card-header.sm:first-child {
@@ -34,7 +34,8 @@ ng-select.is-invalid .ng-select-container {
 }
 
 .card-body.toolbar {
-  padding: 0.5rem $pdh;
+  padding: 0.3rem $pdh;
+  border-radius: 0;
 }
 
 .card-body {
@@ -54,7 +55,7 @@ ng-select.is-invalid .ng-select-container {
 }
 
 .main .container-fluid {
-  padding: 0 .5rem;
+  padding: 0 0;
 }
 
 .input-group-text.slim {
@@ -105,8 +106,35 @@ typeahead-container .dropdown-item {
 label {
   margin-bottom: 0.2rem;
 }
-.up-conner {
-  position: absolute;
-  top: 1px;
-  right: 1px;
+
+.app-header {
+  height: $nav-head-height;
+}
+
+.app-header .navbar-brand {
+  height: $nav-head-height;
+}
+
+@media (min-width: 992px) {
+  .header-fixed .app-body {
+    margin-top: $nav-head-height;
+  }
+  .sidebar-fixed .app-header + .app-body .sidebar {
+    height: calc(100vh - 39px);
+  }
+}
+
+@media (max-width: 991.98px) {
+  .app-body {
+    margin-top: $nav-head-height;
+  }
+}
+
+.breadcrumb {
+  padding: 0.3rem .75rem;
+  margin-bottom: 0;
+}
+
+.pagination {
+  margin-bottom: 1px;
 }

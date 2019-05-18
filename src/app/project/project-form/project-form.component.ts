@@ -74,7 +74,7 @@ export class ProjectFormComponent implements OnInit {
           const duplicatedColumns = err.error.apierror.subErrors[0].duplicatedColumns;
           focusDuplicatedFields(duplicatedColumns, this.candidateForm);
         } else {
-          this.toastr.error('Fail to save!', '', {timeOut: 10000});
+          this.toastr.error('Fail to save!', '');
         }
       });
   }
@@ -101,7 +101,7 @@ export class ProjectFormComponent implements OnInit {
     const initialState = {
       title: _title
     };
-    this.bsModalRef = this.modalService.show(EmployeeSearchComponent, {initialState});
+    this.bsModalRef = this.modalService.show(EmployeeSearchComponent);
     this.bsModalRef.content.closeBtnName = 'Cancel';
   }
 

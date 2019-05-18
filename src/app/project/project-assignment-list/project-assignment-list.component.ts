@@ -9,7 +9,11 @@ import {ProjectAssignmentService} from '../../service/project-assignment.service
 })
 export class ProjectAssignmentListComponent implements OnInit {
   @Input() projectId;
+  @Input() projectCode;
   assignments: any = [];
+  viewControl = {
+    ableToChange: true
+  };
 
   constructor(private  projectAssignmentService: ProjectAssignmentService,
               private toastr: ToastrService) {
@@ -23,7 +27,7 @@ export class ProjectAssignmentListComponent implements OnInit {
     if (this.hasNewAssignment()) {
       return;
     }
-    const newAss = <any>{};
+    const newAss = {} as any;
     this.assignments.unshift(newAss);
   }
 
@@ -34,10 +38,11 @@ export class ProjectAssignmentListComponent implements OnInit {
   getModelList() {
     this.projectAssignmentService.getListByProject(this.projectId).subscribe((resp) => {
       if (resp && resp.body) {
-        this.assignments = resp.body;
+        this.assignments = resp.body.list;
+        this.viewControl.ableToChange = resp.body.ableToChange;
       }
     }, (err) => {
-      this.toastr.error('Fail to get list of assigments', '', {timeOut: 10000});
+      this.toastr.error('Fail to get list of assigments', '');
     });
   }
 

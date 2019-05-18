@@ -1,12 +1,13 @@
 <div class="animated fadeIn">
   <div class="card card-body">
-    <div>
+    <div class="migrate-btn-bar">
       <button class="btn btn-primary" (click)="migrateResource()" [disabled]="isDone('RESOURCES')"><i class="fa fa-users"></i> Import Resources</button>
       <button class="btn btn-primary" (click)="migrateUser()" [disabled]="isDone('USERS')"><i class="fa fa-users"></i> Import Users</button>
       <button class="btn btn-primary" (click)="migrateFinishedProject()" [disabled]="isDone('USERS') && isDone('FINISHED_PROJECTS')"><i class="fa fa-tasks"></i> Import Finished Projects</button>
       <button class="btn btn-primary" (click)="migrateOngoingProject()" [disabled]="isDone('USERS') && isDone('ONGOING_PROJECTS')"><i class="fa fa-tasks"></i> Import Ongoing Projects</button>
       <button class="btn btn-primary" (click)="migrateKoreaPayment()" [disabled]="isDone('KOREA_PAYMENT')"><i class="fa fa-dollar"></i> Import Korea payments</button>
       <button class="btn btn-primary" (click)="migrateOverseaPayment()" [disabled]="isDone('OVERSEA_PAYMENT')"><i class="fa fa-dollar"></i> Import Oversea payments</button>
+      <button class="btn btn-primary" (click)="migrateAssignmentFromFile()" [disabled]="isDone('ASSIGNMENTS')"><i class="fa fa-user"></i> Import Assignments</button>
     </div>
   </div>
 

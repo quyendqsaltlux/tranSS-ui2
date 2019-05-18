@@ -60,3 +60,12 @@ table.rates-table {
 .w100 {
   width: 100%;
 }
+
+.up-conner {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+}
+.ag-grid-custom{
+  width: 100%; height: calc(100vh - 180px);
+}

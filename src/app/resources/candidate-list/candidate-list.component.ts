@@ -82,6 +82,7 @@ export class CandidateListComponent implements OnInit {
       new MyDatatableItem('rateUnit', '(word/char)', false, true, FILTER_TYPE_JOIN, 'rateUnit'),
       new MyDatatableItem('rate2', 'Rate hour', false, true, FILTER_TYPE_JOIN, 'rate2'),
       new MyDatatableItem('rate2unit', '(hour)', false, true, FILTER_TYPE_JOIN, 'rateUnit2'),
+      new MyDatatableItem('currency', 'Currency', false, true, FILTER_TYPE_JOIN, 'currency'),
       new MyDatatableItem('minimumCharge', 'Minimum Charge', true, true, null, null),
       new MyDatatableItem('catTool', 'CAT Tool', true, true, null, null),
       new MyDatatableItem('email', 'Email', true, true, null, null),

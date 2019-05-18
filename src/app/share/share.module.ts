@@ -16,7 +16,7 @@ import {ProjectProgressPipe} from '../pipe/project-progress.pipe';
 import {MigrateTypePipe} from '../pipe/migrate-type.pipe';
 import {AgGridModule} from 'ag-grid-angular';
 import {ActionsColRendererComponent} from './ag-grid/actions-col-renderer.component';
-
+import {UnitPipe} from '../pipe/unit.pipe';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import {ActionsColRendererComponent} from './ag-grid/actions-col-renderer.compon
     AutofocusDirective,
     ProjectProgressPipe,
     MigrateTypePipe,
-    ActionsColRendererComponent
+    ActionsColRendererComponent,
+    UnitPipe
   ],
   imports: [
     CommonModule,
@@ -73,7 +74,8 @@ import {ActionsColRendererComponent} from './ag-grid/actions-col-renderer.compon
     AlertModule,
     MigrateTypePipe,
     AgGridModule,
-    ActionsColRendererComponent
+    ActionsColRendererComponent,
+    UnitPipe
   ],
   entryComponents: [
     EmployeeSearchComponent

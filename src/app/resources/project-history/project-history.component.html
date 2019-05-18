@@ -8,45 +8,45 @@
       <a class="nav-link" routerLink="/resources/{{candidateId}}/abilities"><i class="fa fa-asterisk text-warning"></i> Rate Info</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link active"><i class="fa fa-history text-primary"></i> Project history</a>
+      <a class="nav-link active"><i class="fa fa-history text-primary"></i> model history</a>
     </li>
   </ul>
 
   <div class="animated fadeIn">
     <div class="row">
-      <div class="col-sm-12">
-        <div class="card mb-1">
-          <div class="card-body toolbar">
-            <!--FILTER-->
-            <div class="btn-group pull-right" dropdown placement="bottom right">
-              <button dropdownToggle type="button" class="btn btn-outline-secondary ml-1 dropdown-toggle"><i class="fa fa-cog"></i></button>
-              <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
-                <li role="menuitem">
-                  <a class="dropdown-item">
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" value="option1" id="checkbox1"
-                             [(ngModel)]="showOtherAbility" (change)="onToggleShowOtherAbility()">
-                      <label class="form-check-label" for="checkbox1">
-                        Show other task in project when filtering
-                      </label>
-                    </div>
-                  </a>
-                </li>
-              </ul>
-            </div>
-            <!--SEARCH-->
-            <div class="d-inline-block pull-right">
-              <div class="input-prepend input-group">
-                <div class="input-group-prepend">
-                  <span class="input-group-text cursor-pointer" (click)="onClickSearch()"><i class="fa fa-search"></i></span>
-                </div>
-                <input id="prependedInput" class="form-control custom-search-input" size="16" type="text"
-                       placeholder="Search" (keydown.enter)="onClickSearch()" [(ngModel)]="keyWord">
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <!--<div class="col-sm-12">-->
+        <!--<div class="card mb-1">-->
+          <!--<div class="card-body toolbar">-->
+            <!--&lt;!&ndash;FILTER&ndash;&gt;-->
+            <!--<div class="btn-group pull-right" dropdown placement="bottom right">-->
+              <!--<button dropdownToggle type="button" class="btn btn-outline-secondary ml-1 dropdown-toggle"><i class="fa fa-cog"></i></button>-->
+              <!--<ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">-->
+                <!--<li role="menuitem">-->
+                  <!--<a class="dropdown-item">-->
+                    <!--<div class="form-check">-->
+                      <!--<input class="form-check-input" type="checkbox" value="option1" id="checkbox1"-->
+                             <!--[(ngModel)]="showOtherAbility" (change)="onToggleShowOtherAbility()">-->
+                      <!--<label class="form-check-label" for="checkbox1">-->
+                        <!--Show other task in model when filtering-->
+                      <!--</label>-->
+                    <!--</div>-->
+                  <!--</a>-->
+                <!--</li>-->
+              <!--</ul>-->
+            <!--</div>-->
+            <!--&lt;!&ndash;SEARCH&ndash;&gt;-->
+            <!--<div class="d-inline-block pull-right">-->
+              <!--<div class="input-prepend input-group">-->
+                <!--<div class="input-group-prepend">-->
+                  <!--<span class="input-group-text cursor-pointer" (click)="onClickSearch()"><i class="fa fa-search"></i></span>-->
+                <!--</div>-->
+                <!--<input id="prependedInput" class="form-control custom-search-input" size="16" type="text"-->
+                       <!--placeholder="Search" (keydown.enter)="onClickSearch()" [(ngModel)]="keyWord">-->
+              <!--</div>-->
+            <!--</div>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
 
       <div class="col-sm-12">
         <div class="card">
@@ -58,62 +58,16 @@
                                 (filterChange)="onFilterChange($event)">
 
                 <tbody rows-data>
-                <ng-container *ngFor="let project of shownModelList; let index=index">
+                <ng-container *ngFor="let model of modelList; let index=index">
                   <tr>
-                    <td class="text-center">{{project.no}}</td>
-                    <!--<td>{{project.category}}</td>-->
-                    <td class="text-center">{{project.code}}</td>
-                    <td class="text-center mw350">{{project.contents}}</td>
-                    <td class="text-center">{{project.field}}</td>
-                    <td class="text-center">{{project.client}}</td>
-
-                    <td class="text-center">{{project.target}}</td>
-                    <!--TASK-->
-                    <td class="p-0 multiple-row">
-                      <ul class="list-group">
-                        <ng-container *ngFor="let assignment of project.assignments; let last=last">
-                          <li class="list-group-item one-line"> {{assignment.task || '-'}}</li>
-                          <div class="li-divider" *ngIf="!last"></div>
-                        </ng-container>
-                      </ul>
-                    </td>
-
-                    <td class="text-right">{{project.totalVolume}}</td>
-
-                    <td class="mw110 text-center"><span [outerHTML]="project.progressStatus | projectProgress"></span></td>
-
-                    <!--PROGRESS-->
-                    <td class="p-0 multiple-row text-center">
-                      <ul class="list-group">
-                        <ng-container *ngFor="let assignment of project.assignments; let last=last">
-                          <li class="list-group-item one-line" *ngIf="assignment.progress">
-                            <span [outerHTML]="assignment.progress | projectProgress"></span></li>
-                          <li class="list-group-item" *ngIf="!assignment.progress"> -</li>
-                          <div class="li-divider" *ngIf="!last"></div>
-                        </ng-container>
-                      </ul>
-                    </td>
-                    <!--STAR-->
-                    <!--<td class="p-0 multiple-row">-->
-                    <!--<ul class="list-group text-center">-->
-                    <!--<ng-container *ngFor="let assignment of project.assignments; let last=last">-->
-                    <!--<li class="list-group-item" *ngIf="!assignment.star"> -</li>-->
-                    <!--<li class="list-group-item one-line" *ngIf="assignment.star"> {{assignment.star}} <i class="fa fa-star text-warning"></i></li>-->
-                    <!--<div class="li-divider" *ngIf="!last"></div>-->
-                    <!--</ng-container>-->
-                    <!--</ul>-->
-                    <!--</td>-->
-                    <!--REVIEW-->
-                    <td class="p-0 multiple-row">
-                      <ul class="list-group">
-                        <ng-container *ngFor="let assignment of project.assignments; let last=last">
-                          <li class="list-group-item one-line" title="{{assignment.review}}">{{(assignment.review || '-' )| lmTo:30 }}
-                            <span *ngIf="assignment.star" class="up-conner">{{assignment.star}}<i class="fa fa-star text-warning"></i></span>
-                          </li>
-                          <div class="li-divider" *ngIf="!last"></div>
-                        </ng-container>
-                      </ul>
-                    </td>
+                    <td>{{model.project.code}}</td>
+                    <td class="mw350">{{model.project.contents}}</td>
+                    <td>{{model.project.field}}</td>
+                    <td>{{model.project.client}}</td>
+                    <td class="text-center">{{model.source}}</td>
+                    <td class="text-center">{{model.target}}</td>
+                    <td class="text-center">{{model.task}}</td>
+                    <td class="text-right">{{model.total}}</td>
                   </tr>
 
                 </ng-container>

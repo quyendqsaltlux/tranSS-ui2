@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-sm-12">
-      <div class="card mb-1">
+      <div class="card mb-0 rounded-0">
         <div class="card-body toolbar">
           <!--NEW-->
           <a class="btn btn-sm btn-success" routerLink="/projects/new"> <i class="fa fa-plus"></i> New Project</a>
@@ -29,12 +29,12 @@
     </div>
 
     <div class="col-sm-12">
-      <div class="card w100">
+      <div class="card w100 rounded-0">
         <div class="card-body">
           <ag-grid-angular
-            #agGrid style="width: 100%; height: calc(100vh - 250px);"
+            #agGrid
             id="myGrid"
-            class="ag-theme-balham"
+            class="ag-theme-balham ag-grid-custom"
             [context]="context"
             [frameworkComponents]="frameworkComponents"
             [columnDefs]="columnDefs"

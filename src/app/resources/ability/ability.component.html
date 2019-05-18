@@ -73,26 +73,6 @@
                     </div>
                   </div>
 
-                  <!--<div class="form-group col-sm-4 col-md-2">-->
-                  <!--<label for="cFieldRate">Field (Rate) </label>-->
-                  <!--<select class="form-control" id="cFieldRate" name="fieldRate" ngModel #fieldRate="ngModel">-->
-                  <!--<option>TB</option>-->
-                  <!--<option>TM</option>-->
-                  <!--<option>TD</option>-->
-                  <!--<option>TI</option>-->
-                  <!--<option>TH</option>-->
-                  <!--<option>TG</option>-->
-                  <!--<option>PB</option>-->
-                  <!--<option>PD</option>-->
-                  <!--<option>EB</option>-->
-                  <!--<option>ED</option>-->
-                  <!--<option>DI</option>-->
-                  <!--<option>DA</option>-->
-                  <!--<option>DP</option>-->
-                  <!--<option>DW</option>-->
-                  <!--</select>-->
-                  <!--</div>-->
-
                   <div class="col-sm-4 col-md-2">
                     <div class="form-group">
                       <label for="task">Task<span class="text-danger"> *</span></label>
@@ -231,7 +211,7 @@
                       <label for="wRep">W Rep %<span class="text-danger"> *</span></label>
                       <input type="number" class="form-control" id="wRep" placeholder="Ex: 0.3" name="wRep"
                              [(ngModel)]="model.wrep"
-                             required min="0" max="1"
+                             required min="0" max="100"
                              #wRep="ngModel"
                              [ngClass]="{'is-invalid': f.submitted && wRep.invalid}">
                       <div *ngIf="wRep.invalid && (wRep.dirty || wRep.touched)" class="msg-invalid">
@@ -246,7 +226,7 @@
                       <label for="w100">W 100%<span class="text-danger"> *</span></label>
                       <input type="number" class="form-control" id="w100" placeholder="Ex: 0.3" name="w100"
                              [(ngModel)]="model.w100"
-                             required min="0" max="1"
+                             required min="0" max="100"
                              #w100="ngModel"
                              [ngClass]="{'is-invalid': f.submitted && w100.invalid}">
                       <div *ngIf="w100.invalid && (w100.dirty || w100.touched)" class="msg-invalid">
@@ -261,7 +241,7 @@
                       <label for="w99_95">W 99%-95%<span class="text-danger"> *</span></label>
                       <input type="number" class="form-control" id="w99_95" placeholder="Ex: 0.3" name="w99_95"
                              [(ngModel)]="model.w99_95"
-                             required min="0" max="1"
+                             required min="0" max="100"
                              #w99_95="ngModel"
                              [ngClass]="{'is-invalid': f.submitted && w99_95.invalid}">
                       <div *ngIf="w99_95.invalid && (w99_95.dirty || w99_95.touched)" class="msg-invalid">
@@ -276,7 +256,7 @@
                       <label for="w94_85">W 94%-85%<span class="text-danger"> *</span></label>
                       <input type="number" class="form-control" id="w94_85" placeholder="Ex: 0.3" name="w94_85"
                              [(ngModel)]="model.w94_85"
-                             required min="0" max="1"
+                             required min="0" max="100"
                              #w94_85="ngModel"
                              [ngClass]="{'is-invalid': f.submitted && w94_85.invalid}">
                       <div *ngIf="w94_85.invalid && (w94_85.dirty || w94_85.touched)" class="msg-invalid">
@@ -291,7 +271,7 @@
                       <label for="w84_75">W 84%-75%<span class="text-danger"> *</span></label>
                       <input type="number" class="form-control" id="w84_75" placeholder="Ex: 0.3" name="w84_75"
                              [(ngModel)]="model.w84_75"
-                             required min="0" max="1"
+                             required min="0" max="100"
                              #w84_75="ngModel"
                              [ngClass]="{'is-invalid': f.submitted && w84_75.invalid}">
                       <div *ngIf="w84_75.invalid && (w84_75.dirty || w84_75.touched)" class="msg-invalid">
@@ -306,7 +286,7 @@
                       <label for="wNoMatch">W No match<span class="text-danger"> *</span></label>
                       <input type="number" class="form-control" id="wNoMatch" placeholder="Ex: 0.3" name="wNoMatch"
                              [(ngModel)]="model.wnoMatch"
-                             required min="0" max="1"
+                             required min="0" max="100"
                              #wNoMatch="ngModel"
                              [ngClass]="{'is-invalid': f.submitted && wNoMatch.invalid}">
                       <div *ngIf="wNoMatch.invalid && (wNoMatch.dirty || wNoMatch.touched)" class="msg-invalid">

@@ -4,7 +4,8 @@
       <div class="card">
         <div class="card-header">
           <strong>Resources for project</strong>
-          <button type="button" class="btn btn-sm btn-success float-right" (click)="onNewResource()">
+          <button type="button" class="btn btn-sm btn-success float-right" (click)="onNewResource()"
+          [disabled]="!viewControl.ableToChange">
             <i class="fa fa-plus"></i> New resource
           </button>
         </div>
@@ -13,7 +14,9 @@
             <app-project-assignment
               [assignment]="assignment"
               [projectId]="projectId"
-              (saveDone)="onAssignDone($event)">
+              [projectCode]="projectCode"
+              (saveDone)="onAssignDone($event)"
+              [viewControl]="viewControl">
             </app-project-assignment>
           </ng-container>
         </div>

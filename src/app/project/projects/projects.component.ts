@@ -15,34 +15,34 @@ import {Router} from '@angular/router';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
-  @ViewChild('template') template: TemplateRef;
+  @ViewChild('template') template: TemplateRef<any>;
   JOIN_FILTER_COLS = ['pm.code'];
   columnDefs = [
     {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false, sortable: false},
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'childMessageRenderer', pinned: 'left', filter: false, width: 80, sortable: false},
-    {headerName: 'No', field: 'no', pinned: 'left', filter: true},
-    {headerName: 'Request Date', field: 'requestDate', type: 'dateColumn', width: 170},
-    {headerName: 'Due Date', field: 'dueDate', width: 170, type: 'dateColumn'},
+    {headerName: 'No', field: 'no', pinned: 'left', filter: true, width: 120},
+    {headerName: 'Request Date', field: 'requestDate', type: 'dateColumn', width: 160},
+    {headerName: 'Due Date', field: 'dueDate', width: 160, type: 'dateColumn'},
     {headerName: 'Due Time', field: 'dueTime'},
-    {headerName: 'PM', field: 'pm.code'},
-    {headerName: 'Category', field: 'category'},
+    {headerName: 'PM', field: 'pm.code', width: 70},
+    {headerName: 'Category', field: 'category', width: 100},
     {headerName: 'Code', field: 'code'},
-    {headerName: 'Folder Name', field: 'folderName'},
+    {headerName: 'Folder Name', field: 'folderName', width: 150},
     {headerName: 'Client', field: 'client'},
     {headerName: 'Contents', field: 'contents', width: 250},
-    {headerName: 'Reference', field: 'reference', width: 100},
-    {headerName: 'Termbase', field: 'termbase', width: 100},
-    {headerName: 'Instruction', field: 'instruction', width: 100},
+    {headerName: 'Reference', field: 'reference', width: 80},
+    {headerName: 'Termbase', field: 'termbase', width: 80},
+    {headerName: 'Instruction', field: 'instruction', width: 90},
     {headerName: 'Remark', field: 'remark', width: 250},
-    {headerName: 'Total Volume', field: 'totalVolume', type: 'numericColumn'},
-    {headerName: 'Unit', field: 'unit'},
-    {headerName: 'Target', field: 'target'},
-    {headerName: 'Progress', field: 'progressStatus', filter: false},
-    {headerName: 'PM Vtc', field: 'pmVtc'},
-    {headerName: 'HO', field: 'ho', width: 170, type: 'dateColumn'},
-    {headerName: 'HB', field: 'hb', width: 170, type: 'dateColumn'},
-    {headerName: 'Review Schedule', width: 170, field: 'reviewSchedule', type: 'dateColumn'},
-    {headerName: 'Final Delivery', width: 170, field: 'finalDelivery', type: 'dateColumn'}
+    {headerName: 'Total Volume', field: 'totalVolume', type: 'numericColumn', width: 100},
+    {headerName: 'Unit', field: 'unit', width: 70},
+    {headerName: 'Target', field: 'target', width: 100},
+    {headerName: 'Progress', field: 'progressStatus', filter: false, width: 100},
+    {headerName: 'PM VTC', field: 'pmVtc', width: 70},
+    {headerName: 'HO', field: 'ho', width: 160, type: 'dateColumn'},
+    {headerName: 'HB', field: 'hb', width: 160, type: 'dateColumn'},
+    {headerName: 'Review Schedule', width: 160, field: 'reviewSchedule', type: 'dateColumn'},
+    {headerName: 'Final Delivery', width: 160, field: 'finalDelivery', type: 'dateColumn'}
   ];
   /*AG_GRID*/
   private gridApi;
@@ -94,7 +94,7 @@ export class ProjectsComponent implements OnInit {
 
   initTable() {
     this.defaultColDef = {
-      width: 150,
+      width: 120,
       editable: false,
       filter: 'agTextColumnFilter',
       suppressMenu: true,

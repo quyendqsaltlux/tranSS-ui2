@@ -1,7 +1,7 @@
 <div class="animated fadeIn">
   <div class="row">
     <div class="col-sm-12">
-      <div class="card mb-1">
+      <div class="card mb-0 rounded-0">
         <div class="card-body toolbar">
           <!--NEW-->
           <a class="btn btn-sm btn-success" routerLink="/resources/new"> <i class="fa fa-plus"></i> New Candidate</a>
@@ -37,7 +37,7 @@
     </div>
 
     <div class="col-sm-12">
-      <div class="card">
+      <div class="card rounded-0">
         <div class="card-body">
           <div class="table-responsive mh350">
             <app-my-datatable [cols]="cols" [filter]="filter"
@@ -55,6 +55,7 @@
                     </button>
                     <ul *dropdownMenu class="dropdown-menu" role="menu">
                       <li role="menuitem"><a class="dropdown-item" routerLink="/resources/edit/{{candidate.id}}">Edit</a></li>
+                      <li role="menuitem"><a class="dropdown-item" routerLink="/resources/{{candidate.id}}/project-history">Project history</a></li>
                     </ul>
                   </div>
                 </td>
@@ -113,7 +114,8 @@
                 <td class="p-0 multiple-row text-right">
                   <ul class="list-group">
                     <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item">{{ability.rateUnit || '-'}}</li>
+                      <li class="list-group-item" *ngIf="ability.rateUnit">{{ability.rateUnit | unit}}</li>
+                      <li class="list-group-item" *ngIf="!ability.rateUnit">-</li>
                       <div class="li-divider" *ngIf="!last"></div>
                     </ng-container>
                   </ul>
@@ -127,16 +129,26 @@
                     </ng-container>
                   </ul>
                 </td>
+
                 <!--HOUR-->
                 <td class="p-0 multiple-row text-right">
                   <ul class="list-group">
                     <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item">{{ability.rate2unit || '-'}}</li>
+                      <li class="list-group-item" *ngIf="ability.rate2unit">{{ability.rate2unit | unit}}</li>
+                      <li class="list-group-item" *ngIf="!ability.rate2unit">-</li>
                       <div class="li-divider" *ngIf="!last"></div>
                     </ng-container>
                   </ul>
                 </td>
-
+                <!--currency-->
+                <td class="p-0 multiple-row text-right">
+                  <ul class="list-group">
+                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
+                      <li class="list-group-item">{{ability.currency || '-'}}</li>
+                      <div class="li-divider" *ngIf="!last"></div>
+                    </ng-container>
+                  </ul>
+                </td>
                 <!--MINIMUM CHARGE-->
                 <td class="p-0 multiple-row text-right">
                   <ul class="list-group">

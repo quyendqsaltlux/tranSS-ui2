@@ -4,7 +4,7 @@ import {NgForm} from '@angular/forms';
 import {CandidateAbilityService} from '../../service/candidate-ability.service';
 import {ToastrService} from 'ngx-toastr';
 import {CandidateAbility} from '../../model/CandidateAbility';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-ability',
@@ -19,7 +19,7 @@ export class AbilityComponent implements OnInit {
   isCollapsed = false;
   candidateId = null;
   modalRef: BsModalRef;
-  model: CandidateAbility = <CandidateAbility>{};
+  model: CandidateAbility = {} as CandidateAbility;
   alerts = [];
   @Output() saveOk: EventEmitter<any> = new EventEmitter();
 
@@ -46,7 +46,7 @@ export class AbilityComponent implements OnInit {
     this.abilityService.save(this.model).subscribe((resp) => {
       // this.toastr.success('Save successfully!');
       this.model.id = resp.body.id;
-      this.saveOk.emit({'index': this.index, value: this.model});
+      this.saveOk.emit({index: this.index, value: this.model});
     }, (err) => {
       let errors;
       if (err.error && err.error.apierror && err.error.apierror.subErrors) {
@@ -73,7 +73,7 @@ export class AbilityComponent implements OnInit {
   }
 
   openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template, {class: 'modal-sm'});
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'} as ModalOptions);
   }
 
   confirm(): void {

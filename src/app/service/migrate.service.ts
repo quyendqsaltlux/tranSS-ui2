@@ -41,4 +41,7 @@ export class MigrateService {
   migrateOverseaPayment(): Observable<HttpResponse<any>> {
     return this.http.get<Observable<HttpResponse<any>>>(API_PATH + '/loadOverseaPaymentFromFile', {observe: 'response'});
   }
+  migrateAssignmentFromFile(): Observable<HttpResponse<any>> {
+    return this.http.get<Observable<HttpResponse<any>>>(API_PATH + '/loadAssignmentFromFile', {observe: 'response'});
+  }
 }

@@ -13,6 +13,7 @@
         <th>Unit <span class="text-danger"> *</span></th>
         <th>Rate (hour) <span class="text-danger"> *</span></th>
         <th>Unit 2 <span class="text-danger"> *</span></th>
+        <th>Currency <span class="text-danger"> *</span></th>
         <th>Minimum Volume</th>
         <th>Minimum Charge</th>
         <th>W Rep % <span class="text-danger"> *</span></th>
@@ -122,13 +123,21 @@
         <!--UNIT2-->
         <td>
           <ng-select [(ngModel)]="model.rate2unit" [searchable]="false" [clearable]="false" name="unit2" id="unit2"
-                     #rate2unit="ngModel" class="sm"
-                     required
-                     [ngClass]="{'is-invalid': f.submitted && rateUnit.invalid}">
+                     #rate2unit="ngModel" class="sm" required [ngClass]="{'is-invalid': f.submitted && rateUnit.invalid}">
             <ng-option [value]="'Word'">Word</ng-option>
-            <ng-option [value]="'Character  '">Character</ng-option>
+            <ng-option [value]="'Character'">Character</ng-option>
             <ng-option [value]="'Hour'">Hour</ng-option>
             <ng-option [value]="'Page'">Page</ng-option>
+          </ng-select>
+        </td>
+        <!--currency-->
+        <td>
+          <ng-select [(ngModel)]="model.currency" [searchable]="false" [clearable]="false" name="currency" id="currency"
+                     #currency="ngModel" class="sm" required [ngClass]="{'is-invalid': f.submitted && currency.invalid}">
+            <ng-option [value]="'USD'">USD</ng-option>
+            <ng-option [value]="'EUR'">EUR</ng-option>
+            <ng-option [value]="'KRW'">KRW</ng-option>
+            <ng-option [value]="'CAD'">CAD</ng-option>
           </ng-select>
         </td>
         <!--MINIMUM VOLUM-->
