@@ -66,6 +66,12 @@ table.rates-table {
   top: 1px;
   right: 1px;
 }
-.ag-grid-custom{
-  width: 100%; height: calc(100vh - 180px);
+
+.ag-grid-custom {
+  width: 100%;
+  height: calc(100vh - 180px);
+}
+
+.dropdown-item.sm {
+  padding: .5rem .75rem;
 }

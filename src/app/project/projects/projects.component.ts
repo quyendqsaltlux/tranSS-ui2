@@ -17,16 +17,7 @@ export class ProjectsComponent implements OnInit {
   JOIN_FILTER_COLS = ['pm.code'];
   columnDefs = [
     {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false, sortable: false},
-    {
-      headerName: 'Actions',
-      colId: 'rowActions',
-      cellRenderer: 'childMessageRenderer',
-      pinned: 'left',
-      filter: false,
-      width: 80,
-      sortable: false,
-      cellClass: ['text-center']
-    },
+    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'childMessageRenderer', pinned: 'left', filter: false, width: 80, sortable: false, cellClass: ['text-center']},
     {headerName: 'No', field: 'no', pinned: 'left', filter: true, width: 120},
     {headerName: 'Request Date', field: 'requestDate', type: 'dateColumn', width: 160},
     {headerName: 'Due Date', field: 'dueDate', width: 160, type: 'dateColumn'},
@@ -143,9 +134,20 @@ export class ProjectsComponent implements OnInit {
     this.route.navigate(['/projects/edit/' + this.modelList[index].id]);
   }
 
-  getModelList() {
-    this.filter.push({operation: EQUAL, value: this.activedTab, field: 'progressStatus'});
+  /**
+   * Change value of progress status like active tab
+   */
+  injectTabFilter() {
+    const tabFilter = this.filter.find((item) => item.field === 'progressStatus');
+    if (tabFilter) {
+      tabFilter.value = this.activedTab;
+    } else {
+      this.filter.push({operation: EQUAL, value: this.activedTab, field: 'progressStatus'});
+    }
+  }
 
+  getModelList() {
+    this.injectTabFilter();
     this.projectService.search(this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order,
       this.filter, this.pmFilter, [])
