@@ -1,6 +1,11 @@
+.ng-select.ng-select-disabled > .ng-select-container {
+  background-color: #e4e7ea;
+}
+
 .ng-select.sm .ng-select-container {
-  min-height: calc(1.5em + 0.5rem - 1px) !important;
-  height: calc(1.5em + 0.5rem - 1px) !important;
+  font-size: 85%;
+  min-height: calc(1.5em + 0.5rem + 2px) !important;
+  height: calc(1.5em + 0.5rem + 2px) !important;
   border-radius: 0.2rem;
 }
 

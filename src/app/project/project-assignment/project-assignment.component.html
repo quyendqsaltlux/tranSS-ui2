@@ -7,7 +7,7 @@
           <div class="d-flex justify-content-between">
             <div class="d-flex form-left">
               <!--RESOURCE-->
-              <div class="form-group">
+              <div class="form-group w80">
                 <label for="candidate">Resource<span class="text-danger"> *</span></label>
                 <input type="text" class=" form-control form-control-sm" id="candidate" name="candidate"
                        placeholder="Enter resource code"
@@ -38,7 +38,7 @@
                 </div>
               </div>
               <!--SOURCE-->
-              <div class="form-group">
+              <div class="form-group w50">
                 <label for="source">Source<span class="text-danger"> *</span></label>
                 <input type="text" class=" form-control form-control-sm" id="source" name="source"
                        placeholder="Enter resource code"
@@ -52,7 +52,7 @@
                 </div>
               </div>
               <!--TARGET-->
-              <div class="form-group">
+              <div class="form-group w50">
                 <label for="target">Target<span class="text-danger"> *</span></label>
                 <input type="text" class=" form-control form-control-sm" id="target" name="target"
                        placeholder="Enter retarget code"
@@ -66,7 +66,7 @@
                 </div>
               </div>
               <!--TOTAL-->
-              <div class="form-group">
+              <div class="form-group w80">
                 <label for="total">Total<span class="text-danger"> *</span></label>
                 <input type="number" class=" form-control form-control-sm" id="total" name="total"
                        required
@@ -88,7 +88,7 @@
                 <input type="date" class=" form-control form-control-sm" required id="hb" name="hb" [(ngModel)]="model.hb">
               </div>
               <!--ASSIGN BTN-->
-              <div class="form-group">
+              <div class="form-group w80">
                 <label><span class="invisible">.</span></label>
                 <div>
                   <button type="submit" class="btn btn-sm btn-primary text-nowrap" [disabled]="f.invalid">Assign <i class="fa fa-arrow-right"></i></button>
@@ -99,13 +99,10 @@
             <div class="d-flex mr-5" *ngIf="assignment && assignment.id">
               <!--STATUS-->
               <div class="media mr-2" *ngIf="assignment && assignment.candidate">
-                <!--AVATAR-->
-                <img *ngIf="assignment.candidate.avatar" class="mr-3" [src]="assignment.candidate.avatar" alt="Avatar" width="40" height="40">
-                <img *ngIf="!assignment.candidate.avatar" class="mr-3" src="assets/img/avatars/default_avatar.png" alt="Avatar" width="40" height="40">
                 <div class="media-body">
-                  <H6 class="mt-0 mb-1 text-primary">{{assignment.candidate.name}}</H6>
+                  <H6 class="mt-0 mb-1 text-primary" title="{{assignment.candidate.name}}">{{assignment.candidate.name | lmTo: 20}}</H6>
                   <!--STATUS-->
-                  <div class="btn-group btn-group-sm mt-1" dropdown>
+                  <div class="btn-group btn-group-sm mt-1 pull-right" dropdown>
                     <button type="button" class="btn btn-sm text-nowrap"
                             [class.btn-dark]="assignment.status === 'NOT_CONFIRMED'"
                             [class.btn-success]="assignment.status === 'CONFIRMED'">
@@ -122,6 +119,9 @@
                     </ul>
                   </div>
                 </div>
+                <!--AVATAR-->
+                <!--<img *ngIf="assignment.candidate.avatar" class="mr-3" [src]="assignment.candidate.avatar" alt="Avatar" width="40" height="40">-->
+                <!--<img *ngIf="!assignment.candidate.avatar" class="mr-3" src="assets/img/avatars/default_avatar.png" alt="Avatar" width="40" height="40">-->
               </div>
               <!--PROGRESS-->
               <div class="form-group ml-2 mb-0">
