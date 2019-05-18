@@ -95,26 +95,6 @@ export function separateFiltersFromGrid(filterModel, joinFilterFields: string[])
 }
 
 /**
- * filter object to array
- * {no: {operation: EQUAL, value: 123}} => [{field: 'no', operation: EQUAL, value: 123}]
- * @param filterModel [{field: 'no', operation: EQUAL, value: 123}]
- */
-export function generateFilterParam(filterModel) {
-  if (!filterModel) {
-    return null;
-  }
-  const keys = Object.keys(filterModel);
-  if (!keys) {
-    return null;
-  }
-  const filters = [];
-  keys.forEach((field) => {
-    filters.push(filterModel[field]);
-  });
-  return filters;
-}
-
-/**
  *
  * @param field no
  * @param filter f
