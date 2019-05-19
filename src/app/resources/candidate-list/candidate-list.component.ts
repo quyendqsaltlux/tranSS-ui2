@@ -7,7 +7,7 @@ import {CandidateActionsColRendererComponent} from '../../share/ag-grid/candidat
 import {Router} from '@angular/router';
 import {AbilityCellComponent} from '../../share/ag-grid/ability-cell/ability-cell.component';
 import {AbilityFilterComponent} from '../../share/ag-grid/ability-filter/ability-filter.component';
-import {DateCellComponent} from "../../share/ag-grid/date-cell/date-cell.component";
+import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
 
 @Component({
   selector: 'app-candidate-list',
@@ -116,7 +116,7 @@ export class CandidateListComponent implements OnInit {
     {headerName: 'Social Pages', field: 'socialpages'},
     {headerName: 'Personal Id', field: 'personalId'},
     {headerName: 'Gender', field: 'gender'},
-    {headerName: 'DOB', field: 'dateOfBirth', cellRenderer: 'dateRender', cellRendererParams: {renderField: 'dateOfBirth'}},
+    {headerName: 'DOB', field: 'dateOfBirth', type: 'dateColumn', width: 170, cellRenderer: 'dateRender', cellRendererParams: {renderField: 'dateOfBirth'}},
     {
       headerName: 'Daily Capacity', field: 'dailyCapacity',
       cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'abilityRender'},
@@ -128,7 +128,7 @@ export class CandidateListComponent implements OnInit {
       }
     },
     {headerName: 'Country', field: 'country'},
-    {headerName: 'Updated At', field: 'updatedAt', cellRenderer: 'dateRender', cellRendererParams: {renderField: 'updatedAt'}},
+    {headerName: 'Updated At', field: 'updatedAt', type: 'dateColumn', width: 170, filter: false, cellRenderer: 'dateRender', cellRendererParams: {renderField: 'updatedAt'}},
     {headerName: 'Address', field: 'address', width: 250},
   ];
   /*AG_GRID*/
