@@ -103,7 +103,6 @@ export function buildFilterItem(field, filter) {
   if (!filter) {
     return null;
   }
-  console.log(filter);
   const targetFilter = {} as Filter;
   targetFilter.field = field;
   targetFilter.operation = EQUAL;

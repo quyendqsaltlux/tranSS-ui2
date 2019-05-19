@@ -227,26 +227,30 @@ export class CandidateListComponent implements OnInit {
 
 
   onJoinFilterChange(data, field) {
-    const filterItem = {
-      projectType: data.model
-    };
+    const filterItem = {};
+    filterItem[field] = data.model;
     this.onUpdateJoinFilter(field, filterItem);
   }
 
   onUpdateJoinFilter(field, newFilterDate) {
     const newFilterItem = buildFilterItem(field, newFilterDate[field]);
-    let found = this.abilityFilter.find((filter) => filter.field === field);
-    if (found) {
-      found = newFilterItem;
-    } else {
+    const foundIndex = this.abilityFilter.findIndex((filter) => filter.field === field);
+    if (foundIndex < 0) {
       this.abilityFilter.push(newFilterItem);
+      this.getModelList();
+      return;
+    }
+    if (newFilterItem == null) {
+      this.abilityFilter.splice(foundIndex, 1);
+    } else if (newFilterItem != null) {
+      this.abilityFilter[foundIndex] = newFilterItem;
     }
     this.getModelList();
   }
 
   onGridFilterChange(event) {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
-    const separatedFilter = separateFiltersFromGrid(filters, []);
+    const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
     this.filter = [...separatedFilter.root];
     this.getModelList();
   }
