@@ -1,0 +1,8 @@
+<div class="p-0 multiple-row">
+  <ul class="list-group">
+    <ng-container *ngFor="let ability of abilities; let last=last">
+      <li class="list-group-item"> {{ability[renderField] || '-'}}</li>
+      <div class="li-divider" *ngIf="!last"></div>
+    </ng-container>
+  </ul>
+</div>

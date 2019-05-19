@@ -1,9 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {CandidateService} from '../../service/candidate.service';
-import {EQUAL} from '../../AppConstant';
-import {buildFilterParam} from '../../util/http-util';
+import {separateFiltersFromGrid} from '../../util/http-util';
 import * as _ from 'lodash';
-import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT, MyDatatableItem} from '../../share/my-datatable/my-datatable.component';
+import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT} from '../../share/my-datatable/my-datatable.component';
+import {CandidateActionsColRendererComponent} from '../../share/ag-grid/candidate-actions-col-renderer.component';
+import {Router} from '@angular/router';
+import {AbilityCellComponent} from '../../share/ag-grid/ability-cell/ability-cell.component';
 
 @Component({
   selector: 'app-candidate-list',
@@ -11,6 +13,47 @@ import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT, MyDatatableItem} from '../../share/m
   styleUrls: ['./candidate-list.component.scss']
 })
 export class CandidateListComponent implements OnInit {
+  JOIN_FILTER_COLS = ['pm.code'];
+  columnDefs = [
+    {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false, sortable: false},
+    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 80, sortable: false, cellClass: ['text-center']},
+    {headerName: 'Code', field: 'code', pinned: 'left', filter: false, width: 100},
+    {headerName: 'Grade', field: 'grade', width: 70},
+    {headerName: 'name', field: 'name', width: 150},
+    {headerName: 'majorField', field: 'majorField'},
+    {headerName: 'Project Type', field: 'projectType', width: 100, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'projectType'}},
+    {headerName: 'Source', field: 'sourceLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'sourceLanguage'}},
+    {headerName: 'Target', field: 'targetLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'targetLanguage'}},
+    {headerName: 'Task', field: 'task', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'task'}},
+    {headerName: 'Rate', field: 'rate', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate'}},
+    {headerName: 'Rate (word/char)', field: 'rateUnit', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rateUnit'}},
+    {headerName: 'Rate Hour', field: 'rate2', width: 80, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate2'}},
+    {headerName: '(hour)', field: 'rate2unit, width: 50', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate2unit'}},
+    {headerName: 'Currency', field: 'currency', width: 80, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'currency'}},
+    {headerName: 'minimumCharge', field: 'minimumCharge', type: 'numericColumn'},
+    {headerName: 'CAT Tool', field: 'catTool'},
+    {headerName: 'Email', field: 'email', width: 150},
+    {headerName: 'Mobile', field: 'mobile'},
+    {headerName: 'Messenger', field: 'messenger'},
+    {headerName: 'Social Pages', field: 'socialpages'},
+    {headerName: 'Personal Id', field: 'personalId'},
+    {headerName: 'Gender', field: 'gender'},
+    {headerName: 'DOB', field: 'dateOfBirth'},
+    {headerName: 'Daily Capacity', field: 'dailyCapacity'},
+    {headerName: 'Country', field: 'country'},
+    {headerName: 'Updated At', field: 'updatedAt'},
+    {headerName: 'Address', field: 'address', width: 150},
+  ];
+  /*AG_GRID*/
+  private gridApi;
+  private gridColumnApi;
+  private defaultColDef;
+  private columnTypes;
+  private context;
+  private frameworkComponents;
+  private sortingOrder;
+  private getRowHeight;
+
   shownModelList = [];
   modelList = [];
   keyWord: string;
@@ -27,82 +70,91 @@ export class CandidateListComponent implements OnInit {
   };
   showOtherAbility = false;
 
-  filter = {
-    name: {operation: EQUAL, value: null},
-    email: {operation: EQUAL, value: null},
-    email2: {operation: EQUAL, value: null},
-    code: {operation: EQUAL, value: null},
-    catTool: {operation: EQUAL, value: null},
-    mobile: {operation: EQUAL, value: null},
-    messenger: {operation: EQUAL, value: null},
-    socialpages: {operation: EQUAL, value: null},
-    address: {operation: EQUAL, value: null},
-    personalId: {operation: EQUAL, value: null},
-    gender: {operation: EQUAL, value: null},
-    dateOfBirth: {operation: EQUAL, value: null},
-    country: {operation: EQUAL, value: null},
-    updatedAt: {operation: EQUAL, value: null},
-  };
-  abilityFilter = {
-    sourceLanguage: {operation: EQUAL, value: null},
-    targetLanguage: {operation: EQUAL, value: null},
-    projectType: {operation: EQUAL, value: null},
-    rate: {operation: EQUAL, value: null},
-    rateUnit: {operation: EQUAL, value: null},
-    rate2: {operation: EQUAL, value: null},
-    rate2unit: {operation: EQUAL, value: null},
-    minimumCharge: {operation: EQUAL, value: null},
-    task: {operation: EQUAL, value: null},
-    dailyCapacity: {operation: EQUAL, value: null},
-  };
+  filter = [];
+  abilityFilter = [];
 
   orderFields = ['sourceLanguage', 'targetLanguage', 'projectType', 'rate', 'rateUnit', 'rate2', 'rate2unit', 'minimumCharge', 'task'];
-  cols: MyDatatableItem[] = [];
 
-  constructor(private  candidateService: CandidateService) {
+  constructor(private  candidateService: CandidateService,
+              public route: Router) {
   }
 
   ngOnInit() {
+    this.initTable();
     this.getModelList();
-    this.buildTableCols();
   }
 
-  buildTableCols() {
-    this.cols = [
-      new MyDatatableItem(null, 'Action', false, false, null, null),
-      new MyDatatableItem('code', 'Code', true, true, null, null),
-      new MyDatatableItem('grade', 'Grade', true, true, null, null),
-      new MyDatatableItem('name', 'Name', true, true, null, null),
-      new MyDatatableItem('majorField', 'Major Field', true, true, null, null),
-      new MyDatatableItem('projectType', 'Project Type', false, true, FILTER_TYPE_JOIN, 'projectType'),
-      new MyDatatableItem('sourceLanguage', 'Source', false, true, FILTER_TYPE_JOIN, 'sourceLanguage', 'text'),
-      new MyDatatableItem('targetLanguage', 'Target', false, true, FILTER_TYPE_JOIN, 'targetLanguage', 'text'),
-      new MyDatatableItem('task', 'Task', false, true, FILTER_TYPE_JOIN, 'task'),
-      new MyDatatableItem('rate', 'Rate', false, true, FILTER_TYPE_JOIN, 'rate'),
-      new MyDatatableItem('rateUnit', '(word/char)', false, true, FILTER_TYPE_JOIN, 'rateUnit'),
-      new MyDatatableItem('rate2', 'Rate hour', false, true, FILTER_TYPE_JOIN, 'rate2'),
-      new MyDatatableItem('rate2unit', '(hour)', false, true, FILTER_TYPE_JOIN, 'rateUnit2'),
-      new MyDatatableItem('currency', 'Currency', false, true, FILTER_TYPE_JOIN, 'currency'),
-      new MyDatatableItem('minimumCharge', 'Minimum Charge', true, true, null, null),
-      new MyDatatableItem('catTool', 'CAT Tool', true, true, null, null),
-      new MyDatatableItem('email', 'Email', true, true, null, null),
-      new MyDatatableItem('mobile', 'Mobile', true, true, null, null),
-      new MyDatatableItem('messenger', 'Messenger', true, true, null, null),
-      new MyDatatableItem('socialpages', 'Other contact', true, true, null, null),
-      new MyDatatableItem('personalId', 'Personal Id', true, true, null, null),
-      new MyDatatableItem('gender', 'Gender', true, true, null, null),
-      new MyDatatableItem('dateOfBirth', 'DOB', true, true, null, null),
-      new MyDatatableItem('dailyCapacity', 'Daily Capacity', false, true, null, null),
-      new MyDatatableItem('country', 'Country', true, true, null, null),
-      new MyDatatableItem('updatedAt', 'Updated At', true, true, null, null),
-      new MyDatatableItem('address', 'Address', true, true, null, null),
-    ];
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.getModelList();
+  }
+
+  initTable() {
+    this.defaultColDef = {
+      width: 120,
+      editable: false,
+      enableBrowserTooltips: true,
+      resizable: true,
+      filter: 'agTextColumnFilter',
+      suppressMenu: true,
+      floatingFilterComponentParams: {suppressFilterButton: true},
+      filterParams: {newRowsAction: 'keep'},
+      sortable: true,
+    };
+    this.columnTypes = {
+      numericColumn: {filter: 'agNumberColumnFilter'},
+      dateColumn: {
+        filter: 'agDateColumnFilter',
+        filterParams: {
+          newRowsAction: 'keep',
+          comparator(filterLocalDateAtMidnight, cellValue) {
+            const dateParts = cellValue.split('/');
+            const day = Number(dateParts[2]);
+            const month = Number(dateParts[1]) - 1;
+            const year = Number(dateParts[0]);
+            const cellDate = new Date(day, month, year);
+            if (cellDate < filterLocalDateAtMidnight) {
+              return -1;
+            } else if (cellDate > filterLocalDateAtMidnight) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+        }
+      }
+    };
+    this.sortingOrder = ['desc', 'asc'];
+    this.context = {componentParent: this};
+    this.frameworkComponents = {
+      actionRender: CandidateActionsColRendererComponent,
+      abilityRender: AbilityCellComponent
+    };
+    this.getRowHeight = (params) => {
+      return params.data.abilities.length * 27;
+    };
+  }
+
+  onGridFilterChange(event) {
+    const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
+    const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
+    this.filter = [...separatedFilter.root];
+    this.abilityFilter = [...separatedFilter.join];
+    this.getModelList();
+  }
+
+  gotoEditForm(index) {
+    this.route.navigate(['/projects/edit/' + this.modelList[index].id]);
+  }
+
+  onViewHistory(index) {
+    this.route.navigate(['/resources/' + this.modelList[index].id + '/project-history']);
   }
 
   getModelList() {
     this.candidateService.search(this.page, this.size, this.keyWord, this.sortConfig.field, this.sortConfig.order,
-      buildFilterParam(this.filter),
-      buildFilterParam(this.abilityFilter)
+      this.filter, this.abilityFilter
     ).subscribe((resp => {
       if (!resp || !resp.body) {
         this.modelList = [];
@@ -113,7 +165,6 @@ export class CandidateListComponent implements OnInit {
       this.modelList = resp.body.content;
       this.totalItems = resp.body.totalElements;
       this.numPages = resp.body.totalPages;
-      this.onToggleShowOtherAbility();
     }));
   }
 

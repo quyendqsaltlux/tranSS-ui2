@@ -37,165 +37,27 @@
     </div>
 
     <div class="col-sm-12">
-      <div class="card rounded-0">
+      <div class="card w100 rounded-0">
         <div class="card-body">
-          <div class="table-responsive mh350">
-            <app-my-datatable [cols]="cols" [filter]="filter"
-                              [joinFilter]="abilityFilter"
-                              [sortConfig]="sortConfig"
-                              (nextSort)="toggleSort($event)"
-                              (filterChange)="onFilterChange($event)">
-              <tbody rows-data>
-              <tr *ngFor="let candidate of shownModelList">
-                <!--ACTION-->
-                <td class="text-center action">
-                  <div class="btn-group btn-group-sm" dropdown>
-                    <button dropdownToggle type="button" class="pt-0 pb-0 btn btn-sm btn-ghost-primary dropdown-toggle">
-                      Action <span class="caret"></span>
-                    </button>
-                    <ul *dropdownMenu class="dropdown-menu" role="menu">
-                      <li role="menuitem"><a class="dropdown-item" routerLink="/resources/edit/{{candidate.id}}">Edit</a></li>
-                      <li role="menuitem"><a class="dropdown-item" routerLink="/resources/{{candidate.id}}/project-history">Project history</a></li>
-                    </ul>
-                  </div>
-                </td>
-                <td>{{candidate.code}}</td>
-                <td class="text-center">{{candidate.grade}}</td>
-                <td class="candidate-name">{{candidate.name}}</td>
-                <td class="mw150">{{candidate.majorField}}</td>
-                <!--PROJECT TYPE-->
-                <td class="p-0 multiple-row mw110">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item"> {{ability.projectType || '-'}}</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-                <!--SOURCE LANGUAGE-->
-                <td class="p-0 multiple-row">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item"> {{ability.sourceLanguage || '-'}}</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-                <!--TARGET LANGUAGE    -->
-                <td class="p-0 multiple-row">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item"> {{ability.targetLanguage || '-'}}</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-
-                <!--TASK -->
-                <td class="p-0 multiple-row">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item"> {{ability.task || '-'}}</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-
-                <!--RATE-->
-                <td class="p-0 multiple-row text-right">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item">{{ability.rate || '-'}}</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-                <!--WORD CHAR-->
-                <td class="p-0 multiple-row text-right">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item" *ngIf="ability.rateUnit">{{ability.rateUnit | unit}}</li>
-                      <li class="list-group-item" *ngIf="!ability.rateUnit">-</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-                <!--RATE2-->
-                <td class="p-0 multiple-row text-right">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item">{{ability.rate2 || '-'}}</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-
-                <!--HOUR-->
-                <td class="p-0 multiple-row text-right">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item" *ngIf="ability.rate2unit">{{ability.rate2unit | unit}}</li>
-                      <li class="list-group-item" *ngIf="!ability.rate2unit">-</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-                <!--currency-->
-                <td class="p-0 multiple-row text-right">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item">{{ability.currency || '-'}}</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-                <!--MINIMUM CHARGE-->
-                <td class="p-0 multiple-row text-right">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item"> {{ability.minimumCharge || '-'}}</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-                <td class="mw350">{{candidate.catTool}}</td>
-                <!--EMAIL-->
-                <td class="position-relative">
-                  <span *ngIf="candidate.email2"
-                        class="email2 badge badge-danger cursor-pointer"
-                        popover="{{candidate.email2}}"
-                        popoverTitle="Email 2"
-                        [outsideClick]="true"
-                        triggers="mouseenter">
-                    <i class="fa fa-envelope"> 2</i>
-                  </span>
-                  <span class="email">{{candidate.email}}</span>
-                </td>
-
-                <td>{{candidate.mobile}}</td>
-                <td>{{candidate.messenger}}</td>
-                <td>{{candidate.socialpages}}</td>
-                <td>{{candidate.personalId}}</td>
-                <td>{{candidate.gender}}</td>
-                <td>{{candidate.dateOfBirth | date}}</td>
-
-                <!--MINIMUM CHARGE-->
-                <td class="p-0 multiple-row text-right">
-                  <ul class="list-group">
-                    <ng-container *ngFor="let ability of candidate.abilities; let last=last">
-                      <li class="list-group-item"> {{ability.dailyCapacity || '-'}}</li>
-                      <div class="li-divider" *ngIf="!last"></div>
-                    </ng-container>
-                  </ul>
-                </td>
-                <td>{{candidate.country}}</td>
-                <td>{{candidate.updatedAt | date}}</td>
-                <td class="mw250">{{candidate.address}}</td>
-              </tbody>
-            </app-my-datatable>
-          </div>
+          <ag-grid-angular
+            #agGrid
+            id="myGrid"
+            class="ag-theme-balham ag-grid-custom"
+            [context]="context"
+            [frameworkComponents]="frameworkComponents"
+            [columnDefs]="columnDefs"
+            [defaultColDef]="defaultColDef"
+            [columnTypes]="columnTypes"
+            [rowData]="modelList"
+            [animateRows]="true"
+            [sortingOrder]="sortingOrder"
+            [getRowHeight]="getRowHeight"
+            [floatingFilter]="true"
+            (gridReady)="onGridReady($event)"
+            (filterChanged)="onGridFilterChange($event)"
+            (sortChanged)="onGridSortChanged($event)"
+          ></ag-grid-angular>
         </div>
-
         <div class="card-footer">
           <span> Total: {{totalItems}}</span>
           <div class="pull-right">
@@ -203,7 +65,7 @@
                         [(ngModel)]="page"
                         [maxSize]="5"
                         [itemsPerPage]="size"
-                        (pageChanged)="pageChanged($event)"
+                        (pageChanged)="pageChanged()"
                         previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
                         [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event">
             </pagination>
@@ -211,6 +73,6 @@
         </div>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>

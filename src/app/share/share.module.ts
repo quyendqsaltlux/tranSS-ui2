@@ -17,6 +17,8 @@ import {MigrateTypePipe} from '../pipe/migrate-type.pipe';
 import {AgGridModule} from 'ag-grid-angular';
 import {ActionsColRendererComponent} from './ag-grid/actions-col-renderer.component';
 import {UnitPipe} from '../pipe/unit.pipe';
+import {CandidateActionsColRendererComponent} from './ag-grid/candidate-actions-col-renderer.component';
+import {AbilityCellComponent} from './ag-grid/ability-cell/ability-cell.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import {UnitPipe} from '../pipe/unit.pipe';
     ProjectProgressPipe,
     MigrateTypePipe,
     ActionsColRendererComponent,
-    UnitPipe
+    CandidateActionsColRendererComponent,
+    UnitPipe,
+    AbilityCellComponent
   ],
   imports: [
     CommonModule,
@@ -48,7 +52,11 @@ import {UnitPipe} from '../pipe/unit.pipe';
     ProgressbarModule.forRoot(),
     AlertModule.forRoot(),
     BarRatingModule,
-    AgGridModule.withComponents([ActionsColRendererComponent])
+    AgGridModule.withComponents([
+      ActionsColRendererComponent,
+      CandidateActionsColRendererComponent,
+      AbilityCellComponent
+    ])
   ],
   exports: [
     CommonModule,
@@ -75,6 +83,8 @@ import {UnitPipe} from '../pipe/unit.pipe';
     MigrateTypePipe,
     AgGridModule,
     ActionsColRendererComponent,
+    CandidateActionsColRendererComponent,
+    AbilityCellComponent,
     UnitPipe
   ],
   entryComponents: [
