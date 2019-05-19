@@ -19,7 +19,7 @@ import {ResourcesModule} from './resources/resources.module';
 import {AccessDenyComponent} from './views/error/access-deny/access-deny.component';
 import {JwtInterceptor} from './interceptor/jwtInterceptor';
 import {ErrorInterceptor} from './interceptor/errorInterceptor';
-import {ToastrModule} from 'ngx-toastr';
+import {GlobalConfig, ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {DEFAULT_TIMEOUT, TimeoutInterceptor} from './interceptor/TimeoutInterceptor';
 import {ServerOffComponent} from './views/error/server-off/server-off.component';
@@ -28,7 +28,7 @@ import {RoleGuard} from './gaurd/RoleGuard';
 import {NgxLoadingModule} from 'ngx-loading';
 import {LoaderComponent} from './containers/loader/loader.component';
 import {LoaderInterceptorService} from './interceptor/LoaderInterceptorService';
-import {AppRoutingModule} from "./app-routing.module";
+import {AppRoutingModule} from './app-routing.module';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -62,7 +62,7 @@ const APP_CONTAINERS = [
       preventDuplicates: false,
       newestOnTop: true,
       maxOpened: 3
-    }),
+    } as Partial<GlobalConfig>),
     NgxLoadingModule.forRoot({})
   ],
   declarations: [

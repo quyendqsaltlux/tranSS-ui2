@@ -20,7 +20,7 @@ import {UnitPipe} from '../pipe/unit.pipe';
 import {CandidateActionsColRendererComponent} from './ag-grid/candidate-actions-col-renderer.component';
 import {AbilityCellComponent} from './ag-grid/ability-cell/ability-cell.component';
 import {AbilityFilterComponent} from './ag-grid/ability-filter/ability-filter.component';
-import {PartialMatchFilterComponent} from './ag-grid/ability-filter/partial-match-filter.component';
+import {DateCellComponent} from "./ag-grid/date-cell/date-cell.component";
 
 @NgModule({
   declarations: [
@@ -39,7 +39,8 @@ import {PartialMatchFilterComponent} from './ag-grid/ability-filter/partial-matc
     UnitPipe,
     AbilityCellComponent,
     AbilityFilterComponent,
-    PartialMatchFilterComponent
+    DateCellComponent
+
   ],
   imports: [
     CommonModule,
@@ -61,7 +62,7 @@ import {PartialMatchFilterComponent} from './ag-grid/ability-filter/partial-matc
       CandidateActionsColRendererComponent,
       AbilityCellComponent,
       AbilityFilterComponent,
-      PartialMatchFilterComponent
+      DateCellComponent
     ])
   ],
   exports: [
@@ -92,7 +93,7 @@ import {PartialMatchFilterComponent} from './ag-grid/ability-filter/partial-matc
     CandidateActionsColRendererComponent,
     AbilityCellComponent,
     AbilityFilterComponent,
-    PartialMatchFilterComponent,
+    DateCellComponent,
     UnitPipe
   ],
   entryComponents: [

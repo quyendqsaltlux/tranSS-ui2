@@ -7,7 +7,7 @@ import {CandidateActionsColRendererComponent} from '../../share/ag-grid/candidat
 import {Router} from '@angular/router';
 import {AbilityCellComponent} from '../../share/ag-grid/ability-cell/ability-cell.component';
 import {AbilityFilterComponent} from '../../share/ag-grid/ability-filter/ability-filter.component';
-import {PartialMatchFilterComponent} from '../../share/ag-grid/ability-filter/partial-match-filter.component';
+import {DateCellComponent} from "../../share/ag-grid/date-cell/date-cell.component";
 
 @Component({
   selector: 'app-candidate-list',
@@ -26,30 +26,88 @@ export class CandidateListComponent implements OnInit {
     {
       headerName: 'Project Type',
       field: 'projectType',
-      // suppressMenu: false,
-      // filter: 'partialMatchFilter',
       floatingFilterComponent: 'abilityFilter',
       floatingFilterComponentParams: {
-        maxValue: 7, suppressFilterButton: true,
-        onFloatingFilterChanged: (data) => {
-          const filterItem = {
-            projectType: data.model
-          };
-          this.onUpdateJoinFilter('projectType', filterItem);
+        suppressFilterButton: true, onFloatingFilterChanged: (data) => {
+          this.onJoinFilterChange(data, 'projectType');
         }
       },
       width: 100,
       cellRenderer: 'abilityRender',
       cellRendererParams: {renderField: 'projectType'},
     },
-    {headerName: 'Source', field: 'sourceLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'sourceLanguage'}},
-    {headerName: 'Target', field: 'targetLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'targetLanguage'}},
-    {headerName: 'Task', field: 'task', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'task'}},
-    {headerName: 'Rate', field: 'rate', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate'}},
-    {headerName: 'Rate (word/char)', field: 'rateUnit', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rateUnit'}},
-    {headerName: 'Rate Hour', field: 'rate2', width: 80, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate2'}},
-    {headerName: '(hour)', field: 'rate2unit, width: 50', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate2unit'}},
-    {headerName: 'Currency', field: 'currency', width: 80, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'currency'}},
+    {
+      headerName: 'Source', field: 'sourceLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'sourceLanguage'},
+      floatingFilterComponent: 'abilityFilter',
+      floatingFilterComponentParams: {
+        suppressFilterButton: true, onFloatingFilterChanged: (data) => {
+          this.onJoinFilterChange(data, 'sourceLanguage');
+        }
+      }
+    },
+    {
+      headerName: 'Target', field: 'targetLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'targetLanguage'},
+      floatingFilterComponent: 'abilityFilter',
+      floatingFilterComponentParams: {
+        suppressFilterButton: true, onFloatingFilterChanged: (data) => {
+          this.onJoinFilterChange(data, 'targetLanguage');
+        }
+      }
+    },
+    {
+      headerName: 'Task', field: 'task', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'task'},
+      floatingFilterComponent: 'abilityFilter',
+      floatingFilterComponentParams: {
+        suppressFilterButton: true, onFloatingFilterChanged: (data) => {
+          this.onJoinFilterChange(data, 'task');
+        }
+      }
+    },
+    {
+      headerName: 'Rate', field: 'rate', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate'},
+      floatingFilterComponent: 'abilityFilter',
+      floatingFilterComponentParams: {
+        suppressFilterButton: true, onFloatingFilterChanged: (data) => {
+          this.onJoinFilterChange(data, 'rate');
+        }
+      }
+    },
+    {
+      headerName: 'Rate (word/char)', field: 'rateUnit', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rateUnit'},
+      floatingFilterComponent: 'abilityFilter',
+      floatingFilterComponentParams: {
+        suppressFilterButton: true, onFloatingFilterChanged: (data) => {
+          this.onJoinFilterChange(data, 'rateUnit');
+        }
+      }
+    },
+    {
+      headerName: 'Rate Hour', field: 'rate2', width: 80, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate2'},
+      floatingFilterComponent: 'abilityFilter',
+      floatingFilterComponentParams: {
+        suppressFilterButton: true, onFloatingFilterChanged: (data) => {
+          this.onJoinFilterChange(data, 'rate2');
+        }
+      }
+    },
+    {
+      headerName: '(hour)', field: 'rate2unit, width: 50', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate2unit'},
+      floatingFilterComponent: 'abilityFilter',
+      floatingFilterComponentParams: {
+        suppressFilterButton: true, onFloatingFilterChanged: (data) => {
+          this.onJoinFilterChange(data, 'rate2unit');
+        }
+      }
+    },
+    {
+      headerName: 'Currency', field: 'currency', width: 80, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'currency'},
+      floatingFilterComponent: 'abilityFilter',
+      floatingFilterComponentParams: {
+        suppressFilterButton: true, onFloatingFilterChanged: (data) => {
+          this.onJoinFilterChange(data, 'currency');
+        }
+      }
+    },
     {headerName: 'minimumCharge', field: 'minimumCharge', type: 'numericColumn'},
     {headerName: 'CAT Tool', field: 'catTool'},
     {headerName: 'Email', field: 'email', width: 250},
@@ -58,10 +116,19 @@ export class CandidateListComponent implements OnInit {
     {headerName: 'Social Pages', field: 'socialpages'},
     {headerName: 'Personal Id', field: 'personalId'},
     {headerName: 'Gender', field: 'gender'},
-    {headerName: 'DOB', field: 'dateOfBirth'},
-    {headerName: 'Daily Capacity', field: 'dailyCapacity'},
+    {headerName: 'DOB', field: 'dateOfBirth', cellRenderer: 'dateRender', cellRendererParams: {renderField: 'dateOfBirth'}},
+    {
+      headerName: 'Daily Capacity', field: 'dailyCapacity',
+      cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'abilityRender'},
+      floatingFilterComponent: 'abilityFilter',
+      floatingFilterComponentParams: {
+        suppressFilterButton: true, onFloatingFilterChanged: (data) => {
+          this.onJoinFilterChange(data, 'abilityRender');
+        }
+      }
+    },
     {headerName: 'Country', field: 'country'},
-    {headerName: 'Updated At', field: 'updatedAt'},
+    {headerName: 'Updated At', field: 'updatedAt', cellRenderer: 'dateRender', cellRendererParams: {renderField: 'updatedAt'}},
     {headerName: 'Address', field: 'address', width: 250},
   ];
   /*AG_GRID*/
@@ -151,11 +218,19 @@ export class CandidateListComponent implements OnInit {
       actionRender: CandidateActionsColRendererComponent,
       abilityRender: AbilityCellComponent,
       abilityFilter: AbilityFilterComponent,
-      partialMatchFilter: PartialMatchFilterComponent,
+      dateRender: DateCellComponent,
     };
     this.getRowHeight = (params) => {
       return params.data.abilities.length * 27;
     };
+  }
+
+
+  onJoinFilterChange(data, field) {
+    const filterItem = {
+      projectType: data.model
+    };
+    this.onUpdateJoinFilter(field, filterItem);
   }
 
   onUpdateJoinFilter(field, newFilterDate) {
