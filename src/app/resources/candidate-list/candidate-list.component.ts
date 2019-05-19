@@ -1,11 +1,13 @@
 import {Component, OnInit} from '@angular/core';
 import {CandidateService} from '../../service/candidate.service';
-import {separateFiltersFromGrid} from '../../util/http-util';
+import {buildFilterItem, separateFiltersFromGrid} from '../../util/http-util';
 import * as _ from 'lodash';
 import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT} from '../../share/my-datatable/my-datatable.component';
 import {CandidateActionsColRendererComponent} from '../../share/ag-grid/candidate-actions-col-renderer.component';
 import {Router} from '@angular/router';
 import {AbilityCellComponent} from '../../share/ag-grid/ability-cell/ability-cell.component';
+import {AbilityFilterComponent} from '../../share/ag-grid/ability-filter/ability-filter.component';
+import {PartialMatchFilterComponent} from '../../share/ag-grid/ability-filter/partial-match-filter.component';
 
 @Component({
   selector: 'app-candidate-list',
@@ -13,7 +15,7 @@ import {AbilityCellComponent} from '../../share/ag-grid/ability-cell/ability-cel
   styleUrls: ['./candidate-list.component.scss']
 })
 export class CandidateListComponent implements OnInit {
-  JOIN_FILTER_COLS = ['pm.code'];
+  JOIN_FILTER_COLS = ['projectType', 'sourceLanguage', 'targetLanguage', 'task', 'rate', 'rateUnit', 'rate2', 'rate2unit', 'currency'];
   columnDefs = [
     {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false, sortable: false},
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 80, sortable: false, cellClass: ['text-center']},
@@ -21,7 +23,25 @@ export class CandidateListComponent implements OnInit {
     {headerName: 'Grade', field: 'grade', width: 70},
     {headerName: 'name', field: 'name', width: 150},
     {headerName: 'majorField', field: 'majorField'},
-    {headerName: 'Project Type', field: 'projectType', width: 100, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'projectType'}},
+    {
+      headerName: 'Project Type',
+      field: 'projectType',
+      // suppressMenu: false,
+      // filter: 'partialMatchFilter',
+      floatingFilterComponent: 'abilityFilter',
+      floatingFilterComponentParams: {
+        maxValue: 7, suppressFilterButton: true,
+        onFloatingFilterChanged: (data) => {
+          const filterItem = {
+            projectType: data.model
+          };
+          this.onUpdateJoinFilter('projectType', filterItem);
+        }
+      },
+      width: 100,
+      cellRenderer: 'abilityRender',
+      cellRendererParams: {renderField: 'projectType'},
+    },
     {headerName: 'Source', field: 'sourceLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'sourceLanguage'}},
     {headerName: 'Target', field: 'targetLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'targetLanguage'}},
     {headerName: 'Task', field: 'task', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'task'}},
@@ -32,7 +52,7 @@ export class CandidateListComponent implements OnInit {
     {headerName: 'Currency', field: 'currency', width: 80, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'currency'}},
     {headerName: 'minimumCharge', field: 'minimumCharge', type: 'numericColumn'},
     {headerName: 'CAT Tool', field: 'catTool'},
-    {headerName: 'Email', field: 'email', width: 150},
+    {headerName: 'Email', field: 'email', width: 250},
     {headerName: 'Mobile', field: 'mobile'},
     {headerName: 'Messenger', field: 'messenger'},
     {headerName: 'Social Pages', field: 'socialpages'},
@@ -42,7 +62,7 @@ export class CandidateListComponent implements OnInit {
     {headerName: 'Daily Capacity', field: 'dailyCapacity'},
     {headerName: 'Country', field: 'country'},
     {headerName: 'Updated At', field: 'updatedAt'},
-    {headerName: 'Address', field: 'address', width: 150},
+    {headerName: 'Address', field: 'address', width: 250},
   ];
   /*AG_GRID*/
   private gridApi;
@@ -129,23 +149,35 @@ export class CandidateListComponent implements OnInit {
     this.context = {componentParent: this};
     this.frameworkComponents = {
       actionRender: CandidateActionsColRendererComponent,
-      abilityRender: AbilityCellComponent
+      abilityRender: AbilityCellComponent,
+      abilityFilter: AbilityFilterComponent,
+      partialMatchFilter: PartialMatchFilterComponent,
     };
     this.getRowHeight = (params) => {
       return params.data.abilities.length * 27;
     };
   }
 
+  onUpdateJoinFilter(field, newFilterDate) {
+    const newFilterItem = buildFilterItem(field, newFilterDate[field]);
+    let found = this.abilityFilter.find((filter) => filter.field === field);
+    if (found) {
+      found = newFilterItem;
+    } else {
+      this.abilityFilter.push(newFilterItem);
+    }
+    this.getModelList();
+  }
+
   onGridFilterChange(event) {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
-    const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
+    const separatedFilter = separateFiltersFromGrid(filters, []);
     this.filter = [...separatedFilter.root];
-    this.abilityFilter = [...separatedFilter.join];
     this.getModelList();
   }
 
   gotoEditForm(index) {
-    this.route.navigate(['/projects/edit/' + this.modelList[index].id]);
+    this.route.navigate(['/resources/edit/' + this.modelList[index].id]);
   }
 
   onViewHistory(index) {

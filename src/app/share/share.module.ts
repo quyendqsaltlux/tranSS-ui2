@@ -19,6 +19,8 @@ import {ActionsColRendererComponent} from './ag-grid/actions-col-renderer.compon
 import {UnitPipe} from '../pipe/unit.pipe';
 import {CandidateActionsColRendererComponent} from './ag-grid/candidate-actions-col-renderer.component';
 import {AbilityCellComponent} from './ag-grid/ability-cell/ability-cell.component';
+import {AbilityFilterComponent} from './ag-grid/ability-filter/ability-filter.component';
+import {PartialMatchFilterComponent} from './ag-grid/ability-filter/partial-match-filter.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import {AbilityCellComponent} from './ag-grid/ability-cell/ability-cell.componen
     ActionsColRendererComponent,
     CandidateActionsColRendererComponent,
     UnitPipe,
-    AbilityCellComponent
+    AbilityCellComponent,
+    AbilityFilterComponent,
+    PartialMatchFilterComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +59,9 @@ import {AbilityCellComponent} from './ag-grid/ability-cell/ability-cell.componen
     AgGridModule.withComponents([
       ActionsColRendererComponent,
       CandidateActionsColRendererComponent,
-      AbilityCellComponent
+      AbilityCellComponent,
+      AbilityFilterComponent,
+      PartialMatchFilterComponent
     ])
   ],
   exports: [
@@ -85,6 +91,8 @@ import {AbilityCellComponent} from './ag-grid/ability-cell/ability-cell.componen
     ActionsColRendererComponent,
     CandidateActionsColRendererComponent,
     AbilityCellComponent,
+    AbilityFilterComponent,
+    PartialMatchFilterComponent,
     UnitPipe
   ],
   entryComponents: [
