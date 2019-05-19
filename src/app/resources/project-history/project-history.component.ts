@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {EQUAL} from '../../AppConstant';
-import {FILTER_TYPE_ROOT, MyDatatableItem} from '../../share/my-datatable/my-datatable.component';
+import {FILTER_TYPE_ROOT} from '../../share/my-datatable/my-datatable.component';
 import {ToastrService} from 'ngx-toastr';
-import {buildFilterParam} from '../../util/http-util';
+import {buildFilterParam, separateFiltersFromGrid} from '../../util/http-util';
 import * as _ from 'lodash';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
+import {CandidateActionsColRendererComponent} from '../../share/ag-grid/candidate-actions-col-renderer.component';
+import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
 
 @Component({
   selector: 'app-project-history',
@@ -28,16 +29,27 @@ export class ProjectHistoryComponent implements OnInit {
     field: null,
     order: null
   };
-  filter = {
-    projectCode: {operation: EQUAL, value: null},
-    client: {operation: EQUAL, value: null},
-    total: {operation: EQUAL, value: null},
-    target: {operation: EQUAL, value: null},
-    source: {operation: EQUAL, value: null},
-    task: {operation: EQUAL, value: null},
-  };
+  filter = [];
 
-  cols: MyDatatableItem[] = [];
+  JOIN_FILTER_COLS = [];
+  columnDefs = [
+    {headerName: 'Project Code', field: 'projectCode', pinned: 'left', width: 100},
+    {headerName: 'Contents', field: 'contents', width: 150},
+    {headerName: 'Field', field: 'field'},
+    {headerName: 'Client', field: 'client'},
+    {headerName: 'Source', field: 'source', width: 70},
+    {headerName: 'Target', field: 'target', width: 70},
+    {headerName: 'Task', field: 'task'},
+    {headerName: 'Total', field: 'total', type: 'numericColumn'},
+  ];
+  /*AG_GRID*/
+  private gridApi;
+  private gridColumnApi;
+  private defaultColDef;
+  private columnTypes;
+  private context;
+  private frameworkComponents;
+  private sortingOrder;
 
   constructor(private route: ActivatedRoute,
               private  assignmentService: ProjectAssignmentService,
@@ -46,21 +58,71 @@ export class ProjectHistoryComponent implements OnInit {
 
   ngOnInit() {
     this.candidateId = +this.route.snapshot.paramMap.get('candidateId');
-    this.buildTableCols();
+    this.initTable();
     this.getModelList();
   }
 
-  buildTableCols() {
-    this.cols = [
-      new MyDatatableItem('projectCode', 'Project code', true, true, null, null),
-      new MyDatatableItem('contents', 'Contents', false, false, null, null),
-      new MyDatatableItem('field', 'Field', false, false, null, null),
-      new MyDatatableItem('client', 'Customer', false, false, null, null),
-      new MyDatatableItem('source', 'Source', false, true, null, null),
-      new MyDatatableItem('target', 'Target', false, true, null, null),
-      new MyDatatableItem('task', 'Task', false, true, null, null, null),
-      new MyDatatableItem('total', 'Quantity', true, true, null, null),
-    ];
+  onGridReady(params) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    this.getModelList();
+  }
+
+  onGridSortChanged(event) {
+    const sortState = this.gridApi.getSortModel();
+    this.sortConfig.order = sortState[0].sort;
+    this.sortConfig.field = sortState[0].colId;
+    this.getModelList();
+  }
+
+  initTable() {
+    this.defaultColDef = {
+      width: 120,
+      editable: false,
+      enableBrowserTooltips: true,
+      resizable: true,
+      filter: 'agTextColumnFilter',
+      suppressMenu: true,
+      floatingFilterComponentParams: {suppressFilterButton: true},
+      filterParams: {newRowsAction: 'keep'},
+      sortable: true,
+    };
+    this.columnTypes = {
+      numericColumn: {filter: 'agNumberColumnFilter'},
+      dateColumn: {
+        filter: 'agDateColumnFilter',
+        filterParams: {
+          newRowsAction: 'keep',
+          comparator(filterLocalDateAtMidnight, cellValue) {
+            const dateParts = cellValue.split('/');
+            const day = Number(dateParts[2]);
+            const month = Number(dateParts[1]) - 1;
+            const year = Number(dateParts[0]);
+            const cellDate = new Date(day, month, year);
+            if (cellDate < filterLocalDateAtMidnight) {
+              return -1;
+            } else if (cellDate > filterLocalDateAtMidnight) {
+              return 1;
+            } else {
+              return 0;
+            }
+          }
+        }
+      }
+    };
+    this.sortingOrder = ['desc', 'asc'];
+    this.context = {componentParent: this};
+    this.frameworkComponents = {
+      actionRender: CandidateActionsColRendererComponent,
+      dateRender: DateCellComponent,
+    };
+  }
+
+  onGridFilterChange(event) {
+    const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
+    const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
+    this.filter = [...separatedFilter.root];
+    this.getModelList();
   }
 
   getModelList() {

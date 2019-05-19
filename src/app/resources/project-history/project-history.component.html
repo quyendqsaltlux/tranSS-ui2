@@ -49,39 +49,34 @@
       <!--</div>-->
 
       <div class="col-sm-12">
-        <div class="card">
+        <div class="card w100 rounded-0">
           <div class="card-body">
-            <div class="table-responsive mh350">
-              <app-my-datatable [cols]="cols" [filter]="filter" [joinFilter]="assignmentFilter"
-                                [sortConfig]="sortConfig"
-                                (nextSort)="toggleSort($event)"
-                                (filterChange)="onFilterChange($event)">
-
-                <tbody rows-data>
-                <ng-container *ngFor="let model of modelList; let index=index">
-                  <tr>
-                    <td>{{model.project.code}}</td>
-                    <td class="mw350">{{model.project.contents}}</td>
-                    <td>{{model.project.field}}</td>
-                    <td>{{model.project.client}}</td>
-                    <td class="text-center">{{model.source}}</td>
-                    <td class="text-center">{{model.target}}</td>
-                    <td class="text-center">{{model.task}}</td>
-                    <td class="text-right">{{model.total}}</td>
-                  </tr>
-
-                </ng-container>
-                </tbody>
-              </app-my-datatable>
-            </div>
+            <ag-grid-angular
+              #agGrid
+              id="myGrid"
+              class="ag-theme-balham ag-grid-custom"
+              [context]="context"
+              [frameworkComponents]="frameworkComponents"
+              [columnDefs]="columnDefs"
+              [defaultColDef]="defaultColDef"
+              [columnTypes]="columnTypes"
+              [rowData]="modelList"
+              [animateRows]="true"
+              [sortingOrder]="sortingOrder"
+              [floatingFilter]="true"
+              (gridReady)="onGridReady($event)"
+              (filterChanged)="onGridFilterChange($event)"
+              (sortChanged)="onGridSortChanged($event)"
+            ></ag-grid-angular>
           </div>
-
           <div class="card-footer">
             <span> Total: {{totalItems}}</span>
             <div class="pull-right">
-              <pagination [totalItems]="totalItems" [maxSize]="size" class="pagination" *ngIf="totalItems>0"
+              <pagination [totalItems]="totalItems" class="pagination" *ngIf="totalItems>0"
                           [(ngModel)]="page"
-                          (pageChanged)="pageChanged($event)"
+                          [maxSize]="5"
+                          [itemsPerPage]="size"
+                          (pageChanged)="pageChanged()"
                           previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
                           [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event">
               </pagination>
