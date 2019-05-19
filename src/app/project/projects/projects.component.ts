@@ -16,8 +16,8 @@ export class ProjectsComponent implements OnInit {
   @ViewChild('template') template: TemplateRef<any>;
   JOIN_FILTER_COLS = ['pm.code'];
   columnDefs = [
-    {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false, sortable: false},
-    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'childMessageRenderer', pinned: 'left', filter: false, width: 80, sortable: false, cellClass: ['text-center']},
+    // {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false, sortable: false},
+    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'childMessageRenderer', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
     {headerName: 'No', field: 'no', pinned: 'left', filter: true, width: 120},
     {headerName: 'Request Date', field: 'requestDate', type: 'dateColumn', width: 160},
     {headerName: 'Due Date', field: 'dueDate', width: 160, type: 'dateColumn'},
