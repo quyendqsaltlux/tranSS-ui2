@@ -17,12 +17,11 @@ import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.compone
 export class CandidateListComponent implements OnInit {
   JOIN_FILTER_COLS = ['projectType', 'sourceLanguage', 'targetLanguage', 'task', 'rate', 'rateUnit', 'rate2', 'rate2unit', 'currency'];
   columnDefs = [
-    // {headerName: '#', colId: 'rowNum', valueGetter: 'node.id', width: 40, pinned: 'left', filter: false, sortable: false},
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 90, sortable: false},
-    {headerName: 'Code', field: 'code', pinned: 'left', filter: false, width: 100},
+    {headerName: 'Code', field: 'code', pinned: 'left', width: 100},
     {headerName: 'Grade', field: 'grade', pinned: 'left', width: 70},
     {headerName: 'name', field: 'name', pinned: 'left', width: 150},
-    {headerName: 'majorField', field: 'majorField'},
+    {headerName: 'majorField', field: 'majorField', pinned: 'left'},
     {
       headerName: 'Project Type',
       field: 'projectType',
