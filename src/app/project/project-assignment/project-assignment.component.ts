@@ -30,7 +30,6 @@ export class ProjectAssignmentComponent implements OnInit {
   extractApiModel() {
     this.model.projectId = Number(this.projectId);
     this.model.projectCode = this.projectCode;
-    console.log(this.projectCode);
     if (this.assignment) {
       this.model.id = this.assignment.id;
       this.model.task = this.assignment.task;

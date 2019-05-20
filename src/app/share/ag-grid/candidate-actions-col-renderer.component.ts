@@ -21,6 +21,10 @@ export class CandidateActionsColRendererComponent implements ICellRendererAngula
     this.params.context.componentParent.onViewHistory(this.params.node.rowIndex);
   }
 
+  onViewRates() {
+    this.params.context.componentParent.onViewRates(this.params.node.rowIndex);
+  }
+
   refresh(): boolean {
     return false;
   }

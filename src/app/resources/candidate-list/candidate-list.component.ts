@@ -270,6 +270,10 @@ export class CandidateListComponent implements OnInit {
     this.route.navigate(['/resources/' + this.modelList[index].id + '/project-history']);
   }
 
+  onViewRates(index) {
+    this.route.navigate(['/resources/' + this.modelList[index].id + '/abilities']);
+  }
+
   getModelList() {
     this.candidateService.search(this.page, this.size, this.keyWord, this.sortConfig.field, this.sortConfig.order,
       this.filter, this.abilityFilter
