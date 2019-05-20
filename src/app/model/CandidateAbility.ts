@@ -19,4 +19,5 @@ export interface CandidateAbility {
   candidateId: number;
   dailyCapacity: string;
   note: string;
+  currency: string;
 }

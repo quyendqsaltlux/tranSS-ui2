@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {FILTER_TYPE_ROOT} from '../../share/my-datatable/my-datatable.component';
-import {ToastrService} from 'ngx-toastr';
-import {buildFilterParam, separateFiltersFromGrid} from '../../util/http-util';
+import {separateFiltersFromGrid} from '../../util/http-util';
 import * as _ from 'lodash';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
 import {CandidateActionsColRendererComponent} from '../../share/ag-grid/candidate-actions-col-renderer.component';
@@ -43,17 +42,16 @@ export class ProjectHistoryComponent implements OnInit {
     {headerName: 'Total', field: 'total', type: 'numericColumn'},
   ];
   /*AG_GRID*/
-  private gridApi;
-  private gridColumnApi;
-  private defaultColDef;
-  private columnTypes;
-  private context;
-  private frameworkComponents;
-  private sortingOrder;
+  gridApi;
+  gridColumnApi;
+  defaultColDef;
+  columnTypes;
+  context;
+  frameworkComponents;
+  sortingOrder;
 
   constructor(private route: ActivatedRoute,
-              private  assignmentService: ProjectAssignmentService,
-              private toastr: ToastrService) {
+              private  assignmentService: ProjectAssignmentService) {
   }
 
   ngOnInit() {

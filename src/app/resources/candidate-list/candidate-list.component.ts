@@ -132,14 +132,14 @@ export class CandidateListComponent implements OnInit {
     {headerName: 'Address', field: 'address', width: 250},
   ];
   /*AG_GRID*/
-  private gridApi;
-  private gridColumnApi;
-  private defaultColDef;
-  private columnTypes;
-  private context;
-  private frameworkComponents;
-  private sortingOrder;
-  private getRowHeight;
+  gridApi;
+  gridColumnApi;
+  defaultColDef;
+  columnTypes;
+  context;
+  frameworkComponents;
+  sortingOrder;
+  getRowHeight;
 
   shownModelList = [];
   modelList = [];

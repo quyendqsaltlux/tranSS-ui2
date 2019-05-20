@@ -43,13 +43,13 @@ export class ProjectsComponent implements OnInit {
     {headerName: 'Final Delivery', width: 160, field: 'finalDelivery', type: 'dateColumn'}
   ];
   /*AG_GRID*/
-  private gridApi;
-  private gridColumnApi;
-  private defaultColDef;
-  private columnTypes;
-  private context;
-  private frameworkComponents;
-  private sortingOrder;
+  gridApi;
+  gridColumnApi;
+  defaultColDef;
+  columnTypes;
+  context;
+  frameworkComponents;
+  sortingOrder;
 
   activedTab = 'ON_GOING';
   ignoreFilter = true;
