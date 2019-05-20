@@ -1,29 +1,35 @@
-<div>
+<div class="w100 rounded-0">
   <div class="mb-1"><strong>Specific Comment</strong></div>
-  <table class="table table-striped table-bordered table-sm">
-    <thead class="bg-primary">
-    <tr>
-      <td>No</td>
-      <td>Project</td>
-      <td>volume</td>
-      <td>Field</td>
-      <td>Document</td>
-      <td>Level of difficulty</td>
-      <td>Comment</td>
-      <td>Evaluator</td>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let comment of modelList; let index=index">
-      <td>{{index + 1}}</td>
-      <td>{{comment.project.code}}</td>
-      <td>{{comment.project.totalVolume}}</td>
-      <td>{{comment.project.field}}</td>
-      <td>{{comment.project.contents}}</td>
-      <td>{{comment.level}}</td>
-      <td>{{comment.comment}}</td>
-      <td>{{comment.evaluator}}</td>
-    </tr>
-    </tbody>
-  </table>
+  <ag-grid-angular
+    #agGrid
+    id="myGrid"
+    class="ag-theme-balham w100 specific-comment-table"
+    [context]="context"
+    [frameworkComponents]="frameworkComponents"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+    [columnTypes]="columnTypes"
+    [rowData]="modelList"
+    [animateRows]="true"
+    [sortingOrder]="sortingOrder"
+    [floatingFilter]="true"
+    (gridReady)="onGridReady($event)"
+    (filterChanged)="onGridFilterChange($event)"
+    (sortChanged)="onGridSortChanged($event)"
+  ></ag-grid-angular>
+
+  <div class="mt-2">
+    <span> Total: {{totalItems}}</span>
+    <div class="pull-right">
+      <pagination [totalItems]="totalItems" class="pagination" *ngIf="totalItems>0"
+                  [(ngModel)]="page"
+                  [maxSize]="5"
+                  [itemsPerPage]="size"
+                  (pageChanged)="pageChanged()"
+                  previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                  [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event">
+      </pagination>
+    </div>
+  </div>
+
 </div>

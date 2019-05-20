@@ -8,17 +8,13 @@ import {EvaluationService} from '../../service/evaluation.service';
 })
 export class EvaluationComponent implements OnInit {
   @Input() candidateId;
-  specificComments = [];
 
   constructor(private evaluationService: EvaluationService) {
   }
 
   ngOnInit() {
-    this.getSpecificComments();
 
   }
 
-  getSpecificComments() {
-    // this.evaluationService.findSpecificCommentById();
-  }
+
 }
