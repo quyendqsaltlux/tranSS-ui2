@@ -6,6 +6,7 @@ import {ProjectRoutingModule} from './project-routing.module';
 import {ProjectAssignmentListComponent} from './project-assignment-list/project-assignment-list.component';
 import {ProjectAssignmentComponent} from './project-assignment/project-assignment.component';
 import {AssignmentInfoComponent} from './assignment-info/assignment-info.component';
+import {SpecificCommentComponent} from './specific-comment/specific-comment.component';
 
 @NgModule({
   declarations: [
@@ -13,7 +14,8 @@ import {AssignmentInfoComponent} from './assignment-info/assignment-info.compone
     ProjectFormComponent,
     ProjectAssignmentListComponent,
     ProjectAssignmentComponent,
-    AssignmentInfoComponent
+    AssignmentInfoComponent,
+    SpecificCommentComponent
   ],
   imports: [
     ProjectRoutingModule,

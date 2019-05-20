@@ -1,0 +1,36 @@
+<form #fReview="ngForm" (ngSubmit)="reviewAssignment()" novalidate>
+  <div class="card card-body bg-light mt-3">
+    <div class="row justify-content-end">
+      <div class="col-md-6">
+        <!--LEVEL-->
+        <div class="form-group row">
+          <label for="level" class="col-sm-2 col-form-label-sm">Level of difficulty</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" id="level" name="level"
+                   [(ngModel)]="model.level" maxlength="127">
+          </div>
+        </div>
+        <!--EVALUATOR-->
+        <div class="form-group row">
+          <label for="evaluator" class="col-sm-2 col-form-label-sm">Evaluator</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" id="evaluator" name="evaluator"
+                   [(ngModel)]="model.evaluator" maxlength="255">
+          </div>
+        </div>
+        <!--COMMENT-->
+        <div class="form-group row">
+          <label for="review" class="col-sm-2 col-form-label-sm">Comment</label>
+          <div class="col-sm-10">
+                    <textarea class=" form-control form-control-sm" rows="4"
+                              name="review" maxlength="511" id="review"
+                              [(ngModel)]="model.comment"></textarea>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-sm btn-primary mr-1">Submit review</button>
+        <button type="button" class="btn btn-sm btn-secondary" (click)="onToggleReviewForm()">Close</button>
+      </div>
+    </div>
+  </div>
+</form>
+

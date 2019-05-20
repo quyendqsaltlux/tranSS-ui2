@@ -87,18 +87,7 @@ export class ProjectAssignmentComponent implements OnInit {
       }));
   }
 
-  reviewAssignment() {
-    this.projectAssignmentService.review(this.assignment.id, this.assignment.review, this.star)
-      .subscribe((resp) => {
-          this.toastr.success('Change progress successfully!');
-          this.assignment = {...resp.body};
-        },
-        ((err) => {
-          this.toastr.error(err.error.message, 'Fail to review!', {timeOut: 10000} as Partial<IndividualConfig>);
-        }));
-  }
-
-  onToggleReviewForm() {
+  onToggleReviewForm(e) {
     this.isShowReviewForm = !this.isShowReviewForm;
   }
 

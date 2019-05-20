@@ -9,8 +9,7 @@ import {FormWrapperComponent} from './form-wrapper/form-wrapper.component';
 import {AbilitiesComponent} from './abilities/abilities.component';
 import {ShareModule} from '../share/share.module';
 import {ProjectHistoryComponent} from './project-history/project-history.component';
-import {AuthGuard} from '../gaurd/AuthGuard';
-import { PaymentComponent } from './payment/payment.component';
+import {PaymentComponent} from './payment/payment.component';
 
 @NgModule({
   declarations: [

@@ -163,25 +163,10 @@
             </div>
           </form>
 
-          <!--REVIEW FORM-->
-          <ng-container *ngIf="assignment.progress === 'FINISHED' && isShowReviewForm">
-            <form #fReview="ngForm" (ngSubmit)="reviewAssignment()" novalidate>
-              <div class="card card-body bg-light mt-3">
-                <div class="row justify-content-end">
-                  <div class="col-md-6">
-                    <bar-rating [(rate)]="star" [max]="5"></bar-rating>
-                    <div class="form-group">
-                    <textarea class=" form-control form-control-sm" rows="4" placeholder="Enter your comment"
-                              name="review"
-                              [(ngModel)]="assignment.review"></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-sm btn-primary mr-1">Submit review</button>
-                    <button type="button" class="btn btn-sm btn-secondary" (click)="onToggleReviewForm()">Close</button>
-                  </div>
-                </div>
-              </div>
-            </form>
-          </ng-container>
+          <app-specific-comment *ngIf="assignment.progress === 'FINISHED' && isShowReviewForm"
+                                [assignmentId]="assignment.id"
+                                (closeForm)="onToggleReviewForm($event)"
+          ></app-specific-comment>
         </fieldset>
       </div>
     </div>
