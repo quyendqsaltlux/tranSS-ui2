@@ -106,12 +106,12 @@
                     <th>Net word / Hour</th>
                   </tr>
                   <tr>
-                    <td>{{model.assignment.candidate.ability.wrep}}</td>
-                    <td>{{model.assignment.candidate.ability.w100}}</td>
-                    <td>{{model.assignment.candidate.ability.w99_95}}</td>
-                    <td>{{model.assignment.candidate.ability.w94_85}}</td>
-                    <td>{{model.assignment.candidate.ability.w84_75}}</td>
-                    <td>{{model.assignment.candidate.ability.wnoMatch}}</td>
+                    <td>{{model.assignment.ability.wrep}} %</td>
+                    <td>{{model.assignment.ability.w100}} %</td>
+                    <td>{{model.assignment.ability.w99_95}} %</td>
+                    <td>{{model.assignment.ability.w94_85}} %</td>
+                    <td>{{model.assignment.ability.w84_75}} %</td>
+                    <td>{{model.assignment.ability.wnoMatch}} %</td>
                     <td>{{model.netWordHour}}</td>
                   </tr>
                   <tr>
@@ -119,8 +119,8 @@
                     <th class="bg-success text-center" colspan="8"><h3 class="mb-0">Total Amount</h3></th>
                   </tr>
                   <tr>
-                    <td colspan="3">Currency</td>
-                    <td colspan="8">{{mode.assignment.totalAmount}}</td>
+                    <td colspan="3"><h2>{{model.assignment.ability.currency}}</h2></td>
+                    <td colspan="8"><h2>{{mode.assignment.totalAmount}}</h2></td>
                   </tr>
                   </tbody>
                 </table>
