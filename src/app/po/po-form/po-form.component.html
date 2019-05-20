@@ -26,19 +26,19 @@
                   <div class="form-group row">
                     <label for="resourceName" class="col-sm-4 col-form-label">Name</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="resourceName">
+                      <input type="text" readonly class="form-control" id="resourceName" [value]="model.assignment.candidate.name">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="orderDate" class="col-sm-4 col-form-label">Order Date</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="orderDate">
+                      <input type="text" readonly class="form-control" id="orderDate" [value]="model.assignment.ho">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="dueDate" class="col-sm-4 col-form-label">Due Date</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="dueDate">
+                      <input type="text" readonly class="form-control" id="dueDate" [value]="model.assignment.hb">
                     </div>
                   </div>
                 </div>
@@ -47,19 +47,19 @@
                   <div class="form-group row">
                     <label for="pm" class="col-sm-4 col-form-label">Project Manager</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="pm">
+                      <input type="text" class="form-control" id="pm" readonly [value]="model.assignment.project.pm.name">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="pmEmail" class="col-sm-4 col-form-label">Email</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="pmEmail">
+                      <input type="text" class="form-control" id="pmEmail" readonly [value]="model.assignment.project.pm.email">
                     </div>
                   </div>
                   <div class="form-group row">
                     <label for="pmTel" class="col-sm-4 col-form-label">Tel</label>
                     <div class="col-sm-8">
-                      <input type="text" class="form-control" id="pmTel">
+                      <input type="text" class="form-control" id="pmTel" readonly [value]="model.assignment.project.pm.tel">
                     </div>
                   </div>
                 </div>
