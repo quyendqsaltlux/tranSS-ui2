@@ -15,6 +15,6 @@ export class PoService {
   }
 
   getDefaultPo(id: any): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(API_PATH + '/' + id, {observe: 'response'});
+    return this.http.get<HttpResponse<any>>(API_PATH + '/getDefaultPo/' + id, {observe: 'response'});
   }
 }
