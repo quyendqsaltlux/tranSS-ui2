@@ -11,10 +11,6 @@ textarea {
   padding-right: 1px;
   margin-bottom: 0 !important;
 }
-//
-//.assignment-container .form-left .form-group:not(.date) {
-//  width: 110px;
-//}
 
 .assignment-container .form-left .form-group.date {
   width: 130px;
@@ -27,6 +23,11 @@ textarea {
 .w80 {
   width: 80px;
 }
+
 .w50 {
   width: 50px;
+}
+
+.right-actions {
+  width: 30px;
 }

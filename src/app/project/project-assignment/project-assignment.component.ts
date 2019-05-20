@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProjectAssignmentReq} from '../../model/ProjectAssignmenReq';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
 import {IndividualConfig, ToastrService} from 'ngx-toastr';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-project-assignment',
@@ -22,7 +23,8 @@ export class ProjectAssignmentComponent implements OnInit {
   star = 5;
 
   constructor(private  projectAssignmentService: ProjectAssignmentService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private route: Router) {
   }
 
   ngOnInit() {
@@ -106,4 +108,7 @@ export class ProjectAssignmentComponent implements OnInit {
     this.deleteItem.emit(this.index);
   }
 
+  goToPo(assignmentId) {
+    this.route.navigate(['/purchaseOrders/' + assignmentId + '/new']);
+  }
 }
