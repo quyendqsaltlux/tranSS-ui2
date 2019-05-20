@@ -16,8 +16,8 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'list', pathMatch: 'full'},
       {path: 'list', component: PoListComponent, data: {title: 'List'}},
-      {path: 'new', component: PoFormComponent, data: {title: 'New'}},
-      {path: 'edit/:id', component: PoFormComponent, data: {title: 'Edit'}}
+      {path: ':assignmentId/new', component: PoFormComponent, data: {title: 'New'}},
+      {path: ':assignmentId/edit/:id', component: PoFormComponent, data: {title: 'Edit'}}
     ]
   }
 ];

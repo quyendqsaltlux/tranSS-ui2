@@ -6,3 +6,10 @@
 .ag-column-hover {
   background-color: #F0F8FF;
 }
+/* enable basic browser text selection in grid cells */
+div.ag-root .ag-cell-focus {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
