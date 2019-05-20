@@ -10,8 +10,10 @@ import {AbilitiesComponent} from './abilities/abilities.component';
 import {ShareModule} from '../share/share.module';
 import {ProjectHistoryComponent} from './project-history/project-history.component';
 import {PaymentComponent} from './payment/payment.component';
-import { SpecificCommentViewComponent } from './evaluation/specific-comment-view/specific-comment-view.component';
-import { EvaluationComponent } from './evaluation/evaluation.component';
+import {SpecificCommentViewComponent} from './evaluation/specific-comment-view/specific-comment-view.component';
+import {EvaluationComponent} from './evaluation/evaluation.component';
+import {GeneralCommentComponent} from './evaluation/general-comment/general-comment.component';
+import {GeneralCommentListComponent} from './evaluation/general-comment-list/general-comment-list.component';
 
 @NgModule({
   declarations: [
@@ -26,12 +28,14 @@ import { EvaluationComponent } from './evaluation/evaluation.component';
     PaymentComponent,
     SpecificCommentViewComponent,
     EvaluationComponent,
+    GeneralCommentComponent,
+    GeneralCommentListComponent,
   ],
   imports: [
     ResourcesRoutingModule,
     ShareModule
   ],
-  entryComponents: [AttachmentComponent],
+  entryComponents: [AttachmentComponent, GeneralCommentComponent],
 })
 export class ResourcesModule {
 }
