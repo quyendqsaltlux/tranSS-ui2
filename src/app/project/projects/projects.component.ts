@@ -57,7 +57,7 @@ export class ProjectsComponent implements OnInit {
   modelList = [];
   keyWord: string;
   page = 1;
-  size = 50;
+  size = 100;
   numPages = 0;
   totalItems = 0;
   sortConfig: {
