@@ -22,7 +22,7 @@ export class CandidateFormComponent implements OnInit {
   @ViewChild('payment') paymentComponent: PaymentComponent;
   bsModalRef: BsModalRef;
   id = null;
-  model: Candidate = <Candidate>{};
+  model: Candidate = {} as Candidate;
 
   constructor(private candidateService: CandidateService,
               private toastr: ToastrService,

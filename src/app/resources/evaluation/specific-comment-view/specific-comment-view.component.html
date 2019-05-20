@@ -1,0 +1,29 @@
+<div>
+  <div class="mb-1"><strong>Specific Comment</strong></div>
+  <table class="table table-striped table-bordered table-sm">
+    <thead class="bg-primary">
+    <tr>
+      <td>No</td>
+      <td>Project</td>
+      <td>volume</td>
+      <td>Field</td>
+      <td>Document</td>
+      <td>Level of difficulty</td>
+      <td>Comment</td>
+      <td>Evaluator</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let comment of modelList; let index=index">
+      <td>{{index + 1}}</td>
+      <td>{{comment.project.code}}</td>
+      <td>{{comment.project.totalVolume}}</td>
+      <td>{{comment.project.field}}</td>
+      <td>{{comment.project.contents}}</td>
+      <td>{{comment.level}}</td>
+      <td>{{comment.comment}}</td>
+      <td>{{comment.evaluator}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

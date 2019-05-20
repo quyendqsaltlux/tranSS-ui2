@@ -10,6 +10,8 @@ import {AbilitiesComponent} from './abilities/abilities.component';
 import {ShareModule} from '../share/share.module';
 import {ProjectHistoryComponent} from './project-history/project-history.component';
 import {PaymentComponent} from './payment/payment.component';
+import { SpecificCommentViewComponent } from './evaluation/specific-comment-view/specific-comment-view.component';
+import { EvaluationComponent } from './evaluation/evaluation.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,8 @@ import {PaymentComponent} from './payment/payment.component';
     AbilitiesComponent,
     ProjectHistoryComponent,
     PaymentComponent,
+    SpecificCommentViewComponent,
+    EvaluationComponent,
   ],
   imports: [
     ResourcesRoutingModule,
