@@ -60,5 +60,10 @@ export const navItems: NavData[] = [
     name: 'Production list',
     url: '/projects',
     icon: 'fa fa-tasks'
+  },
+  {
+    name: 'Purchase orders',
+    url: '/purchaseOrders',
+    icon: 'fa fa-dollar'
   }
 ];

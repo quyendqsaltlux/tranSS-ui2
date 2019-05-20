@@ -108,6 +108,10 @@ export const routes: Routes = [
         path: 'migrate',
         loadChildren: './admin/admin.module#AdminModule'
       },
+      {
+        path: 'purchaseOrders',
+        loadChildren: './po/po.module#PoModule'
+      },
     ]
   },
   {path: '**', component: P404Component}
