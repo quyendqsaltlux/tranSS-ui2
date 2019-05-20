@@ -11,6 +11,7 @@ import {ToastrService} from 'ngx-toastr';
 export class PoFormComponent implements OnInit {
   assignmentId: number = null;
   defaultPo;
+  model: {};
 
   constructor(private route: ActivatedRoute,
               private toastr: ToastrService,
@@ -26,6 +27,7 @@ export class PoFormComponent implements OnInit {
     this.poService.getDefaultPo(this.assignmentId).subscribe((resp) => {
       console.log(resp.body);
       this.defaultPo = resp.body;
+      this.model = {...this.defaultPo};
     }, (err) => {
       this.toastr.error('Fail to get default purchase orider data');
     });

@@ -1,0 +1,32 @@
+.po-header {
+
+}
+
+.img-po-header {
+
+}
+
+.po-content {
+font-weight: bold;
+}
+
+.po-title {
+  font-size: 3rem;
+}
+
+.po-table {
+  border-color: black;
+  th {
+    white-space: nowrap;
+    color: white;
+    font-weight: initial;
+    background-color: #2062d8;
+  }
+  tbody {
+    td {
+      vertical-align: middle;
+      text-align: center;
+    }
+  }
+
+}

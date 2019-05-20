@@ -1,3 +1,136 @@
-<p>
-  po-form works! {{assignmentId}}
-</p>
+<div class="animated fadeIn">
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+      <div class="card mb-1">
+        <div class="card-body">
+          <div class="po-header">
+            <div class="text-right"><img src="assets/img/po-header.PNG" class="img-po-header"/></div>
+            <h1 class="text-center mt-5 po-title">Purchase Order</h1>
+            <strong>[ IMPORTANT ]</strong>
+            <div>* If any definite errors like typo, number, punctuation, bracket, etc., the payment date can be delayed a few additional months from regular term.</div>
+            <div>* If any claims from the client, some payment may be deducted according to the client's policy. And client's claim is repeated, dealing to each other can be stop by the client's request.</div>
+            <div>* We consider that you accept the conditions above if you confirm the receipt and start the job as scheduled.</div>
+          </div>
+          <hr>
+          <div class="po-content">
+            <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+              <div class="form-group row">
+                <label for="poNumber" class="col-sm-2 col-form-label"><strong>PO Number</strong></label>
+                <div class="col-sm-4">
+                  <input type="text" class="form-control" id="poNumber">
+                </div>
+              </div>
+              <!--RESOURCE & PM-->
+              <div class="row">
+                <div class="col-sm-6">
+                  <div class="form-group row">
+                    <label for="resourceName" class="col-sm-4 col-form-label">Name</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="resourceName">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="orderDate" class="col-sm-4 col-form-label">Order Date</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="orderDate">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="dueDate" class="col-sm-4 col-form-label">Due Date</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="dueDate">
+                    </div>
+                  </div>
+                </div>
+                <!--PM-->
+                <div class="col-sm-6">
+                  <div class="form-group row">
+                    <label for="pm" class="col-sm-4 col-form-label">Project Manager</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="pm">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="pmEmail" class="col-sm-4 col-form-label">Email</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="pmEmail">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="pmTel" class="col-sm-4 col-form-label">Tel</label>
+                    <div class="col-sm-8">
+                      <input type="text" class="form-control" id="pmTel">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table table-bordered po-table">
+                  <thead>
+                  <tr>
+                    <th>Job code</th>
+                    <th>Task</th>
+                    <th>Source</th>
+                    <th>Target</th>
+                    <th>Repetition</th>
+                    <th>100%</th>
+                    <th>99~95%</th>
+                    <th>94~85%</th>
+                    <th>84~75%</th>
+                    <th>No Match / Hour</th>
+                    <th>Total Count</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <td rowspan="3">{{model.assignment.project.code}}</td>
+                    <td rowspan="3">{{model.assignment.task}}</td>
+                    <td rowspan="3">{{model.assignment.source}}</td>
+                    <td rowspan="3">{{model.assignment.target}}</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{model.assignment.totalCount}}</td>
+                  </tr>
+                  <tr>
+                    <th>Wf Rep.</th>
+                    <th>Wf 100%</th>
+                    <th>Wf 99~95%</th>
+                    <th>Wf 94~85%</th>
+                    <th>Wf 84~75%</th>
+                    <th>Wf New/td>
+                    <th>Net word / Hour</th>
+                  </tr>
+                  <tr>
+                    <td>{{model.assignment.candidate.ability.wrep}}</td>
+                    <td>{{model.assignment.candidate.ability.w100}}</td>
+                    <td>{{model.assignment.candidate.ability.w99_95}}</td>
+                    <td>{{model.assignment.candidate.ability.w94_85}}</td>
+                    <td>{{model.assignment.candidate.ability.w84_75}}</td>
+                    <td>{{model.assignment.candidate.ability.wnoMatch}}</td>
+                    <td>{{model.netWordHour}}</td>
+                  </tr>
+                  <tr>
+                    <th class="bg-success text-center" colspan="3"><h4 class="mb-0">Currency</h4></th>
+                    <th class="bg-success text-center" colspan="8"><h3 class="mb-0">Total Amount</h3></th>
+                  </tr>
+                  <tr>
+                    <td colspan="3">Currency</td>
+                    <td colspan="8">{{mode.assignment.totalAmount}}</td>
+                  </tr>
+                  </tbody>
+                </table>
+              </div>
+            </form>
+          </div>
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
