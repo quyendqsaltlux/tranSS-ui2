@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-project-assignment-list',
@@ -8,15 +9,19 @@ import {ProjectAssignmentService} from '../../service/project-assignment.service
   styleUrls: ['./project-assignment-list.component.scss']
 })
 export class ProjectAssignmentListComponent implements OnInit {
+  @ViewChild('template') template: TemplateRef<any>;
+  modalRef: BsModalRef;
   @Input() projectId;
   @Input() projectCode;
   assignments: any = [];
   viewControl = {
     ableToChange: true
   };
+  deleteId = -1;
 
   constructor(private  projectAssignmentService: ProjectAssignmentService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -49,4 +54,32 @@ export class ProjectAssignmentListComponent implements OnInit {
   onAssignDone(event) {
     this.getModelList();
   }
+
+  confirmDelete(): void {
+    this.modalRef.hide();
+    if (this.deleteId < 0) {
+      return;
+    }
+    this.projectAssignmentService.deleteById(this.deleteId).subscribe((resp) => {
+        this.toastr.success('Delete successfully!');
+        this.getModelList();
+      },
+      (error1 => {
+        this.toastr.error('Fail to delete!');
+      }));
+  }
+
+  declineDelete(): void {
+    this.modalRef.hide();
+  }
+
+  onResourceDelete(index) {
+    if (this.assignments[index].id == null) {
+      this.assignments.splice(index, 1);
+      return;
+    }
+    this.deleteId = this.assignments[index].id;
+    this.modalRef = this.modalService.show(this.template, {class: 'modal-sm'} as ModalOptions);
+  }
+
 }

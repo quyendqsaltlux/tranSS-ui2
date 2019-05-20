@@ -44,4 +44,8 @@ export class ProjectAssignmentService {
     const params = '?star=' + star;
     return this.http.post<HttpResponse<any>>(API_PATH + '/review/' + id + params, comment, {observe: 'response'});
   }
+
+  deleteById(id: any): Observable<any> {
+    return this.http.delete(API_PATH + '/' + id, {observe: 'response'});
+  }
 }

@@ -9,11 +9,13 @@ import {IndividualConfig, ToastrService} from 'ngx-toastr';
   styleUrls: ['./project-assignment.component.scss']
 })
 export class ProjectAssignmentComponent implements OnInit {
+  @Input() index;
   @Input() viewControl;
   @Input() assignment;
   @Input() projectId;
   @Input() projectCode;
   @Output() saveDone: EventEmitter<any> = new EventEmitter();
+  @Output() deleteItem: EventEmitter<any> = new EventEmitter();
 
   model: ProjectAssignmentReq = {} as ProjectAssignmentReq;
   isShowReviewForm = false;
@@ -99,4 +101,9 @@ export class ProjectAssignmentComponent implements OnInit {
   onToggleReviewForm() {
     this.isShowReviewForm = !this.isShowReviewForm;
   }
+
+  onDeleteResource() {
+    this.deleteItem.emit(this.index);
+  }
+
 }

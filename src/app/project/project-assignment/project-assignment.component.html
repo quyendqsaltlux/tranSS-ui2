@@ -10,7 +10,7 @@
               <div class="form-group w80">
                 <label for="candidate">Resource<span class="text-danger"> *</span></label>
                 <input type="text" class=" form-control form-control-sm" id="candidate" name="candidate"
-                       placeholder="Enter resource code"
+                       placeholder="Code"
                        required maxlength="127"
                        [(ngModel)]="model.candidateCode"
                        #candidate="ngModel"
@@ -41,7 +41,6 @@
               <div class="form-group w50">
                 <label for="source">Source<span class="text-danger"> *</span></label>
                 <input type="text" class=" form-control form-control-sm" id="source" name="source"
-                       placeholder="Enter resource code"
                        required maxlength="127"
                        [(ngModel)]="model.source"
                        #source="ngModel"
@@ -55,7 +54,6 @@
               <div class="form-group w50">
                 <label for="target">Target<span class="text-danger"> *</span></label>
                 <input type="text" class=" form-control form-control-sm" id="target" name="target"
-                       placeholder="Enter retarget code"
                        required maxlength="127"
                        [(ngModel)]="model.target"
                        #target="ngModel"
@@ -179,6 +177,8 @@
           </form>
         </ng-container>
         </fieldset>
+        <button type="button" class="bottom-conner btn-ghost-danger" (click)="onDeleteResource()"
+        ><i class="fa fa-trash-o bg-danger"></i></button>
       </div>
     </div>
   </div>

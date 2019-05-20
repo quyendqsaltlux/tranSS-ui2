@@ -68,7 +68,11 @@ table.rates-table {
   top: 1px;
   right: 1px;
 }
-
+.bottom-conner {
+  position: absolute;
+  bottom: 1px;
+  right: 1px;
+}
 .ag-grid-custom {
   width: 100%;
   height: calc(100vh - 180px);
