@@ -6,12 +6,12 @@
     ><i class="fa fa-plus"></i> New</button>
   </div>
 
-  <div class="card-body">
+  <div class="card-body p-0">
     <div class="w100 rounded-0">
       <ag-grid-angular
         #agGrid
         id="myGrid"
-        class="ag-theme-balham w100 specific-comment-table"
+        class="ag-theme-balham w100 general-comment-table"
         [context]="context"
         [frameworkComponents]="frameworkComponents"
         [columnDefs]="columnDefs"
@@ -26,13 +26,11 @@
         (sortChanged)="onGridSortChanged($event)"
       ></ag-grid-angular>
     </div>
-
   </div>
-
   <div class="card-footer">
     <span> Total: {{totalItems}}</span>
     <div class="pull-right">
-      <pagination [totalItems]="totalItems" class="pagination" *ngIf="totalItems>0"
+      <pagination [totalItems]="totalItems" class="pagination pagination-sm" *ngIf="totalItems>0"
                   [(ngModel)]="page"
                   [maxSize]="5"
                   [itemsPerPage]="size"

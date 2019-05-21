@@ -1,10 +1,10 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {CandidateService} from '../../service/candidate.service';
-import {ToastrService} from 'ngx-toastr';
+import {GlobalConfig, ToastrService} from 'ngx-toastr';
 import {focusDuplicatedFields} from '../../util/dom-util';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {AttachmentComponent} from '../attachment/attachment.component';
 import {getFileName} from '../../util/string-util';
 import {Candidate} from '../../model/Candidate';
@@ -69,7 +69,7 @@ export class CandidateFormComponent implements OnInit {
           const duplicatedColumns = err.error.apierror.subErrors[0].duplicatedColumns;
           focusDuplicatedFields(duplicatedColumns, this.candidateForm);
         } else {
-          this.toastr.error('Fail to save!', '', {timeOut: 10000});
+          this.toastr.error('Fail to save!', '', {timeOut: 10000} as Partial<GlobalConfig>);
         }
       });
   }
@@ -79,7 +79,7 @@ export class CandidateFormComponent implements OnInit {
       title: 'Upload CV',
       folder: 'CV'
     };
-    this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState});
+    this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.closeBtnName = 'Close';
     this.bsModalRef.content.event.subscribe(result => {
       if (result && result.data) {
@@ -94,7 +94,7 @@ export class CandidateFormComponent implements OnInit {
       folder: 'OTHER_ATTACHMENTS',
       isMultiple: true,
     };
-    this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState});
+    this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.isMultiple = true;
     this.bsModalRef.content.event.subscribe(result => {
       if (result && result.data) {
@@ -113,7 +113,7 @@ export class CandidateFormComponent implements OnInit {
       title: 'Upload Diploma',
       folder: 'DIPLOMA'
     };
-    this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState});
+    this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.event.subscribe(result => {
       if (result && result.data) {
         this.model.diploma = result.data;

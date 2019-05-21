@@ -27,6 +27,8 @@ export class GeneralCommentComponent implements OnInit {
   onSubmit() {
     this.evaluationService.saveGeneralComment(this.model, this.candidateId)
       .subscribe((resp) => {
+        this.model.id = resp.body.id;
+        this.bsModalRef.hide();
         this.toastr.success('Save successfully!');
       });
   }
