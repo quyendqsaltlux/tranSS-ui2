@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {EvaluationService} from '../../../service/evaluation.service';
-import {ActionsColRendererComponent} from '../../../share/ag-grid/actions-col-renderer.component';
+import {separateFiltersFromGrid} from '../../../util/http-util';
+import {ActionsColRendererComponent} from "../../../share/ag-grid/actions-col-renderer.component";
 
 @Component({
   selector: 'app-specific-comment-view',
@@ -9,7 +10,7 @@ import {ActionsColRendererComponent} from '../../../share/ag-grid/actions-col-re
 })
 export class SpecificCommentViewComponent implements OnInit {
   @Input() candidateId;
-  JOIN_FILTER_COLS = [];
+  JOIN_FILTER_COLS = ['assignment.project.code', 'assignment.project.totalVolume', 'assignment.project.field', 'assignment.project.contents'];
   columnDefs = [
     {headerName: 'Project', field: 'assignment.project.code'},
     {headerName: 'volume', field: 'assignment.project.totalVolume'},
@@ -60,7 +61,7 @@ export class SpecificCommentViewComponent implements OnInit {
       resizable: true,
       // filter: 'agTextColumnFilter',
       filter: false,
-      floatingFilter: false,
+      // floatingFilter: false,
       suppressMenu: true,
       // floatingFilterComponentParams: {suppressFilterButton: true},
       // filterParams: {newRowsAction: 'keep'},
@@ -99,12 +100,20 @@ export class SpecificCommentViewComponent implements OnInit {
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.getSpecificComments();
+    this.getModelList();
   }
 
-  getSpecificComments() {
+  onGridFilterChange(event) {
+    const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
+    const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
+    this.rootFilter = [...separatedFilter.root];
+    this.joinFilter = [...separatedFilter.join];
+    this.getModelList();
+  }
+
+  getModelList() {
     this.evaluationService.searchSpecificComment(this.page, this.size, this.keyWord,
-      this.sortConfig.field, this.sortConfig.order, [], [], this.candidateId)
+      this.sortConfig.field, this.sortConfig.order, this.rootFilter, this.joinFilter, this.candidateId)
       .subscribe((resp) => {
         this.modelList = [...resp.body.content];
         this.totalItems = resp.body.totalElements;

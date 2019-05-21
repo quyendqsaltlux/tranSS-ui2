@@ -117,6 +117,7 @@ export class GeneralCommentListComponent implements OnInit {
     this.gridColumnApi = params.columnApi;
     this.getModelList();
   }
+
   onGridFilterChange(event) {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
     console.log(filters);
