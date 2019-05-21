@@ -21,7 +21,7 @@ export class GeneralCommentListComponent implements OnInit {
   @Input() candidateId;
   JOIN_FILTER_COLS = [];
   columnDefs = [
-    {headerName: 'Actions', colId: 'rowActions', pinned: 'left', filter: false, width: 100, cellRenderer: 'actionsRenderer'},
+    {headerName: 'Actions', colId: 'rowActions', pinned: 'left', filter: false, width: 70, cellRenderer: 'actionsRenderer'},
     {headerName: 'date', field: 'date', type: 'dateColumn', width: 170, cellRenderer: 'dateRender', cellRendererParams: {renderField: 'date'}},
     {headerName: 'Evaluator', field: 'evaluator'},
     {headerName: 'Comment', field: 'comment', width: 1000, cellClass: ['wrap-text'], autoHeight: true},

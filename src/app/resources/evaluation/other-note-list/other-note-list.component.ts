@@ -1,10 +1,12 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {EvaluationService} from '../../../service/evaluation.service';
 import {ActionsColRendererComponent} from '../../../share/ag-grid/actions-col-renderer.component';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {combineLatest, Subscription} from 'rxjs/index';
 import {separateFiltersFromGrid} from '../../../util/http-util';
 import {OtherNoteComponent} from '../other-note/other-note.component';
+import {EvaluationActionsCellComponent} from '../../../share/ag-grid/evaluation-actions-cell/evaluation-actions-cell.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-other-note-list',
@@ -12,11 +14,14 @@ import {OtherNoteComponent} from '../other-note/other-note.component';
   styleUrls: ['./other-note-list.component.scss']
 })
 export class OtherNoteListComponent implements OnInit {
+  @ViewChild('template') template: TemplateRef<any>;
   bsModalRef: BsModalRef;
+  modalRef: BsModalRef;
   subscriptions: Subscription[] = [];
   @Input() candidateId;
   JOIN_FILTER_COLS = [];
   columnDefs = [
+    {headerName: 'Actions', colId: 'rowActions', pinned: 'left', filter: false, width: 70, cellRenderer: 'actionsRenderer'},
     {headerName: 'project', field: 'project', width: 100},
     {headerName: 'target', field: 'target', cellClass: ['wrap-text']},
     {headerName: 'corrected', field: 'corrected', cellClass: ['wrap-text']},
@@ -48,9 +53,11 @@ export class OtherNoteListComponent implements OnInit {
 
   rootFilter = [];
   joinFilter = [];
+  deleteId = -1;
 
   constructor(private evaluationService: EvaluationService,
               private modalService: BsModalService,
+              private toastr: ToastrService,
               private changeDetection: ChangeDetectorRef) {
   }
 
@@ -85,7 +92,8 @@ export class OtherNoteListComponent implements OnInit {
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
-      childMessageRenderer: ActionsColRendererComponent
+      childMessageRenderer: ActionsColRendererComponent,
+      actionsRenderer: EvaluationActionsCellComponent
     };
     this.domLayout = 'autoHeight';
   }
@@ -105,7 +113,7 @@ export class OtherNoteListComponent implements OnInit {
     this.getModelList();
   }
 
-  openNewOtherNoteModal() {
+  openNewOtherNoteModal(data?) {
     const _combine = combineLatest(
       this.modalService.onHide,
       this.modalService.onHidden
@@ -121,7 +129,8 @@ export class OtherNoteListComponent implements OnInit {
     this.subscriptions.push(_combine);
     const initialState = {
       title: 'Other note',
-      candidateId: this.candidateId
+      candidateId: this.candidateId,
+      model: data,
     };
     this.bsModalRef = this.modalService.show(OtherNoteComponent, {initialState} as ModalOptions);
   }
@@ -137,5 +146,36 @@ export class OtherNoteListComponent implements OnInit {
     if (modalContent.model.id) {
       this.getModelList();
     }
+  }
+
+  onEdit(index) {
+    this.openNewOtherNoteModal(this.modelList[index]);
+  }
+
+  onDelete(index) {
+    this.openModal(this.template, this.modelList[index].id);
+  }
+
+  openModal(template: TemplateRef<any>, id) {
+    this.deleteId = id;
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'} as ModalOptions);
+  }
+
+  confirmDelete(): void {
+    this.modalRef.hide();
+    if (this.deleteId < 0) {
+      return;
+    }
+    this.evaluationService.deleteotherNote(this.deleteId).subscribe((resp) => {
+        this.toastr.success('Delete successfully!');
+        this.getModelList();
+      },
+      (error1 => {
+        this.toastr.error('Fail to delete!');
+      }));
+  }
+
+  declineDelete(): void {
+    this.modalRef.hide();
   }
 }
