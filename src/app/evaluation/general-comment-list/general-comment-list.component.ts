@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {EvaluationService} from '../../../service/evaluation.service';
-import {DateCellComponent} from '../../../share/ag-grid/date-cell/date-cell.component';
+import {EvaluationService} from '../../service/evaluation.service';
+import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {combineLatest, Subscription} from 'rxjs/index';
 import {GeneralCommentComponent} from '../general-comment/general-comment.component';
-import {separateFiltersFromGrid} from '../../../util/http-util';
-import {EvaluationActionsCellComponent} from '../../../share/ag-grid/evaluation-actions-cell/evaluation-actions-cell.component';
+import {separateFiltersFromGrid} from '../../util/http-util';
+import {EvaluationActionsCellComponent} from '../../share/ag-grid/evaluation-actions-cell/evaluation-actions-cell.component';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({

@@ -1,11 +1,11 @@
 import {ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import {EvaluationService} from '../../../service/evaluation.service';
-import {ActionsColRendererComponent} from '../../../share/ag-grid/actions-col-renderer.component';
+import {EvaluationService} from '../../service/evaluation.service';
+import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-renderer.component';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {combineLatest, Subscription} from 'rxjs/index';
-import {separateFiltersFromGrid} from '../../../util/http-util';
+import {separateFiltersFromGrid} from '../../util/http-util';
 import {OtherNoteComponent} from '../other-note/other-note.component';
-import {EvaluationActionsCellComponent} from '../../../share/ag-grid/evaluation-actions-cell/evaluation-actions-cell.component';
+import {EvaluationActionsCellComponent} from '../../share/ag-grid/evaluation-actions-cell/evaluation-actions-cell.component';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({

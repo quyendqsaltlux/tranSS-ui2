@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {EvaluationService} from '../../service/evaluation.service';
+import {EvaluationService} from '../service/evaluation.service';
 
 @Component({
   selector: 'app-evaluation',

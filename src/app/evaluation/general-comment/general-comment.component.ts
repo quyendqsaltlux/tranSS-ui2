@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {GeneralComment} from '../../../model/GeneralComment';
-import {EvaluationService} from '../../../service/evaluation.service';
+import {GeneralComment} from '../../model/GeneralComment';
+import {EvaluationService} from '../../service/evaluation.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef} from 'ngx-bootstrap';

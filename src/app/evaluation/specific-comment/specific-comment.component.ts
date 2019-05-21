@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {EvaluationService} from '../../service/evaluation.service';
 import {IndividualConfig, ToastrService} from 'ngx-toastr';
 import {SpecificComment} from '../../model/SpecificComment';
+import {BsModalRef} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-specific-comment',
@@ -9,11 +10,11 @@ import {SpecificComment} from '../../model/SpecificComment';
   styleUrls: ['./specific-comment.component.scss']
 })
 export class SpecificCommentComponent implements OnInit {
-  @Output() closeForm: EventEmitter<any> = new EventEmitter();
-  @Input() assignmentId;
+  assignmentId;
   model = {} as SpecificComment;
 
-  constructor(private  evaluationService: EvaluationService,
+  constructor(public bsModalRef: BsModalRef,
+              private  evaluationService: EvaluationService,
               private toastr: ToastrService) {
   }
 
@@ -30,16 +31,16 @@ export class SpecificCommentComponent implements OnInit {
   }
 
   reviewAssignment() {
-    this.evaluationService.saveSpecificComment(this.model)
-      .subscribe((resp) => {
-          this.toastr.success('Change progress successfully!');
-        },
-        ((err) => {
-          this.toastr.error(err.error.message, 'Fail to evaluate!', {timeOut: 10000} as Partial<IndividualConfig>);
-        }));
+    this.evaluationService.saveSpecificComment(this.model).subscribe((resp) => {
+        this.toastr.success('Saved successfully!');
+        this.bsModalRef.hide();
+      },
+      ((err) => {
+        this.toastr.error(err.error.message, 'Fail to evaluate!', {timeOut: 10000} as Partial<IndividualConfig>);
+      }));
   }
 
-  onToggleReviewForm() {
-    this.closeForm.emit(true);
+  cancel() {
+    this.bsModalRef.hide();
   }
 }

@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
-import {EvaluationService} from '../../../service/evaluation.service';
+import {EvaluationService} from '../../service/evaluation.service';
 import {BsModalRef} from 'ngx-bootstrap';
-import {OtherNote} from '../../../model/OtherNote';
+import {OtherNote} from '../../model/OtherNote';
 
 @Component({
   selector: 'app-other-note',

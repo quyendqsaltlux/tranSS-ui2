@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {EvaluationService} from '../../../service/evaluation.service';
-import {separateFiltersFromGrid} from '../../../util/http-util';
-import {ActionsColRendererComponent} from '../../../share/ag-grid/actions-col-renderer.component';
+import {EvaluationService} from '../../service/evaluation.service';
+import {separateFiltersFromGrid} from '../../util/http-util';
+import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-renderer.component';
 
 @Component({
   selector: 'app-specific-comment-view',

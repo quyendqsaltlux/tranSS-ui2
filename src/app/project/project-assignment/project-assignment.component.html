@@ -153,7 +153,7 @@
               <div class="right-actions">
                 <button type="button" class="btn-ghost-secondary" (click)="onDeleteResource()">
                   <i class="fa fa-trash-o text-danger"></i></button>
-                <div class="cursor-pointer d-flex justify-content-end" *ngIf="assignment.progress === 'FINISHED'" (click)="onToggleReviewForm()">
+                <div class="cursor-pointer d-flex justify-content-end" *ngIf="assignment.progress === 'FINISHED'" (click)="openNewGeneralCommentModal()">
                   <button type="button" class="btn btn-ghost-primary btn-sm p-0" *ngIf="!assignment.star">Evaluate</button>
                   <ng-container *ngIf="assignment.star && assignment.star > 0">
                     <span>{{assignment.star}} <i class="fa fa-star text-warning"></i></span>
@@ -163,10 +163,6 @@
             </div>
           </form>
 
-          <app-specific-comment *ngIf="assignment.progress === 'FINISHED' && isShowReviewForm"
-                                [assignmentId]="assignment.id"
-                                (closeForm)="onToggleReviewForm($event)"
-          ></app-specific-comment>
         </fieldset>
       </div>
     </div>
