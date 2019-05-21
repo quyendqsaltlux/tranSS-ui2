@@ -126,6 +126,13 @@ export class GeneralCommentListComponent implements OnInit {
     this.getModelList();
   }
 
+  onGridSortChanged(event) {
+    const sortState = this.gridApi.getSortModel();
+    this.sortConfig.order = sortState[0].sort;
+    this.sortConfig.field = sortState[0].colId;
+    this.getModelList();
+  }
+
   onGridFilterChange(event) {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
     console.log(filters);

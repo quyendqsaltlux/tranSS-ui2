@@ -113,6 +113,13 @@ export class OtherNoteListComponent implements OnInit {
     this.getModelList();
   }
 
+  onGridSortChanged(event) {
+    const sortState = this.gridApi.getSortModel();
+    this.sortConfig.order = sortState[0].sort;
+    this.sortConfig.field = sortState[0].colId;
+    this.getModelList();
+  }
+
   openNewOtherNoteModal(data?) {
     const _combine = combineLatest(
       this.modalService.onHide,

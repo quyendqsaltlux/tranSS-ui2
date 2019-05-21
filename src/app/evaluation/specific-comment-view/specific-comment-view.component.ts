@@ -128,6 +128,13 @@ export class SpecificCommentViewComponent implements OnInit {
     this.getModelList();
   }
 
+  onGridSortChanged(event) {
+    const sortState = this.gridApi.getSortModel();
+    this.sortConfig.order = sortState[0].sort;
+    this.sortConfig.field = sortState[0].colId;
+    this.getModelList();
+  }
+
   getModelList() {
     this.evaluationService.searchSpecificComment(this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order, this.rootFilter, this.joinFilter, this.candidateId)

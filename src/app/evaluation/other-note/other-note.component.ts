@@ -12,6 +12,7 @@ import {OtherNote} from '../../model/OtherNote';
 })
 export class OtherNoteComponent implements OnInit {
   candidateId;
+  title;
   model = {} as OtherNote;
 
   constructor(public bsModalRef: BsModalRef,

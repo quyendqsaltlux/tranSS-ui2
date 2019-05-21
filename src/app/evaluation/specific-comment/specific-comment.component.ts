@@ -11,6 +11,7 @@ import {BsModalRef} from "ngx-bootstrap";
 })
 export class SpecificCommentComponent implements OnInit {
   assignmentId;
+  title;
   model = {} as SpecificComment;
 
   constructor(public bsModalRef: BsModalRef,

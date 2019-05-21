@@ -12,6 +12,7 @@ import {BsModalRef} from 'ngx-bootstrap';
 })
 export class GeneralCommentComponent implements OnInit {
   candidateId;
+  title;
   model = {} as GeneralComment;
 
   constructor(public bsModalRef: BsModalRef,
