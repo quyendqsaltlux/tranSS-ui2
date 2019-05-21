@@ -20,7 +20,7 @@ export class GeneralCommentListComponent implements OnInit {
   columnDefs = [
     {headerName: 'date', field: 'date', type: 'dateColumn', width: 170, cellRenderer: 'dateRender', cellRendererParams: {renderField: 'date'}},
     {headerName: 'Evaluator', field: 'evaluator'},
-    {headerName: 'Comment', field: 'comment', width: 500},
+    {headerName: 'Comment', field: 'comment', width: 1000, cellClass: ['wrap-text'], autoHeight: true},
 
   ];
   /*AG_GRID*/
@@ -30,6 +30,7 @@ export class GeneralCommentListComponent implements OnInit {
   columnTypes;
   context;
   frameworkComponents;
+  domLayout;
   sortingOrder;
 
   modelList = [];
@@ -110,6 +111,7 @@ export class GeneralCommentListComponent implements OnInit {
       childMessageRenderer: ActionsColRendererComponent,
       dateRender: DateCellComponent,
     };
+    this.domLayout = 'autoHeight';
   }
 
   onGridReady(params) {
@@ -126,6 +128,7 @@ export class GeneralCommentListComponent implements OnInit {
     this.joinFilter = [...separatedFilter.join];
     this.getModelList();
   }
+
   openNewGeneralCommentModal() {
     const _combine = combineLatest(
       this.modalService.onHide,
