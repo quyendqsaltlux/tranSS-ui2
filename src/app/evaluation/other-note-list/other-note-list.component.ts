@@ -137,7 +137,7 @@ export class OtherNoteListComponent implements OnInit {
     const initialState = {
       title: 'Other note',
       candidateId: this.candidateId,
-      model: data,
+      model: data == null ? {} : data,
     };
     this.bsModalRef = this.modalService.show(OtherNoteComponent, {initialState} as ModalOptions);
   }

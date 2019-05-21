@@ -173,7 +173,7 @@ export class GeneralCommentListComponent implements OnInit {
     const initialState = {
       title: 'General comment',
       candidateId: this.candidateId,
-      model: data,
+      model: data == null ? {} : data,
     };
     this.bsModalRef = this.modalService.show(GeneralCommentComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.closeBtnName = 'Cancel';

@@ -22,6 +22,7 @@ export class GeneralCommentComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.model);
   }
 
   onSubmit() {
