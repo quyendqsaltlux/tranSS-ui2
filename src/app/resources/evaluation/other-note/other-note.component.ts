@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
-import {GeneralComment} from '../../../model/GeneralComment';
-import {EvaluationService} from '../../../service/evaluation.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
+import {EvaluationService} from '../../../service/evaluation.service';
 import {BsModalRef} from 'ngx-bootstrap';
+import {OtherNote} from '../../../model/OtherNote';
 
 @Component({
-  selector: 'app-general-comment',
-  templateUrl: './general-comment.component.html',
-  styleUrls: ['./general-comment.component.scss']
+  selector: 'app-other-note',
+  templateUrl: './other-note.component.html',
+  styleUrls: ['./other-note.component.scss']
 })
-export class GeneralCommentComponent implements OnInit {
+export class OtherNoteComponent implements OnInit {
   candidateId;
-  model = {} as GeneralComment;
+  model = {} as OtherNote;
 
   constructor(public bsModalRef: BsModalRef,
               private evaluationService: EvaluationService,
@@ -25,7 +25,7 @@ export class GeneralCommentComponent implements OnInit {
   }
 
   onSubmit() {
-    this.evaluationService.saveGeneralComment(this.model, this.candidateId)
+    this.evaluationService.saveOtherNote(this.model, this.candidateId)
       .subscribe((resp) => {
         this.model.id = resp.body.id;
         this.bsModalRef.hide();

@@ -1,27 +1,26 @@
 import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {EvaluationService} from '../../../service/evaluation.service';
 import {ActionsColRendererComponent} from '../../../share/ag-grid/actions-col-renderer.component';
-import {DateCellComponent} from '../../../share/ag-grid/date-cell/date-cell.component';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {combineLatest, Subscription} from 'rxjs/index';
-import {GeneralCommentComponent} from '../general-comment/general-comment.component';
 import {separateFiltersFromGrid} from '../../../util/http-util';
+import {OtherNoteComponent} from '../other-note/other-note.component';
 
 @Component({
-  selector: 'app-general-comment-list',
-  templateUrl: './general-comment-list.component.html',
-  styleUrls: ['./general-comment-list.component.scss']
+  selector: 'app-other-note-list',
+  templateUrl: './other-note-list.component.html',
+  styleUrls: ['./other-note-list.component.scss']
 })
-export class GeneralCommentListComponent implements OnInit {
+export class OtherNoteListComponent implements OnInit {
   bsModalRef: BsModalRef;
   subscriptions: Subscription[] = [];
   @Input() candidateId;
   JOIN_FILTER_COLS = [];
   columnDefs = [
-    {headerName: 'date', field: 'date', type: 'dateColumn', width: 170, cellRenderer: 'dateRender', cellRendererParams: {renderField: 'date'}},
-    {headerName: 'Evaluator', field: 'evaluator'},
-    {headerName: 'Comment', field: 'comment', width: 500},
-
+    {headerName: 'project', field: 'project', width: 100},
+    {headerName: 'target', field: 'target'},
+    {headerName: 'corrected', field: 'corrected'},
+    {headerName: 'comment', field: 'comment'},
   ];
   /*AG_GRID*/
   gridApi;
@@ -59,7 +58,7 @@ export class GeneralCommentListComponent implements OnInit {
   }
 
   getModelList() {
-    this.evaluationService.searchGeneralComment(this.page, this.size, this.keyWord,
+    this.evaluationService.searchOtherNote(this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order, this.rootFilter, [], this.candidateId)
       .subscribe((resp) => {
         this.modelList = [...resp.body.content];
@@ -70,7 +69,7 @@ export class GeneralCommentListComponent implements OnInit {
 
   initTable() {
     this.defaultColDef = {
-      width: 100,
+      width: 300,
       editable: false,
       enableBrowserTooltips: true,
       resizable: true,
@@ -81,34 +80,10 @@ export class GeneralCommentListComponent implements OnInit {
       filterParams: {newRowsAction: 'keep'},
       sortable: true,
     };
-    this.columnTypes = {
-      numericColumn: {filter: 'agNumberColumnFilter'},
-      dateColumn: {
-        filter: 'agDateColumnFilter',
-        filterParams: {
-          newRowsAction: 'keep',
-          comparator(filterLocalDateAtMidnight, cellValue) {
-            const dateParts = cellValue.split('/');
-            const day = Number(dateParts[2]);
-            const month = Number(dateParts[1]) - 1;
-            const year = Number(dateParts[0]);
-            const cellDate = new Date(day, month, year);
-            if (cellDate < filterLocalDateAtMidnight) {
-              return -1;
-            } else if (cellDate > filterLocalDateAtMidnight) {
-              return 1;
-            } else {
-              return 0;
-            }
-          }
-        }
-      }
-    };
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
-      childMessageRenderer: ActionsColRendererComponent,
-      dateRender: DateCellComponent,
+      childMessageRenderer: ActionsColRendererComponent
     };
   }
 
@@ -126,32 +101,26 @@ export class GeneralCommentListComponent implements OnInit {
     this.joinFilter = [...separatedFilter.join];
     this.getModelList();
   }
-  openNewGeneralCommentModal() {
+
+  openNewOtherNoteModal() {
     const _combine = combineLatest(
       this.modalService.onHide,
       this.modalService.onHidden
     ).subscribe(() => this.changeDetection.markForCheck());
-
-    this.subscriptions.push(
-      this.modalService.onHide.subscribe((reason: string) => {
-      })
-    );
+    this.subscriptions.push(this.modalService.onHide.subscribe((reason: string) => {
+    }));
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((reason: string) => {
-        console.log(reason);
         this.onModalClose(this.bsModalRef.content);
         this.unsubscribe();
       })
     );
-
     this.subscriptions.push(_combine);
-
     const initialState = {
-      title: 'General comment',
+      title: 'Other note',
       candidateId: this.candidateId
     };
-    this.bsModalRef = this.modalService.show(GeneralCommentComponent, {initialState} as ModalOptions);
-    this.bsModalRef.content.closeBtnName = 'Cancel';
+    this.bsModalRef = this.modalService.show(OtherNoteComponent, {initialState} as ModalOptions);
   }
 
   unsubscribe() {

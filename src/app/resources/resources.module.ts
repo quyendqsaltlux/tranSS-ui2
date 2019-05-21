@@ -14,6 +14,8 @@ import {SpecificCommentViewComponent} from './evaluation/specific-comment-view/s
 import {EvaluationComponent} from './evaluation/evaluation.component';
 import {GeneralCommentComponent} from './evaluation/general-comment/general-comment.component';
 import {GeneralCommentListComponent} from './evaluation/general-comment-list/general-comment-list.component';
+import {OtherNoteComponent} from './evaluation/other-note/other-note.component';
+import {OtherNoteListComponent} from './evaluation/other-note-list/other-note-list.component';
 
 @NgModule({
   declarations: [
@@ -30,12 +32,14 @@ import {GeneralCommentListComponent} from './evaluation/general-comment-list/gen
     EvaluationComponent,
     GeneralCommentComponent,
     GeneralCommentListComponent,
+    OtherNoteComponent,
+    OtherNoteListComponent,
   ],
   imports: [
     ResourcesRoutingModule,
     ShareModule
   ],
-  entryComponents: [AttachmentComponent, GeneralCommentComponent],
+  entryComponents: [AttachmentComponent, GeneralCommentComponent, OtherNoteComponent],
 })
 export class ResourcesModule {
 }

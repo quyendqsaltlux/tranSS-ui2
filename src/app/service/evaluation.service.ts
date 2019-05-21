@@ -37,6 +37,7 @@ export class EvaluationService {
     return this.http.post<HttpResponse<any>>(API_PATH + '/specific/search/' + candidateId + '/' + path, params, {observe: 'response'});
   }
 
+// GENERAL
   saveGeneralComment(param: any, candidateId): Observable<HttpResponse<any>> {
     return this.http.post<HttpResponse<any>>(API_PATH + '/general/' + candidateId, param, {observe: 'response'});
   }
@@ -53,5 +54,24 @@ export class EvaluationService {
       joinFilters: pmFilters
     };
     return this.http.post<HttpResponse<any>>(API_PATH + '/general/search/' + candidateId + '/' + path, params, {observe: 'response'});
+  }
+
+// OTHER NOTE
+  saveOtherNote(param: any, candidateId): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(API_PATH + '/otherNote/' + candidateId, param, {observe: 'response'});
+  }
+
+  findOtherNoteById(id: any): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(API_PATH + '/otherNote/' + id, {observe: 'response'});
+  }
+
+  searchOtherNote(page, size, keyWord, orderBy, sortDirection, filters = [], pmFilters, candidateId: number): Observable<HttpResponse<any>> {
+    let path = buildPathParams(page, size, keyWord, orderBy, sortDirection);
+    path = path + '&candidateId=' + candidateId;
+    const params = {
+      rootFilters: filters,
+      joinFilters: pmFilters
+    };
+    return this.http.post<HttpResponse<any>>(API_PATH + '/otherNote/search/' + candidateId + '/' + path, params, {observe: 'response'});
   }
 }

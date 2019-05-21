@@ -1,0 +1,60 @@
+<form #fReview="ngForm" (ngSubmit)="onSubmit()" novalidate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="row justify-content-end">
+      <div class="col-md-12">
+        <!--DATE-->
+        <div class="form-group row">
+          <label for="project" class="col-sm-2 col-form-label-sm">Project</label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" id="project" name="project" [(ngModel)]="model.project">
+          </div>
+        </div>
+        <!--SOURCE-->
+        <div class="form-group row">
+          <label for="source" class="col-sm-2 col-form-label-sm">Source</label>
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control form-control-sm" id="source" name="source"
+                      [(ngModel)]="model.source" maxlength="1023" rows="3"></textarea>
+          </div>
+        </div>
+        <!--TARGET-->
+        <div class="form-group row">
+          <label for="target" class="col-sm-2 col-form-label-sm">Target</label>
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control form-control-sm" id="target" name="target"
+                      [(ngModel)]="model.target" maxlength="1023" rows="3"></textarea>
+          </div>
+        </div>
+        <!--CORRECTED-->
+        <div class="form-group row">
+          <label for="corrected" class="col-sm-2 col-form-label-sm">Corrected</label>
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control form-control-sm" id="corrected" name="corrected"
+                      [(ngModel)]="model.corrected" maxlength="1023" rows="3"></textarea>
+          </div>
+        </div>
+        <!--COMMENT-->
+        <div class="form-group row">
+          <label for="review" class="col-sm-2 col-form-label-sm">Comment</label>
+          <div class="col-sm-10">
+                    <textarea class=" form-control form-control-sm" rows="3"
+                              name="review" maxlength="1023" id="review"
+                              [(ngModel)]="model.comment"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-sm btn-primary mr-1"><i class="fa fa-dot-circle-o"></i> Submit</button>
+    <button type="button" class="btn btn-sm btn-secondary" (click)="onCancel()"><i class="fa fa-close"></i> Cancel</button>
+  </div>
+</form>
