@@ -15,8 +15,8 @@ export class EvaluationService {
   constructor(private http: HttpClient) {
   }
 
-  saveSpecificComment(param: any): Observable<HttpResponse<any>> {
-    return this.http.post<HttpResponse<any>>(API_PATH + '/specific', param, {observe: 'response'});
+  saveSpecificComment(param: any, assignmentId): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(API_PATH + '/specific/' + assignmentId, param, {observe: 'response'});
   }
 
   findSpecificCommentById(id: any): Observable<HttpResponse<any>> {

@@ -1,7 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {EvaluationService} from '../../service/evaluation.service';
 import {separateFiltersFromGrid} from '../../util/http-util';
 import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-renderer.component';
+import {EvaluationActionsCellComponent} from '../../share/ag-grid/evaluation-actions-cell/evaluation-actions-cell.component';
+import {combineLatest, Subscription} from 'rxjs/index';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
+import {ToastrService} from 'ngx-toastr';
+import {SpecificCommentComponent} from '../specific-comment/specific-comment.component';
 
 @Component({
   selector: 'app-specific-comment-view',
@@ -9,9 +14,14 @@ import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-rende
   styleUrls: ['./specific-comment-view.component.scss']
 })
 export class SpecificCommentViewComponent implements OnInit {
+  @ViewChild('template') template: TemplateRef<any>;
+  bsModalRef: BsModalRef;
+  modalRef: BsModalRef;
+  subscriptions: Subscription[] = [];
   @Input() candidateId;
   JOIN_FILTER_COLS = ['assignment.project.code', 'assignment.project.totalVolume', 'assignment.project.field', 'assignment.project.contents'];
   columnDefs = [
+    {headerName: 'Actions', colId: 'rowActions', pinned: 'left', filter: false, width: 70, cellRenderer: 'actionsRenderer'},
     {headerName: 'Project', field: 'assignment.project.code'},
     {headerName: 'volume', field: 'assignment.project.totalVolume'},
     {headerName: 'Field', field: 'assignment.project.field'},
@@ -46,8 +56,12 @@ export class SpecificCommentViewComponent implements OnInit {
 
   rootFilter = [];
   joinFilter = [];
+  deleteId = -1;
 
-  constructor(private evaluationService: EvaluationService) {
+  constructor(private evaluationService: EvaluationService,
+              private modalService: BsModalService,
+              private toastr: ToastrService,
+              private changeDetection: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -94,6 +108,7 @@ export class SpecificCommentViewComponent implements OnInit {
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
+      actionsRenderer: EvaluationActionsCellComponent,
       childMessageRenderer: ActionsColRendererComponent
     };
     this.domLayout = 'autoHeight';
@@ -121,5 +136,81 @@ export class SpecificCommentViewComponent implements OnInit {
         this.totalItems = resp.body.totalElements;
         this.numPages = resp.body.totalPages;
       });
+  }
+
+  onEdit(index) {
+    this.openNewGeneralCommentModal(this.modelList[index]);
+  }
+
+  onDelete(index) {
+    this.openModal(this.template, this.modelList[index].id);
+  }
+
+  openNewGeneralCommentModal(data?) {
+    const _combine = combineLatest(
+      this.modalService.onHide,
+      this.modalService.onHidden
+    ).subscribe(() => this.changeDetection.markForCheck());
+
+    this.subscriptions.push(
+      this.modalService.onHide.subscribe((reason: string) => {
+      })
+    );
+    this.subscriptions.push(
+      this.modalService.onHidden.subscribe((reason: string) => {
+        console.log(reason);
+        this.onModalClose(this.bsModalRef.content);
+        this.unsubscribe();
+      })
+    );
+
+    this.subscriptions.push(_combine);
+
+    console.log(data);
+    const comment = {...data};
+    delete comment.assignment;
+    const initialState = {
+      title: 'Specific comment',
+      assignmentId: data.assignment.id,
+      model: comment,
+    };
+    this.bsModalRef = this.modalService.show(SpecificCommentComponent, {initialState} as ModalOptions);
+    this.bsModalRef.content.closeBtnName = 'Cancel';
+  }
+
+  unsubscribe() {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
+    this.subscriptions = [];
+  }
+
+  onModalClose(modalContent) {
+    if (modalContent.model.id) {
+      this.getModelList();
+    }
+  }
+
+  openModal(template: TemplateRef<any>, id) {
+    this.deleteId = id;
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'} as ModalOptions);
+  }
+
+  confirmDelete(): void {
+    this.modalRef.hide();
+    if (this.deleteId < 0) {
+      return;
+    }
+    this.evaluationService.deleteGeneralComment(this.deleteId).subscribe((resp) => {
+        this.toastr.success('Delete successfully!');
+        this.getModelList();
+      },
+      (error1 => {
+        this.toastr.error('Fail to delete!');
+      }));
+  }
+
+  declineDelete(): void {
+    this.modalRef.hide();
   }
 }

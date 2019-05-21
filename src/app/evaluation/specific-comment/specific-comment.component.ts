@@ -19,8 +19,10 @@ export class SpecificCommentComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.model.assignmentId = this.assignmentId;
-    this.getCurrentEvaluation();
+    if (!this.model || !this.model.id) {
+      this.model.assignmentId = this.assignmentId;
+      this.getCurrentEvaluation();
+    }
   }
 
   getCurrentEvaluation() {
@@ -31,7 +33,7 @@ export class SpecificCommentComponent implements OnInit {
   }
 
   reviewAssignment() {
-    this.evaluationService.saveSpecificComment(this.model).subscribe((resp) => {
+    this.evaluationService.saveSpecificComment(this.model, this.assignmentId).subscribe((resp) => {
         this.toastr.success('Saved successfully!');
         this.bsModalRef.hide();
       },

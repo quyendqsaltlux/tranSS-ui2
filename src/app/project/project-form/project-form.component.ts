@@ -23,6 +23,7 @@ export class ProjectFormComponent implements OnInit {
 
   id = null;
   model: Project = {} as Project;
+  loadProjectDone = false;
 
   constructor(private projectService: ProjectService,
               private toastr: ToastrService,
@@ -38,6 +39,7 @@ export class ProjectFormComponent implements OnInit {
       this.projectService.findById(this.id).subscribe((resp) => {
         this.model = resp.body;
         this.extractModelFromApi(this.model);
+        this.loadProjectDone = true;
       });
     } else {
       this.model.progressStatus = 'ON_GOING';
