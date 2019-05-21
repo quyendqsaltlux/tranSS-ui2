@@ -15,7 +15,7 @@ export class SpecificCommentViewComponent implements OnInit {
     {headerName: 'volume', field: 'assignment.project.totalVolume'},
     {headerName: 'Field', field: 'assignment.project.field'},
     {headerName: 'Document', field: 'assignment.project.contents', width: 250},
-    {headerName: 'Level of difficulty', field: 'level'},
+    {headerName: 'Level of difficulty', field: 'level', width: 200},
     {headerName: 'Comment', field: 'comment', width: 350},
     {headerName: 'Evaluator', field: 'evaluator'},
   ];

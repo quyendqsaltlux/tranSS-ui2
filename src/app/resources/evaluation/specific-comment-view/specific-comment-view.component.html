@@ -1,27 +1,34 @@
-<div class="w100 rounded-0">
-  <div class="mb-1"><strong>Specific Comment</strong></div>
-  <ag-grid-angular
-    #agGrid
-    id="myGrid"
-    class="ag-theme-balham w100 specific-comment-table"
-    [context]="context"
-    [frameworkComponents]="frameworkComponents"
-    [columnDefs]="columnDefs"
-    [defaultColDef]="defaultColDef"
-    [columnTypes]="columnTypes"
-    [rowData]="modelList"
-    [animateRows]="true"
-    [sortingOrder]="sortingOrder"
-    [floatingFilter]="true"
-    (gridReady)="onGridReady($event)"
-    (filterChanged)="onGridFilterChange($event)"
-    (sortChanged)="onGridSortChanged($event)"
-  ></ag-grid-angular>
+<div class="card">
+  <div class="card-header">
+    <strong>Specific Comments</strong>
+  </div>
 
-  <div class="mt-2">
+  <div class="card-body p-0">
+    <div class="w100 rounded-0">
+      <ag-grid-angular
+        #agGrid
+        id="myGrid"
+        class="ag-theme-balham w100 specific-comment-table"
+        [context]="context"
+        [frameworkComponents]="frameworkComponents"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [columnTypes]="columnTypes"
+        [rowData]="modelList"
+        [animateRows]="true"
+        [sortingOrder]="sortingOrder"
+        [floatingFilter]="true"
+        (gridReady)="onGridReady($event)"
+        (filterChanged)="onGridFilterChange($event)"
+        (sortChanged)="onGridSortChanged($event)"
+      ></ag-grid-angular>
+    </div>
+  </div>
+
+  <div class="card-footer">
     <span> Total: {{totalItems}}</span>
     <div class="pull-right">
-      <pagination [totalItems]="totalItems" class="pagination" *ngIf="totalItems>0"
+      <pagination [totalItems]="totalItems" class="pagination pagination-sm" *ngIf="totalItems>0"
                   [(ngModel)]="page"
                   [maxSize]="5"
                   [itemsPerPage]="size"
@@ -31,5 +38,4 @@
       </pagination>
     </div>
   </div>
-
 </div>
