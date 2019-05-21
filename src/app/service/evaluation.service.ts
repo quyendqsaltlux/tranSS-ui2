@@ -56,6 +56,10 @@ export class EvaluationService {
     return this.http.post<HttpResponse<any>>(API_PATH + '/general/search/' + candidateId + '/' + path, params, {observe: 'response'});
   }
 
+  deleteGeneralComment(id: any): Observable<HttpResponse<any>> {
+    return this.http.delete<HttpResponse<any>>(API_PATH + '/general/' + id, {observe: 'response'});
+  }
+
 // OTHER NOTE
   saveOtherNote(param: any, candidateId): Observable<HttpResponse<any>> {
     return this.http.post<HttpResponse<any>>(API_PATH + '/otherNote/' + candidateId, param, {observe: 'response'});
@@ -73,5 +77,9 @@ export class EvaluationService {
       joinFilters: pmFilters
     };
     return this.http.post<HttpResponse<any>>(API_PATH + '/otherNote/search/' + candidateId + '/' + path, params, {observe: 'response'});
+  }
+
+  deleteotherNote(id: any): Observable<HttpResponse<any>> {
+    return this.http.delete<HttpResponse<any>>(API_PATH + '/otherNote/' + id, {observe: 'response'});
   }
 }

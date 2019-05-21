@@ -21,7 +21,6 @@ export class GeneralCommentComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.candidateId);
   }
 
   onSubmit() {

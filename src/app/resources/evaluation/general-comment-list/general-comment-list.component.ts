@@ -1,11 +1,12 @@
-import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {EvaluationService} from '../../../service/evaluation.service';
-import {ActionsColRendererComponent} from '../../../share/ag-grid/actions-col-renderer.component';
 import {DateCellComponent} from '../../../share/ag-grid/date-cell/date-cell.component';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {combineLatest, Subscription} from 'rxjs/index';
 import {GeneralCommentComponent} from '../general-comment/general-comment.component';
 import {separateFiltersFromGrid} from '../../../util/http-util';
+import {EvaluationActionsCellComponent} from '../../../share/ag-grid/evaluation-actions-cell/evaluation-actions-cell.component';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-general-comment-list',
@@ -13,11 +14,14 @@ import {separateFiltersFromGrid} from '../../../util/http-util';
   styleUrls: ['./general-comment-list.component.scss']
 })
 export class GeneralCommentListComponent implements OnInit {
+  @ViewChild('template') template: TemplateRef<any>;
   bsModalRef: BsModalRef;
+  modalRef: BsModalRef;
   subscriptions: Subscription[] = [];
   @Input() candidateId;
   JOIN_FILTER_COLS = [];
   columnDefs = [
+    {headerName: 'Actions', colId: 'rowActions', pinned: 'left', filter: false, width: 100, cellRenderer: 'actionsRenderer'},
     {headerName: 'date', field: 'date', type: 'dateColumn', width: 170, cellRenderer: 'dateRender', cellRendererParams: {renderField: 'date'}},
     {headerName: 'Evaluator', field: 'evaluator'},
     {headerName: 'Comment', field: 'comment', width: 1000, cellClass: ['wrap-text'], autoHeight: true},
@@ -49,9 +53,11 @@ export class GeneralCommentListComponent implements OnInit {
 
   rootFilter = [];
   joinFilter = [];
+  deleteId = -1;
 
   constructor(private evaluationService: EvaluationService,
               private modalService: BsModalService,
+              private toastr: ToastrService,
               private changeDetection: ChangeDetectorRef) {
   }
 
@@ -108,7 +114,7 @@ export class GeneralCommentListComponent implements OnInit {
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
-      childMessageRenderer: ActionsColRendererComponent,
+      actionsRenderer: EvaluationActionsCellComponent,
       dateRender: DateCellComponent,
     };
     this.domLayout = 'autoHeight';
@@ -129,7 +135,15 @@ export class GeneralCommentListComponent implements OnInit {
     this.getModelList();
   }
 
-  openNewGeneralCommentModal() {
+  onEdit(index) {
+    this.openNewGeneralCommentModal(this.modelList[index]);
+  }
+
+  onDelete(index) {
+    this.openModal(this.template, this.modelList[index].id);
+  }
+
+  openNewGeneralCommentModal(data?) {
     const _combine = combineLatest(
       this.modalService.onHide,
       this.modalService.onHidden
@@ -151,7 +165,8 @@ export class GeneralCommentListComponent implements OnInit {
 
     const initialState = {
       title: 'General comment',
-      candidateId: this.candidateId
+      candidateId: this.candidateId,
+      model: data,
     };
     this.bsModalRef = this.modalService.show(GeneralCommentComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.closeBtnName = 'Cancel';
@@ -168,5 +183,28 @@ export class GeneralCommentListComponent implements OnInit {
     if (modalContent.model.id) {
       this.getModelList();
     }
+  }
+
+  openModal(template: TemplateRef<any>, id) {
+    this.deleteId = id;
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'} as ModalOptions);
+  }
+
+  confirmDelete(): void {
+    this.modalRef.hide();
+    if (this.deleteId < 0) {
+      return;
+    }
+    this.evaluationService.deleteGeneralComment(this.deleteId).subscribe((resp) => {
+        this.toastr.success('Delete successfully!');
+        this.getModelList();
+      },
+      (error1 => {
+        this.toastr.error('Fail to delete!');
+      }));
+  }
+
+  declineDelete(): void {
+    this.modalRef.hide();
   }
 }
