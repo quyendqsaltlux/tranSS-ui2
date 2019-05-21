@@ -18,9 +18,9 @@ export class OtherNoteListComponent implements OnInit {
   JOIN_FILTER_COLS = [];
   columnDefs = [
     {headerName: 'project', field: 'project', width: 100},
-    {headerName: 'target', field: 'target'},
-    {headerName: 'corrected', field: 'corrected'},
-    {headerName: 'comment', field: 'comment'},
+    {headerName: 'target', field: 'target', cellStyle: {'white-space': 'normal'}},
+    {headerName: 'corrected', field: 'corrected', cellStyle: {'white-space': 'normal'}},
+    {headerName: 'comment', field: 'comment', cellStyle: {'white-space': 'normal'}},
   ];
   /*AG_GRID*/
   gridApi;
@@ -29,6 +29,7 @@ export class OtherNoteListComponent implements OnInit {
   columnTypes;
   context;
   frameworkComponents;
+  getRowHeight;
   sortingOrder;
 
   modelList = [];
@@ -69,7 +70,8 @@ export class OtherNoteListComponent implements OnInit {
 
   initTable() {
     this.defaultColDef = {
-      width: 300,
+      width: 500,
+      autoHeight: true,
       editable: false,
       enableBrowserTooltips: true,
       resizable: true,
