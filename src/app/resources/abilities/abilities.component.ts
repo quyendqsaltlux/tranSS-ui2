@@ -48,9 +48,21 @@ export class AbilitiesComponent implements OnInit, AfterViewInit {
     if (this.hasOneNewAbility()) {
       return;
     }
-    const newAbility: CandidateAbility = <CandidateAbility>{};
+    const newAbility = this.getDefaultAbility();
     newAbility.candidateId = this.candidateId;
+
     this.abilities.unshift(newAbility);
+  }
+
+  private getDefaultAbility(): CandidateAbility {
+    const model: CandidateAbility = {} as CandidateAbility;
+    model.wrep = 25;
+    model.w100 = 20;
+    model.w99_95 = 30;
+    model.w94_85 = 55;
+    model.w84_75 = 80;
+    model.wnoMatch = 100;
+    return model;
   }
 
   hasOneNewAbility() {
