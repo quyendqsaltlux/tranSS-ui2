@@ -286,7 +286,37 @@ export class CandidateListComponent implements OnInit {
       this.modelList = resp.body.content;
       this.totalItems = resp.body.totalElements;
       this.numPages = resp.body.totalPages;
+      this.fixCandidateWithoutAbilityNotShow();
     }));
+  }
+
+  fixCandidateWithoutAbilityNotShow() {
+    this.modelList.forEach(model => {
+      if (model.abilities.length === 0) {
+        model.abilities.push({
+          id: null,
+          sourceLanguage: null,
+          targetLanguage: null,
+          projectType: null,
+          task: null,
+          rate: null,
+          rateUnit: null,
+          rate2: null,
+          rate2unit: null,
+          minimumCharge: null,
+          minimumVolum: null,
+          wrep: null,
+          w100: null,
+          w99_95: null,
+          w94_85: null,
+          w84_75: null,
+          wnoMatch: null,
+          dailyCapacity: null,
+          note: null,
+          currency: null
+        });
+      }
+    });
   }
 
   onClickSearch() {
