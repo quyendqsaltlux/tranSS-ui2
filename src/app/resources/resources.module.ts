@@ -9,8 +9,10 @@ import {FormWrapperComponent} from './form-wrapper/form-wrapper.component';
 import {AbilitiesComponent} from './abilities/abilities.component';
 import {ShareModule} from '../share/share.module';
 import {ProjectHistoryComponent} from './project-history/project-history.component';
-import {AuthGuard} from '../gaurd/AuthGuard';
-import { PaymentComponent } from './payment/payment.component';
+import {PaymentComponent} from './payment/payment.component';
+import {GeneralCommentComponent} from '../evaluation/general-comment/general-comment.component';
+import {OtherNoteComponent} from '../evaluation/other-note/other-note.component';
+import {EvaluationModule} from '../evaluation/evaluation.module';
 
 @NgModule({
   declarations: [
@@ -26,9 +28,10 @@ import { PaymentComponent } from './payment/payment.component';
   ],
   imports: [
     ResourcesRoutingModule,
-    ShareModule
+    ShareModule,
+    EvaluationModule
   ],
-  entryComponents: [AttachmentComponent],
+  entryComponents: [AttachmentComponent, GeneralCommentComponent, OtherNoteComponent],
 })
 export class ResourcesModule {
 }

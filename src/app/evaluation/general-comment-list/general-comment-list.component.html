@@ -1,0 +1,48 @@
+<div class="card mb-2">
+  <div class="card-header">
+    <strong>General Comments</strong>
+    <button type="button" class="btn btn-sm btn-success pull-right" (click)="openNewGeneralCommentModal()"><i class="fa fa-plus"></i> New</button>
+  </div>
+
+  <div class="card-body p-0">
+    <div class="w100 rounded-0">
+      <ag-grid-angular
+        #agGrid
+        id="myGrid"
+        class="ag-theme-balham w100 general-comment-table"
+        [context]="context"
+        [frameworkComponents]="frameworkComponents"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [columnTypes]="columnTypes"
+        [rowData]="modelList"
+        [animateRows]="true"
+        [sortingOrder]="sortingOrder"
+        [floatingFilter]="true"
+        (gridReady)="onGridReady($event)"
+        (filterChanged)="onGridFilterChange($event)"
+        (sortChanged)="onGridSortChanged($event)"
+      ></ag-grid-angular>
+    </div>
+  </div>
+  <div class="card-footer">
+    <span> Total: {{totalItems}}</span>
+    <div class="pull-right">
+      <pagination [totalItems]="totalItems" class="pagination pagination-sm" *ngIf="totalItems>0"
+                  [(ngModel)]="page"
+                  [maxSize]="5"
+                  [itemsPerPage]="size"
+                  (pageChanged)="pageChanged()"
+                  previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                  [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event">
+      </pagination>
+    </div>
+  </div>
+</div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <h5>Do you want to delete this Comment?</h5>
+    <button type="button" class="btn btn-danger ml-1 mr-1" (click)="confirmDelete()">Yes</button>
+    <button type="button" class="btn btn-primary ml-1 mr-1" (click)="declineDelete()">No</button>
+  </div>
+</ng-template>

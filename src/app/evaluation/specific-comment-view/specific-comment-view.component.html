@@ -1,0 +1,42 @@
+<div class="card mb-2">
+  <div class="card-header">
+    <strong>Specific Comments</strong>
+    <button class="btn btn-sm invisible">.</button>
+  </div>
+
+  <div class="card-body p-0">
+    <div class="w100 rounded-0">
+      <ag-grid-angular
+        #agGrid
+        id="myGrid"
+        class="ag-theme-balham w100 specific-comment-table"
+        [context]="context"
+        [frameworkComponents]="frameworkComponents"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [columnTypes]="columnTypes"
+        [rowData]="modelList"
+        [animateRows]="true"
+        [sortingOrder]="sortingOrder"
+        [floatingFilter]="false"
+        (gridReady)="onGridReady($event)"
+        (filterChanged)="onGridFilterChange($event)"
+        (sortChanged)="onGridSortChanged($event)"
+      ></ag-grid-angular>
+    </div>
+  </div>
+
+  <div class="card-footer">
+    <span> Total: {{totalItems}}</span>
+    <div class="pull-right">
+      <pagination [totalItems]="totalItems" class="pagination pagination-sm" *ngIf="totalItems>0"
+                  [(ngModel)]="page"
+                  [maxSize]="5"
+                  [itemsPerPage]="size"
+                  (pageChanged)="pageChanged()"
+                  previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                  [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event">
+      </pagination>
+    </div>
+  </div>
+</div>

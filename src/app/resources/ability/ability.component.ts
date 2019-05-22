@@ -16,7 +16,6 @@ export class AbilityComponent implements OnInit {
   @Input() ability: any;
   @Input() index: number;
   @Output() _onDelete: EventEmitter<any> = new EventEmitter();
-  isCollapsed = false;
   candidateId = null;
   modalRef: BsModalRef;
   model: CandidateAbility = {} as CandidateAbility;
@@ -89,4 +88,7 @@ export class AbilityComponent implements OnInit {
     this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
   }
 
+  onDelete() {
+    this._onDelete.emit(this.index);
+  }
 }

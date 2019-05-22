@@ -10,12 +10,12 @@ export interface CandidateAbility {
   rate2unit: string;
   minimumCharge: string;
   minimumVolum: string;
-  wrep: string;
-  w100: string;
-  w99_95: string;
-  w94_85: string;
-  w84_75: string;
-  wnoMatch: string;
+  wrep: number;
+  w100: number;
+  w99_95: number;
+  w94_85: number;
+  w84_75: number;
+  wnoMatch: number;
   candidateId: number;
   dailyCapacity: string;
   note: string;

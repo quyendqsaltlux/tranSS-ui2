@@ -1,0 +1,53 @@
+<form #fReview="ngForm" (ngSubmit)="reviewAssignment()" novalidate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <!--LEVEL-->
+    <div class="form-group row">
+      <label for="level" class="col-sm-2 col-form-label-sm">Level of difficulty<span class="text-danger"> *</span></label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control form-control-sm" id="level" name="level"
+               [(ngModel)]="model.level" maxlength="127" #level="ngModel" required>
+        <div *ngIf="level.invalid && (level.dirty || level.touched)" class="msg-invalid">
+          <div *ngIf="level.errors.required">This field is required.</div>
+          <div *ngIf="level.errors.maxlength">Too long.</div>
+        </div>
+      </div>
+    </div>
+    <!--EVALUATOR-->
+    <div class="form-group row">
+      <label for="evaluator" class="col-sm-2 col-form-label-sm">Evaluator<span class="text-danger"> *</span></label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control form-control-sm" id="evaluator" name="evaluator"
+               [(ngModel)]="model.evaluator" maxlength="255" #evaluator="ngModel" required>
+        <div *ngIf="evaluator.invalid && (evaluator.dirty || evaluator.touched)" class="msg-invalid">
+          <div *ngIf="evaluator.errors.required">This field is required.</div>
+          <div *ngIf="evaluator.errors.maxlength">Too long.</div>
+        </div>
+      </div>
+    </div>
+    <!--COMMENT-->
+    <div class="form-group row">
+      <label for="review" class="col-sm-2 col-form-label-sm">Comment<span class="text-danger"> *</span></label>
+      <div class="col-sm-10">
+            <textarea class=" form-control form-control-sm" rows="4"
+                      name="review" maxlength="511" id="review"
+                      [(ngModel)]="model.comment" #review="ngModel" required></textarea>
+        <div *ngIf="review.invalid && (review.dirty || review.touched)" class="msg-invalid">
+          <div *ngIf="review.errors.required">This field is required.</div>
+          <div *ngIf="review.errors.maxlength">Too long.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-sm btn-primary mr-1 ml-1">Submit</button>
+    <button type="button" class="btn btn-sm btn-secondary mr-1 ml-1" (click)="cancel()">Close</button>
+  </div>
+</form>
+

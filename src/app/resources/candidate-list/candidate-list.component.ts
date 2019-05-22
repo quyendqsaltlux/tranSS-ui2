@@ -21,7 +21,7 @@ export class CandidateListComponent implements OnInit {
     {headerName: 'Code', field: 'code', pinned: 'left', width: 100},
     {headerName: 'Grade', field: 'grade', pinned: 'left', width: 70},
     {headerName: 'name', field: 'name', pinned: 'left', width: 150},
-    {headerName: 'majorField', field: 'majorField', pinned: 'left'},
+    {headerName: 'majorField', field: 'majorField', pinned: 'left', cellClass: ['wrap-text'], autoHeight: true},
     {
       headerName: 'Project Type',
       field: 'projectType',
@@ -54,7 +54,7 @@ export class CandidateListComponent implements OnInit {
       }
     },
     {
-      headerName: 'Task', field: 'task', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'task'},
+      headerName: 'Task', field: 'task', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'task'},
       floatingFilterComponent: 'abilityFilter',
       floatingFilterComponentParams: {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
@@ -108,8 +108,8 @@ export class CandidateListComponent implements OnInit {
       }
     },
     {headerName: 'minimumCharge', field: 'minimumCharge', type: 'numericColumn'},
-    {headerName: 'CAT Tool', field: 'catTool'},
-    {headerName: 'Email', field: 'email', width: 250},
+    {headerName: 'CAT Tool', field: 'catTool', cellClass: ['wrap-text'], autoHeight: true},
+    {headerName: 'Email', field: 'email', width: 250, cellClass: ['wrap-text'], autoHeight: true},
     {headerName: 'Mobile', field: 'mobile'},
     {headerName: 'Messenger', field: 'messenger'},
     {headerName: 'Social Pages', field: 'socialpages'},
@@ -187,13 +187,12 @@ export class CandidateListComponent implements OnInit {
     this.defaultColDef = {
       width: 120,
       editable: false,
-      enableBrowserTooltips: true,
       resizable: true,
       filter: 'agTextColumnFilter',
       suppressMenu: true,
       floatingFilterComponentParams: {suppressFilterButton: true},
       filterParams: {newRowsAction: 'keep'},
-      sortable: true,
+      sortable: true
     };
     this.columnTypes = {
       numericColumn: {filter: 'agNumberColumnFilter'},
@@ -286,7 +285,37 @@ export class CandidateListComponent implements OnInit {
       this.modelList = resp.body.content;
       this.totalItems = resp.body.totalElements;
       this.numPages = resp.body.totalPages;
+      this.fixCandidateWithoutAbilityNotShow();
     }));
+  }
+
+  fixCandidateWithoutAbilityNotShow() {
+    this.modelList.forEach(model => {
+      if (model.abilities.length === 0) {
+        model.abilities.push({
+          id: null,
+          sourceLanguage: null,
+          targetLanguage: null,
+          projectType: null,
+          task: null,
+          rate: null,
+          rateUnit: null,
+          rate2: null,
+          rate2unit: null,
+          minimumCharge: null,
+          minimumVolum: null,
+          wrep: null,
+          w100: null,
+          w99_95: null,
+          w94_85: null,
+          w84_75: null,
+          wnoMatch: null,
+          dailyCapacity: null,
+          note: null,
+          currency: null
+        });
+      }
+    });
   }
 
   onClickSearch() {

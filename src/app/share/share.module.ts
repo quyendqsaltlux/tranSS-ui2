@@ -20,7 +20,8 @@ import {UnitPipe} from '../pipe/unit.pipe';
 import {CandidateActionsColRendererComponent} from './ag-grid/candidate-actions-col-renderer.component';
 import {AbilityCellComponent} from './ag-grid/ability-cell/ability-cell.component';
 import {AbilityFilterComponent} from './ag-grid/ability-filter/ability-filter.component';
-import {DateCellComponent} from "./ag-grid/date-cell/date-cell.component";
+import {DateCellComponent} from './ag-grid/date-cell/date-cell.component';
+import {EvaluationActionsCellComponent} from './ag-grid/evaluation-actions-cell/evaluation-actions-cell.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import {DateCellComponent} from "./ag-grid/date-cell/date-cell.component";
     UnitPipe,
     AbilityCellComponent,
     AbilityFilterComponent,
-    DateCellComponent
+    DateCellComponent,
+    EvaluationActionsCellComponent
 
   ],
   imports: [
@@ -62,7 +64,8 @@ import {DateCellComponent} from "./ag-grid/date-cell/date-cell.component";
       CandidateActionsColRendererComponent,
       AbilityCellComponent,
       AbilityFilterComponent,
-      DateCellComponent
+      DateCellComponent,
+      EvaluationActionsCellComponent
     ])
   ],
   exports: [

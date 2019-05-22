@@ -6,10 +6,25 @@
 .ag-column-hover {
   background-color: #F0F8FF;
 }
+
 /* enable basic browser text selection in grid cells */
 div.ag-root .ag-cell-focus {
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
+}
+
+.wrap-text {
+  white-space: normal;
+  max-height: 300px;
+}
+
+.ag-grid-action-icon {
+  padding: 0.05rem 0.2rem;
+  font-size: 14px;
+}
+
+.evaluation-container .ag-theme-balham .ag-root {
+  border: none !important;
 }

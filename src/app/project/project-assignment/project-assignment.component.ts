@@ -1,7 +1,11 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ProjectAssignmentReq} from '../../model/ProjectAssignmenReq';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
 import {IndividualConfig, ToastrService} from 'ngx-toastr';
+import {combineLatest, Subscription} from 'rxjs/index';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
+import {SpecificComment} from '../../model/SpecificComment';
+import {SpecificCommentComponent} from "../../evaluation/specific-comment/specific-comment.component";
 import {Router} from "@angular/router";
 
 @Component({
@@ -18,12 +22,16 @@ export class ProjectAssignmentComponent implements OnInit {
   @Output() saveDone: EventEmitter<any> = new EventEmitter();
   @Output() deleteItem: EventEmitter<any> = new EventEmitter();
 
+  bsModalRef: BsModalRef;
+  subscriptions: Subscription[] = [];
   model: ProjectAssignmentReq = {} as ProjectAssignmentReq;
   isShowReviewForm = false;
   star = 5;
 
   constructor(private  projectAssignmentService: ProjectAssignmentService,
+              private modalService: BsModalService,
               private toastr: ToastrService,
+              private changeDetection: ChangeDetectorRef,
               private route: Router) {
   }
 
@@ -89,18 +97,7 @@ export class ProjectAssignmentComponent implements OnInit {
       }));
   }
 
-  reviewAssignment() {
-    this.projectAssignmentService.review(this.assignment.id, this.assignment.review, this.star)
-      .subscribe((resp) => {
-          this.toastr.success('Change progress successfully!');
-          this.assignment = {...resp.body};
-        },
-        ((err) => {
-          this.toastr.error(err.error.message, 'Fail to review!', {timeOut: 10000} as Partial<IndividualConfig>);
-        }));
-  }
-
-  onToggleReviewForm() {
+  onToggleReviewForm(e) {
     this.isShowReviewForm = !this.isShowReviewForm;
   }
 
@@ -108,6 +105,43 @@ export class ProjectAssignmentComponent implements OnInit {
     this.deleteItem.emit(this.index);
   }
 
+  openNewGeneralCommentModal() {
+    const _combine = combineLatest(
+      this.modalService.onHide,
+      this.modalService.onHidden
+    ).subscribe(() => this.changeDetection.markForCheck());
+
+    this.subscriptions.push(
+      this.modalService.onHide.subscribe((reason: string) => {
+      })
+    );
+    this.subscriptions.push(
+      this.modalService.onHidden.subscribe((reason: string) => {
+        console.log(reason);
+        this.onModalClose(this.bsModalRef.content);
+        this.unsubscribe();
+      })
+    );
+
+    this.subscriptions.push(_combine);
+
+    const initialState = {
+      title: 'Specific comment',
+      assignmentId: this.assignment.id
+    };
+    this.bsModalRef = this.modalService.show(SpecificCommentComponent, {initialState} as ModalOptions);
+    this.bsModalRef.content.closeBtnName = 'Cancel';
+  }
+
+  unsubscribe() {
+    this.subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
+    this.subscriptions = [];
+  }
+
+  onModalClose(modalContent) {
+  }
   goToPo(assignmentId) {
     this.route.navigate(['/purchaseOrders/' + assignmentId + '/new']);
   }

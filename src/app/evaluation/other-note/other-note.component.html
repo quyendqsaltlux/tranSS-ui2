@@ -1,0 +1,84 @@
+<form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">{{title}}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <div class="row justify-content-end">
+      <div class="col-md-12">
+        <!--DATE-->
+        <div class="form-group row">
+          <label for="project" class="col-sm-2 col-form-label-sm">Project<span class="text-danger"> *</span></label>
+          <div class="col-sm-10">
+            <input type="text" class="form-control form-control-sm" id="project" name="project"
+                   [(ngModel)]="model.project" #project="ngModel" required>
+            <div *ngIf="project.invalid && (project.dirty || project.touched)" class="msg-invalid">
+              <div *ngIf="project.errors.required">This field is required.</div>
+              <div *ngIf="project.errors.maxlength">Too long.</div>
+            </div>
+          </div>
+        </div>
+        <!--SOURCE-->
+        <div class="form-group row">
+          <label for="source" class="col-sm-2 col-form-label-sm">Source<span class="text-danger"> *</span></label>
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control form-control-sm" id="source" name="source"
+                      [(ngModel)]="model.source" #source="ngModel" required
+                      maxlength="1023" rows="3"></textarea>
+            <div *ngIf="source.invalid && (source.dirty || source.touched)" class="msg-invalid">
+              <div *ngIf="source.errors.required">This field is required.</div>
+              <div *ngIf="source.errors.maxlength">Too long.</div>
+            </div>
+          </div>
+        </div>
+        <!--TARGET-->
+        <div class="form-group row">
+          <label for="target" class="col-sm-2 col-form-label-sm">Target<span class="text-danger"> *</span></label>
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control form-control-sm" id="target" name="target"
+                      [(ngModel)]="model.target" #target="ngModel" required
+                      maxlength="1023" rows="3"></textarea>
+            <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
+              <div *ngIf="target.errors.required">This field is required.</div>
+              <div *ngIf="target.errors.maxlength">Too long.</div>
+            </div>
+          </div>
+        </div>
+        <!--CORRECTED-->
+        <div class="form-group row">
+          <label for="corrected" class="col-sm-2 col-form-label-sm">Corrected<span class="text-danger"> *</span></label>
+          <div class="col-sm-10">
+            <textarea type="text" class="form-control form-control-sm" id="corrected" name="corrected"
+                      [(ngModel)]="model.corrected" #corrected="ngModel" required
+                      maxlength="1023" rows="3"></textarea>
+            <div *ngIf="corrected.invalid && (corrected.dirty || corrected.touched)" class="msg-invalid">
+              <div *ngIf="corrected.errors.required">This field is required.</div>
+              <div *ngIf="corrected.errors.maxlength">Too long.</div>
+            </div>
+          </div>
+        </div>
+        <!--COMMENT-->
+        <div class="form-group row">
+          <label for="review" class="col-sm-2 col-form-label-sm">Comment<span class="text-danger"> *</span></label>
+          <div class="col-sm-10">
+            <textarea class=" form-control form-control-sm" rows="3"
+                      name="review" maxlength="1023" id="review"
+                      [(ngModel)]="model.comment" #review="ngModel" required></textarea>
+            <div *ngIf="review.invalid && (review.dirty || review.touched)" class="msg-invalid">
+              <div *ngIf="review.errors.required">This field is required.</div>
+              <div *ngIf="review.errors.maxlength">Too long.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-sm btn-primary mr-1" [disabled]="f.invalid"><i class="fa fa-dot-circle-o"></i> Submit</button>
+    <button type="button" class="btn btn-sm btn-secondary" (click)="onCancel()"><i class="fa fa-close"></i> Cancel</button>
+  </div>
+</form>
