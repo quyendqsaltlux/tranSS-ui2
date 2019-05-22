@@ -1,6 +1,6 @@
 <div class="animated fadeIn">
   <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
-    <table class="table table-sm my-datatable rates-table">
+    <table class="table table-sm rates-table">
       <thead *ngIf="index === 0">
       <tr class="head1">
         <th>#</th>
@@ -9,9 +9,13 @@
         <th>Project type <span class="text-danger"> *</span></th>
         <th>Task <span class="text-danger"> *</span></th>
         <th>Daily capacity</th>
-        <th>Rate (word/char) <span class="text-danger"> *</span></th>
+        <th>Rate
+          <small>(word/char)</small>
+          <span class="text-danger"> *</span></th>
         <th>Unit <span class="text-danger"> *</span></th>
-        <th>Rate (hour) <span class="text-danger"> *</span></th>
+        <th>Rate
+          <small>(hour)</small>
+          <span class="text-danger"> *</span></th>
         <th>Unit 2 <span class="text-danger"> *</span></th>
         <th>Currency <span class="text-danger"> *</span></th>
         <th>Minimum Volume</th>
@@ -29,7 +33,7 @@
       <tr>
         <td class="mw50">{{index + 1}}</td>
         <!--SOURCE-->
-        <td>
+        <td class="small-width">
           <input type="text" class="form-control form-control-sm" id="cSourceLanguage" placeholder="Ex: KO"
                  name="sourceLanguage"
                  [(ngModel)]="model.sourceLanguage"
@@ -42,7 +46,7 @@
           </div>
         </td>
         <!--TARGET-->
-        <td>
+        <td class="small-width">
           <input type="text" class="form-control form-control-sm" id="cTargetLanguage" placeholder="Ex: VI"
                  name="targetLanguage"
                  [(ngModel)]="model.targetLanguage"
@@ -97,7 +101,7 @@
           </div>
         </td>
         <!--UNIT-->
-        <td>
+        <td class="small-width">
           <ng-select [(ngModel)]="model.rateUnit" [searchable]="false" [clearable]="false" name="unit" id="unit"
                      #rateUnit="ngModel" class="sm"
                      required
@@ -121,7 +125,7 @@
           </div>
         </td>
         <!--UNIT2-->
-        <td>
+        <td class="small-width">
           <ng-select [(ngModel)]="model.rate2unit" [searchable]="false" [clearable]="false" name="unit2" id="unit2"
                      #rate2unit="ngModel" class="sm" required [ngClass]="{'is-invalid': f.submitted && rateUnit.invalid}">
             <ng-option [value]="'Word'">Word</ng-option>

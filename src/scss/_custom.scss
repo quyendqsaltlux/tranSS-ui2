@@ -18,9 +18,11 @@ table.candidates-table .ng-select.custom .ng-select-container {
   min-height: 28px !important;
   height: 28px;
 }
-.mw50{
+
+.mw50 {
   min-width: 50px;
 }
+
 .mw350 {
   min-width: 350px;
 }
@@ -50,13 +52,30 @@ table.candidates-table .ng-select.custom .ng-select-container {
   white-space: nowrap;
 }
 
-table.rates-table tbody tr td:not(:first-child) {
-  min-width: 150px;
-  vertical-align: top !important;
-}
-
-table.rates-table {
+.rates-table {
   margin-bottom: 0;
+  small{
+    font-size: 90%;
+  }
+  th {
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  tbody tr td.small-width {
+    min-width: 85px !important;
+  }
+  tbody tr td:not(:first-child) {
+    min-width: 110px;
+    vertical-align: top !important;
+  }
+  td {
+    padding: 0;
+    border: 0;
+    input, .ng-select.sm .ng-select-container {
+      border-radius: 0;
+    }
+  }
 }
 
 .w100 {
@@ -68,11 +87,13 @@ table.rates-table {
   top: 1px;
   right: 1px;
 }
+
 .bottom-conner {
   position: absolute;
   bottom: 1px;
   right: 1px;
 }
+
 .ag-grid-custom {
   width: 100%;
   height: calc(100vh - 180px);
@@ -81,6 +102,7 @@ table.rates-table {
 .dropdown-item.sm {
   padding: .5rem .75rem;
 }
-.card-main-header{
+
+.card-main-header {
   background-color: #63c2ded6;
 }
