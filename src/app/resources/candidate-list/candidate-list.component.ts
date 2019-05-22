@@ -187,14 +187,12 @@ export class CandidateListComponent implements OnInit {
     this.defaultColDef = {
       width: 120,
       editable: false,
-      enableBrowserTooltips: true,
       resizable: true,
       filter: 'agTextColumnFilter',
       suppressMenu: true,
       floatingFilterComponentParams: {suppressFilterButton: true},
       filterParams: {newRowsAction: 'keep'},
-      sortable: true,
-      enableBrowserTooltips: true,
+      sortable: true
     };
     this.columnTypes = {
       numericColumn: {filter: 'agNumberColumnFilter'},
