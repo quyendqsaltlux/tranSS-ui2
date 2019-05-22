@@ -88,4 +88,7 @@ export class AbilityComponent implements OnInit {
     this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
   }
 
+  onDelete() {
+    this._onDelete.emit(this.index);
+  }
 }

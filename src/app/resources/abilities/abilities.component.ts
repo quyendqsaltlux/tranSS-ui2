@@ -1,9 +1,10 @@
-import {AfterViewInit, Component, EventEmitter, OnInit, Output, QueryList, ViewChildren} from '@angular/core';
+import {AfterViewInit, Component, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {CandidateAbilityService} from '../../service/candidate-ability.service';
 import {ActivatedRoute} from '@angular/router';
 import {CandidateAbility} from '../../model/CandidateAbility';
 import {AbilityComponent} from '../ability/ability.component';
+import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap";
 
 @Component({
   selector: 'app-abilities',
@@ -11,15 +12,19 @@ import {AbilityComponent} from '../ability/ability.component';
   styleUrls: ['./abilities.component.scss']
 })
 export class AbilitiesComponent implements OnInit, AfterViewInit {
+  @ViewChild('template') template: TemplateRef<any>;
   @ViewChildren(AbilityComponent) abilitiesViewChild: QueryList<AbilityComponent>;
   abilities = [];
   candidateId = null;
   isAfterViewInit = false;
   alerts = [];
+  deleteIndex = -1;
+  modalRef: BsModalRef;
 
   constructor(private route: ActivatedRoute,
               private abilityService: CandidateAbilityService,
-              private toastr: ToastrService) {
+              private toastr: ToastrService,
+              private modalService: BsModalService) {
   }
 
   ngAfterViewInit() {
@@ -73,16 +78,34 @@ export class AbilitiesComponent implements OnInit, AfterViewInit {
     return found >= 0;
   }
 
-  onDeleteAbility(event) {
-    if (event.data.id == null) {
-      this.abilities.splice(event.index, 1);
+  onDeleteAbility(index) {
+    const ability = this.abilities[index];
+    if (ability.id == null) {
+      this.abilities.splice(index, 1);
       this.toastr.success('Delete successfully!');
-    } else {
-      this.abilityService.delete(event.data.id).subscribe((resp) => {
-        this.abilities.splice(event.index, 1);
-        this.toastr.success('Delete successfully!');
-      });
+      return;
     }
+    this.deleteIndex = index;
+    this.modalRef = this.modalService.show(this.template, {class: 'modal-sm'} as ModalOptions);
+  }
+
+  confirm(): void {
+    this.modalRef.hide();
+    if (this.deleteIndex < 0) {
+      return;
+    }
+    this.abilityService.delete(this.abilities[this.deleteIndex].id).subscribe((resp) => {
+      this.abilities.splice(this.deleteIndex, 1);
+      this.toastr.success('Delete successfully!');
+      this.deleteIndex = -1;
+    }, (error1 => {
+      this.toastr.error('Fail to delete!');
+      this.deleteIndex = -1;
+    }));
+  }
+
+  decline(): void {
+    this.modalRef.hide();
   }
 
   onSubmitRates() {

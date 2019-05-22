@@ -4,6 +4,7 @@
       <thead *ngIf="index === 0">
       <tr class="head1">
         <th>#</th>
+        <th>Actions</th>
         <th>Source <span class="text-danger"> *</span></th>
         <th>Target <span class="text-danger"> *</span></th>
         <th>Project type <span class="text-danger"> *</span></th>
@@ -32,6 +33,9 @@
       <tbody>
       <tr>
         <td class="mw50">{{index + 1}}</td>
+        <td class="actions text-center">
+          <button type="button" class="btn ag-grid-action-icon" (click)="onDelete()"><i class="fa fa-trash text-danger"></i></button>
+        </td>
         <!--SOURCE-->
         <td class="small-width">
           <input type="text" class="form-control form-control-sm" id="cSourceLanguage" placeholder="Ex: KO"

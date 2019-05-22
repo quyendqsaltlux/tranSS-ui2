@@ -1,0 +1,28 @@
+.rates-table {
+  margin-bottom: 0;
+  small {
+    font-size: 90%;
+  }
+  th {
+    text-align: center;
+    font-weight: 500;
+    font-size: 12px;
+  }
+  .actions {
+    min-width: 50px !important;
+  }
+  tbody tr td.small-width {
+    min-width: 85px !important;
+  }
+  tbody tr td:not(:first-child) {
+    min-width: 110px;
+    vertical-align: top !important;
+  }
+  td {
+    padding: 0;
+    border: 0;
+    input, .ng-select.sm .ng-select-container {
+      border-radius: 0;
+    }
+  }
+}
