@@ -21,7 +21,7 @@ export class CandidateListComponent implements OnInit {
     {headerName: 'Code', field: 'code', pinned: 'left', width: 100},
     {headerName: 'Grade', field: 'grade', pinned: 'left', width: 70},
     {headerName: 'name', field: 'name', pinned: 'left', width: 150},
-    {headerName: 'majorField', field: 'majorField', pinned: 'left'},
+    {headerName: 'majorField', field: 'majorField', pinned: 'left', cellClass: ['wrap-text'], autoHeight: true},
     {
       headerName: 'Project Type',
       field: 'projectType',
@@ -54,7 +54,7 @@ export class CandidateListComponent implements OnInit {
       }
     },
     {
-      headerName: 'Task', field: 'task', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'task'},
+      headerName: 'Task', field: 'task', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'task'},
       floatingFilterComponent: 'abilityFilter',
       floatingFilterComponentParams: {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
@@ -108,8 +108,8 @@ export class CandidateListComponent implements OnInit {
       }
     },
     {headerName: 'minimumCharge', field: 'minimumCharge', type: 'numericColumn'},
-    {headerName: 'CAT Tool', field: 'catTool'},
-    {headerName: 'Email', field: 'email', width: 250},
+    {headerName: 'CAT Tool', field: 'catTool', cellClass: ['wrap-text'], autoHeight: true},
+    {headerName: 'Email', field: 'email', width: 250, cellClass: ['wrap-text'], autoHeight: true},
     {headerName: 'Mobile', field: 'mobile'},
     {headerName: 'Messenger', field: 'messenger'},
     {headerName: 'Social Pages', field: 'socialpages'},
@@ -194,6 +194,7 @@ export class CandidateListComponent implements OnInit {
       floatingFilterComponentParams: {suppressFilterButton: true},
       filterParams: {newRowsAction: 'keep'},
       sortable: true,
+      enableBrowserTooltips: true,
     };
     this.columnTypes = {
       numericColumn: {filter: 'agNumberColumnFilter'},
