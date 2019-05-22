@@ -4,8 +4,10 @@
       <div class="card-body p-1" [ngClass]="{'new-pro-assignment': !assignment || !assignment.id}">
         <fieldset [disabled]="!viewControl.ableToChange">
           <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+            <!--FORM-->
             <div class="d-flex">
               <div class="d-flex flex-grow-1 justify-content-between">
+                <!--LEFT-->
                 <div class="d-flex form-left">
                   <!--RESOURCE-->
                   <div class="form-group w80">
@@ -64,18 +66,6 @@
                       <div *ngIf="target.errors.conflict">Duplicated.</div>
                     </div>
                   </div>
-                  <!--TOTAL-->
-                  <div class="form-group w80">
-                    <label for="total">Total<span class="text-danger"> *</span></label>
-                    <input type="number" class=" form-control form-control-sm" id="total" name="total"
-                           required
-                           [(ngModel)]="model.total"
-                           #total="ngModel"
-                           [ngClass]="{'is-invalid': f.submitted && total.invalid}">
-                    <div *ngIf="total.invalid && (total.dirty || total.touched)" class="msg-invalid">
-                      <div *ngIf="total.errors.maxlength">Too long.</div>
-                    </div>
-                  </div>
                   <!--Request date-->
                   <div class="form-group date">
                     <label for="ho">HO<span class="text-danger"> *</span></label>
@@ -94,7 +84,7 @@
                     </div>
                   </div>
                 </div>
-
+                <!--RIGHT-->
                 <div class="d-flex mr-5" *ngIf="assignment && assignment.id">
                   <!--STATUS-->
                   <div class="media mr-2" *ngIf="assignment && assignment.candidate">
@@ -163,8 +153,124 @@
                   <i class="fa fa-dollar text-success"></i></button>
               </div>
             </div>
-          </form>
 
+            <!--ROW 2-->
+            <div class="d-flex form-left">
+              <div class="form-group w80">
+                <label for="reprep">Rep.</label>
+                <input type="number" class=" form-control form-control-sm" id="reprep" name="reprep"
+                       [(ngModel)]="model.reprep" #reprep="ngModel" min="0" max="100"
+                       (ngModelChange)="onRepInputChanged($event)">
+              </div>
+              <div class="form-group w80">
+                <label for="rep100">Rep 100 %</label>
+                <input type="number" class=" form-control form-control-sm" id="rep100" name="rep100"
+                       [(ngModel)]="model.rep100" #rep100="ngModel" min="0" max="100">
+              </div>
+              <div class="form-group w80">
+                <label for="rep99_95">Rep 99~95 %</label>
+                <input type="number" class=" form-control form-control-sm" id="rep99_95" name="rep99_95"
+                       [(ngModel)]="model.rep99_95" #rep99_95="ngModel" min="0" max="100">
+              </div>
+              <div class="form-group w80">
+                <label for="rep94_85">Rep 94~85 %</label>
+                <input type="number" class=" form-control form-control-sm" id="rep94_85" name="rep94_85"
+                       [(ngModel)]="model.rep94_85" #rep94_85="ngModel" min="0" max="100">
+              </div>
+              <div class="form-group w80">
+                <label for="rep84_75">Rep 84~75 %</label>
+                <input type="number" class=" form-control form-control-sm" id="rep84_75" name="rep84_75"
+                       [(ngModel)]="model.rep84_75" #rep84_75="ngModel" min="0" max="100">
+              </div>
+              <div class="form-group w80">
+                <label for="repnoMatch">New/Hour</label>
+                <input type="number" class=" form-control form-control-sm" id="repnoMatch" name="repnoMatch"
+                       [(ngModel)]="model.repnoMatch" #repnoMatch="ngModel" min="0">
+              </div>
+              <div class="form-group w80">
+                <label for="totalRep">Total Rep</label>
+                <input type="number" readonly class="form-control form-control-sm" id="totalRep" name="totalRep"
+                       [(ngModel)]="model.totalRep" #repnoMatch="ngModel">
+              </div>
+            </div>
+
+            <!--ROW 3-->
+            <div class="d-flex form-left">
+              <div class="form-group w80">
+                <label for="wrep">Wf Rep.</label>
+                <input type="number" class=" form-control form-control-sm" id="wrep" name="wrep"
+                       [readonly]="!model.notUseRDBWf"
+                       [(ngModel)]="model.wrep" #wrep="ngModel" min="0" max="1">
+              </div>
+              <div class="form-group w80">
+                <label for="w100">Wf 100</label>
+                <input type="number" class=" form-control form-control-sm" id="w100" name="w100"
+                       [readonly]="!model.notUseRDBWf"
+                       [(ngModel)]="model.w100" #w100="ngModel" min="0" max="1">
+              </div>
+              <div class="form-group w80">
+                <label for="w99_95">Wf 99~95</label>
+                <input type="number" class=" form-control form-control-sm" id="w99_95" name="w99_95"
+                       [readonly]="!model.notUseRDBWf"
+                       [(ngModel)]="model.w99_95" #w99_95="ngModel" min="0" max="1">
+              </div>
+              <div class="form-group w80">
+                <label for="w94_85">Wf 94~85</label>
+                <input type="number" class=" form-control form-control-sm" id="w94_85" name="w94_85"
+                       [readonly]="!model.notUseRDBWf"
+                       [(ngModel)]="model.w94_85" #w94_85="ngModel" min="0" max="1">
+              </div>
+              <div class="form-group w80">
+                <label for="w84_75">Wf 84~75</label>
+                <input type="number" class=" form-control form-control-sm" id="w84_75" name="w84_75"
+                       [readonly]="!model.notUseRDBWf"
+                       [(ngModel)]="model.w84_75" #w84_75="ngModel" min="0" max="1">
+              </div>
+              <div class="form-group w80">
+                <label for="wnoMatch">Wf New</label>
+                <input type="number" class=" form-control form-control-sm" id="wnoMatch" name="wnoMatch"
+                       [readonly]="!model.notUseRDBWf"
+                       [(ngModel)]="model.wnoMatch" #wnoMatch="ngModel" min="0" max="1">
+              </div>
+              <div class="form-group w80">
+                <label for="netOrHour">Net/Hour</label>
+                <input type="number" [readonly]="isComputeNetHourManually()"
+                       class="form-control form-control-sm" id="netOrHour" name="netOrHour"
+                       [(ngModel)]="model.netOrHour" #repnoMatch="ngModel">
+              </div>
+              <!--TOTAL-->
+              <div class="form-group w80">
+                <label for="total">Total<span class="text-danger"> *</span></label>
+                <input type="number" class=" form-control form-control-sm" id="total" name="total"
+                       required min="0" readonly
+                       [(ngModel)]="model.total" #total="ngModel">
+              </div>
+            </div>
+
+            <!--CONFIG ROW-->
+            <div class="d-flex form-left">
+
+              <div class="form-group ml-1 mr-1">
+                <label for="wnoMatch">Use custom Wf</label>
+                <div>
+                  <label class="ml-1 switch switch-sm switch-primary">
+                    <input type="checkbox" class="switch-input" name="notUseRDBWf" [(ngModel)]="model.notUseRDBWf">
+                    <span class="switch-slider"></span>
+                  </label>
+                </div>
+              </div>
+              <div class="form-group ml-1 mr-1">
+                <label for="wnoMatch">Compute Net/Hour manually</label>
+                <div>
+                  <label class="ml-1 switch switch-sm switch-primary">
+                    <input type="checkbox" class="switch-input" name="notAutoComputeNetHour" [(ngModel)]="model.notAutoComputeNetHour">
+                    <span class="switch-slider"></span>
+                  </label>
+                </div>
+              </div>
+
+            </div>
+          </form>
         </fieldset>
       </div>
     </div>

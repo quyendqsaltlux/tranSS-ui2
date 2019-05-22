@@ -2,11 +2,10 @@ import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from 
 import {ProjectAssignmentReq} from '../../model/ProjectAssignmenReq';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
 import {IndividualConfig, ToastrService} from 'ngx-toastr';
-import {combineLatest, Subscription} from 'rxjs/index';
+import {combineLatest, Subject, Subscription} from 'rxjs/index';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
-import {SpecificComment} from '../../model/SpecificComment';
-import {SpecificCommentComponent} from "../../evaluation/specific-comment/specific-comment.component";
-import {Router} from "@angular/router";
+import {SpecificCommentComponent} from '../../evaluation/specific-comment/specific-comment.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-project-assignment',
@@ -27,6 +26,8 @@ export class ProjectAssignmentComponent implements OnInit {
   model: ProjectAssignmentReq = {} as ProjectAssignmentReq;
   isShowReviewForm = false;
   star = 5;
+  private repSubjects: Subject<string>[] = [];
+  repSubjectFields = [];
 
   constructor(private  projectAssignmentService: ProjectAssignmentService,
               private modalService: BsModalService,
@@ -36,7 +37,14 @@ export class ProjectAssignmentComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initSubjects();
     this.extractApiModel();
+  }
+
+  initSubjects() {
+    this.repSubjectFields.forEach(field => {
+      this.repSubjects[field] = new Subject();
+    });
   }
 
   extractApiModel() {
@@ -63,7 +71,7 @@ export class ProjectAssignmentComponent implements OnInit {
       this.saveDone.emit(true);
     }, (err) => {
       const error = err.error;
-      if (error.apierror && error.apierror.status === 'CONFLICT') {
+      if (error.apierror >= 0 && error.apierror.status === 'CONFLICT') {
         this.toastr.error('This assignment was existed!', 'Fail to Assign');
         return;
       }
@@ -130,7 +138,6 @@ export class ProjectAssignmentComponent implements OnInit {
       assignmentId: this.assignment.id
     };
     this.bsModalRef = this.modalService.show(SpecificCommentComponent, {initialState} as ModalOptions);
-    this.bsModalRef.content.closeBtnName = 'Cancel';
   }
 
   unsubscribe() {
@@ -142,7 +149,18 @@ export class ProjectAssignmentComponent implements OnInit {
 
   onModalClose(modalContent) {
   }
+
   goToPo(assignmentId) {
     this.route.navigate(['/purchaseOrders/' + assignmentId + '/new']);
+  }
+
+  isComputeNetHourManually() {
+    return !(this.model && this.model.reprep >= 0 && this.model.rep100 >= 0 && this.model.rep99_95
+      >= 0 && this.model.rep94_85 >= 0 && this.model.rep84_75 >= 0 && this.model.repnoMatch
+      >= 0 && this.model.notAutoComputeNetHour);
+  }
+
+  onRepInputChanged(event) {
+    console.log(event);
   }
 }
