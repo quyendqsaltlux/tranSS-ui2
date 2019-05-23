@@ -29,6 +29,8 @@ export class ProjectAssignmentComponent implements OnInit {
   private repSubjects: Subject<string>[] = [];
   repSubjectFields = [];
 
+  repFields = ['reprep', 'rep100', 'rep99_95', 'rep94_85', 'rep84_75', 'repnoMatch'];
+
   constructor(private  projectAssignmentService: ProjectAssignmentService,
               private modalService: BsModalService,
               private toastr: ToastrService,
@@ -162,5 +164,27 @@ export class ProjectAssignmentComponent implements OnInit {
 
   onRepInputChanged(event) {
     console.log(event);
+    this.model.totalRep = this.computeTotalRep(event);
+  }
+
+  onSelectTaskSourceTarget(event) {
+    if (!this.model.notUseRDBWf) {
+      this.model.wrep = Number(event.wrep) / 100;
+      this.model.w100 = Number(event.w100) / 100;
+      this.model.w99_95 = Number(event.w99_95) / 100;
+      this.model.w94_85 = Number(event.w94_85) / 100;
+      this.model.w84_75 = Number(event.w84_75) / 100;
+      this.model.wnoMatch = Number(event.wnoMatch) / 100;
+    }
+  }
+
+  computeTotalRep(event) {
+    let totalRep = 0;
+    this.repFields.forEach((field) => {
+      if (Number(this.model[field]) >= 0) {
+        totalRep += this.model[field];
+      }
+    });
+    return totalRep;
   }
 }

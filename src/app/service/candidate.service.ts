@@ -51,4 +51,10 @@ export class CandidateService {
   findByCode(code: string): Observable<HttpResponse<any>> {
     return this.http.get<HttpResponse<any>>(API_PATH + '/' + code, {observe: 'response'});
   }
+
+  findResourceForProject(code: string): Observable<HttpResponse<any>> {
+    const params = 'keyword=' + code ;
+    return this.http.get<Observable<HttpResponse<any>>>(API_PATH + '/findCandidateByCodeOrNameLike?' + params,
+      {observe: 'response'});
+  }
 }

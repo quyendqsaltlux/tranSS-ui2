@@ -1,0 +1,58 @@
+<div class="card card-body">
+  <input [(ngModel)]="asyncSelected"
+         [typeaheadAsync]="true"
+         [typeahead]="dataSource"
+         (typeaheadLoading)="changeTypeaheadLoading($event)"
+         (typeaheadOnSelect)="typeaheadOnSelect($event)"
+         [typeaheadOptionsLimit]="10"
+         typeaheadOptionField="name"
+         typeaheadWaitMs="500"
+         (typeaheadNoResults)="typeaheadNoResults($event)"
+         (typeaheadOnSelect)="onSelect($event)"
+         [typeaheadItemTemplate]="customItemTemplate"
+         [typeaheadScrollable]="true"
+         [typeaheadSelectFirstItem]="false"
+         placeholder="search name or code"
+         class="form-control form-control-sm"
+         appAutoFocus>
+  <div *ngIf="typeaheadLoading">Searching...</div>
+
+  <div class="alert alert-danger" *ngIf="noResult">No Results Found</div>
+  <div class="mb-2 mt-3" *ngIf="selectedOption">
+    <div class="media">
+      <img *ngIf="selectedOption.avatar" class="mr-3" [src]="model.avatar" alt="Avatar" width="{{AVATAR_SIZE_MEDIUM}}" height="{{AVATAR_SIZE_MEDIUM}}">
+      <img *ngIf="!selectedOption.avatar" class="mr-3" src="assets/img/avatars/default_avatar.png" alt="Avatar" width="{{AVATAR_SIZE_MEDIUM}}" height="{{AVATAR_SIZE_MEDIUM}}">
+      <div class="media-body">
+        <h6 class="mb-1">{{selectedOption.name}}</h6>
+        <div class="mt-0"> ({{selectedOption.code}})</div>
+      </div>
+    </div>
+    <div class="mt-1">
+      <ng-select [(ngModel)]="selectedAbility" [clearable]="false" name="ability" id="ability" class="sm"
+                 #ability="ngModel"
+                 required
+                 [items]="selectedOption.abilities"
+                 bindLabel="task" bindValue="id" autofocus
+                 (change)="onChangeAbility($event)">
+        <ng-template ng-label-tmp let-item="item">
+          {{item.task}} {{item.sourceLanguage}} -> {{item.targetLanguage}}
+        </ng-template>
+        <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+          {{item.task}} {{item.sourceLanguage}} -> {{item.targetLanguage}}
+        </ng-template>
+      </ng-select>
+    </div>
+  </div>
+
+</div>
+
+<ng-template #customItemTemplate let-model="item" let-index="index">
+  <div class="media">
+    <img *ngIf="model.avatar" class="mr-3" [src]="model.avatar" alt="Avatar" width="{{AVATAR_SIZE_SLIM}}" height="{{AVATAR_SIZE_SLIM}}">
+    <img *ngIf="!model.avatar" class="mr-3" src="assets/img/avatars/default_avatar.png" alt="Avatar" width="{{AVATAR_SIZE_SLIM}}" height="{{AVATAR_SIZE_SLIM}}">
+    <div class="media-body">
+      <h6 class="mb-1">{{model.name}}</h6>
+      <span class="mt-0">({{model.code}})</span>
+    </div>
+  </div>
+</ng-template>

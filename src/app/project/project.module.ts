@@ -7,6 +7,7 @@ import {ProjectAssignmentListComponent} from './project-assignment-list/project-
 import {ProjectAssignmentComponent} from './project-assignment/project-assignment.component';
 import {AssignmentInfoComponent} from './assignment-info/assignment-info.component';
 import {EvaluationModule} from '../evaluation/evaluation.module';
+import {ResourceSearchComponent} from './resource-search/resource-search.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {EvaluationModule} from '../evaluation/evaluation.module';
     ProjectFormComponent,
     ProjectAssignmentListComponent,
     ProjectAssignmentComponent,
-    AssignmentInfoComponent
+    AssignmentInfoComponent,
+    ResourceSearchComponent
   ],
   imports: [
     ProjectRoutingModule,

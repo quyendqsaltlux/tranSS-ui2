@@ -1,0 +1,67 @@
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {TypeaheadMatch} from 'ngx-bootstrap';
+import {Observable} from 'rxjs';
+import {map, mergeMap} from 'rxjs/operators';
+import {CandidateService} from '../../service/candidate.service';
+
+@Component({
+  selector: 'app-project-resoure-search',
+  templateUrl: './resource-search.component.html',
+  styleUrls: ['./resource-search.component.scss']
+})
+export class ResourceSearchComponent implements OnInit {
+  title: string;
+  closeBtnName: string;
+  list: any[] = [];
+  asyncSelected: string;
+  typeaheadLoading: boolean;
+  dataSource: Observable<any>;
+  noResult = false;
+  selectedOption: any;
+  isConfirmed = false;
+  AVATAR_SIZE_SLIM = 26;
+  AVATAR_SIZE_MEDIUM = 32;
+
+  @Input() assignment;
+  @Output() selectTaskSourceTarget: EventEmitter<any> = new EventEmitter();
+  selectedAbility;
+
+  constructor(private resourceService: CandidateService) {
+    this.dataSource = Observable.create((observer: any) => {
+      observer.next(this.asyncSelected);
+    }).pipe(
+      mergeMap((token: string) => this.getEmployeeAsObserble(token))
+    );
+  }
+
+  ngOnInit() {
+  }
+
+  getEmployeeAsObserble(keyword): Observable<any> {
+    return this.resourceService.findResourceForProject(keyword).pipe(
+      map(resp => resp.body),
+    );
+  }
+
+  changeTypeaheadLoading(e: boolean): void {
+    this.typeaheadLoading = e;
+  }
+
+  typeaheadOnSelect(e: TypeaheadMatch): void {
+  }
+
+  typeaheadNoResults(event: boolean): void {
+    this.noResult = event;
+  }
+
+  onSelect(event: TypeaheadMatch): void {
+    this.selectedOption = event.item;
+    this.assignment.candidateCode = this.selectedOption.code;
+  }
+
+  onChangeAbility(event) {
+    this.assignment.abilityId = event.id;
+    this.selectTaskSourceTarget.emit(event);
+  }
+
+}
