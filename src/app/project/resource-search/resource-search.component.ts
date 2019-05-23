@@ -68,4 +68,8 @@ export class ResourceSearchComponent implements OnInit {
     this.selectTaskSourceTarget.emit(event);
   }
 
+  onToggleNotUseCustomTask() {
+    console.log(this.selectedAbility);
+    this.onChangeAbility(this.selectedAbility);
+  }
 }

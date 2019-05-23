@@ -11,6 +11,8 @@ export interface ProjectAssignmentReq {
   source: string;
   target: string;
 
+  notUseCustomTask: boolean;
+
   wrep: number;
   w100: number;
   w99_95: number;
