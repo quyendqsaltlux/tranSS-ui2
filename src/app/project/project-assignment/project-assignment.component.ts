@@ -30,6 +30,7 @@ export class ProjectAssignmentComponent implements OnInit {
   repSubjectFields = [];
 
   repFields = ['reprep', 'rep100', 'rep99_95', 'rep94_85', 'rep84_75', 'repnoMatch'];
+  wrepFields = ['wrep', 'w100', 'w99_95', 'w94_85', 'w84_75', 'wnoMatch'];
 
   constructor(private  projectAssignmentService: ProjectAssignmentService,
               private modalService: BsModalService,
@@ -162,9 +163,19 @@ export class ProjectAssignmentComponent implements OnInit {
       >= 0 && this.model.notAutoComputeNetHour);
   }
 
-  onRepInputChanged(event) {
-    console.log(event);
-    this.model.totalRep = this.computeTotalRep(event);
+  onRepInputChanged() {
+    this.model.totalRep = this.computeTotalRep();
+    this.upDateNetHour();
+  }
+
+  onWfInputChanged() {
+    this.upDateNetHour();
+  }
+
+  upDateNetHour() {
+    if (!this.model.notAutoComputeNetHour) {
+      this.model.netOrHour = this.computeNetOrHour();
+    }
   }
 
   onSelectTaskSourceTarget(event) {
@@ -175,10 +186,12 @@ export class ProjectAssignmentComponent implements OnInit {
       this.model.w94_85 = Number(event.w94_85) / 100;
       this.model.w84_75 = Number(event.w84_75) / 100;
       this.model.wnoMatch = Number(event.wnoMatch) / 100;
+
+      this.onWfInputChanged();
     }
   }
 
-  computeTotalRep(event) {
+  computeTotalRep() {
     let totalRep = 0;
     this.repFields.forEach((field) => {
       if (Number(this.model[field]) >= 0) {
@@ -186,5 +199,20 @@ export class ProjectAssignmentComponent implements OnInit {
       }
     });
     return totalRep;
+  }
+
+  computeNetOrHour() {
+    const size = this.wrepFields.length;
+    let index: number;
+    let sum = 0;
+    for (index = 0; index < size; index++) {
+      const a = Number(this.model[this.repFields[index]]);
+      const b = Number(this.model[this.wrepFields[index]]);
+      if (!isNaN(a) && !isNaN(b)) {
+        sum += a * b;
+      }
+    }
+    console.log(sum);
+    return sum;
   }
 }
