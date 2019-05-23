@@ -8,7 +8,9 @@
               <div class="d-flex flex-grow-1 justify-content-between">
                 <div class="d-flex">
                   <div class="resource-search">
-                    <app-project-resoure-search [assignment]="assignment"
+                    <app-project-resoure-search [model]="model"
+                                                [f]="f"
+                                                [viewControl]="viewControl"
                                                 (selectTaskSourceTarget)="onSelectTaskSourceTarget($event)">
                     </app-project-resoure-search>
                   </div>
@@ -75,6 +77,17 @@
                         <input type="number" readonly class="form-control form-control-sm" id="totalRep" name="totalRep"
                                [(ngModel)]="model.totalRep" #repnoMatch="ngModel">
                       </div>
+
+                      <div class="form-group w80">
+                        <label for="unitPrice">Unit price</label>
+                        <input type="number" class=" form-control form-control-sm" id="unitPrice" name="unitPrice"
+                               [(ngModel)]="model.unitPrice" #unitPrice="ngModel" min="0" max="100" required
+                               (ngModelChange)="onRepInputChanged()" readonly
+                               [ngClass]="{'is-invalid': f.submitted && unitPrice.invalid}">
+                        <div *ngIf="unitPrice.invalid && (unitPrice.dirty || unitPrice.touched)" class="msg-invalid">
+                          <div *ngIf="unitPrice.errors.required">Required</div>
+                        </div>
+                      </div>
                     </div>
 
                     <!--ROW 3-->
@@ -119,6 +132,7 @@
                         <label for="netOrHour">Net/Hour</label>
                         <input type="number" [readonly]="isComputeNetHourManually()"
                                class="form-control form-control-sm" id="netOrHour" name="netOrHour"
+                               (ngModelChange)="updateUnitPriceAndTotalMoney()" min="0"
                                [(ngModel)]="model.netOrHour" #repnoMatch="ngModel">
                       </div>
                       <!--TOTAL-->
@@ -137,7 +151,8 @@
                         <label for="wnoMatch">Use custom Wf</label>
                         <div>
                           <label class="ml-1 switch switch-sm switch-primary">
-                            <input type="checkbox" class="switch-input" name="notUseRDBWf" [(ngModel)]="model.notUseRDBWf">
+                            <input type="checkbox" class="switch-input" name="notUseRDBWf" [(ngModel)]="model.notUseRDBWf"
+                            (change)="onToggleCustomizeWf()">
                             <span class="switch-slider"></span>
                           </label>
                         </div>
@@ -147,7 +162,8 @@
                         <label for="netOrHour">Compute Net/Hour manually</label>
                         <div>
                           <label class="ml-1 switch switch-sm switch-primary">
-                            <input type="checkbox" class="switch-input" name="notAutoComputeNetHour" [(ngModel)]="model.notAutoComputeNetHour">
+                            <input type="checkbox" class="switch-input" name="notAutoComputeNetHour" [(ngModel)]="model.notAutoComputeNetHour"
+                            (change)="onToggleAutoComputeNetOrHour()">
                             <span class="switch-slider"></span>
                           </label>
                         </div>

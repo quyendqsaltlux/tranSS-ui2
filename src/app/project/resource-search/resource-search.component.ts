@@ -11,7 +11,6 @@ import {CandidateService} from '../../service/candidate.service';
 })
 export class ResourceSearchComponent implements OnInit {
   title: string;
-  closeBtnName: string;
   list: any[] = [];
   asyncSelected: string;
   typeaheadLoading: boolean;
@@ -22,7 +21,9 @@ export class ResourceSearchComponent implements OnInit {
   AVATAR_SIZE_SLIM = 26;
   AVATAR_SIZE_MEDIUM = 32;
 
-  @Input() assignment;
+  @Input() model;
+  @Input() f;
+  @Input() viewControl;
   @Output() selectTaskSourceTarget: EventEmitter<any> = new EventEmitter();
   selectedAbility;
 
@@ -56,11 +57,14 @@ export class ResourceSearchComponent implements OnInit {
 
   onSelect(event: TypeaheadMatch): void {
     this.selectedOption = event.item;
-    this.assignment.candidateCode = this.selectedOption.code;
+    this.model.candidateCode = this.selectedOption.code;
   }
 
   onChangeAbility(event) {
-    this.assignment.abilityId = event.id;
+    this.model.abilityId = event.id;
+    this.model.task = event.task;
+    this.model.source = event.sourceLanguage;
+    this.model.target = event.targetLanguage;
     this.selectTaskSourceTarget.emit(event);
   }
 

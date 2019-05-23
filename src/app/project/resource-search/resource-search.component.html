@@ -42,6 +42,51 @@
         </ng-template>
       </ng-select>
     </div>
+    <div class="d-flex">
+      <!--TASK-->
+      <div class="form-group mw110 flex-grow-1">
+        <label for="task">Task<span class="text-danger"> *</span></label>
+        <ng-select [(ngModel)]="model.task" [searchable]="false" [clearable]="false" name="task" id="task"
+                   #task="ngModel" class="sm"
+                   required [disabled]="!viewControl.ableToChange"
+                   [ngClass]="{'is-invalid': f.submitted && task.invalid}">
+          <ng-option [value]="'All'">All</ng-option>
+          <ng-option [value]="'DTP'">DTP</ng-option>
+          <ng-option [value]="'Translation'">Translation</ng-option>
+          <ng-option [value]="'Editing'">Editing</ng-option>
+          <ng-option [value]="'Proofreading'">Proofreading</ng-option>
+        </ng-select>
+        <div *ngIf="task.invalid && (task.dirty || task.touched)" class="msg-invalid">
+          <div *ngIf="task.errors.conflict">Duplicated.</div>
+        </div>
+      </div>
+      <!--SOURCE-->
+      <div class="form-group language">
+        <label for="source">Source<span class="text-danger"> *</span></label>
+        <input type="text" class=" form-control form-control-sm" id="source" name="source"
+               required maxlength="127"
+               [(ngModel)]="model.source"
+               #source="ngModel"
+               [ngClass]="{'is-invalid': f.submitted && source.invalid}">
+        <div *ngIf="source.invalid && (source.dirty || source.touched)" class="msg-invalid">
+          <div *ngIf="source.errors.maxlength">Too long.</div>
+          <div *ngIf="source.errors.conflict">Duplicated.</div>
+        </div>
+      </div>
+      <!--TARGET-->
+      <div class="form-group language">
+        <label for="target">Target<span class="text-danger"> *</span></label>
+        <input type="text" class=" form-control form-control-sm" id="target" name="target"
+               required maxlength="127"
+               [(ngModel)]="model.target"
+               #target="ngModel"
+               [ngClass]="{'is-invalid': f.submitted && target.invalid}">
+        <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
+          <div *ngIf="target.errors.maxlength">Too long.</div>
+          <div *ngIf="target.errors.conflict">Duplicated.</div>
+        </div>
+      </div>
+    </div>
   </div>
 
 </div>

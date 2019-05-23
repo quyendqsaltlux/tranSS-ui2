@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ProjectAssignmentReq} from '../../model/ProjectAssignmenReq';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
 import {IndividualConfig, ToastrService} from 'ngx-toastr';
@@ -6,6 +6,7 @@ import {combineLatest, Subject, Subscription} from 'rxjs/index';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {SpecificCommentComponent} from '../../evaluation/specific-comment/specific-comment.component';
 import {Router} from '@angular/router';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'app-project-assignment',
@@ -13,6 +14,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./project-assignment.component.scss']
 })
 export class ProjectAssignmentComponent implements OnInit {
+  @ViewChild('f') f: NgForm;
   @Input() index;
   @Input() viewControl;
   @Input() assignment;
@@ -20,6 +22,8 @@ export class ProjectAssignmentComponent implements OnInit {
   @Input() projectCode;
   @Output() saveDone: EventEmitter<any> = new EventEmitter();
   @Output() deleteItem: EventEmitter<any> = new EventEmitter();
+
+  currentAbility;
 
   bsModalRef: BsModalRef;
   subscriptions: Subscription[] = [];
@@ -128,7 +132,6 @@ export class ProjectAssignmentComponent implements OnInit {
     );
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((reason: string) => {
-        console.log(reason);
         this.onModalClose(this.bsModalRef.content);
         this.unsubscribe();
       })
@@ -175,21 +178,38 @@ export class ProjectAssignmentComponent implements OnInit {
   upDateNetHour() {
     if (!this.model.notAutoComputeNetHour) {
       this.model.netOrHour = this.computeNetOrHour();
+      this.updateUnitPriceAndTotalMoney();
     }
   }
 
-  onSelectTaskSourceTarget(event) {
-    if (!this.model.notUseRDBWf) {
-      this.model.wrep = Number(event.wrep) / 100;
-      this.model.w100 = Number(event.w100) / 100;
-      this.model.w99_95 = Number(event.w99_95) / 100;
-      this.model.w94_85 = Number(event.w94_85) / 100;
-      this.model.w84_75 = Number(event.w84_75) / 100;
-      this.model.wnoMatch = Number(event.wnoMatch) / 100;
+  updateUnitPriceAndTotalMoney() {
+    this.model.unitPrice = this.getUnitPrice(this.currentAbility, this.model.netOrHour);
+    this.model.total = this.model.netOrHour * this.model.unitPrice;
+  }
 
+  onSelectTaskSourceTarget(ability) {
+    this.currentAbility = ability;
+    if (!this.model.notUseRDBWf) {
+      this.onToggleCustomizeWf();
       this.onWfInputChanged();
     }
   }
+
+  onToggleAutoComputeNetOrHour() {
+    this.upDateNetHour();
+  }
+
+  onToggleCustomizeWf() {
+    const ability = this.currentAbility;
+    this.model.wrep = Number(ability.wrep) / 100;
+    this.model.w100 = Number(ability.w100) / 100;
+    this.model.w99_95 = Number(ability.w99_95) / 100;
+    this.model.w94_85 = Number(ability.w94_85) / 100;
+    this.model.w84_75 = Number(ability.w84_75) / 100;
+    this.model.wnoMatch = Number(ability.wnoMatch) / 100;
+    this.upDateNetHour();
+  }
+
 
   computeTotalRep() {
     let totalRep = 0;
@@ -212,7 +232,15 @@ export class ProjectAssignmentComponent implements OnInit {
         sum += a * b;
       }
     }
-    console.log(sum);
     return sum;
+  }
+
+  private getUnitPrice(ability, netOrHour) {
+    console.log(ability);
+    console.log(netOrHour);
+    if (!ability) {
+      return 0;
+    }
+    return netOrHour > ability.minimumVolum ? ability.rate : ability.rate2;
   }
 }
