@@ -148,10 +148,16 @@ export class ProjectAssignmentComponent implements OnInit {
 
   goToPo(assignmentId, poId) {
     if (poId && poId > 0) {
-      this.route.navigate(['/purchaseOrders/' + assignmentId + '/edit/' + poId]);
+      this.route.navigate([])
+        .then(result => {
+          window.open('#/purchaseOrders/' + assignmentId + '/edit/' + poId, '_blank');
+        });
       return;
     }
-    this.route.navigate(['/purchaseOrders/' + assignmentId + '/new']);
+    this.route.navigate([])
+      .then(result => {
+        window.open('#/purchaseOrders/' + assignmentId + '/new', '_blank');
+      });
   }
 
   isComputeNetHourManually() {
