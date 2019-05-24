@@ -36,6 +36,18 @@ export class ProjectAssignmentComponent implements OnInit {
   repFields = ['reprep', 'rep100', 'rep99_95', 'rep94_85', 'rep84_75', 'repnoMatch'];
   wrepFields = ['wrep', 'w100', 'w99_95', 'w94_85', 'w84_75', 'wnoMatch'];
 
+  progress = [
+    {id: 1, value: 'WAITING_CONFIRM', label: 'Waiting confirm'},
+    {id: 2, value: 'ON_GOING', label: 'On going'},
+    {id: 3, value: 'FINISHED', label: 'Finished'}
+  ];
+
+  progressDigit = {
+    WAITING_CONFIRM: 1,
+    ON_GOING: 2,
+    FINISHED: 3,
+  };
+
   constructor(private  projectAssignmentService: ProjectAssignmentService,
               private modalService: BsModalService,
               private toastr: ToastrService,
@@ -96,6 +108,7 @@ export class ProjectAssignmentComponent implements OnInit {
     this.projectAssignmentService.changeProgress(this.assignment.id, progress).subscribe((resp) => {
         this.toastr.success('Change progress successfully!');
         this.assignment = {...resp.body};
+        this.model.progress = this.assignment.progress;
       },
       ((err) => {
         this.toastr.error(err.error.message, 'Fail to Change progress!', {timeOut: 10000} as Partial<IndividualConfig>);
@@ -248,5 +261,10 @@ export class ProjectAssignmentComponent implements OnInit {
       return 0;
     }
     return netOrHour > ability.minimumVolum ? ability.rate : ability.rate2;
+  }
+
+  onClickStone(myStone) {
+    this.onChangeProgress(myStone.value);
+    // this.model.progress = myStone.value;
   }
 }

@@ -1,7 +1,7 @@
 <div class="row assignment-container">
   <div class="col-sm-12">
     <div class="card mb-1">
-      <div class="card-body p-1" [ngClass]="{'new-pro-assignment': !assignment || !assignment.id}">
+      <div class="card-body" [ngClass]="{'new-pro-assignment': !assignment || !assignment.id}">
         <fieldset [disabled]="!viewControl.ableToChange">
           <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
             <div class="d-flex">
@@ -178,72 +178,80 @@
                   </div>
                 </div>
                 <!--CONFIRM STATUS & PROGRESS-->
-                <div class="d-flex mr-5" *ngIf="assignment && assignment.id">
-                  <!--STATUS-->
-                  <div class="media mr-2" *ngIf="assignment && assignment.candidate">
-                    <div class="media-body">
-                      <H6 class="mt-0 mb-1 text-primary" title="{{assignment.candidate.name}}">{{assignment.candidate.name | lmTo: 20}}</H6>
-                      <!--STATUS-->
-                      <div class="btn-group btn-group-sm mt-1 pull-right" dropdown>
-                        <button type="button" class="btn btn-sm text-nowrap"
-                                [class.btn-dark]="assignment.status === 'NOT_CONFIRMED'"
-                                [class.btn-success]="assignment.status === 'CONFIRMED'">
-                          {{assignment.status | assignmentStatus}}
-                        </button>
-                        <button type="button" dropdownToggle class="btn dropdown-toggle dropdown-toggle-split"
-                                [class.btn-dark]="assignment.status === 'NOT_CONFIRMED'"
-                                [class.btn-success]="assignment.status === 'CONFIRMED'">
-                          <span class="caret"></span>
-                        </button>
-                        <ul *dropdownMenu class="dropdown-menu" role="menu">
-                          <li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeConfirmStatus('NOT_CONFIRMED')">Not confirmed</a></li>
-                          <li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeConfirmStatus('CONFIRMED')">Confirmed</a></li>
-                        </ul>
-                      </div>
-                    </div>
-                    <!--AVATAR-->
-                    <!--<img *ngIf="assignment.candidate.avatar" class="mr-3" [src]="assignment.candidate.avatar" alt="Avatar" width="40" height="40">-->
-                    <!--<img *ngIf="!assignment.candidate.avatar" class="mr-3" src="assets/img/avatars/default_avatar.png" alt="Avatar" width="40" height="40">-->
-                  </div>
-                  <!--PROGRESS-->
-                  <div class="form-group ml-2 mb-0">
-                    <label>Progress</label>
-                    <div>
-                      <div class="btn-group btn-group-sm" dropdown placement="bottom right">
-                        <button type="button" class="btn btn-sm text-nowrap"
-                                [class.btn-dark]="assignment.progress === 'NOT_START'"
-                                [class.btn-warning]="assignment.progress === 'ON_GOING'"
-                                [class.btn-success]="assignment.progress === 'FINISHED'">
-                          {{assignment.progress | progress}}
-                        </button>
-                        <button type="button" dropdownToggle class="btn dropdown-toggle dropdown-toggle-split"
-                                [class.btn-dark]="assignment.progress === 'NOT_START'"
-                                [class.btn-warning]="assignment.progress === 'ON_GOING'"
-                                [class.btn-success]="assignment.progress === 'FINISHED'">
-                          <span class="caret"></span>
-                        </button>
-                        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
-                          <li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeProgress('NOT_START')">Not start</a></li>
-                          <li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeProgress('ON_GOING')">On going</a></li>
-                          <li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeProgress('FINISHED')">Finished</a></li>
-                        </ul>
-                      </div>
-                    </div>
+                <div class="card card-body">
+                  <div class="d-flex flex-column" *ngIf="assignment && assignment.id">
+                    <h6>Progress</h6>
+                    <ul class="timeline">
+                      <li *ngFor="let myStone of progress; let index=index" [class.active-timeline]="progressDigit[model.progress] >= myStone.id">
+                          <a class="cursor-pointer" (click)="onClickStone(myStone)">{{myStone.label}}</a>
+                      </li>
+                    </ul>
+                    <!--&lt;!&ndash;STATUS&ndash;&gt;-->
+                    <!--<div class="media mr-2" *ngIf="assignment && assignment.candidate">-->
+                    <!--<div class="media-body">-->
+                    <!--<H6 class="mt-0 mb-1 text-primary" title="{{assignment.candidate.name}}">{{assignment.candidate.name | lmTo: 20}}</H6>-->
+                    <!--&lt;!&ndash;STATUS&ndash;&gt;-->
+                    <!--<div class="btn-group btn-group-sm mt-1 pull-right" dropdown>-->
+                    <!--<button type="button" class="btn btn-sm text-nowrap"-->
+                    <!--[class.btn-dark]="assignment.status === 'NOT_CONFIRMED'"-->
+                    <!--[class.btn-success]="assignment.status === 'CONFIRMED'">-->
+                    <!--{{assignment.status | assignmentStatus}}-->
+                    <!--</button>-->
+                    <!--<button type="button" dropdownToggle class="btn dropdown-toggle dropdown-toggle-split"-->
+                    <!--[class.btn-dark]="assignment.status === 'NOT_CONFIRMED'"-->
+                    <!--[class.btn-success]="assignment.status === 'CONFIRMED'">-->
+                    <!--<span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul *dropdownMenu class="dropdown-menu" role="menu">-->
+                    <!--<li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeConfirmStatus('NOT_CONFIRMED')">Not confirmed</a></li>-->
+                    <!--<li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeConfirmStatus('CONFIRMED')">Confirmed</a></li>-->
+                    <!--</ul>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;AVATAR&ndash;&gt;-->
+                    <!--&lt;!&ndash;<img *ngIf="assignment.candidate.avatar" class="mr-3" [src]="assignment.candidate.avatar" alt="Avatar" width="40" height="40">&ndash;&gt;-->
+                    <!--&lt;!&ndash;<img *ngIf="!assignment.candidate.avatar" class="mr-3" src="assets/img/avatars/default_avatar.png" alt="Avatar" width="40" height="40">&ndash;&gt;-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;PROGRESS&ndash;&gt;-->
+                    <!--<div class="form-group ml-2 mb-0">-->
+                    <!--<label>Progress</label>-->
+                    <!--<div>-->
+                    <!--<div class="btn-group btn-group-sm" dropdown placement="bottom right">-->
+                    <!--<button type="button" class="btn btn-sm text-nowrap"-->
+                    <!--[class.btn-dark]="assignment.progress === 'NOT_START'"-->
+                    <!--[class.btn-warning]="assignment.progress === 'ON_GOING'"-->
+                    <!--[class.btn-success]="assignment.progress === 'FINISHED'">-->
+                    <!--{{assignment.progress | progress}}-->
+                    <!--</button>-->
+                    <!--<button type="button" dropdownToggle class="btn dropdown-toggle dropdown-toggle-split"-->
+                    <!--[class.btn-dark]="assignment.progress === 'NOT_START'"-->
+                    <!--[class.btn-warning]="assignment.progress === 'ON_GOING'"-->
+                    <!--[class.btn-success]="assignment.progress === 'FINISHED'">-->
+                    <!--<span class="caret"></span>-->
+                    <!--</button>-->
+                    <!--<ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">-->
+                    <!--<li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeProgress('NOT_START')">Not start</a></li>-->
+                    <!--<li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeProgress('ON_GOING')">On going</a></li>-->
+                    <!--<li role="menuitem"><a class="dropdown-item cursor-pointer" (click)="onChangeProgress('FINISHED')">Finished</a></li>-->
+                    <!--</ul>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--</div>-->
+                    <!--&lt;!&ndash;RIGHT TOOLBAR&ndash;&gt;-->
+                    <!--<div class="right-actions">-->
+                    <!--<button type="button" class="btn-ghost-secondary" (click)="onDeleteResource()">-->
+                    <!--<i class="fa fa-trash-o text-danger"></i></button>-->
+                    <!--<div class="cursor-pointer d-flex justify-content-end" *ngIf="assignment.progress === 'FINISHED'" (click)="openNewGeneralCommentModal()">-->
+                    <!--<button type="button" class="btn btn-ghost-primary btn-sm p-0" *ngIf="!assignment.star">Evaluate</button>-->
+                    <!--<ng-container *ngIf="assignment.star && assignment.star > 0">-->
+                    <!--<span>{{assignment.star}} <i class="fa fa-star text-warning"></i></span>-->
+                    <!--</ng-container>-->
+                    <!--</div>-->
+                    <!--<button type="button" class="btn-ghost-secondary" (click)="goToPo(assignment.id, assignment.poId)">-->
+                    <!--<i class="fa fa-dollar text-success"></i></button>-->
+                    <!--</div>-->
                   </div>
                 </div>
-              </div>
-              <!--RIGHT TOOLBAR-->
-              <div class="right-actions">
-                <button type="button" class="btn-ghost-secondary" (click)="onDeleteResource()">
-                  <i class="fa fa-trash-o text-danger"></i></button>
-                <div class="cursor-pointer d-flex justify-content-end" *ngIf="assignment.progress === 'FINISHED'" (click)="openNewGeneralCommentModal()">
-                  <button type="button" class="btn btn-ghost-primary btn-sm p-0" *ngIf="!assignment.star">Evaluate</button>
-                  <ng-container *ngIf="assignment.star && assignment.star > 0">
-                    <span>{{assignment.star}} <i class="fa fa-star text-warning"></i></span>
-                  </ng-container>
-                </div>
-                <button type="button" class="btn-ghost-secondary" (click)="goToPo(assignment.id, assignment.poId)">
-                  <i class="fa fa-dollar text-success"></i></button>
               </div>
             </div>
           </form>

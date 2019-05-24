@@ -1,7 +1,11 @@
 .language {
-  width: 70px;
+  width: 60px;
 }
 
-label {
+label, h6, span {
   font-size: 85%;
+}
+
+.card-body {
+  padding: 0.25rem;
 }
