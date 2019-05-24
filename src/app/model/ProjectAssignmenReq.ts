@@ -48,4 +48,7 @@ export interface ProjectAssignmentReq {
 
   externalResource: boolean;
   externalResourceName: string;
+
+  ability?: any;
+  project?: any;
 }

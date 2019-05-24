@@ -12,7 +12,7 @@
             <div>* We consider that you accept the conditions above if you confirm the receipt and start the job as scheduled.</div>
           </div>
           <hr>
-          <div class="po-content">
+          <div class="po-content" *ngIf="isShowForm">
             <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
               <div class="form-group row">
                 <label for="poNumber" class="col-sm-2 col-form-label"><strong>PO Number</strong></label>
@@ -88,13 +88,13 @@
                     <td rowspan="3">{{model.assignment.task}}</td>
                     <td rowspan="3">{{model.assignment.source}}</td>
                     <td rowspan="3">{{model.assignment.target}}</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>{{model.assignment.totalCount}}</td>
+                    <td>{{model.assignment.reprep}}</td>
+                    <td>{{model.assignment.rep100}}</td>
+                    <td>{{model.assignment.rep99_95}}</td>
+                    <td>{{model.assignment.rep94_85}}</td>
+                    <td>{{model.assignment.rep84_75}}</td>
+                    <td>{{model.assignment.repnoMatch}}</td>
+                    <td>{{model.assignment.totalRep}}</td>
                   </tr>
                   <tr>
                     <th>Wf Rep.</th>
@@ -106,21 +106,34 @@
                     <th>Net word / Hour</th>
                   </tr>
                   <tr>
-                    <td>{{model.assignment.ability.wrep}} %</td>
-                    <td>{{model.assignment.ability.w100}} %</td>
-                    <td>{{model.assignment.ability.w99_95}} %</td>
-                    <td>{{model.assignment.ability.w94_85}} %</td>
-                    <td>{{model.assignment.ability.w84_75}} %</td>
-                    <td>{{model.assignment.ability.wnoMatch}} %</td>
-                    <td>{{model.netWordHour}}</td>
+                    <td>{{model.assignment.wrep}} %</td>
+                    <td>{{model.assignment.w100}} %</td>
+                    <td>{{model.assignment.w99_95}} %</td>
+                    <td>{{model.assignment.w94_85}} %</td>
+                    <td>{{model.assignment.w84_75}} %</td>
+                    <td>{{model.assignment.wnoMatch}} %</td>
+                    <td>{{model.assignment.netOrHour}}</td>
                   </tr>
                   <tr>
                     <th class="bg-success text-center" colspan="3"><h4 class="mb-0">Currency</h4></th>
                     <th class="bg-success text-center" colspan="8"><h3 class="mb-0">Total Amount</h3></th>
                   </tr>
                   <tr>
-                    <td colspan="3"><h2>{{model.assignment.ability.currency}}</h2></td>
-                    <td colspan="8"><h2>{{mode.assignment.totalAmount}}</h2></td>
+                    <td colspan="3">
+                      <ng-container *ngIf="externalResource">
+                        <ng-select [(ngModel)]="model.currency" [searchable]="false" [clearable]="false" name="currency" id="currency"
+                                   #currency="ngModel" class="sm" required [ngClass]="{'is-invalid': f.submitted && currency.invalid}">
+                          <ng-option [value]="'USD'">USD</ng-option>
+                          <ng-option [value]="'EUR'">EUR</ng-option>
+                          <ng-option [value]="'KRW'">KRW</ng-option>
+                          <ng-option [value]="'CAD'">CAD</ng-option>
+                        </ng-select>
+                      </ng-container>
+                      <ng-container *ngIf="!externalResource">
+                        <span>{{model.assignment.ability.currency}}</span>
+                      </ng-container>
+                    </td>
+                    <td colspan="8"><h2>{{model.assignment.total}}</h2></td>
                   </tr>
                   </tbody>
                 </table>

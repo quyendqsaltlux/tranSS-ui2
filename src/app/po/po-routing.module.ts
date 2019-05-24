@@ -17,7 +17,7 @@ const routes: Routes = [
       {path: '', redirectTo: 'list', pathMatch: 'full'},
       {path: 'list', component: PoListComponent, data: {title: 'List'}},
       {path: ':assignmentId/new', component: PoFormComponent, data: {title: 'New'}},
-      {path: ':assignmentId/edit/:id', component: PoFormComponent, data: {title: 'Edit'}}
+      {path: ':assignmentId/edit/:poId', component: PoFormComponent, data: {title: 'Edit'}}
     ]
   }
 ];
