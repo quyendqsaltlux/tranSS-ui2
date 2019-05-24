@@ -10,8 +10,9 @@ export interface ProjectAssignmentReq {
   hb: string;
   source: string;
   target: string;
+  abilityId: number;
 
-  notUseCustomTask: boolean;
+  useCustomTask: boolean;
 
   wrep: number;
   w100: number;
@@ -26,7 +27,6 @@ export interface ProjectAssignmentReq {
   rep94_85: number;
   rep84_75: number;
   repnoMatch: number;
-  notUseRDBWf: boolean;
   /**
    * = reprep + rep100 + rep99_95 + rep94_85 + rep84_75 + repnoMatch
    */
@@ -45,4 +45,7 @@ export interface ProjectAssignmentReq {
    * = unitPrice * netOrHour
    */
   total: number;
+
+  externalResource: boolean;
+  externalResourceName: string;
 }

@@ -36,6 +36,8 @@ export class ResourceSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.selectedOption = this.model.candidate;
+    this.selectedAbility = this.model.abilityId;
   }
 
   getEmployeeAsObserble(keyword): Observable<any> {
@@ -68,8 +70,11 @@ export class ResourceSearchComponent implements OnInit {
     this.selectTaskSourceTarget.emit(event);
   }
 
-  onToggleNotUseCustomTask() {
-    console.log(this.selectedAbility);
-    this.onChangeAbility(this.selectedAbility);
+  onToggleUseCustomTask() {
+    this.onChangeAbility(this.selectedOption.abilities[this.selectedAbility]);
+  }
+
+  onToggleExternalResource() {
+
   }
 }

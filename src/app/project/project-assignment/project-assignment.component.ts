@@ -55,21 +55,11 @@ export class ProjectAssignmentComponent implements OnInit {
   }
 
   extractApiModel() {
+    if (this.assignment) {
+      this.model = {...this.assignment} as ProjectAssignmentReq;
+    }
     this.model.projectId = Number(this.projectId);
     this.model.projectCode = this.projectCode;
-    if (this.assignment) {
-      this.model.id = this.assignment.id;
-      this.model.task = this.assignment.task;
-      this.model.ho = this.assignment.ho;
-      this.model.hb = this.assignment.hb;
-      this.model.total = this.assignment.total;
-      this.model.source = this.assignment.source;
-      this.model.target = this.assignment.target;
-      this.model.candidateCode = this.assignment.candidate ? this.assignment.candidate.code : null;
-      if (this.assignment.star) {
-        this.star = this.assignment.star;
-      }
-    }
   }
 
   onSubmit() {
@@ -166,48 +156,56 @@ export class ProjectAssignmentComponent implements OnInit {
       >= 0 && this.model.notAutoComputeNetHour);
   }
 
+  onUnitPriceChanged() {
+    this.updateTotalMoney();
+  }
+
   onRepInputChanged() {
     this.model.totalRep = this.computeTotalRep();
-    this.upDateNetHour();
+    this.upDateNetOrHour();
   }
 
   onWfInputChanged() {
-    this.upDateNetHour();
+    this.upDateNetOrHour();
   }
 
-  upDateNetHour() {
+  upDateNetOrHour() {
     if (!this.model.notAutoComputeNetHour) {
       this.model.netOrHour = this.computeNetOrHour();
-      this.updateUnitPriceAndTotalMoney();
+      this.onNetOrHourChanged();
     }
   }
 
-  updateUnitPriceAndTotalMoney() {
-    this.model.unitPrice = this.getUnitPrice(this.currentAbility, this.model.netOrHour);
+  onNetOrHourChanged() {
+    if (!this.model.externalResource) {
+      this.model.unitPrice = this.getUnitPrice(this.currentAbility, this.model.netOrHour);
+    }
+    this.updateTotalMoney();
+  }
+
+  updateTotalMoney() {
     this.model.total = this.model.netOrHour * this.model.unitPrice;
   }
 
   onSelectTaskSourceTarget(ability) {
     this.currentAbility = ability;
-    if (!this.model.notUseRDBWf) {
-      this.onToggleCustomizeWf();
-      this.onWfInputChanged();
-    }
+    this.onToggleCustomizeWf();
+    this.onWfInputChanged();
   }
 
   onToggleAutoComputeNetOrHour() {
-    this.upDateNetHour();
+    this.upDateNetOrHour();
   }
 
   onToggleCustomizeWf() {
     const ability = this.currentAbility;
-    this.model.wrep = Number(ability.wrep) / 100;
-    this.model.w100 = Number(ability.w100) / 100;
-    this.model.w99_95 = Number(ability.w99_95) / 100;
-    this.model.w94_85 = Number(ability.w94_85) / 100;
-    this.model.w84_75 = Number(ability.w84_75) / 100;
-    this.model.wnoMatch = Number(ability.wnoMatch) / 100;
-    this.upDateNetHour();
+    this.model.wrep = Number(ability.wrep);
+    this.model.w100 = Number(ability.w100);
+    this.model.w99_95 = Number(ability.w99_95);
+    this.model.w94_85 = Number(ability.w94_85);
+    this.model.w84_75 = Number(ability.w84_75);
+    this.model.wnoMatch = Number(ability.wnoMatch);
+    this.upDateNetOrHour();
   }
 
 
@@ -236,8 +234,6 @@ export class ProjectAssignmentComponent implements OnInit {
   }
 
   private getUnitPrice(ability, netOrHour) {
-    console.log(ability);
-    console.log(netOrHour);
     if (!ability) {
       return 0;
     }

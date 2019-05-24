@@ -7,14 +7,14 @@
             <div class="d-flex">
               <div class="d-flex flex-grow-1 justify-content-between">
                 <div class="d-flex">
-                  <div class="resource-search">
+                  <div class="resource-search mr-1 ml-1">
                     <app-project-resoure-search [model]="model"
                                                 [f]="f"
                                                 [viewControl]="viewControl"
                                                 (selectTaskSourceTarget)="onSelectTaskSourceTarget($event)">
                     </app-project-resoure-search>
                   </div>
-                  <div class="card card-body">
+                  <div class="card card-body  mr-1 ml-1 mb-0">
                     <!--ROW 2-->
                     <div class="d-flex form-left">
                       <div class="form-group w80">
@@ -82,7 +82,7 @@
                         <label for="unitPrice">Unit price</label>
                         <input type="number" class=" form-control form-control-sm" id="unitPrice" name="unitPrice"
                                [(ngModel)]="model.unitPrice" #unitPrice="ngModel" min="0" max="100" required
-                               (ngModelChange)="onRepInputChanged()" readonly
+                               (ngModelChange)="onUnitPriceChanged()" [readonly]="!model.externalResource"
                                [ngClass]="{'is-invalid': f.submitted && unitPrice.invalid}">
                         <div *ngIf="unitPrice.invalid && (unitPrice.dirty || unitPrice.touched)" class="msg-invalid">
                           <div *ngIf="unitPrice.errors.required">Required</div>
@@ -95,44 +95,44 @@
                       <div class="form-group w80">
                         <label for="wrep">Wf Rep.</label>
                         <input type="number" class=" form-control form-control-sm" id="wrep" name="wrep"
-                               [readonly]="!model.notUseRDBWf" (ngModelChange)="onWfInputChanged()"
-                               [(ngModel)]="model.wrep" #wrep="ngModel" min="0" max="1">
+                               (ngModelChange)="onWfInputChanged()"
+                               [(ngModel)]="model.wrep" #wrep="ngModel" min="0" max="100">
                       </div>
                       <div class="form-group w80">
                         <label for="w100">Wf 100</label>
                         <input type="number" class=" form-control form-control-sm" id="w100" name="w100"
-                               [readonly]="!model.notUseRDBWf" (ngModelChange)="onWfInputChanged()"
-                               [(ngModel)]="model.w100" #w100="ngModel" min="0" max="1">
+                               (ngModelChange)="onWfInputChanged()"
+                               [(ngModel)]="model.w100" #w100="ngModel" min="0" max="100">
                       </div>
                       <div class="form-group w80">
                         <label for="w99_95">Wf 99~95</label>
                         <input type="number" class=" form-control form-control-sm" id="w99_95" name="w99_95"
-                               [readonly]="!model.notUseRDBWf" (ngModelChange)="onWfInputChanged()"
-                               [(ngModel)]="model.w99_95" #w99_95="ngModel" min="0" max="1">
+                               [readonly]="!model.useCustomTask && !model.externalResource" (ngModelChange)="onWfInputChanged()"
+                               [(ngModel)]="model.w99_95" #w99_95="ngModel" min="0" max="100">
                       </div>
                       <div class="form-group w80">
                         <label for="w94_85">Wf 94~85</label>
                         <input type="number" class=" form-control form-control-sm" id="w94_85" name="w94_85"
-                               [readonly]="!model.notUseRDBWf" (ngModelChange)="onWfInputChanged()"
-                               [(ngModel)]="model.w94_85" #w94_85="ngModel" min="0" max="1">
+                               [readonly]="!model.useCustomTask && !model.externalResource" (ngModelChange)="onWfInputChanged()"
+                               [(ngModel)]="model.w94_85" #w94_85="ngModel" min="0" max="100">
                       </div>
                       <div class="form-group w80">
                         <label for="w84_75">Wf 84~75</label>
                         <input type="number" class=" form-control form-control-sm" id="w84_75" name="w84_75"
-                               [readonly]="!model.notUseRDBWf" (ngModelChange)="onWfInputChanged()"
-                               [(ngModel)]="model.w84_75" #w84_75="ngModel" min="0" max="1">
+                               [readonly]="!model.useCustomTask && !model.externalResource" (ngModelChange)="onWfInputChanged()"
+                               [(ngModel)]="model.w84_75" #w84_75="ngModel" min="0" max="100">
                       </div>
                       <div class="form-group w80">
                         <label for="wnoMatch">Wf New</label>
                         <input type="number" class=" form-control form-control-sm" id="wnoMatch" name="wnoMatch"
-                               [readonly]="!model.notUseRDBWf" (ngModelChange)="onWfInputChanged()"
-                               [(ngModel)]="model.wnoMatch" #wnoMatch="ngModel" min="0" max="1">
+                               [readonly]="!model.useCustomTask && !model.externalResource" (ngModelChange)="onWfInputChanged()"
+                               [(ngModel)]="model.wnoMatch" #wnoMatch="ngModel" min="0" max="100">
                       </div>
                       <div class="form-group w80">
                         <label for="netOrHour">Net/Hour</label>
                         <input type="number" [readonly]="isComputeNetHourManually()"
                                class="form-control form-control-sm" id="netOrHour" name="netOrHour"
-                               (ngModelChange)="updateUnitPriceAndTotalMoney()" min="0"
+                               (ngModelChange)="onNetOrHourChanged()" min="0"
                                [(ngModel)]="model.netOrHour" #repnoMatch="ngModel">
                       </div>
                       <!--TOTAL-->
@@ -148,22 +148,11 @@
                     <div class="d-flex form-left">
 
                       <div class="form-group ml-1 mr-1">
-                        <label for="wnoMatch">Use custom Wf</label>
-                        <div>
-                          <label class="ml-1 switch switch-sm switch-primary">
-                            <input type="checkbox" class="switch-input" name="notUseRDBWf" [(ngModel)]="model.notUseRDBWf"
-                            (change)="onToggleCustomizeWf()">
-                            <span class="switch-slider"></span>
-                          </label>
-                        </div>
-                      </div>
-
-                      <div class="form-group ml-1 mr-1">
                         <label for="netOrHour">Compute Net/Hour manually</label>
                         <div>
                           <label class="ml-1 switch switch-sm switch-primary">
                             <input type="checkbox" class="switch-input" name="notAutoComputeNetHour" [(ngModel)]="model.notAutoComputeNetHour"
-                            (change)="onToggleAutoComputeNetOrHour()">
+                                   (change)="onToggleAutoComputeNetOrHour()">
                             <span class="switch-slider"></span>
                           </label>
                         </div>
