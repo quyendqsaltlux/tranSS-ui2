@@ -17,4 +17,12 @@ export class PoService {
   getDefaultPo(id: any): Observable<HttpResponse<any>> {
     return this.http.get<HttpResponse<any>>(API_PATH + '/getDefaultPo/' + id, {observe: 'response'});
   }
+
+  create(po: any, assignmentId): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(API_PATH + '/save/' + assignmentId, po, {observe: 'response'});
+  }
+
+  findById(id: any): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(API_PATH + '/findById/' + id, {observe: 'response'});
+  }
 }

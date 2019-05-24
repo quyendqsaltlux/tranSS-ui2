@@ -146,7 +146,11 @@ export class ProjectAssignmentComponent implements OnInit {
   onModalClose(modalContent) {
   }
 
-  goToPo(assignmentId) {
+  goToPo(assignmentId, poId) {
+    if (poId && poId > 0) {
+      this.route.navigate(['/purchaseOrders/' + assignmentId + '/edit/' + poId]);
+      return;
+    }
     this.route.navigate(['/purchaseOrders/' + assignmentId + '/new']);
   }
 

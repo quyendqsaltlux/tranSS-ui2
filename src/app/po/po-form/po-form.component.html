@@ -1,10 +1,13 @@
 <div class="animated fadeIn">
   <div class="row">
-    <div class="col-sm-12 col-md-8">
+    <div class="col-sm-12 col-md-8 po-container">
       <div class="card mb-1">
         <div class="card-body">
           <div class="po-header">
-            <div class="text-right"><img src="assets/img/po-header.PNG" class="img-po-header"/></div>
+            <div class="text-right po-logo" *ngIf="isShowForm">
+              <img src="assets/img/po-sp-header.PNG" class="img-po-header" *ngIf="model.assignment.project.company == 'SP'"/>
+              <img src="assets/img/po-header.PNG" class="img-po-header" *ngIf="model.assignment.project.company == 'P'"/>
+            </div>
             <h1 class="text-center mt-5 po-title">Purchase Order</h1>
             <strong>[ IMPORTANT ]</strong>
             <div>* If any definite errors like typo, number, punctuation, bracket, etc., the payment date can be delayed a few additional months from regular term.</div>
@@ -17,7 +20,7 @@
               <div class="form-group row">
                 <label for="poNumber" class="col-sm-2 col-form-label"><strong>PO Number</strong></label>
                 <div class="col-sm-4">
-                  <input type="text" class="form-control" id="poNumber">
+                  <input type="text" class="form-control" id="poNumber" readonly [value]="model.code">
                 </div>
               </div>
               <!--RESOURCE & PM-->
@@ -102,7 +105,7 @@
                     <th>Wf 99~95%</th>
                     <th>Wf 94~85%</th>
                     <th>Wf 84~75%</th>
-                    <th>Wf New/td>
+                    <th>Wf New</th>
                     <th>Net word / Hour</th>
                   </tr>
                   <tr>
@@ -130,7 +133,7 @@
                         </ng-select>
                       </ng-container>
                       <ng-container *ngIf="!externalResource">
-                        <span>{{model.assignment.ability.currency}}</span>
+                        <span>{{model.currency}}</span>
                       </ng-container>
                     </td>
                     <td colspan="8"><h2>{{model.assignment.total}}</h2></td>
@@ -138,9 +141,12 @@
                   </tbody>
                 </table>
               </div>
+              <div class="text-center">
+                <button class="btn btn-primary ml-1 mr-1" [disabled]="f.invalid"><i class="fa fa-circle"></i> Submit</button>
+                <button type="button" class="btn btn-secondary ml-1 mr-1" (click)="download()"><i class="fa fa-download"></i> Download</button>
+              </div>
             </form>
           </div>
-
 
         </div>
       </div>

@@ -1,6 +1,6 @@
 import {ProjectAssignmentReq} from './ProjectAssignmenReq';
 
-export interface PODefaullt {
+export interface PODefault {
   id: number;
   code: string;
   currency: string;

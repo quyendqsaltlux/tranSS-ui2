@@ -3,11 +3,11 @@
 }
 
 .img-po-header {
-
+  width: 70%;
 }
 
 .po-content {
-font-weight: bold;
+  font-weight: bold;
 }
 
 .po-title {
@@ -30,4 +30,13 @@ font-weight: bold;
     }
   }
 
+}
+
+.mw1000 {
+  min-width: 1000px;
+}
+
+.po-container {
+  min-width: 1000px;
+  overflow-x: auto;
 }
