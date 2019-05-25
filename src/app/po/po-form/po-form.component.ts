@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PoService} from '../../service/po.service';
 import {ActivatedRoute} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
@@ -11,6 +11,7 @@ import {POReq} from '../../model/POReq';
   styleUrls: ['./po-form.component.scss']
 })
 export class PoFormComponent implements OnInit {
+  @ViewChild('downloadLink') private downloadLink: ElementRef;
   assignmentId: number = null;
   poId: number = null;
   defaultPo;
@@ -46,7 +47,7 @@ export class PoFormComponent implements OnInit {
       this.model = {...this.defaultPo} as PODefault;
       this.model.currency = this.defaultPo.assignment.ability ? this.defaultPo.assignment.ability.currency : null;
       this.isShowForm = true;
-    }, (err) => {
+    }, () => {
       this.toastr.error('Fail to get default purchase order data');
     });
   }
@@ -72,5 +73,16 @@ export class PoFormComponent implements OnInit {
   }
 
   download() {
+    this.poService.downloadPO(this.model.id).subscribe((resp) => {
+      const url = URL.createObjectURL(resp);
+      const link = this.downloadLink.nativeElement;
+      link.href = url;
+      link.download = this.getPOName(this.model);
+      link.click();
+    });
+  }
+
+  getPOName(po: PODefault): string {
+    return po.code + '.xlsx';
   }
 }

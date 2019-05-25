@@ -56,7 +56,7 @@
                       <div class="form-group w80">
                         <label for="rep84_75">Rep 84~75 %</label>
                         <input class=" form-control form-control-sm" id="rep84_75" name="rep84_75"
-                               [(ngModel)]="model.rep84_75" #rep84_75="ngModel" min="0" max="100"
+                               [(ngModel)]="model.rep84_75" #rep84_75="ngModel" min="0" max="1000000000"
                                [pattern]="_FLOAT_REGEX"
                                (ngModelChange)="onRepInputChanged()"
                                [ngClass]="{'is-invalid': rep84_75.invalid && (rep84_75.dirty || rep84_75.touched)}">

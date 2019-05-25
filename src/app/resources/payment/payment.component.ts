@@ -5,7 +5,7 @@ import {PaymentService} from '../../service/payment.service';
 import {ToastrService} from 'ngx-toastr';
 import {AttachmentComponent} from '../attachment/attachment.component';
 import {getFileName} from '../../util/string-util';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {FileUploadService} from '../../service/file-upload.service';
 
 @Component({
@@ -15,7 +15,7 @@ import {FileUploadService} from '../../service/file-upload.service';
 })
 export class PaymentComponent implements OnInit {
   @ViewChild('downloadLink') private downloadLink: ElementRef;
-  payment = <Payment>{};
+  payment = {} as Payment;
   @ViewChild('f') f: NgForm;
   @Output() saveOk: EventEmitter<any> = new EventEmitter();
   bsModalRef: BsModalRef;
@@ -61,7 +61,7 @@ export class PaymentComponent implements OnInit {
       title: 'Upload attachment',
       folder: 'PAYMENT'
     };
-    this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState});
+    this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.event.subscribe(result => {
       console.log(result);
       if (result && result.data) {

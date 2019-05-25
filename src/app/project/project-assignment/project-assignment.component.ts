@@ -7,7 +7,7 @@ import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {SpecificCommentComponent} from '../../evaluation/specific-comment/specific-comment.component';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
-import {FLOAT_REGEX} from "../../AppConstant";
+import {FLOAT_REGEX} from '../../AppConstant';
 
 @Component({
   selector: 'app-project-assignment',
@@ -230,8 +230,9 @@ export class ProjectAssignmentComponent implements OnInit {
   computeTotalRep() {
     let totalRep = 0;
     this.repFields.forEach((field) => {
-      if (Number(this.model[field]) >= 0) {
-        totalRep += this.model[field];
+      const value = Number(this.model[field]);
+      if (value >= 0) {
+        totalRep += value;
       }
     });
     return totalRep;
@@ -260,6 +261,5 @@ export class ProjectAssignmentComponent implements OnInit {
 
   onClickStone(myStone) {
     this.onChangeProgress(myStone.value);
-    // this.model.progress = myStone.value;
   }
 }

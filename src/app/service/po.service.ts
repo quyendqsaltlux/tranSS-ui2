@@ -25,4 +25,9 @@ export class PoService {
   findById(id: any): Observable<HttpResponse<any>> {
     return this.http.get<HttpResponse<any>>(API_PATH + '/findById/' + id, {observe: 'response'});
   }
+
+  downloadPO(poId): Observable<any> {
+    return this.http.post<any>(API_PATH + '/exportPo/' + poId, null, {responseType: 'blob' as 'json'});
+  }
+
 }
