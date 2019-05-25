@@ -27,6 +27,10 @@ export class PoFormComponent implements OnInit {
     this.isShowForm = false;
     this.assignmentId = +this.route.snapshot.paramMap.get('assignmentId');
     this.poId = +this.route.snapshot.paramMap.get('poId');
+    if (isNaN(this.poId)) {
+      this.poId = null;
+    }
+    console.log(this.poId);
     if (!this.poId) {
       this.getDefaultPo();
     } else {
