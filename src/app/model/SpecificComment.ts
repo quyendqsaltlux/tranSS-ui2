@@ -1,6 +1,6 @@
 export interface SpecificComment {
   id: number;
-  level: string;
+  star: number;
   comment: string;
   evaluator: string;
   assignmentId: string;

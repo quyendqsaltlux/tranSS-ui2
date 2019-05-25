@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EvaluationService} from '../../service/evaluation.service';
 import {IndividualConfig, ToastrService} from 'ngx-toastr';
 import {SpecificComment} from '../../model/SpecificComment';
-import {BsModalRef} from "ngx-bootstrap";
+import {BsModalRef} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-specific-comment',
@@ -23,7 +23,9 @@ export class SpecificCommentComponent implements OnInit {
     if (!this.model || !this.model.id) {
       this.model.assignmentId = this.assignmentId;
       this.getCurrentEvaluation();
+      return;
     }
+    this.model.star = 1;
   }
 
   getCurrentEvaluation() {
@@ -34,7 +36,7 @@ export class SpecificCommentComponent implements OnInit {
   }
 
   reviewAssignment() {
-    this.evaluationService.saveSpecificComment(this.model, this.assignmentId).subscribe((resp) => {
+    this.evaluationService.saveSpecificComment(this.model, this.assignmentId).subscribe(() => {
         this.toastr.success('Saved successfully!');
         this.bsModalRef.hide();
       },
