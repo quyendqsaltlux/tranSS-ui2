@@ -23,16 +23,17 @@ export class SpecificCommentComponent implements OnInit {
     if (!this.model || !this.model.id) {
       this.model.assignmentId = this.assignmentId;
       this.getCurrentEvaluation();
-      return;
     }
-    this.model.star = 1;
   }
 
   getCurrentEvaluation() {
     this.evaluationService.findSpecificCommentById(this.assignmentId).subscribe((resp) => {
       this.model = resp.body;
       this.model.assignmentId = this.assignmentId;
-    });
+      if (!this.model.star || this.model.star === 0) {
+        this.model.star = 1;
+      }
+    }, error2 => this.model.star = 1);
   }
 
   reviewAssignment() {

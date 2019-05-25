@@ -4,7 +4,8 @@
     <div class="d-flex mb-1 align-items-center">
       <div>
         <label class="mb-0 switch switch-sm switch-primary">
-          <input type="checkbox" class="switch-input" id="externalResource" name="externalResource" [(ngModel)]="model.externalResource"
+          <input type="checkbox" class="switch-input" id="externalResource" name="externalResource"
+                 [(ngModel)]="model.externalResource"
                  (change)="onToggleExternalResource()">
           <span class="switch-slider"></span>
         </label>
@@ -39,8 +40,7 @@
            [typeaheadScrollable]="true"
            [typeaheadSelectFirstItem]="false"
            placeholder="search name or code"
-           class="form-control form-control-sm"
-           appAutoFocus>
+           class="form-control form-control-sm">
     <div *ngIf="typeaheadLoading">Searching...</div>
 
     <div class="alert alert-danger" *ngIf="noResult">No Results Found</div>

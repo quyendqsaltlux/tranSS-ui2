@@ -33,9 +33,9 @@ ul.timeline > li:before {
 }
 
 ul.timeline > li.active-timeline:before {
-  width: 26px;
-  height: 26px;
+  width: 20px;
+  height: 20px;
   border: 0;
   background: white url("/../../assets/icon/check-circle.png") no-repeat;
-  background-size: 26px 26px;
+  background-size: 20px 20px;
 }

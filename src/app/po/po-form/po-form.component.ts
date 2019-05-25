@@ -44,7 +44,7 @@ export class PoFormComponent implements OnInit {
     this.poService.getDefaultPo(this.assignmentId).subscribe((resp) => {
       this.defaultPo = resp.body;
       this.model = {...this.defaultPo} as PODefault;
-      this.model.currency = this.defaultPo.assignment.ability.currency;
+      this.model.currency = this.defaultPo.assignment.ability ? this.defaultPo.assignment.ability.currency : null;
       this.isShowForm = true;
     }, (err) => {
       this.toastr.error('Fail to get default purchase order data');
@@ -55,6 +55,7 @@ export class PoFormComponent implements OnInit {
     const param = this.buildParam(this.model);
     this.poService.create(param, this.assignmentId).subscribe((resp => {
       this.model.id = resp.body.id;
+      this.model.code = resp.body.code;
       this.toastr.success('Save PO successfully!');
     }), (error2 => {
       this.toastr.error('Fail to save!');

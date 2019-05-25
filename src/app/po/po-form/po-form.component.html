@@ -11,7 +11,9 @@
             <h1 class="text-center mt-5 po-title">Purchase Order</h1>
             <strong>[ IMPORTANT ]</strong>
             <div>* If any definite errors like typo, number, punctuation, bracket, etc., the payment date can be delayed a few additional months from regular term.</div>
-            <div>* If any claims from the client, some payment may be deducted according to the client's policy. And client's claim is repeated, dealing to each other can be stop by the client's request.</div>
+            <div>* If any claims from the client, some payment may be deducted according to the client's policy. And client's claim is repeated, dealing to each other can be stop by the client's
+              request.
+            </div>
             <div>* We consider that you accept the conditions above if you confirm the receipt and start the job as scheduled.</div>
           </div>
           <hr>
@@ -29,7 +31,8 @@
                   <div class="form-group row">
                     <label for="resourceName" class="col-sm-4 col-form-label">Name</label>
                     <div class="col-sm-8">
-                      <input type="text" readonly class="form-control" id="resourceName" [value]="model.assignment.candidate.name">
+                      <input *ngIf="!model.assignment.externalResource" readonly class="form-control" id="resourceName" [value]="model.assignment.candidate.name">
+                      <input *ngIf="model.assignment.externalResource" readonly class="form-control" id="resourceName" [value]="model.assignment.externalResourceName">
                     </div>
                   </div>
                   <div class="form-group row">
@@ -86,7 +89,7 @@
                   </tr>
                   </thead>
                   <tbody>
-                  <tr>
+                  <tr class="rep">
                     <td rowspan="3">{{model.assignment.project.code}}</td>
                     <td rowspan="3">{{model.assignment.task}}</td>
                     <td rowspan="3">{{model.assignment.source}}</td>
@@ -108,7 +111,7 @@
                     <th>Wf New</th>
                     <th>Net word / Hour</th>
                   </tr>
-                  <tr>
+                  <tr  class="wrep">
                     <td>{{model.assignment.wrep}} %</td>
                     <td>{{model.assignment.w100}} %</td>
                     <td>{{model.assignment.w99_95}} %</td>
@@ -123,20 +126,23 @@
                   </tr>
                   <tr>
                     <td colspan="3">
-                      <ng-container *ngIf="externalResource">
-                        <ng-select [(ngModel)]="model.currency" [searchable]="false" [clearable]="false" name="currency" id="currency"
-                                   #currency="ngModel" class="sm" required [ngClass]="{'is-invalid': f.submitted && currency.invalid}">
+                      <ng-container *ngIf="model.assignment.externalResource">
+                        <ng-select [(ngModel)]="model.currency" [searchable]="false" [clearable]="false"
+                                   [dropdownPosition]="'top'" class="po-currency"
+                                   name="currency" id="currency"
+                                   #currency="ngModel" required
+                                   [ngClass]="{'is-invalid': f.submitted && currency.invalid}">
                           <ng-option [value]="'USD'">USD</ng-option>
                           <ng-option [value]="'EUR'">EUR</ng-option>
                           <ng-option [value]="'KRW'">KRW</ng-option>
                           <ng-option [value]="'CAD'">CAD</ng-option>
                         </ng-select>
                       </ng-container>
-                      <ng-container *ngIf="!externalResource">
-                        <span>{{model.currency}}</span>
+                      <ng-container *ngIf="!model.assignment.externalResource">
+                        <h4>{{model.currency}}</h4>
                       </ng-container>
                     </td>
-                    <td colspan="8"><h2>{{model.assignment.total}}</h2></td>
+                    <td colspan="8" class="text-center"><h2>{{model.assignment.total}}</h2></td>
                   </tr>
                   </tbody>
                 </table>

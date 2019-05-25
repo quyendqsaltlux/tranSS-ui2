@@ -4,3 +4,5 @@
 export const  EQUAL = ':';
 export const O = 'O';
 export const X = 'X';
+
+export const FLOAT_REGEX = /^[0-9]+([.][0-9]+)*$/;

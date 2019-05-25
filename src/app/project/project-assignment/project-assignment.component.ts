@@ -7,6 +7,7 @@ import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {SpecificCommentComponent} from '../../evaluation/specific-comment/specific-comment.component';
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
+import {FLOAT_REGEX} from "../../AppConstant";
 
 @Component({
   selector: 'app-project-assignment',
@@ -14,6 +15,7 @@ import {NgForm} from '@angular/forms';
   styleUrls: ['./project-assignment.component.scss']
 })
 export class ProjectAssignmentComponent implements OnInit {
+  _FLOAT_REGEX = FLOAT_REGEX;
   @ViewChild('f') f: NgForm;
   @Input() index;
   @Input() viewControl;
@@ -160,16 +162,9 @@ export class ProjectAssignmentComponent implements OnInit {
   }
 
   goToPo(assignmentId, poId) {
-    if (poId && poId > 0) {
-      this.route.navigate([])
-        .then(result => {
-          window.open('#/purchaseOrders/' + assignmentId + '/edit/' + poId, '_blank');
-        });
-      return;
-    }
     this.route.navigate([])
       .then(result => {
-        window.open('#/purchaseOrders/' + assignmentId + '/new', '_blank');
+        window.open('#/purchaseOrders/' + assignmentId + '/form/' + poId, '_blank');
       });
   }
 

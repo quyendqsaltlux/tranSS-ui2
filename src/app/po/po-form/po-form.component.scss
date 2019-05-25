@@ -26,7 +26,6 @@
   tbody {
     td {
       vertical-align: middle;
-      text-align: center;
     }
   }
 
@@ -39,4 +38,8 @@
 .po-container {
   min-width: 1000px;
   overflow-x: auto;
+}
+
+.rep, .wrep {
+  text-align: center;
 }
