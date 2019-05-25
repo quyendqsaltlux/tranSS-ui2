@@ -14,7 +14,6 @@
                   </div>
                   <input ngModel #usernameOrEmail="ngModel"
                          name="usernameOrEmail"
-                         type="text"
                          class="form-control"
                          placeholder="Username"
                          autocomplete="username"
@@ -34,7 +33,7 @@
                 </div>
                 <div class="row">
                   <div class="col-6">
-                    <button type="submit" class="btn btn-primary px-4">Login
+                    <button class="btn btn-primary px-4" [disabled]="f.invalid">Login
                       <i *ngIf="isLoading" class="fa fa-spinner fa-spin"></i></button>
                   </div>
                   <div class="col-6 text-right">
