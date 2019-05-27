@@ -56,7 +56,7 @@
       <!--SELECT ABILITY-->
       <div class="mt-1" *ngIf="!model.useCustomTask">
         <ng-select [(ngModel)]="selectedAbility" [clearable]="false" name="ability" id="ability" class="sm"
-                   #ability="ngModel"
+                   #ability="ngModel" [disabled]="!viewControl.ableToChange"
                    required
                    [items]="selectedOption.abilities"
                    bindLabel="task" bindValue="id"

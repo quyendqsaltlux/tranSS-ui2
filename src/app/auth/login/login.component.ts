@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('Check Login');
     if (this.principleService.hasToken()) {
       this.router.navigate(['/dashboard']);
     }

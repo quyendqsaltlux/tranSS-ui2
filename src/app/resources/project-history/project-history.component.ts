@@ -32,8 +32,8 @@ export class ProjectHistoryComponent implements OnInit {
 
   JOIN_FILTER_COLS = [];
   columnDefs = [
-    {headerName: 'Project Code', field: 'projectCode', pinned: 'left', width: 100},
-    {headerName: 'Contents', field: 'contents', width: 150},
+    {headerName: 'Project Code', field: 'projectCode', pinned: 'left', width: 150},
+    {headerName: 'Contents', field: 'contents', width: 200},
     {headerName: 'Field', field: 'field'},
     {headerName: 'Client', field: 'client'},
     {headerName: 'Source', field: 'source', width: 70},

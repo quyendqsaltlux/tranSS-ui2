@@ -47,7 +47,7 @@ export class ProjectAssignmentListComponent implements OnInit {
         this.viewControl.ableToChange = resp.body.ableToChange;
       }
     }, (err) => {
-      this.toastr.error('Fail to get list of assigments', '');
+      this.toastr.error('Fail to get list of assignments', '');
     });
   }
 
