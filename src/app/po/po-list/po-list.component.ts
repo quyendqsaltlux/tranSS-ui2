@@ -1,7 +1,7 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
-import {separateFiltersFromGrid} from '../../util/http-util';
+import {separateFiltersFromGridAssignment} from '../../util/http-util';
 import {EQUAL} from '../../AppConstant';
 import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-renderer.component';
 import {Router} from '@angular/router';
@@ -16,9 +16,12 @@ import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.compone
 })
 export class PoListComponent implements OnInit {
   @ViewChild('template') template: TemplateRef<any>;
-  JOIN_FILTER_COLS = ['pm.code'];
+  PO_FILTERS = ['poNo'];
+  PROJECT_FILTERS = ['projectCode'];
+  CANDIDATE_FILTER = ['candidateCode', 'resourceName'];
   columnDefs = [
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionsRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
+    {headerName: 'PO No', field: 'poNo'},
     {headerName: 'Project Code', field: 'projectCode'},
     {headerName: 'Resource Id', field: 'candidateCode'},
     {headerName: 'Resource Name', field: 'resourceName'},
@@ -73,7 +76,9 @@ export class PoListComponent implements OnInit {
   };
 
   filter = [];
-  pmFilter = [];
+  poFilter = [];
+  projectFilter = [];
+  candidateFilter = [];
   deleteId = -1;
 
   currentUser;
@@ -160,7 +165,7 @@ export class PoListComponent implements OnInit {
     this.injectTabFilter();
     this.poService.search(this.currentUser.id, this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order,
-      this.filter, this.pmFilter)
+      this.filter, this.poFilter, this.projectFilter, this.candidateFilter)
       .subscribe((resp => {
         if (!resp || !resp.body) {
           this.modelList = [];
@@ -197,9 +202,11 @@ export class PoListComponent implements OnInit {
 
   onGridFilterChange(event) {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
-    const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
+    const separatedFilter = separateFiltersFromGridAssignment(filters, this.PO_FILTERS, this.PROJECT_FILTERS, this.CANDIDATE_FILTER);
     this.filter = [...separatedFilter.root];
-    this.pmFilter = [...separatedFilter.join];
+    this.poFilter = [...separatedFilter.po];
+    this.projectFilter = [...separatedFilter.project];
+    this.candidateFilter = [...separatedFilter.candidate];
     this.getModelList();
   }
 

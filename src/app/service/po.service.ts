@@ -31,12 +31,14 @@ export class PoService {
     return this.http.post<any>(API_PATH + '/exportPo/' + poId, null, {responseType: 'blob' as 'json'});
   }
 
-  search(candidateId, page, size, keyWord, orderBy, sortDirection, filters = [], pmFilters): Observable<HttpResponse<any>> {
+  search(candidateId, page, size, keyWord, orderBy, sortDirection,
+         _rootFilters = [], _poFilters = [], _projectFilters = [], _candidateFilters = []): Observable<HttpResponse<any>> {
     const path = buildPathParams(page, size, keyWord, orderBy, sortDirection);
-    console.log(path);
     const params = {
-      rootFilters: filters,
-      joinFilters: pmFilters
+      rootFilters: _rootFilters,
+      poFilters: _poFilters,
+      projectFilters: _projectFilters,
+      candidateFilters: _candidateFilters,
     };
     return this.http.post<HttpResponse<any>>(API_PATH + '/search/' + candidateId + '/' + path, params, {observe: 'response'});
   }

@@ -24,10 +24,10 @@ export function buildPathParams(page, size, keyWord, orderBy?, sortDirection?) {
 
 /**
  *
- * @param filterModel
- * @param booleanFields
- * @param trueValue
- * @param falseValue
+ * @param filterModel filterModel
+ * @param booleanFields booleanFields
+ * @param trueValue trueValue
+ * @param falseValue falseValue
  */
 export function buildFilterParam(filterModel, booleanFields?: any[], trueValue?: any, falseValue?: any) {
   if (!filterModel) {
@@ -92,6 +92,33 @@ export function separateFiltersFromGrid(filterModel, joinFilterFields: string[])
     }
   });
   return {root: rootFilter, join: joinFilter};
+}
+
+
+export function separateFiltersFromGridAssignment(filterModel, poFilterFields: string[], projectFilterFields: string[], candidateFilterFields: string[]) {
+  if (!filterModel) {
+    return null;
+  }
+  const keys = Object.keys(filterModel);
+  if (!keys) {
+    return null;
+  }
+  const rootFilter = [];
+  const poFilter = [];
+  const projectFilter = [];
+  const candidateFilter = [];
+  keys.forEach((field) => {
+    if (poFilterFields.findIndex((joinField) => joinField === field) >= 0) {
+      poFilter.push(buildFilterItem(field, filterModel[field]));
+    } else if (projectFilterFields.findIndex((joinField) => joinField === field) >= 0) {
+      projectFilter.push(buildFilterItem(field, filterModel[field]));
+    } else if (candidateFilterFields.findIndex((joinField) => joinField === field) >= 0) {
+      candidateFilter.push(buildFilterItem(field, filterModel[field]));
+    } else {
+      rootFilter.push(buildFilterItem(field, filterModel[field]));
+    }
+  });
+  return {root: rootFilter, po: poFilter, project: projectFilter, candidate: candidateFilter};
 }
 
 /**
