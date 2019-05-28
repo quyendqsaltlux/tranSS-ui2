@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {ICellRendererAngularComp} from 'ag-grid-angular';
 import {AbilityCellService} from '../../../service/ag-grid/ability-cell.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-ability-cell',
