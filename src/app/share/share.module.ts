@@ -22,6 +22,7 @@ import {AbilityCellComponent} from './ag-grid/ability-cell/ability-cell.componen
 import {AbilityFilterComponent} from './ag-grid/ability-filter/ability-filter.component';
 import {DateCellComponent} from './ag-grid/date-cell/date-cell.component';
 import {EvaluationActionsCellComponent} from './ag-grid/evaluation-actions-cell/evaluation-actions-cell.component';
+import {PoActionsCellComponent} from './ag-grid/po-actions-cell/po-actions-cell.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {EvaluationActionsCellComponent} from './ag-grid/evaluation-actions-cell/
     AbilityCellComponent,
     AbilityFilterComponent,
     DateCellComponent,
-    EvaluationActionsCellComponent
+    EvaluationActionsCellComponent,
+    PoActionsCellComponent
 
   ],
   imports: [
@@ -65,7 +67,8 @@ import {EvaluationActionsCellComponent} from './ag-grid/evaluation-actions-cell/
       AbilityCellComponent,
       AbilityFilterComponent,
       DateCellComponent,
-      EvaluationActionsCellComponent
+      EvaluationActionsCellComponent,
+      PoActionsCellComponent
     ])
   ],
   exports: [
@@ -97,7 +100,8 @@ import {EvaluationActionsCellComponent} from './ag-grid/evaluation-actions-cell/
     AbilityCellComponent,
     AbilityFilterComponent,
     DateCellComponent,
-    UnitPipe
+    UnitPipe,
+    PoActionsCellComponent
   ],
   entryComponents: [
     EmployeeSearchComponent

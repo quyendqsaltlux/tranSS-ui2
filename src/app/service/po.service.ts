@@ -42,4 +42,8 @@ export class PoService {
     };
     return this.http.post<HttpResponse<any>>(API_PATH + '/search/' + candidateId + '/' + path, params, {observe: 'response'});
   }
+
+  deleteById(id: any): Observable<HttpResponse<any>> {
+    return this.http.delete(API_PATH + '/' + id, {observe: 'response'});
+  }
 }

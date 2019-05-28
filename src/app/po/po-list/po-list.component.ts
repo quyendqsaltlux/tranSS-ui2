@@ -3,11 +3,11 @@ import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {separateFiltersFromGridAssignment} from '../../util/http-util';
 import {EQUAL} from '../../AppConstant';
-import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-renderer.component';
 import {Router} from '@angular/router';
 import {PoService} from '../../service/po.service';
 import {PrincipleService} from '../../service/principle.service';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
+import {PoActionsCellComponent} from '../../share/ag-grid/po-actions-cell/po-actions-cell.component';
 
 @Component({
   selector: 'app-po-list',
@@ -16,7 +16,7 @@ import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.compone
 })
 export class PoListComponent implements OnInit {
   @ViewChild('template') template: TemplateRef<any>;
-  PO_FILTERS = ['poNo'];
+  PO_FILTERS = ['poNo', 'currency'];
   PROJECT_FILTERS = ['projectCode'];
   CANDIDATE_FILTER = ['candidateCode', 'resourceName'];
   columnDefs = [
@@ -140,24 +140,28 @@ export class PoListComponent implements OnInit {
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
-      actionsRender: ActionsColRendererComponent,
+      actionsRender: PoActionsCellComponent,
       dateRender: DateCellComponent,
     };
   }
 
-  gotoEditForm(index) {
-    this.route.navigate(['/projects/edit/' + this.modelList[index].id]);
+  onDelete(index) {
+    this.openModal(this.template, this.modelList[index].id);
+  }
+
+  onEdit(index) {
+    this.route.navigate(['/projects/edit/' + this.modelList[index].projectId]);
   }
 
   /**
    * Change value of progress status like active tab
    */
   injectTabFilter() {
-    const tabFilter = this.filter.find((item) => item.field === 'progressStatus');
+    const tabFilter = this.projectFilter.find((item) => item.field === 'progressStatus');
     if (tabFilter) {
       tabFilter.value = this.activedTab;
     } else {
-      this.filter.push({operation: EQUAL, value: this.activedTab, field: 'progressStatus'});
+      this.projectFilter.push({operation: EQUAL, value: this.activedTab, field: 'progressStatus'});
     }
   }
 
@@ -226,19 +230,19 @@ export class PoListComponent implements OnInit {
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'} as ModalOptions);
   }
 
-  // confirm(): void {
-  //   this.modalRef.hide();
-  //   if (this.deleteId < 0) {
-  //     return;
-  //   }
-  //   this.poService.deleteById(this.deleteId).subscribe((resp) => {
-  //       this.toastr.success('Delete successfully!');
-  //       this.onFilter();
-  //     },
-  //     (error1 => {
-  //       this.toastr.error('Fail to delete!');
-  //     }));
-  // }
+  confirm(): void {
+    this.modalRef.hide();
+    if (this.deleteId < 0) {
+      return;
+    }
+    this.poService.deleteById(this.deleteId).subscribe((resp) => {
+        this.toastr.success('Delete successfully!');
+        this.onFilter();
+      },
+      (error1 => {
+        this.toastr.error('Fail to delete!');
+      }));
+  }
 
   decline(): void {
     this.modalRef.hide();

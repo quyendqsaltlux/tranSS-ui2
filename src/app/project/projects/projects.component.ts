@@ -190,8 +190,6 @@ export class ProjectsComponent implements OnInit {
     const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
     this.filter = [...separatedFilter.root];
     this.pmFilter = [...separatedFilter.join];
-    console.log(this.filter);
-    console.log(this.pmFilter);
     this.getModelList();
   }
 
