@@ -31,7 +31,7 @@ export class PoService {
     return this.http.post<any>(API_PATH + '/exportPo/' + poId, null, {responseType: 'blob' as 'json'});
   }
 
-  search(candidateId, page, size, keyWord, orderBy, sortDirection,
+  search(pmVtcCode, page, size, keyWord, orderBy, sortDirection,
          _rootFilters = [], _poFilters = [], _projectFilters = [], _candidateFilters = []): Observable<HttpResponse<any>> {
     const path = buildPathParams(page, size, keyWord, orderBy, sortDirection);
     const params = {
@@ -40,7 +40,7 @@ export class PoService {
       projectFilters: _projectFilters,
       candidateFilters: _candidateFilters,
     };
-    return this.http.post<HttpResponse<any>>(API_PATH + '/search/' + candidateId + '/' + path, params, {observe: 'response'});
+    return this.http.post<HttpResponse<any>>(API_PATH + '/search/' + pmVtcCode + '/' + path, params, {observe: 'response'});
   }
 
   deleteById(id: any): Observable<HttpResponse<any>> {

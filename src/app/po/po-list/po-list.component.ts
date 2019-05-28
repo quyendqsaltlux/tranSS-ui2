@@ -170,7 +170,7 @@ export class PoListComponent implements OnInit {
 
   getModelList() {
     this.injectTabFilter();
-    this.poService.search(this.currentUser.id, this.page, this.size, this.keyWord,
+    this.poService.search(this.currentUser.code, this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order,
       this.filter, this.poFilter, this.projectFilter, this.candidateFilter)
       .subscribe((resp => {
