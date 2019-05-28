@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ICellRendererAngularComp} from 'ag-grid-angular';
+import {SerializedTextFilter} from "ag-grid-community";
 
 @Component({
   selector: 'app-ability-cell',
@@ -8,8 +9,11 @@ import {ICellRendererAngularComp} from 'ag-grid-angular';
 })
 export class AbilityCellComponent implements ICellRendererAngularComp {
   public params: any;
+  filters = [];
   abilities = [];
   renderField: '';
+  orderFields = ['sourceLanguage', 'targetLanguage', 'projectType', 'rate', 'rateUnit', 'rate2', 'rate2unit', 'minimumCharge', 'task'];
+  shownModelList = [];
 
   agInit(params: any): void {
     this.params = params;

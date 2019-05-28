@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, QueryList, ViewChildren} from '@angular/core';
 import {CandidateService} from '../../service/candidate.service';
 import {buildFilterItem, separateFiltersFromGrid} from '../../util/http-util';
 import * as _ from 'lodash';
@@ -14,7 +14,8 @@ import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.compone
   templateUrl: './candidate-list.component.html',
   styleUrls: ['./candidate-list.component.scss']
 })
-export class CandidateListComponent implements OnInit {
+export class CandidateListComponent implements OnInit, AfterViewInit {
+  @ViewChildren(AbilityCellComponent) abilitiesViewChild: QueryList<AbilityCellComponent>;
   JOIN_FILTER_COLS = ['projectType', 'sourceLanguage', 'targetLanguage', 'task', 'rate', 'rateUnit', 'rate2', 'rate2unit', 'currency'];
   columnDefs = [
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 90, sortable: false},
@@ -31,9 +32,7 @@ export class CandidateListComponent implements OnInit {
           this.onJoinFilterChange(data, 'projectType');
         }
       },
-      width: 100,
-      cellRenderer: 'abilityRender',
-      cellRendererParams: {renderField: 'projectType'},
+      width: 100, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'projectType'},
     },
     {
       headerName: 'Source', field: 'sourceLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'sourceLanguage'},
@@ -160,9 +159,19 @@ export class CandidateListComponent implements OnInit {
   abilityFilter = [];
 
   orderFields = ['sourceLanguage', 'targetLanguage', 'projectType', 'rate', 'rateUnit', 'rate2', 'rate2unit', 'minimumCharge', 'task'];
+  isAfterViewInit = false;
 
   constructor(private  candidateService: CandidateService,
               public route: Router) {
+  }
+
+  ngAfterViewInit() {
+    this.isAfterViewInit = true;
+    this.abilitiesViewChild.changes.subscribe(items => {
+      items.toArray().forEach(component => {
+        console.log(component);
+      });
+    });
   }
 
   ngOnInit() {
@@ -229,7 +238,6 @@ export class CandidateListComponent implements OnInit {
       return params.data.abilities.length * 27;
     };
   }
-
 
   onJoinFilterChange(data, field) {
     const filterItem = {};

@@ -11,8 +11,6 @@ export interface ProjectAssignmentReq {
   source: string;
   target: string;
   abilityId: number;
-  ability: any;
-
   useCustomTask: boolean;
 
   wrep: number;
