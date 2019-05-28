@@ -30,7 +30,6 @@ export class PoFormComponent implements OnInit {
     if (isNaN(this.poId)) {
       this.poId = null;
     }
-    console.log(this.poId);
     if (!this.poId) {
       this.getDefaultPo();
     } else {

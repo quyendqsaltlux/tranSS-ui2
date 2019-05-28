@@ -6,6 +6,7 @@ import {AbilitiesComponent} from './abilities/abilities.component';
 import {ProjectHistoryComponent} from './project-history/project-history.component';
 import {AuthGuard} from '../gaurd/AuthGuard';
 import {RoleGuard} from '../gaurd/RoleGuard';
+import {ResourceSearchComponent} from './resource-search/resource-search.component';
 
 const routes: Routes = [
   {
@@ -16,8 +17,9 @@ const routes: Routes = [
       roles: ['ROLE_ADMIN', 'ROLE_PM', 'ROLE_RM']
     },
     children: [
-      {path: '', redirectTo: 'list', pathMatch: 'full'},
+      {path: '', redirectTo: 'search', pathMatch: 'full'},
       {path: 'list', component: CandidateListComponent, data: {title: 'List'}},
+      {path: 'search', component: ResourceSearchComponent, data: {title: 'List'}},
       {path: 'new', component: CandidateFormComponent, data: {title: 'New'}},
       {path: 'edit/:id', component: CandidateFormComponent, data: {title: 'Edit'}},
       {path: ':candidateId/abilities', component: AbilitiesComponent, data: {title: 'Rates'}},

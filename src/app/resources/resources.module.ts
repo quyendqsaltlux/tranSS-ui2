@@ -13,6 +13,7 @@ import {PaymentComponent} from './payment/payment.component';
 import {GeneralCommentComponent} from '../evaluation/general-comment/general-comment.component';
 import {OtherNoteComponent} from '../evaluation/other-note/other-note.component';
 import {EvaluationModule} from '../evaluation/evaluation.module';
+import { ResourceSearchComponent } from './resource-search/resource-search.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import {EvaluationModule} from '../evaluation/evaluation.module';
     AbilitiesComponent,
     ProjectHistoryComponent,
     PaymentComponent,
+    ResourceSearchComponent,
   ],
   imports: [
     ResourcesRoutingModule,
