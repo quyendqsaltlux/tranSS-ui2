@@ -63,15 +63,15 @@ export class ResourceSearchComponent implements OnInit {
     this.model.candidateCode = this.selectedOption.code;
   }
 
-  onChangeAbility(event) {
-    if (!event) {
+  onChangeAbility(ability) {
+    if (!ability) {
       return;
     }
-    this.model.abilityId = event.id;
-    this.model.task = event.task;
-    this.model.source = event.sourceLanguage;
-    this.model.target = event.targetLanguage;
-    this.selectTaskSourceTarget.emit(event);
+    this.model.abilityId = ability.id;
+    this.model.task = ability.task;
+    this.model.source = ability.sourceLanguage;
+    this.model.target = ability.targetLanguage;
+    this.selectTaskSourceTarget.emit(ability);
   }
 
   onToggleUseCustomTask() {

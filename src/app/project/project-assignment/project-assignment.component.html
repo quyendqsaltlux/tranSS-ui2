@@ -158,9 +158,9 @@
                                class="form-control form-control-sm" id="netOrHour" name="netOrHour"
                                [pattern]="_FLOAT_REGEX"
                                (ngModelChange)="onNetOrHourChanged()" min="0"
-                               [(ngModel)]="model.netOrHour" #repnoMatch="ngModel"
-                               [ngClass]="{'is-invalid': repnoMatch.invalid && (repnoMatch.dirty || repnoMatch.touched)}">
-                        <div *ngIf="repnoMatch.invalid && (repnoMatch.dirty || repnoMatch.touched)" class="msg-invalid">Type a number</div>
+                               [(ngModel)]="model.netOrHour" #netOrHour="ngModel"
+                               [ngClass]="{'is-invalid': netOrHour.invalid && (netOrHour.dirty || netOrHour.touched)}">
+                        <div *ngIf="netOrHour.invalid && (netOrHour.dirty || netOrHour.touched)" class="msg-invalid">Type a number</div>
                       </div>
                       <!--TOTAL-->
                       <div class="form-group w80">

@@ -71,6 +71,7 @@ export class ProjectAssignmentComponent implements OnInit {
   extractApiModel() {
     if (this.assignment) {
       this.model = {...this.assignment} as ProjectAssignmentReq;
+      this.currentAbility = this.assignment.ability;
     }
     this.model.projectId = Number(this.projectId);
     this.model.projectCode = this.projectCode;
@@ -252,7 +253,7 @@ export class ProjectAssignmentComponent implements OnInit {
         sum += a * b;
       }
     }
-    return sum;
+    return sum / 100;
   }
 
   onToggleExternalResource() {
