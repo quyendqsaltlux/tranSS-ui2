@@ -8,14 +8,14 @@ import {Router} from '@angular/router';
 import {AbilityCellComponent} from '../../share/ag-grid/ability-cell/ability-cell.component';
 import {AbilityFilterComponent} from '../../share/ag-grid/ability-filter/ability-filter.component';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
+import {AbilityCellService} from '../../service/ag-grid/ability-cell.service';
 
 @Component({
   selector: 'app-candidate-list',
   templateUrl: './candidate-list.component.html',
   styleUrls: ['./candidate-list.component.scss']
 })
-export class CandidateListComponent implements OnInit, AfterViewInit {
-  @ViewChildren(AbilityCellComponent) abilitiesViewChild: QueryList<AbilityCellComponent>;
+export class CandidateListComponent implements OnInit {
   JOIN_FILTER_COLS = ['projectType', 'sourceLanguage', 'targetLanguage', 'task', 'rate', 'rateUnit', 'rate2', 'rate2unit', 'currency'];
   columnDefs = [
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 90, sortable: false},
@@ -159,19 +159,10 @@ export class CandidateListComponent implements OnInit, AfterViewInit {
   abilityFilter = [];
 
   orderFields = ['sourceLanguage', 'targetLanguage', 'projectType', 'rate', 'rateUnit', 'rate2', 'rate2unit', 'minimumCharge', 'task'];
-  isAfterViewInit = false;
 
   constructor(private  candidateService: CandidateService,
-              public route: Router) {
-  }
-
-  ngAfterViewInit() {
-    this.isAfterViewInit = true;
-    this.abilitiesViewChild.changes.subscribe(items => {
-      items.toArray().forEach(component => {
-        console.log(component);
-      });
-    });
+              public route: Router,
+              private  abilityCellService: AbilityCellService) {
   }
 
   ngOnInit() {
@@ -250,6 +241,7 @@ export class CandidateListComponent implements OnInit, AfterViewInit {
     const foundIndex = this.abilityFilter.findIndex((filter) => filter.field === field);
     if (foundIndex < 0) {
       this.abilityFilter.push(newFilterItem);
+      this.abilityCellService.upDateAbilityFilters(this.abilityFilter);
       this.getModelList();
       return;
     }
@@ -258,6 +250,7 @@ export class CandidateListComponent implements OnInit, AfterViewInit {
     } else if (newFilterItem != null) {
       this.abilityFilter[foundIndex] = newFilterItem;
     }
+    this.abilityCellService.upDateAbilityFilters(this.abilityFilter);
     this.getModelList();
   }
 
