@@ -8,6 +8,7 @@ import {PoService} from '../../service/po.service';
 import {PrincipleService} from '../../service/principle.service';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
 import {PoActionsCellComponent} from '../../share/ag-grid/po-actions-cell/po-actions-cell.component';
+import {PercentCellComponent} from '../../share/ag-grid/percent-cell/percent-cell.component';
 
 @Component({
   selector: 'app-po-list',
@@ -21,33 +22,33 @@ export class PoListComponent implements OnInit {
   CANDIDATE_FILTER = ['candidateCode', 'resourceName'];
   columnDefs = [
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionsRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
-    {headerName: 'Assignment Id', field: 'id'},
+    {headerName: 'Assignment Id', field: 'id', type: 'numericColumn'},
     {headerName: 'PO No', field: 'poNo'},
     {headerName: 'Project Code', field: 'projectCode'},
     {headerName: 'Resource Id', field: 'candidateCode'},
-    {headerName: 'Resource Name', field: 'resourceName'},
+    {headerName: 'Resource Name', field: 'resourceName', width: 150},
     {headerName: 'Task', field: 'task'},
     {headerName: 'Source', field: 'source'},
     {headerName: 'Target', field: 'target'},
     {headerName: 'Unit Price', field: 'unitPrice'},
     {headerName: 'Order Date', field: 'ho', type: 'dateColumn', width: 160, cellRenderer: 'dateRender', cellRendererParams: {renderField: 'ho'}},
     {headerName: 'Due Date', field: 'hb', type: 'dateColumn', width: 160, cellRenderer: 'dateRender', cellRendererParams: {renderField: 'hb'}},
-    {headerName: 'Total', field: 'total'},
+    {headerName: 'Total', field: 'total', type: 'numericColumn'},
     {headerName: 'Currency', field: 'currency'},
     {headerName: 'Net/Hour', field: 'netOrHour'},
-    {headerName: 'Rep.', field: 'reprep'},
-    {headerName: '100%', field: 'rep100'},
-    {headerName: '99~95%', field: 'rep99_95'},
-    {headerName: '94-85%', field: 'rep94_85'},
-    {headerName: '84-75%', field: 'rep84_75'},
-    {headerName: 'New/Hour', field: 'repnoMatch'},
-    {headerName: 'Total Rep', field: 'totalRep'},
-    {headerName: 'Wf Rep.', field: 'wrep'},
-    {headerName: 'Wf100', field: 'w100'},
-    {headerName: 'Wf99~95', field: 'w99_95'},
-    {headerName: 'Wf94~85', field: 'w94_85'},
-    {headerName: 'Wf84~75', field: 'w84_75'},
-    {headerName: 'Wf New', field: 'wnoMatch'},
+    {headerName: 'Rep.', field: 'reprep', type: 'numericColumn'},
+    {headerName: '100%', field: 'rep100', type: 'numericColumn'},
+    {headerName: '99~95%', field: 'rep99_95', type: 'numericColumn'},
+    {headerName: '94-85%', field: 'rep94_85', type: 'numericColumn'},
+    {headerName: '84-75%', field: 'rep84_75', type: 'numericColumn'},
+    {headerName: 'New/Hour', field: 'repnoMatch', type: 'numericColumn'},
+    {headerName: 'Total Rep', field: 'totalRep', type: 'numericColumn'},
+    {headerName: 'Wf Rep.', field: 'wrep', type: 'numericColumn', cellRenderer: 'percentRender', cellRendererParams: {renderField: 'wrep'}},
+    {headerName: 'Wf100', field: 'w100', type: 'numericColumn', cellRenderer: 'percentRender', cellRendererParams: {renderField: 'w100'}},
+    {headerName: 'Wf99~95', field: 'w99_95', type: 'numericColumn', cellRenderer: 'percentRender', cellRendererParams: {renderField: 'w99_95'}},
+    {headerName: 'Wf94~85', field: 'w94_85', type: 'numericColumn', cellRenderer: 'percentRender', cellRendererParams: {renderField: 'w94_85'}},
+    {headerName: 'Wf84~75', field: 'w84_75', type: 'numericColumn', cellRenderer: 'percentRender', cellRendererParams: {renderField: 'w84_75'}},
+    {headerName: 'Wf New', field: 'wnoMatch', type: 'numericColumn', cellRenderer: 'percentRender', cellRendererParams: {renderField: 'wnoMatch'}},
     {headerName: 'Updated At', width: 160, field: 'updatedAt', type: 'dateColumn', cellRenderer: 'dateRender', cellRendererParams: {renderField: 'updatedAt'}},
   ];
   /*AG_GRID*/
@@ -116,7 +117,7 @@ export class PoListComponent implements OnInit {
       sortable: true,
     };
     this.columnTypes = {
-      numericColumn: {filter: 'agNumberColumnFilter'},
+      numericColumn: {filter: 'agnumericColumnFilter'},
       dateColumn: {
         filter: 'agDateColumnFilter',
         filterParams: {
@@ -143,6 +144,7 @@ export class PoListComponent implements OnInit {
     this.frameworkComponents = {
       actionsRender: PoActionsCellComponent,
       dateRender: DateCellComponent,
+      percentRender: PercentCellComponent,
     };
   }
 

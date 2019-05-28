@@ -11,7 +11,9 @@
                     <app-project-resoure-search [model]="model"
                                                 [f]="f"
                                                 [viewControl]="viewControl"
-                                                (selectTaskSourceTarget)="onSelectTaskSourceTarget($event)">
+                                                (selectTaskSourceTarget)="onSelectTaskSourceTarget($event)"
+                                                (toggleExternalResource)="onToggleExternalResource()"
+                    >
                     </app-project-resoure-search>
                   </div>
                   <div class="card card-body mr-1 ml-1 mb-0">

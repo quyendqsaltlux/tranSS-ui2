@@ -184,7 +184,10 @@ export class ProjectAssignmentComponent implements OnInit {
   }
 
   onWfInputChanged() {
-    this.upDateNetOrHour();
+    setTimeout(() => {
+      this.upDateNetOrHour();
+    }, 0);
+
   }
 
   upDateNetOrHour() {
@@ -243,13 +246,29 @@ export class ProjectAssignmentComponent implements OnInit {
     let index: number;
     let sum = 0;
     for (index = 0; index < size; index++) {
-      const a = Number(this.model[this.repFields[index]]);
-      const b = Number(this.model[this.wrepFields[index]]);
+      const a = Number(this.model[this.repFields[index]]) || 0;
+      const b = Number(this.model[this.wrepFields[index]]) || 0;
       if (!isNaN(a) && !isNaN(b)) {
         sum += a * b;
       }
     }
     return sum;
+  }
+
+  onToggleExternalResource() {
+    this.resetWfAndRepAndOther();
+  }
+
+  resetWfAndRepAndOther() {
+    const size = this.wrepFields.length;
+    let index: number;
+    for (index = 0; index < size; index++) {
+      this.model[this.repFields[index]] = 0;
+      this.model[this.wrepFields[index]] = 0;
+    }
+    this.model.totalRep = 0;
+    this.model.unitPrice = 0;
+    this.model.total = 0;
   }
 
   private getUnitPrice(ability, netOrHour) {
