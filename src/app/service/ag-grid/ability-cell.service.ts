@@ -11,7 +11,6 @@ export class AbilityCellService {
   }
 
   upDateAbilityFilters(newFilters) {
-    console.log('upDateAbilityFilters', newFilters);
     this.abilityFilter = newFilters;
   }
 }

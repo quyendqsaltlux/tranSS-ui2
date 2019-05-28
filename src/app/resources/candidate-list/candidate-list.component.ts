@@ -33,6 +33,7 @@ export class CandidateListComponent implements OnInit {
         }
       },
       width: 100, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'projectType'},
+      autoHeight: true
     },
     {
       headerName: 'Source', field: 'sourceLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'sourceLanguage'},
@@ -41,7 +42,8 @@ export class CandidateListComponent implements OnInit {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
           this.onJoinFilterChange(data, 'sourceLanguage');
         }
-      }
+      },
+      autoHeight: true
     },
     {
       headerName: 'Target', field: 'targetLanguage', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'targetLanguage'},
@@ -50,7 +52,8 @@ export class CandidateListComponent implements OnInit {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
           this.onJoinFilterChange(data, 'targetLanguage');
         }
-      }
+      },
+      autoHeight: true
     },
     {
       headerName: 'Task', field: 'task', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'task'},
@@ -59,7 +62,8 @@ export class CandidateListComponent implements OnInit {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
           this.onJoinFilterChange(data, 'task');
         }
-      }
+      },
+      autoHeight: true
     },
     {
       headerName: 'Rate', field: 'rate', width: 70, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate'},
@@ -68,7 +72,8 @@ export class CandidateListComponent implements OnInit {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
           this.onJoinFilterChange(data, 'rate');
         }
-      }
+      },
+      autoHeight: true
     },
     {
       headerName: 'Rate (word/char)', field: 'rateUnit', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rateUnit'},
@@ -77,7 +82,8 @@ export class CandidateListComponent implements OnInit {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
           this.onJoinFilterChange(data, 'rateUnit');
         }
-      }
+      },
+      autoHeight: true
     },
     {
       headerName: 'Rate Hour', field: 'rate2', width: 80, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate2'},
@@ -86,7 +92,8 @@ export class CandidateListComponent implements OnInit {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
           this.onJoinFilterChange(data, 'rate2');
         }
-      }
+      },
+      autoHeight: true
     },
     {
       headerName: '(hour)', field: 'rate2unit, width: 50', cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'rate2unit'},
@@ -95,7 +102,8 @@ export class CandidateListComponent implements OnInit {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
           this.onJoinFilterChange(data, 'rate2unit');
         }
-      }
+      },
+      autoHeight: true
     },
     {
       headerName: 'Currency', field: 'currency', width: 80, cellRenderer: 'abilityRender', cellRendererParams: {renderField: 'currency'},
@@ -104,7 +112,8 @@ export class CandidateListComponent implements OnInit {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
           this.onJoinFilterChange(data, 'currency');
         }
-      }
+      },
+      autoHeight: true
     },
     {headerName: 'minimumCharge', field: 'minimumCharge', type: 'numericColumn'},
     {headerName: 'CAT Tool', field: 'catTool', cellClass: ['wrap-text'], autoHeight: true},
@@ -123,7 +132,8 @@ export class CandidateListComponent implements OnInit {
         suppressFilterButton: true, onFloatingFilterChanged: (data) => {
           this.onJoinFilterChange(data, 'abilityRender');
         }
-      }
+      },
+      autoHeight: true
     },
     {headerName: 'Country', field: 'country'},
     {headerName: 'Updated At', field: 'updatedAt', type: 'dateColumn', width: 170, filter: false, cellRenderer: 'dateRender', cellRendererParams: {renderField: 'updatedAt'}},
@@ -224,9 +234,6 @@ export class CandidateListComponent implements OnInit {
       abilityRender: AbilityCellComponent,
       abilityFilter: AbilityFilterComponent,
       dateRender: DateCellComponent,
-    };
-    this.getRowHeight = (params) => {
-      return params.data.abilities.length * 27;
     };
   }
 
