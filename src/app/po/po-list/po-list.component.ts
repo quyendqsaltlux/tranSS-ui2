@@ -21,6 +21,7 @@ export class PoListComponent implements OnInit {
   CANDIDATE_FILTER = ['candidateCode', 'resourceName'];
   columnDefs = [
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionsRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
+    {headerName: 'Assignment Id', field: 'id'},
     {headerName: 'PO No', field: 'poNo'},
     {headerName: 'Project Code', field: 'projectCode'},
     {headerName: 'Resource Id', field: 'candidateCode'},
