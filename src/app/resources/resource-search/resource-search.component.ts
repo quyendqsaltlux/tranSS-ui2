@@ -34,8 +34,8 @@ export class ResourceSearchComponent implements OnInit {
     {headerName: '(hour)', field: 'rate2unit, width: 50'},
     {headerName: 'Currency', field: 'currency', width: 80},
     {headerName: 'minimumCharge', field: 'minimumCharge', type: 'numericColumn'},
-    {headerName: 'CAT Tool', field: 'candidate.catTool', cellClass: ['wrap-text'], autoHeight: true, width: 250},
-    {headerName: 'Email', field: 'candidate.email', width: 250, cellClass: ['wrap-text'], autoHeight: true},
+    {headerName: 'CAT Tool', field: 'candidate.catTool'},
+    {headerName: 'Email', field: 'candidate.email', width: 250},
     {headerName: 'Mobile', field: 'candidate.mobile'},
     {headerName: 'Messenger', field: 'candidate.messenger'},
     {headerName: 'Social Pages', field: 'candidate.socialpages'},
@@ -59,7 +59,7 @@ export class ResourceSearchComponent implements OnInit {
   modelList = [];
   keyWord: string;
   page = 1;
-  size = 50;
+  size = 100;
   numPages = 0;
   totalItems = 0;
 
