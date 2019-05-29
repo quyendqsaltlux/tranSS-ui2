@@ -186,7 +186,6 @@ export class ProjectsComponent implements OnInit {
 
   onGridFilterChange(event) {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
-    console.log(filters);
     const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
     this.filter = [...separatedFilter.root];
     this.pmFilter = [...separatedFilter.join];
