@@ -220,11 +220,14 @@
                     <!--DELETE EVALUATE-->
                     <div class="d-flex justify-content-between">
                       <div>
-                        <button type="button" class="btn btn-sm btn-ghost-light" (click)="onDeleteResource()">
+                        <button [disabled]="assignment.poId" type="button" class="btn btn-sm btn-ghost-light" (click)="onDeleteResource()">
                           <i class="fa fa-trash-o text-danger"></i>
                         </button>
                         <button type="button" class=" btn btn-sm btn-ghost-light" (click)="goToPo(assignment.id, assignment.poId)">
                           <i class="fa fa-dollar text-success"> PO</i>
+                        </button>
+                        <button type="button"  *ngIf="assignment.poId" class=" btn btn-sm btn-ghost-light" (click)="deletePo(assignment.poId)">
+                          <i class="fa fa-trash-o text-danger"> PO</i>
                         </button>
                       </div>
                       <div class="cursor-pointer" *ngIf="assignment.progress === 'FINISHED'" (click)="openNewGeneralCommentModal()">

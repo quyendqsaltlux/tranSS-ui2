@@ -65,6 +65,10 @@ export class ProjectAssignmentListComponent implements OnInit {
         this.getModelList();
       },
       (error1 => {
+        if (error1.status === 409) {
+          this.toastr.error('PO need to be deleted first!');
+          return;
+        }
         this.toastr.error('Fail to delete!');
       }));
   }

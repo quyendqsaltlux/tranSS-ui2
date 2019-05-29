@@ -8,6 +8,7 @@ import {SpecificCommentComponent} from '../../evaluation/specific-comment/specif
 import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {FLOAT_REGEX} from '../../AppConstant';
+import {PoService} from '../../service/po.service';
 
 @Component({
   selector: 'app-project-assignment',
@@ -51,6 +52,7 @@ export class ProjectAssignmentComponent implements OnInit {
   };
 
   constructor(private  projectAssignmentService: ProjectAssignmentService,
+              private poService: PoService,
               private modalService: BsModalService,
               private toastr: ToastrService,
               private changeDetection: ChangeDetectorRef,
@@ -167,6 +169,13 @@ export class ProjectAssignmentComponent implements OnInit {
       .then(result => {
         window.open('#/purchaseOrders/' + assignmentId + '/form/' + poId, '_blank');
       });
+  }
+
+  deletePo(poId) {
+    this.poService.deleteById(poId).subscribe((resp) => {
+      this.toastr.success('Delete Po successfully!');
+      this.assignment.poId = null;
+    }, (error2) => this.toastr.error('Fail to delete Po!'));
   }
 
   isComputeNetHourManually() {

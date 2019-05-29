@@ -23,7 +23,8 @@ import {AbilityFilterComponent} from './ag-grid/ability-filter/ability-filter.co
 import {DateCellComponent} from './ag-grid/date-cell/date-cell.component';
 import {EvaluationActionsCellComponent} from './ag-grid/evaluation-actions-cell/evaluation-actions-cell.component';
 import {PoActionsCellComponent} from './ag-grid/po-actions-cell/po-actions-cell.component';
-import {PercentCellComponent} from "./ag-grid/percent-cell/percent-cell.component";
+import {PercentCellComponent} from './ag-grid/percent-cell/percent-cell.component';
+import {OptionsCellComponent} from './ag-grid/options-cell/options-cell.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import {PercentCellComponent} from "./ag-grid/percent-cell/percent-cell.componen
     DateCellComponent,
     EvaluationActionsCellComponent,
     PoActionsCellComponent,
-    PercentCellComponent
+    PercentCellComponent,
+    OptionsCellComponent
 
   ],
   imports: [
@@ -71,7 +73,8 @@ import {PercentCellComponent} from "./ag-grid/percent-cell/percent-cell.componen
       DateCellComponent,
       EvaluationActionsCellComponent,
       PoActionsCellComponent,
-      PercentCellComponent
+      PercentCellComponent,
+      OptionsCellComponent
     ])
   ],
   exports: [
@@ -105,7 +108,8 @@ import {PercentCellComponent} from "./ag-grid/percent-cell/percent-cell.componen
     DateCellComponent,
     UnitPipe,
     PoActionsCellComponent,
-    PercentCellComponent
+    PercentCellComponent,
+    OptionsCellComponent
   ],
   entryComponents: [
     EmployeeSearchComponent
