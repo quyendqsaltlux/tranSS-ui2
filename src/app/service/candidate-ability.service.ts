@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
-
-const API_SERVER = environment.apiUrl;
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/index';
 import {buildPathParams} from "../util/http-util";
+import {SortParam} from "../model/SortParam";
+
+const API_SERVER = environment.apiUrl;
 
 const API_PATH = API_SERVER + '/candidateAbilities';
 
@@ -28,11 +29,14 @@ export class CandidateAbilityService {
     return this.http.delete(API_PATH + '/' + id, {observe: 'response'});
   }
 
-  search(page, size, keyWord, orderBy, sortDirection, filters = [], joinFilter = []): Observable<HttpResponse<any>> {
-    const path = buildPathParams(page, size, keyWord, orderBy, sortDirection);
+  search(page, size, keyWord, _sorts: SortParam[], filters = [], joinFilter = []): Observable<HttpResponse<any>> {
+    const path = buildPathParams(page, size, keyWord);
     const params = {
-      rootFilters: filters,
-      joinFilters: joinFilter
+      sorts: _sorts,
+      filter: {
+        rootFilters: filters,
+        joinFilters: joinFilter
+      }
     };
 
     return this.http.post<HttpResponse<any>>(API_PATH + '/search' + path, params, {observe: 'response'});

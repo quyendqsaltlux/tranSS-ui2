@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {separateFiltersFromGrid} from '../../util/http-util';
-import * as _ from 'lodash';
-import {FILTER_TYPE_JOIN, FILTER_TYPE_ROOT} from '../../share/my-datatable/my-datatable.component';
 import {CandidateActionsColRendererComponent} from '../../share/ag-grid/candidate-actions-col-renderer.component';
 import {Router} from '@angular/router';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
-import {AbilityCellService} from '../../service/ag-grid/ability-cell.service';
 import {CandidateAbilityService} from '../../service/candidate-ability.service';
+import {SortParam} from '../../model/SortParam';
 
 @Component({
   selector: 'app-resource-search',
@@ -64,21 +62,13 @@ export class ResourceSearchComponent implements OnInit {
   size = 50;
   numPages = 0;
   totalItems = 0;
-  sortConfig: {
-    field: string,
-    order: string
-  } = {
-    field: null,
-    order: null
-  };
-  showOtherAbility = false;
 
   filter = [];
   joinFilter = [];
+  sorts: SortParam[] = [];
 
   constructor(private  abilityService: CandidateAbilityService,
-              public route: Router,
-              private  abilityCellService: AbilityCellService) {
+              public route: Router) {
   }
 
   ngOnInit() {
@@ -94,9 +84,17 @@ export class ResourceSearchComponent implements OnInit {
 
   onGridSortChanged(event) {
     const sortState = this.gridApi.getSortModel();
-    this.sortConfig.order = sortState[0].sort;
-    this.sortConfig.field = sortState[0].colId;
+    this.sorts = [...this.buildSortParams(sortState)];
     this.getModelList();
+  }
+
+  buildSortParams(agSortConfigs: any[]) {
+    if (!agSortConfigs) {
+      return [];
+    }
+    return agSortConfigs.map(value => {
+      return new SortParam(value.colId, value.sort);
+    });
   }
 
   initTable() {
@@ -162,7 +160,7 @@ export class ResourceSearchComponent implements OnInit {
   }
 
   getModelList() {
-    this.abilityService.search(this.page, this.size, this.keyWord, this.sortConfig.field, this.sortConfig.order,
+    this.abilityService.search(this.page, this.size, this.keyWord, this.sorts,
       this.filter, this.joinFilter
     ).subscribe((resp => {
       if (!resp || !resp.body) {
@@ -193,9 +191,4 @@ export class ResourceSearchComponent implements OnInit {
     }, 0);
   }
 
-  toggleSort(sortData) {
-    this.sortConfig.field = sortData.field;
-    this.sortConfig.order = sortData.order;
-    this.getModelList();
-  }
 }
