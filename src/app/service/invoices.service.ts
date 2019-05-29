@@ -5,18 +5,17 @@ import {Observable} from 'rxjs/index';
 import {buildPathParams} from '../util/http-util';
 
 const API_SERVER = environment.apiUrl;
-const API_PATH = API_SERVER + '/purchaseOrder';
+const API_PATH = API_SERVER + '/invoices';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PoService {
-
+export class InvoicesService {
   constructor(private http: HttpClient) {
   }
 
-  getDefaultPo(id: any): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(API_PATH + '/getDefaultPo/' + id, {observe: 'response'});
+  getDefaultInvoice(candidateId: any): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(API_PATH + '/getDefaultInvoice/' + candidateId, {observe: 'response'});
   }
 
   create(po: any, assignmentId): Observable<HttpResponse<any>> {
@@ -45,5 +44,9 @@ export class PoService {
 
   deleteById(id: any): Observable<HttpResponse<any>> {
     return this.http.delete(API_PATH + '/' + id, {observe: 'response'});
+  }
+
+  generateInvoices() {
+    return this.http.get<HttpResponse<any>>(API_PATH + '/generateInvoices', {observe: 'response'});
   }
 }

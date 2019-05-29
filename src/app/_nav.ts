@@ -65,5 +65,10 @@ export const navItems: NavData[] = [
     name: 'Purchase orders',
     url: '/purchaseOrders',
     icon: 'fa fa-dollar'
+  },
+  {
+    name: 'Invoices',
+    url: '/invoices',
+    icon: 'fa fa-dollar'
   }
 ];

@@ -112,6 +112,10 @@ export const routes: Routes = [
         path: 'purchaseOrders',
         loadChildren: './po/po.module#PoModule'
       },
+      {
+        path: 'invoices',
+        loadChildren: './invoice/invoice.module#InvoiceModule'
+      },
     ]
   },
   {path: '**', component: P404Component}
