@@ -23,7 +23,7 @@ export class ResourceSearchComponent implements OnInit {
     {headerName: 'Code', field: 'candidate.code', pinned: 'left', width: 100},
     {headerName: 'Grade', field: 'candidate.grade', pinned: 'left', width: 70},
     {headerName: 'name', field: 'candidate.name', pinned: 'left', width: 150},
-    {headerName: 'majorField', field: 'candidate.majorField', pinned: 'left', cellClass: ['wrap-text'], autoHeight: true, width: 250},
+    {headerName: 'majorField', field: 'candidate.majorField', pinned: 'left'},
     {headerName: 'Project Type', field: 'projectType'},
     {headerName: 'Source', field: 'sourceLanguage', width: 70},
     {headerName: 'Target', field: 'targetLanguage', width: 70},
