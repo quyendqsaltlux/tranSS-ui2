@@ -30,16 +30,9 @@ export class InvoicesService {
     return this.http.post<any>(API_PATH + '/exportPo/' + poId, null, {responseType: 'blob' as 'json'});
   }
 
-  search(pmVtcCode, page, size, keyWord, orderBy, sortDirection,
-         _rootFilters = [], _poFilters = [], _projectFilters = [], _candidateFilters = []): Observable<HttpResponse<any>> {
-    const path = buildPathParams(page, size, keyWord, orderBy, sortDirection);
-    const params = {
-      rootFilters: _rootFilters,
-      poFilters: _poFilters,
-      projectFilters: _projectFilters,
-      candidateFilters: _candidateFilters,
-    };
-    return this.http.post<HttpResponse<any>>(API_PATH + '/search/' + pmVtcCode + '/' + path, params, {observe: 'response'});
+  search(): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(API_PATH + '/scanPos',
+      {observe: 'response'});
   }
 
   deleteById(id: any): Observable<HttpResponse<any>> {
