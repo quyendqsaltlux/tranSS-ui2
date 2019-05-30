@@ -11,11 +11,11 @@ import {PercentCellComponent} from '../../share/ag-grid/percent-cell/percent-cel
 import {InvoicesService} from '../../service/invoices.service';
 
 @Component({
-  selector: 'app-invoices',
-  templateUrl: './invoices.component.html',
-  styleUrls: ['./invoices.component.scss']
+  selector: 'app-audit-pos',
+  templateUrl: './audit-pos.component.html',
+  styleUrls: ['./audit-pos.component.scss']
 })
-export class InvoicesComponent implements OnInit {
+export class AuditPosComponent implements OnInit {
   @ViewChild('template') template: TemplateRef<any>;
   PO_FILTERS = ['poNo', 'currency'];
   PROJECT_FILTERS = ['projectCode'];

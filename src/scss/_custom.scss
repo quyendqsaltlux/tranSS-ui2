@@ -75,6 +75,9 @@ table.candidates-table .ng-select.custom .ng-select-container {
   width: 100%;
   height: calc(100vh - 180px);
 }
+.ag-grid-custom.haft {
+  height: calc((100vh - 180px)/2);
+}
 
 .dropdown-item.sm {
   padding: .5rem .75rem;

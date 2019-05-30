@@ -4,6 +4,7 @@ import {AuthGuard} from '../gaurd/AuthGuard';
 import {RoleGuard} from '../gaurd/RoleGuard';
 import {InvoicesComponent} from './invoices/invoices.component';
 import {InvoiceFormComponent} from './invoice-form/invoice-form.component';
+import {InvoiceWrapperComponent} from './invoice-wrapper/invoice-wrapper.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,7 @@ const routes: Routes = [
     },
     children: [
       {path: '', redirectTo: 'list', pathMatch: 'full'},
-      {path: 'list', component: InvoicesComponent, data: {title: 'List'}},
+      {path: 'list', component: InvoiceWrapperComponent, data: {title: 'List'}},
       {path: ':candidateId/form/:invoiceId', component: InvoiceFormComponent, data: {title: 'Invoice form'}}
     ]
   }
