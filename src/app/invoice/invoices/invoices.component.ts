@@ -127,7 +127,9 @@ export class InvoicesComponent implements OnInit {
   }
 
   onEdit(index) {
-    this.route.navigate(['/projects/edit/' + this.modelList[index].projectId]);
+    const invoice = this.modelList[index];
+    const candidateCode = invoice.candidate ? invoice.candidate.code : null;
+    this.route.navigate(['/invoices/' + candidateCode + '/form/' + invoice.id]);
   }
 
   getModelList() {
