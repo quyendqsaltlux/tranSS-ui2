@@ -191,7 +191,7 @@ export class InvoicesComponent implements OnInit {
     if (this.deleteId < 0) {
       return;
     }
-    this.poService.deleteById(this.deleteId).subscribe((resp) => {
+    this.invoiceService.deleteById(this.deleteId).subscribe((resp) => {
         this.toastr.success('Delete successfully!');
         this.onFilter();
       },
@@ -202,15 +202,5 @@ export class InvoicesComponent implements OnInit {
 
   decline(): void {
     this.modalRef.hide();
-  }
-
-  generateInvoices() {
-    this.invoiceService.generateInvoices().subscribe((resp) => {
-      this.toastr.success('Generate invoices successfully!');
-    }, error2 => this.toastr.error('Fail to generate!'));
-  }
-
-  onClickGenerateInvoice() {
-    this.generateInvoices();
   }
 }

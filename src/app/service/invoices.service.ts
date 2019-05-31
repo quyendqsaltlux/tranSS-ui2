@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {environment} from '../../environments/environment';
 import {HttpClient, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs/index';
-import {buildPathParams} from '../util/http-util';
 
 const API_SERVER = environment.apiUrl;
 const API_PATH = API_SERVER + '/invoices';

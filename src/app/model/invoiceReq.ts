@@ -12,4 +12,6 @@ export interface InvoiceReq {
   address: string;
   resourceName: string;
   purchaseOrders?: number[];
+  currency: string;
+  total: number;
 }
