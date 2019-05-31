@@ -2,7 +2,6 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {AuthGuard} from '../gaurd/AuthGuard';
 import {RoleGuard} from '../gaurd/RoleGuard';
-import {InvoicesComponent} from './invoices/invoices.component';
 import {InvoiceFormComponent} from './invoice-form/invoice-form.component';
 import {InvoiceWrapperComponent} from './invoice-wrapper/invoice-wrapper.component';
 
@@ -17,7 +16,7 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'list', pathMatch: 'full'},
       {path: 'list', component: InvoiceWrapperComponent, data: {title: 'List'}},
-      {path: ':candidateId/form/:invoiceId', component: InvoiceFormComponent, data: {title: 'Invoice form'}}
+      {path: ':candidateCode/form/:invoiceId', component: InvoiceFormComponent, data: {title: 'Invoice form'}}
     ]
   }
 ];

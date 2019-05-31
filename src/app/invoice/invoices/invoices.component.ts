@@ -21,7 +21,7 @@ export class InvoicesComponent implements OnInit {
   PROJECT_FILTERS = ['projectCode'];
   CANDIDATE_FILTER = ['candidateCode', 'resourceName'];
   columnDefs = [
-    // {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionsRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
+    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionsRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
     {headerName: 'Assignment Id', field: 'id', type: 'numericColumn'},
     {headerName: 'PO No', field: 'poNo'},
     {headerName: 'Project Code', field: 'projectCode'},

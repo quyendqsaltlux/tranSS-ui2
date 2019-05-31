@@ -6,9 +6,9 @@ import {Router} from '@angular/router';
 import {PoService} from '../../service/po.service';
 import {PrincipleService} from '../../service/principle.service';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
-import {PoActionsCellComponent} from '../../share/ag-grid/po-actions-cell/po-actions-cell.component';
 import {PercentCellComponent} from '../../share/ag-grid/percent-cell/percent-cell.component';
 import {InvoicesService} from '../../service/invoices.service';
+import {AuditPoActionsCellComponent} from '../../share/ag-grid/audit-po-actions-cell/audit-po-actions-cell.component';
 
 @Component({
   selector: 'app-audit-pos',
@@ -21,7 +21,7 @@ export class AuditPosComponent implements OnInit {
   PROJECT_FILTERS = ['projectCode'];
   CANDIDATE_FILTER = ['candidateCode', 'resourceName'];
   columnDefs = [
-    // {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionsRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
+    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionsRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
     {headerName: 'Assignment Id', field: 'id', type: 'numericColumn'},
     {headerName: 'PO No', field: 'poNo'},
     {headerName: 'Project Code', field: 'projectCode'},
@@ -132,18 +132,16 @@ export class AuditPosComponent implements OnInit {
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
-      actionsRender: PoActionsCellComponent,
+      actionsRender: AuditPoActionsCellComponent,
       dateRender: DateCellComponent,
       percentRender: PercentCellComponent,
     };
   }
 
-  onDelete(index) {
-    this.openModal(this.template, this.modelList[index].id);
-  }
-
-  onEdit(index) {
-    this.route.navigate(['/projects/edit/' + this.modelList[index].projectId]);
+  goToInvoiceForm(index) {
+    const resourceCode = this.modelList[index].candidateCode;
+    const invoiceId = this.modelList[index].invoiceId;
+    this.route.navigate(['/invoices/' + resourceCode + '/form/' + invoiceId]);
   }
 
   getModelList() {

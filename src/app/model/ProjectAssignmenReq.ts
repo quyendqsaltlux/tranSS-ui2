@@ -51,4 +51,5 @@ export interface ProjectAssignmentReq {
   ability?: any;
   project?: any;
   progress?: any;
+  invoiceId?: any;
 }

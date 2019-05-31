@@ -14,8 +14,8 @@ export class InvoicesService {
   constructor(private http: HttpClient) {
   }
 
-  getDefaultInvoice(candidateId: any): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(API_PATH + '/getDefaultInvoice/' + candidateId, {observe: 'response'});
+  getDefaultInvoice(candidateCode: any): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(API_PATH + '/getDefaultInvoice/' + candidateCode, {observe: 'response'});
   }
 
   create(po: any, assignmentId): Observable<HttpResponse<any>> {
