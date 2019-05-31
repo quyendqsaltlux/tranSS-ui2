@@ -1,4 +1,4 @@
-<div class="animated fadeIn">
+<div class="animated fadeIn" *ngIf="isShowForm">
   <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
     <div class="card mb-1">
       <div class="card-body">
@@ -145,8 +145,8 @@
             <tr class="bg-success invoice-summary">
               <td colspan="7" class="text-right">
                 <span>Total</span>
-                <span>{{getSummaryTotal()}}</span>
-                <span *ngIf="model.purchaseOrders && model.purchaseOrders[0]">{{model.purchaseOrders[0].currency}}</span>
+                <span>{{model.total}}</span>
+                <span >{{model.currency}}</span>
               </td>
             </tr>
             </tbody>

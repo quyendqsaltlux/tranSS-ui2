@@ -17,6 +17,7 @@ export class InvoiceFormComponent implements OnInit {
   defaultInvoice;
   model: any = {};
   isShowForm = false;
+  company;
 
   constructor(private route: ActivatedRoute,
               private toastr: ToastrService,

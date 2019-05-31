@@ -35,6 +35,11 @@ export class InvoicesService {
       {observe: 'response'});
   }
 
+  getNotConfirmedInvoices(): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(API_PATH + '/getNotConfirmedInvoices',
+      {observe: 'response'});
+  }
+
   deleteById(id: any): Observable<HttpResponse<any>> {
     return this.http.delete(API_PATH + '/' + id, {observe: 'response'});
   }
