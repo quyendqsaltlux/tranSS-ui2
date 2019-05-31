@@ -49,7 +49,7 @@ export class InvoiceFormComponent implements OnInit {
     this.invoiceService.getDefaultInvoice(this.candidateCode).subscribe((resp) => {
       this.defaultPo = resp.body;
       this.model = {...this.defaultPo};
-      console.log(this.model)
+      console.log(this.model);
     }, () => {
       this.toastr.error('Fail to get default purchase order data');
     });
@@ -87,5 +87,9 @@ export class InvoiceFormComponent implements OnInit {
 
   getPOName(po: PODefault): string {
     return po.code + '.xlsx';
+  }
+
+  getSummaryTotal() {
+    return 0;
   }
 }

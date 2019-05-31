@@ -1,8 +1,115 @@
 <div class="animated fadeIn">
+  <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="card mb-1">
+      <div class="card-body">
+        <div class="text-center">
+          <div class="d-inline-block"><h1>INVOICE</h1></div>
+          <img src="../../../assets/img/avatars/1.jpg" class="pull-right">
+        </div>
 
-  <div class="card mb-1">
-    <div class="card-body">
+        <div class="row mt-5">
+          <div class="col-sm-6">
+            <div class="form-group row">
+              <label for="dateOfInvoice" class="col-sm-4 col-form-label"><strong>Date of Invoicing</strong></label>
+              <div class="col-sm-8">
+                <input class="form-control" id="dateOfInvoice" readonly [value]="model.dateOfInvoice">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="resourceName" class="col-sm-4 col-form-label"><strong>Name</strong></label>
+              <div class="col-sm-8">
+                <input class="form-control" id="resourceName" readonly [value]="model.resourceName">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="address" class="col-sm-4 col-form-label"><strong>Address</strong></label>
+              <div class="col-sm-8">
+                <input class="form-control" id="address" readonly [value]="model.candidate.address"
+                       *ngIf="model.candidate">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="mobile" class="col-sm-4 col-form-label"><strong>Mobile Phone No.</strong></label>
+              <div class="col-sm-8">
+                <input class="form-control" id="mobile" readonly [value]="model.candidate.mobile"
+                       *ngIf="model.candidate">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="email" class="col-sm-4 col-form-label"><strong>E-mail Address</strong></label>
+              <div class="col-sm-8">
+              <textarea rows="3" class="form-control" id="email" readonly [value]="model.candidate.email"
+                        *ngIf="model.candidate"></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="col-sm-6">
+            <div class="form-group row">
+              <label for="bankName" class="col-sm-4 col-form-label"><strong>Bank Name</strong></label>
+              <div class="col-sm-8">
+                <input class="form-control" name="bankName" id="bankName" readonly [value]="model.bankName">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="accountNumber" class="col-sm-4 col-form-label"><strong>Account Number</strong></label>
+              <div class="col-sm-8">
+                <input class="form-control" name="accountNumber" id="accountNumber" readonly [value]="model.bankAccount">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="depositor" class="col-sm-4 col-form-label"><strong>Depositor Name</strong></label>
+              <div class="col-sm-8">
+                <input class="form-control" name="depositor" id="depositor" [(ngModel)]="model.depositor">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="swiftCode" class="col-sm-4 col-form-label"><strong>Swift Code</strong></label>
+              <div class="col-sm-8">
+                <input class="form-control" id="swiftCode" name="swiftCode" readonly [value]="model.swiftCode">
+              </div>
+            </div>
+            <div class="form-group row">
+              <label for="paPal" class="col-sm-4 col-form-label"><strong>Paypal Address</strong></label>
+              <div class="col-sm-8">
+                <input class="form-control" id="paPal" name="paPal" readonly [value]="model.paPal">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <table class="table table-sm table-bordered table-striped">
+            <thead class="bg-primary">
+            <tr>
+              <th>Order Date</th>
+              <th>PO Number</th>
+              <th>Project Name</th>
+              <th>Quantity</th>
+              <th>Unit Price</th>
+              <th>Total Amount</th>
+              <th>PM name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let po of model.purchaseOrders">
+              <td>{{po.ho | date}}</td>
+              <td>{{po.poNo}}</td>
+              <td *ngIf="po.project">{{po.project.name}}</td>
+              <td>{{po.totalRep}}</td>
+              <td>{{po.unitPrice}}</td>
+              <td>{{po.total}}</td>
+              <td>{{po.project.pm.name}}</td>
+            </tr>
+            <tr class="bg-success invoice-summary">
+              <td colspan="7" class="text-right">
+                <span>Total</span>
+                <span>{{getSummaryTotal()}}</span>
+                <span *ngIf="model.purchaseOrders && model.purchaseOrders[0]">{{model.purchaseOrders[0].currency}}</span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
-  </div>
-
+  </form>
 </div>
