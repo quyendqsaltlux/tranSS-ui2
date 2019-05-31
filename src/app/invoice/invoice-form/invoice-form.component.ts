@@ -2,8 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {PODefault} from '../../model/PODefaullt';
-import {POReq} from '../../model/POReq';
 import {InvoicesService} from '../../service/invoices.service';
+import {InvoiceReq} from '../../model/invoiceReq';
 
 @Component({
   selector: 'app-invoice-form',
@@ -14,7 +14,7 @@ export class InvoiceFormComponent implements OnInit {
   @ViewChild('downloadLink') private downloadLink: ElementRef;
   candidateCode: string = null;
   invoiceId: number = null;
-  defaultPo;
+  defaultInvoice;
   model: any = {};
   isShowForm = false;
 
@@ -27,11 +27,10 @@ export class InvoiceFormComponent implements OnInit {
     this.isShowForm = false;
     this.candidateCode = this.route.snapshot.paramMap.get('candidateCode');
     this.invoiceId = +this.route.snapshot.paramMap.get('invoiceId') || null;
-    console.log(this.candidateCode);
     if (isNaN(this.invoiceId)) {
       this.invoiceId = null;
     }
-    if (!this.invoiceId) {
+    if (!this.invoiceId || this.invoiceId === 0) {
       this.getDefaultPo();
     } else {
       this.getModel();
@@ -47,12 +46,29 @@ export class InvoiceFormComponent implements OnInit {
 
   getDefaultPo() {
     this.invoiceService.getDefaultInvoice(this.candidateCode).subscribe((resp) => {
-      this.defaultPo = resp.body;
-      this.model = {...this.defaultPo};
-      console.log(this.model);
+      this.defaultInvoice = resp.body;
+      this.model = this.extractModel(this.defaultInvoice);
     }, () => {
       this.toastr.error('Fail to get default purchase order data');
     });
+  }
+
+  extractModel(defaultMode): InvoiceReq {
+    const model = {} as InvoiceReq;
+    model.purchaseOrders = defaultMode.purchaseOrders;
+    if (defaultMode.candidate) {
+      model.resourceName = defaultMode.resourceName;
+      model.address = defaultMode.candidate.address;
+      if (defaultMode.candidate.payment) {
+        model.bankName = defaultMode.candidate.payment.bankName;
+        model.account = defaultMode.candidate.payment.account;
+        model.depositor = defaultMode.candidate.payment.accountOwner;
+        model.swiftCode = defaultMode.candidate.payment.swiftCode;
+        model.payPal = defaultMode.candidate.payment.payPal;
+      }
+    }
+
+    return model;
   }
 
   onSubmit() {
@@ -60,18 +76,15 @@ export class InvoiceFormComponent implements OnInit {
     this.invoiceService.create(param, this.candidateCode).subscribe((resp => {
       this.model.id = resp.body.id;
       this.model.code = resp.body.code;
-      this.toastr.success('Save PO successfully!');
+      this.toastr.success('Save successfully!');
     }), (error2 => {
       this.toastr.error('Fail to save!');
     }));
   }
 
-  buildParam(model): POReq {
-    const poParam = {} as POReq;
-    poParam.id = model.id;
-    poParam.code = model.code;
-    poParam.status = model.status;
-    poParam.currency = model.currency;
+  buildParam(model): InvoiceReq {
+    const poParam = {...model} as InvoiceReq;
+    poParam.purchaseOrders = model.purchaseOrders.map((po) => po.id);
     return poParam;
   }
 

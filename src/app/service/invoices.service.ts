@@ -18,8 +18,8 @@ export class InvoicesService {
     return this.http.get<HttpResponse<any>>(API_PATH + '/getDefaultInvoice/' + candidateCode, {observe: 'response'});
   }
 
-  create(po: any, assignmentId): Observable<HttpResponse<any>> {
-    return this.http.post<HttpResponse<any>>(API_PATH + '/save/' + assignmentId, po, {observe: 'response'});
+  create(invoiceReq: any, candidateCode): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(API_PATH + '/save/' + candidateCode, invoiceReq, {observe: 'response'});
   }
 
   findById(id: any): Observable<HttpResponse<any>> {
