@@ -1,7 +1,6 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
-import {separateFiltersFromGridAssignment} from '../../util/http-util';
 import {Router} from '@angular/router';
 import {PoService} from '../../service/po.service';
 import {PrincipleService} from '../../service/principle.service';
@@ -17,12 +16,8 @@ import {AuditPoActionsCellComponent} from '../../share/ag-grid/audit-po-actions-
 })
 export class AuditPosComponent implements OnInit {
   @ViewChild('template') template: TemplateRef<any>;
-  PO_FILTERS = ['poNo', 'currency'];
-  PROJECT_FILTERS = ['projectCode'];
-  CANDIDATE_FILTER = ['candidateCode', 'resourceName'];
   columnDefs = [
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionsRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
-    {headerName: 'Assignment Id', field: 'id', type: 'numericColumn'},
     {headerName: 'PO No', field: 'poNo'},
     {headerName: 'Project Code', field: 'projectCode'},
     {headerName: 'Resource Id', field: 'candidateCode'},
@@ -73,9 +68,6 @@ export class AuditPosComponent implements OnInit {
   };
 
   filter = [];
-  poFilter = [];
-  projectFilter = [];
-  candidateFilter = [];
   deleteId = -1;
 
   currentUser;
@@ -105,6 +97,9 @@ export class AuditPosComponent implements OnInit {
       editable: false,
       resizable: true,
       suppressMenu: true,
+      filter: 'agTextColumnFilter',
+      floatingFilterComponentParams: {suppressFilterButton: true},
+      filterParams: {newRowsAction: 'keep'},
     };
     this.columnTypes = {
       numericColumn: {filter: 'agnumericColumnFilter'},
@@ -170,23 +165,6 @@ export class AuditPosComponent implements OnInit {
     setTimeout(() => {
       this.getModelList();
     }, 0);
-  }
-
-  onGridFilterChange(event) {
-    const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
-    const separatedFilter = separateFiltersFromGridAssignment(filters, this.PO_FILTERS, this.PROJECT_FILTERS, this.CANDIDATE_FILTER);
-    this.filter = [...separatedFilter.root];
-    this.poFilter = [...separatedFilter.po];
-    this.projectFilter = [...separatedFilter.project];
-    this.candidateFilter = [...separatedFilter.candidate];
-    this.getModelList();
-  }
-
-  onGridSortChanged(event) {
-    const sortState = this.gridApi.getSortModel();
-    this.sortConfig.order = sortState[0].sort;
-    this.sortConfig.field = sortState[0].colId;
-    this.getModelList();
   }
 
   onClickDelete(index) {
