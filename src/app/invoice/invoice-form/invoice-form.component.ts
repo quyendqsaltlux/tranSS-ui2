@@ -103,6 +103,13 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   getSummaryTotal() {
-    return 0;
+    if (!this.model.purchaseOrders) {
+      return 0;
+    }
+    let total = 0;
+    this.model.purchaseOrders.forEach((po) => {
+      total += Number(po.total);
+    });
+    return total;
   }
 }
