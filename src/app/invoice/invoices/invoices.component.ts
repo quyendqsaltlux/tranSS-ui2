@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {separateFiltersFromGridAssignment} from '../../util/http-util';
@@ -15,6 +15,7 @@ import {InvoicesService} from '../../service/invoices.service';
   styleUrls: ['./invoices.component.scss']
 })
 export class InvoicesComponent implements OnInit {
+  @Output() invoiceDeleted: EventEmitter<any> = new EventEmitter();
   @ViewChild('template') template: TemplateRef<any>;
   PO_FILTERS = ['poNo', 'currency'];
   PROJECT_FILTERS = ['projectCode'];
@@ -192,6 +193,7 @@ export class InvoicesComponent implements OnInit {
     this.invoiceService.deleteById(this.deleteId).subscribe((resp) => {
         this.toastr.success('Delete successfully!');
         this.onFilter();
+        this.invoiceDeleted.emit(true);
       },
       (error1 => {
         this.toastr.error('Fail to delete!');

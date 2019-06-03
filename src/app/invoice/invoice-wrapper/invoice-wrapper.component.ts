@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {AuditPosComponent} from '../audit-pos/audit-pos.component';
 
 @Component({
   selector: 'app-invoice-wrapper',
@@ -7,9 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InvoiceWrapperComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('auditPos') auditPos: AuditPosComponent;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
 
+  onInvoiceDeleted() {
+    this.auditPos.getModelList();
+  }
 }
