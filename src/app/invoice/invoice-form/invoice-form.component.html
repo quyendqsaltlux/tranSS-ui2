@@ -1,5 +1,6 @@
 <div class="animated fadeIn" *ngIf="isShowForm">
   <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <a class="download-fake-link" #downloadLink></a>
     <div class="card mb-1">
       <div class="card-body">
         <div class="text-center">
@@ -140,7 +141,7 @@
               <td>{{po.totalRep}}</td>
               <td>{{po.unitPrice}}</td>
               <td>{{po.total}}</td>
-              <td>{{po.project.pm.name}}</td>
+              <td *ngIf="po.project && po.project.pmVtc">{{po.project.pmVtc.name}}</td>
             </tr>
             <tr class="bg-success invoice-summary">
               <td colspan="7" class="text-right">

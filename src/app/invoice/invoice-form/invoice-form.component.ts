@@ -93,7 +93,7 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   download() {
-    this.invoiceService.downloadPO(this.model.id).subscribe((resp) => {
+    this.invoiceService.download(this.model.id).subscribe((resp) => {
       const url = URL.createObjectURL(resp);
       const link = this.downloadLink.nativeElement;
       link.href = url;
@@ -102,8 +102,8 @@ export class InvoiceFormComponent implements OnInit {
     });
   }
 
-  getPOName(po: PODefault): string {
-    return po.code + '.xlsx';
+  getPOName(po: InvoiceReq): string {
+    return po.resourceName + '.xlsx';
   }
 
   getSummaryTotal() {

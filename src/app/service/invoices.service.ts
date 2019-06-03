@@ -29,8 +29,8 @@ export class InvoicesService {
     return this.http.get<HttpResponse<any>>(API_PATH + '/findById/' + id, {observe: 'response'});
   }
 
-  downloadPO(poId): Observable<any> {
-    return this.http.post<any>(API_PATH + '/exportPo/' + poId, null, {responseType: 'blob' as 'json'});
+  download(poId): Observable<any> {
+    return this.http.post<any>(API_PATH + '/exportInvoice/' + poId, null, {responseType: 'blob' as 'json'});
   }
 
   search(_candidateCode?, _externalResourceName?): Observable<HttpResponse<any>> {
