@@ -3,7 +3,6 @@ import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {separateFiltersFromGridAssignment} from '../../util/http-util';
 import {Router} from '@angular/router';
-import {PoService} from '../../service/po.service';
 import {PrincipleService} from '../../service/principle.service';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
 import {PoActionsCellComponent} from '../../share/ag-grid/po-actions-cell/po-actions-cell.component';
@@ -64,8 +63,7 @@ export class InvoicesComponent implements OnInit {
 
   currentUser;
 
-  constructor(private  poService: PoService,
-              private toastr: ToastrService,
+  constructor(private toastr: ToastrService,
               private principleService: PrincipleService,
               private invoiceService: InvoicesService,
               public route: Router,

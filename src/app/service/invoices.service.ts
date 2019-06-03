@@ -13,8 +13,12 @@ export class InvoicesService {
   constructor(private http: HttpClient) {
   }
 
-  getDefaultInvoice(candidateCode: any): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(API_PATH + '/getDefaultInvoice/' + candidateCode, {observe: 'response'});
+  getDefaultInvoice(_candidateCode?, _externalResourceName?): Observable<HttpResponse<any>> {
+    const params = {
+      resourceCode: _candidateCode || null,
+      externalResourceName: _externalResourceName || null
+    };
+    return this.http.post<HttpResponse<any>>(API_PATH + '/getDefaultInvoice', params, {observe: 'response'});
   }
 
   create(invoiceReq: any, candidateCode): Observable<HttpResponse<any>> {
@@ -29,8 +33,12 @@ export class InvoicesService {
     return this.http.post<any>(API_PATH + '/exportPo/' + poId, null, {responseType: 'blob' as 'json'});
   }
 
-  search(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(API_PATH + '/scanPos',
+  search(_candidateCode?, _externalResourceName?): Observable<HttpResponse<any>> {
+    const params = {
+      resourceCode: _candidateCode || null,
+      externalResourceName: _externalResourceName || null
+    };
+    return this.http.post<HttpResponse<any>>(API_PATH + '/scanPos', params,
       {observe: 'response'});
   }
 

@@ -88,7 +88,7 @@ export class InvoiceFormComponent implements OnInit {
 
   buildParam(model): InvoiceReq {
     const poParam = {...model} as InvoiceReq;
-    poParam.purchaseOrders = model.purchaseOrders.map((po) => po.id);
+    poParam.purchaseOrders = model.purchaseOrders.map((po) => po.poNo);
     return poParam;
   }
 
