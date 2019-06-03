@@ -25,7 +25,8 @@ import {EvaluationActionsCellComponent} from './ag-grid/evaluation-actions-cell/
 import {PoActionsCellComponent} from './ag-grid/po-actions-cell/po-actions-cell.component';
 import {PercentCellComponent} from './ag-grid/percent-cell/percent-cell.component';
 import {OptionsCellComponent} from './ag-grid/options-cell/options-cell.component';
-import {AuditPoActionsCellComponent} from "./ag-grid/audit-po-actions-cell/audit-po-actions-cell.component";
+import {AuditPoActionsCellComponent} from './ag-grid/audit-po-actions-cell/audit-po-actions-cell.component';
+import {InvoiceActionsCellComponent} from './ag-grid/invoice-actions-cell/invoice-actions-cell.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {AuditPoActionsCellComponent} from "./ag-grid/audit-po-actions-cell/audit
     PoActionsCellComponent,
     PercentCellComponent,
     OptionsCellComponent,
-    AuditPoActionsCellComponent
+    AuditPoActionsCellComponent,
+    InvoiceActionsCellComponent
 
   ],
   imports: [
@@ -77,7 +79,8 @@ import {AuditPoActionsCellComponent} from "./ag-grid/audit-po-actions-cell/audit
       PoActionsCellComponent,
       PercentCellComponent,
       OptionsCellComponent,
-      AuditPoActionsCellComponent
+      AuditPoActionsCellComponent,
+      InvoiceActionsCellComponent
     ])
   ],
   exports: [
@@ -113,7 +116,8 @@ import {AuditPoActionsCellComponent} from "./ag-grid/audit-po-actions-cell/audit
     PoActionsCellComponent,
     PercentCellComponent,
     OptionsCellComponent,
-    AuditPoActionsCellComponent
+    AuditPoActionsCellComponent,
+    InvoiceActionsCellComponent
   ],
   entryComponents: [
     EmployeeSearchComponent

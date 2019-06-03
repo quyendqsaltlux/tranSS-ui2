@@ -5,9 +5,9 @@ import {separateFiltersFromGridAssignment} from '../../util/http-util';
 import {Router} from '@angular/router';
 import {PrincipleService} from '../../service/principle.service';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
-import {PoActionsCellComponent} from '../../share/ag-grid/po-actions-cell/po-actions-cell.component';
 import {PercentCellComponent} from '../../share/ag-grid/percent-cell/percent-cell.component';
 import {InvoicesService} from '../../service/invoices.service';
+import {InvoiceActionsCellComponent} from '../../share/ag-grid/invoice-actions-cell/invoice-actions-cell.component';
 
 @Component({
   selector: 'app-invoices',
@@ -115,10 +115,17 @@ export class InvoicesComponent implements OnInit {
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
-      actionsRender: PoActionsCellComponent,
+      actionsRender: InvoiceActionsCellComponent,
       dateRender: DateCellComponent,
       percentRender: PercentCellComponent,
     };
+  }
+
+  onMarkConfirm(index) {
+    const invoice = this.modelList[index];
+    this.invoiceService.markConfirm(invoice.id).subscribe((resp) => {
+      this.toastr.success('Confirmed successfully!');
+    }, error2 => this.toastr.error('Fail to confirm'));
   }
 
   onDelete(index) {
