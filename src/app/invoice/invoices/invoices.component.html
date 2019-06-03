@@ -3,7 +3,16 @@
     <div class="col-sm-12">
       <div class="card w100 rounded-0 mb-0">
         <div class="card-header">
-          <h6>Invoices</h6>
+          <div class="d-inline-block"><h6>Invoices</h6></div>
+          <!--TABS-->
+          <div class="btn-group pull-right mr-2" role="group">
+            <button type="button" class="btn btn-sm btn-secondary" [class.bg-primary]="activedTab === 'NOT_CONFIRMED'" (click)="onClickTab('NOT_CONFIRMED')">
+              <i class="fa fa-refresh"></i> Not Confirmed
+            </button>
+            <button type="button" class="btn btn-sm btn-secondary" [class.bg-primary]="activedTab === 'CONFIRMED'" (click)="onClickTab('CONFIRMED')">
+              <i class="fa fa-check"></i> Confirmed
+            </button>
+          </div>
         </div>
         <div class="card-body p-0">
           <ag-grid-angular

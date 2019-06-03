@@ -44,6 +44,7 @@ export class InvoicesComponent implements OnInit {
   frameworkComponents;
   sortingOrder;
 
+  activedTab = 'NOT_CONFIRMED';
   ignoreFilter = true;
   modalRef: BsModalRef;
   modelList = [];
@@ -121,6 +122,13 @@ export class InvoicesComponent implements OnInit {
     };
   }
 
+  onClickTab(tab) {
+    if (tab !== this.activedTab) {
+      this.activedTab = tab;
+      this.getModelList();
+    }
+  }
+
   onMarkConfirm(index) {
     const invoice = this.modelList[index];
     this.invoiceService.markConfirm(invoice.id).subscribe((resp) => {
@@ -141,7 +149,7 @@ export class InvoicesComponent implements OnInit {
   }
 
   getModelList() {
-    this.invoiceService.getNotConfirmedInvoices().subscribe((resp => {
+    this.invoiceService.getInvoicesByStatus(this.activedTab === 'CONFIRMED').subscribe((resp => {
       if (!resp || !resp.body) {
         this.modelList = [];
         return;

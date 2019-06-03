@@ -43,8 +43,8 @@ export class InvoicesService {
       {observe: 'response'});
   }
 
-  getNotConfirmedInvoices(): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(API_PATH + '/getNotConfirmedInvoices',
+  getInvoicesByStatus(isConfirmed: boolean): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(API_PATH + '/getNotConfirmedInvoices/?isConfirmed=' + isConfirmed,
       {observe: 'response'});
   }
   markConfirm(id): Observable<HttpResponse<any>> {
