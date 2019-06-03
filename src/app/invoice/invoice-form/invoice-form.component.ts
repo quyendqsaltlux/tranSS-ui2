@@ -13,6 +13,7 @@ import {InvoiceReq} from '../../model/invoiceReq';
 export class InvoiceFormComponent implements OnInit {
   @ViewChild('downloadLink') private downloadLink: ElementRef;
   candidateCode: string = null;
+  externalResourceName: string = null;
   invoiceId: number = null;
   defaultInvoice;
   model: any = {};
@@ -26,9 +27,7 @@ export class InvoiceFormComponent implements OnInit {
 
   ngOnInit() {
     this.isShowForm = false;
-    this.candidateCode = this.route.snapshot.paramMap.get('candidateCode');
-    this.company = this.route.snapshot.paramMap.get('company');
-    this.invoiceId = +this.route.snapshot.paramMap.get('invoiceId') || null;
+    this.extractUrl();
     if (isNaN(this.invoiceId)) {
       this.invoiceId = null;
     }
@@ -39,6 +38,15 @@ export class InvoiceFormComponent implements OnInit {
     }
   }
 
+  extractUrl() {
+    this.candidateCode = this.route.snapshot.paramMap.get('candidateCode');
+    this.candidateCode = this.candidateCode === 'null' ? null : this.candidateCode;
+    this.company = this.route.snapshot.paramMap.get('company');
+    this.externalResourceName = this.route.snapshot.paramMap.get('externalResourceName');
+    this.externalResourceName = this.externalResourceName === 'null' ? null : this.externalResourceName;
+    this.invoiceId = +this.route.snapshot.paramMap.get('invoiceId') || null;
+  }
+
   getModel() {
     this.invoiceService.findById(this.invoiceId).subscribe((resp) => {
       this.model = resp.body as PODefault;
@@ -47,13 +55,14 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   getDefaultPo() {
-    this.invoiceService.getDefaultInvoice(this.company, this.candidateCode).subscribe((resp) => {
-      this.defaultInvoice = resp.body;
-      this.model = this.extractModel(this.defaultInvoice);
-      this.isShowForm = true;
-    }, () => {
-      this.toastr.error('Fail to get default purchase order data');
-    });
+    this.invoiceService.getDefaultInvoice(this.company, this.candidateCode, this.externalResourceName)
+      .subscribe((resp) => {
+        this.defaultInvoice = resp.body;
+        this.model = this.extractModel(this.defaultInvoice);
+        this.isShowForm = true;
+      }, () => {
+        this.toastr.error('Fail to get default purchase order data');
+      });
   }
 
   extractModel(defaultMode): InvoiceReq {
@@ -72,13 +81,16 @@ export class InvoiceFormComponent implements OnInit {
         model.payPal = defaultMode.candidate.payment.payPal;
       }
     }
+    if (this.externalResourceName) {
+      model.resourceName = this.externalResourceName;
+    }
 
     return model;
   }
 
   onSubmit() {
     const param = this.buildParam(this.model);
-    this.invoiceService.create(param, this.candidateCode).subscribe((resp => {
+    this.invoiceService.create(param, this.candidateCode, this.externalResourceName).subscribe((resp => {
       this.model.id = resp.body.id;
       this.model.code = resp.body.code;
       this.toastr.success('Save successfully!');

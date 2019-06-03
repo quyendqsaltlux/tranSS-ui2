@@ -127,9 +127,10 @@ export class InvoicesComponent implements OnInit {
 
   onEdit(index) {
     const invoice = this.modelList[index];
-    const candidateCode = invoice.candidate ? invoice.candidate.code : null;
+    const resourceCode = invoice.candidate ? invoice.candidate.code : null;
     const company = invoice.purchaseOrders[0].company;
-    this.route.navigate(['/invoices/' + candidateCode + '/' + company + '/form/' + invoice.id]);
+    const external = this.modelList[index].resourceName;
+    this.route.navigate(['/invoices/' + resourceCode + '/' + external + '/' + company + '/form/' + invoice.id]);
   }
 
   getModelList() {

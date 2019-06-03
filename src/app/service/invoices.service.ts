@@ -22,8 +22,8 @@ export class InvoicesService {
     return this.http.post<HttpResponse<any>>(API_PATH + '/getDefaultInvoice', params, {observe: 'response'});
   }
 
-  create(invoiceReq: any, candidateCode): Observable<HttpResponse<any>> {
-    return this.http.post<HttpResponse<any>>(API_PATH + '/save/' + candidateCode, invoiceReq, {observe: 'response'});
+  create(invoiceReq: any, candidateCode?, _externalResourceName?): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(API_PATH + '/save/' + candidateCode + '/' + _externalResourceName, invoiceReq, {observe: 'response'});
   }
 
   findById(id: any): Observable<HttpResponse<any>> {

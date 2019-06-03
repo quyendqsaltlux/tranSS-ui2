@@ -1,7 +1,7 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {PoService} from '../../service/po.service';
 import {PrincipleService} from '../../service/principle.service';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
@@ -76,7 +76,7 @@ export class AuditPosComponent implements OnInit {
               private toastr: ToastrService,
               private principleService: PrincipleService,
               private invoiceService: InvoicesService,
-              public route: Router,
+              private route: Router,
               private modalService: BsModalService) {
   }
 
@@ -137,7 +137,8 @@ export class AuditPosComponent implements OnInit {
     const resourceCode = this.modelList[index].candidateCode;
     const invoiceId = this.modelList[index].invoiceId;
     const company = this.modelList[index].company;
-    this.route.navigate(['/invoices/' + resourceCode + '/' + company + '/form/' + invoiceId]);
+    const external = this.modelList[index].resourceName;
+    this.route.navigate(['/invoices/' + resourceCode + '/' + external + '/' + company + '/form/' + invoiceId]);
   }
 
   getModelList() {
