@@ -136,7 +136,8 @@ export class AuditPosComponent implements OnInit {
   goToInvoiceForm(index) {
     const resourceCode = this.modelList[index].candidateCode;
     const invoiceId = this.modelList[index].invoiceId;
-    this.route.navigate(['/invoices/' + resourceCode + '/form/' + invoiceId]);
+    const company = this.modelList[index].company;
+    this.route.navigate(['/invoices/' + resourceCode + '/' + company + '/form/' + invoiceId]);
   }
 
   getModelList() {

@@ -16,7 +16,7 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'list', pathMatch: 'full'},
       {path: 'list', component: InvoiceWrapperComponent, data: {title: 'List'}},
-      {path: ':candidateCode/form/:invoiceId', component: InvoiceFormComponent, data: {title: 'Invoice form'}}
+      {path: ':candidateCode/:company/form/:invoiceId', component: InvoiceFormComponent, data: {title: 'Invoice form'}}
     ]
   }
 ];

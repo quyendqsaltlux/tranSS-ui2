@@ -13,10 +13,11 @@ export class InvoicesService {
   constructor(private http: HttpClient) {
   }
 
-  getDefaultInvoice(_candidateCode?, _externalResourceName?): Observable<HttpResponse<any>> {
+  getDefaultInvoice(_company, _candidateCode?, _externalResourceName?): Observable<HttpResponse<any>> {
     const params = {
       resourceCode: _candidateCode || null,
-      externalResourceName: _externalResourceName || null
+      externalResourceName: _externalResourceName || null,
+      company: _company
     };
     return this.http.post<HttpResponse<any>>(API_PATH + '/getDefaultInvoice', params, {observe: 'response'});
   }

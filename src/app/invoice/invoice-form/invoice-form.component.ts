@@ -27,6 +27,7 @@ export class InvoiceFormComponent implements OnInit {
   ngOnInit() {
     this.isShowForm = false;
     this.candidateCode = this.route.snapshot.paramMap.get('candidateCode');
+    this.company = this.route.snapshot.paramMap.get('company');
     this.invoiceId = +this.route.snapshot.paramMap.get('invoiceId') || null;
     if (isNaN(this.invoiceId)) {
       this.invoiceId = null;
@@ -46,7 +47,7 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   getDefaultPo() {
-    this.invoiceService.getDefaultInvoice(this.candidateCode).subscribe((resp) => {
+    this.invoiceService.getDefaultInvoice(this.company, this.candidateCode).subscribe((resp) => {
       this.defaultInvoice = resp.body;
       this.model = this.extractModel(this.defaultInvoice);
       this.isShowForm = true;

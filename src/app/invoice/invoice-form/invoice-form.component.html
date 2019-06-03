@@ -3,9 +3,12 @@
     <a class="download-fake-link" #downloadLink></a>
     <div class="card mb-1">
       <div class="card-body">
+        <div class="text-right">
+          <img src="../../../assets/img/invoice-header.PNG" *ngIf="company==='P'" height="40">
+          <img src="../../../assets/img/invoice-sp-header.PNG" *ngIf="company==='SP'" height="40">
+        </div>
         <div class="text-center">
           <div class="d-inline-block"><h1>INVOICE</h1></div>
-          <img src="../../../assets/img/avatars/1.jpg" class="pull-right">
         </div>
         <div class="row mt-5">
           <div class="col-sm-6">
@@ -147,7 +150,7 @@
               <td colspan="7" class="text-right">
                 <span>Total</span>
                 <span>{{model.total}}</span>
-                <span >{{model.currency}}</span>
+                <span>{{model.currency}}</span>
               </td>
             </tr>
             </tbody>
