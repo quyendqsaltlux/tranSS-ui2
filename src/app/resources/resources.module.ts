@@ -13,6 +13,8 @@ import {GeneralCommentComponent} from '../evaluation/general-comment/general-com
 import {OtherNoteComponent} from '../evaluation/other-note/other-note.component';
 import {EvaluationModule} from '../evaluation/evaluation.module';
 import {ResourceSearchComponent} from './resource-search/resource-search.component';
+import {TestWaitingFormComponent} from './test-waiting-form/test-waiting-form.component';
+import {TestWaitingListComponent} from './test-waiting-list/test-waiting-list.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import {ResourceSearchComponent} from './resource-search/resource-search.compone
     ProjectHistoryComponent,
     PaymentComponent,
     ResourceSearchComponent,
+    TestWaitingFormComponent,
+    TestWaitingListComponent
   ],
   imports: [
     ResourcesRoutingModule,

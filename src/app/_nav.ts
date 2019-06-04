@@ -57,6 +57,11 @@ export const navItems: NavData[] = [
     icon: 'fa fa-address-book'
   },
   {
+    name: 'Test waiting',
+    url: '/resources/test-waiting/list',
+    icon: 'fa fa-address-book'
+  },
+  {
     name: 'Production list',
     url: '/projects',
     icon: 'fa fa-tasks'
