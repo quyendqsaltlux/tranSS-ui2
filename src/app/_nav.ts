@@ -63,7 +63,7 @@ export const navItems: NavData[] = [
   {
     name: 'Unevaluated',
     url: '/resources/test-waiting/list',
-    icon: 'fa fa-address-book'
+    icon: 'fa fa-minus-square-o'
   },
   {
     title: true,
@@ -72,12 +72,12 @@ export const navItems: NavData[] = [
   {
     name: 'Productions',
     url: '/projects',
-    icon: 'fa fa-tasks'
+    icon: 'fa fa-list-ol'
   },
   {
     name: 'Purchase orders',
     url: '/purchaseOrders',
-    icon: 'fa fa-dollar'
+    icon: 'fa fa-file-o'
   },
   {
     name: 'Invoices',
