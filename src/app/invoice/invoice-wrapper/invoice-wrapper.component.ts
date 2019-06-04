@@ -16,7 +16,7 @@ export class InvoiceWrapperComponent implements OnInit {
   ngOnInit() {
   }
 
-  onInvoiceDeleted() {
+  onInvoiceDeleted(event) {
     this.auditPos.getModelList();
   }
 }
