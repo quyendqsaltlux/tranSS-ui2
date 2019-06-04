@@ -4,6 +4,7 @@ import {EvaluationService} from '../../service/evaluation.service';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {BsModalRef} from 'ngx-bootstrap';
+import {PrincipleService} from "../../service/principle.service";
 
 @Component({
   selector: 'app-general-comment',
@@ -14,15 +15,19 @@ export class GeneralCommentComponent implements OnInit {
   candidateId;
   title;
   model = {} as GeneralComment;
+  currentUser;
 
   constructor(public bsModalRef: BsModalRef,
+              private principleService: PrincipleService,
               private evaluationService: EvaluationService,
               private toastr: ToastrService,
               public route: Router) {
   }
 
   ngOnInit() {
-    console.log(this.model);
+    this.currentUser = this.principleService.getUserInfo();
+    this.model.evaluator = this.currentUser.username;
+    this.model.date = new Date();
   }
 
   onSubmit() {

@@ -11,33 +11,23 @@
       <div class="col-md-12">
         <!--DATE-->
         <div class="form-group row">
-          <label for="level" class="col-sm-2 col-form-label-sm">Date<span class="text-danger"> *</span></label>
-          <div class="col-sm-10">
-            <input type="date" class="form-control form-control-sm" id="level" name="level"
-                   [(ngModel)]="model.date" #date="ngModel" required>
-            <div *ngIf="date.invalid && (date.dirty || date.touched)" class="msg-invalid">
-              <div *ngIf="date.errors.required">This field is required.</div>
-              <div *ngIf="date.errors.maxlength">Too long.</div>
-            </div>
+          <label class="col-sm-3 col-form-label">Date</label>
+          <div class="col-sm-9">
+            <span class="form-control-plaintext">{{model.date | date}}</span>
           </div>
         </div>
         <!--EVALUATOR-->
         <div class="form-group row">
-          <label for="evaluator" class="col-sm-2 col-form-label-sm">Evaluator<span class="text-danger"> *</span></label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control form-control-sm" id="evaluator" name="evaluator"
-                   [(ngModel)]="model.evaluator" maxlength="255" #evaluator="ngModel" required>
-            <div *ngIf="evaluator.invalid && (evaluator.dirty || evaluator.touched)" class="msg-invalid">
-              <div *ngIf="evaluator.errors.required">This field is required.</div>
-              <div *ngIf="evaluator.errors.maxlength">Too long.</div>
-            </div>
+          <label class="col-sm-3 col-form-label">Evaluator</label>
+          <div class="col-sm-9">
+            <span class="form-control-plaintext">{{model.evaluator}}</span>
           </div>
         </div>
         <!--COMMENT-->
         <div class="form-group row">
-          <label for="review" class="col-sm-2 col-form-label-sm">Comment<span class="text-danger"> *</span></label>
-          <div class="col-sm-10">
-            <textarea class=" form-control form-control-sm" rows="4"
+          <label for="review" class="col-sm-3">Comment<span class="text-danger"> *</span></label>
+          <div class="col-sm-9">
+            <textarea class=" form-control " rows="4"
                       name="review" maxlength="511" id="review"
                       [(ngModel)]="model.comment" #review="ngModel" required></textarea>
             <div *ngIf="review.invalid && (review.dirty || review.touched)" class="msg-invalid">
