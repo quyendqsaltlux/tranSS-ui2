@@ -8,9 +8,11 @@ import {ICellRendererAngularComp} from 'ag-grid-angular';
 })
 export class InvoiceActionsCellComponent implements ICellRendererAngularComp {
   public params: any;
+  isConfirmed = false;
 
   agInit(params: any): void {
     this.params = params;
+    this.isConfirmed = this.params.data.isConfirmed;
   }
 
   onEdit() {

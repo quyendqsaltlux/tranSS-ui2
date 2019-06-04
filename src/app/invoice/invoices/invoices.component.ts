@@ -17,6 +17,7 @@ import {InvoiceActionsCellComponent} from '../../share/ag-grid/invoice-actions-c
 export class InvoicesComponent implements OnInit {
   @Output() invoiceDeleted: EventEmitter<any> = new EventEmitter();
   @ViewChild('template') template: TemplateRef<any>;
+  @ViewChild('template2') template2: TemplateRef<any>;
   PO_FILTERS = ['poNo', 'currency'];
   PROJECT_FILTERS = ['projectCode'];
   CANDIDATE_FILTER = ['candidateCode', 'resourceName'];
@@ -62,6 +63,7 @@ export class InvoicesComponent implements OnInit {
   projectFilter = [];
   candidateFilter = [];
   deleteId = -1;
+  confirmId = -1;
 
   currentUser;
 
@@ -130,10 +132,7 @@ export class InvoicesComponent implements OnInit {
   }
 
   onMarkConfirm(index) {
-    const invoice = this.modelList[index];
-    this.invoiceService.markConfirm(invoice.id).subscribe((resp) => {
-      this.toastr.success('Confirmed successfully!');
-    }, error2 => this.toastr.error('Fail to confirm'));
+    this.openModalConfirm(this.template2, this.modelList[index].id);
   }
 
   onDelete(index) {
@@ -218,6 +217,26 @@ export class InvoicesComponent implements OnInit {
   }
 
   decline(): void {
+    this.modalRef.hide();
+  }
+
+  openModalConfirm(template: TemplateRef<any>, id) {
+    this.confirmId = id;
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'} as ModalOptions);
+  }
+
+  confirmInvoice(): void {
+    this.modalRef.hide();
+    if (this.confirmId < 0) {
+      return;
+    }
+
+    this.invoiceService.markConfirm(this.confirmId).subscribe((resp) => {
+      this.toastr.success('Confirmed successfully!');
+    }, error2 => this.toastr.error('Fail to confirm'));
+  }
+
+  declineInvoice(): void {
     this.modalRef.hide();
   }
 }
