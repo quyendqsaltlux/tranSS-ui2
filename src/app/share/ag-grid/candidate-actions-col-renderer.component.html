@@ -1,11 +1,3 @@
-<div class="btn-group btn-group-sm" dropdown container="body">
-  <button dropdownToggle type="button" class="pt-0 pb-0 btn btn-sm btn-ghost-primary dropdown-toggle">
-    Action <span class="caret"></span>
-  </button>
-  <ul *dropdownMenu class="dropdown-menu" role="menu">
-    <li role="menuitem"><a class="dropdown-item sm cursor-pointer" (click)="onEdit()">Edit</a></li>
-    <li role="menuitem"><a class="dropdown-item sm cursor-pointer" (click)="onViewRates()">Rates</a></li>
-    <li role="menuitem"><a class="dropdown-item sm cursor-pointer" (click)="onViewHistory()">Project history</a></li>
-
-  </ul>
-</div>
+<button type="button" class="btn ag-grid-action-icon" (click)="onEdit()" title="Edit"><i class="fa fa-edit text-warning"></i></button>
+<button type="button" class="btn ag-grid-action-icon" (click)="onViewRates()" title="Rates"><i class="fa fa-dollar text-success"></i></button>
+<button type="button" class="btn ag-grid-action-icon" (click)="onViewHistory()" title="Project history"><i class="fa fa-history text-info"></i></button>
