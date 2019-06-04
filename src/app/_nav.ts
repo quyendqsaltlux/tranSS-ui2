@@ -69,6 +69,6 @@ export const navItems: NavData[] = [
   {
     name: 'Invoices',
     url: '/invoices',
-    icon: 'fa fa-dollar'
+    icon: 'fa fa-money'
   }
 ];
