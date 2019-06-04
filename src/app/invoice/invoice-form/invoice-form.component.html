@@ -1,6 +1,7 @@
 <div class="animated fadeIn" *ngIf="isShowForm">
   <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
     <a class="download-fake-link" #downloadLink></a>
+    <fieldset [disabled]="model.isConfirmed">
     <div class="card mb-1">
       <div class="card-body">
         <div class="text-right">
@@ -165,5 +166,6 @@
         </div>
       </div>
     </div>
+    </fieldset>
   </form>
 </div>
