@@ -2,170 +2,174 @@
   <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
     <a class="download-fake-link" #downloadLink></a>
     <fieldset [disabled]="model.isConfirmed">
-    <div class="card mb-1">
-      <div class="card-body">
-        <div class="text-right">
-          <img src="../../../assets/img/invoice-header.PNG" *ngIf="company==='P'" height="40">
-          <img src="../../../assets/img/invoice-sp-header.PNG" *ngIf="company==='SP'" height="40">
-        </div>
-        <div class="text-center">
-          <div class="d-inline-block"><h1>INVOICE</h1></div>
-        </div>
-        <div class="row mt-5">
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label for="dateOfInvoice" class="col-sm-4 col-form-label"><strong>Date of Invoicing</strong></label>
-              <div class="col-sm-8">
-                <input class="form-control-plaintext" id="dateOfInvoice" readonly [value]="model.updatedAt | date">
+      <div class="row">
+        <div class="col-sm-12 col-md-9">
+          <div class="card mb-1">
+            <div class="card-body">
+              <div class="text-right">
+                <img src="../../../assets/img/invoice-header.PNG" *ngIf="company==='P'" height="40">
+                <img src="../../../assets/img/invoice-sp-header.PNG" *ngIf="company==='SP'" height="40">
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="resourceName" class="col-sm-4 col-form-label"><strong>Name</strong></label>
-              <div class="col-sm-8">
-                <input class="form-control" id="resourceName" name="resourceName"
-                       [(ngModel)]="model.resourceName"
-                       required #resourceName="ngModel" maxlength="255"
-                       [ngClass]="{'is-invalid': f.submitted && resourceName.invalid}">
-                <div *ngIf="resourceName.invalid && (resourceName.dirty || resourceName.touched)" class="msg-invalid">
-                  <div *ngIf="resourceName.errors.maxlength">Too long.</div>
-                </div>
+              <div class="text-center">
+                <div class="d-inline-block"><h1>INVOICE</h1></div>
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="address" class="col-sm-4 col-form-label"><strong>Address</strong></label>
-              <div class="col-sm-8">
-                <input class="form-control" id="address" name="address" [(ngModel)]="model.address"
-                       #address="ngModel" maxlength="255"
-                       [ngClass]="{'is-invalid': f.submitted && address.invalid}">
-                <div *ngIf="address.invalid && (address.dirty || address.touched)" class="msg-invalid">
-                  <div *ngIf="address.errors.maxlength">Too long.</div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="mobile" class="col-sm-4 col-form-label"><strong>Mobile Phone No.</strong></label>
-              <div class="col-sm-8">
-                <input class="form-control" id="mobile" name="mobile" [(ngModel)]="model.mobile"
-                       #mobile="ngModel" maxlength="255"
-                       [ngClass]="{'is-invalid': f.submitted && mobile.invalid}">
-                <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="msg-invalid">
-                  <div *ngIf="mobile.errors.maxlength">Too long.</div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="email" class="col-sm-4 col-form-label"><strong>E-mail Address</strong></label>
-              <div class="col-sm-8">
+              <div class="row mt-5">
+                <div class="col-sm-6">
+                  <div class="form-group row">
+                    <label for="dateOfInvoice" class="col-sm-4 col-form-label"><strong>Date of Invoicing</strong></label>
+                    <div class="col-sm-8">
+                      <input class="form-control-plaintext" id="dateOfInvoice" readonly [value]="model.updatedAt | date">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="resourceName" class="col-sm-4 col-form-label"><strong>Name</strong></label>
+                    <div class="col-sm-8">
+                      <input class="form-control" id="resourceName" name="resourceName"
+                             [(ngModel)]="model.resourceName"
+                             required #resourceName="ngModel" maxlength="255"
+                             [ngClass]="{'is-invalid': f.submitted && resourceName.invalid}">
+                      <div *ngIf="resourceName.invalid && (resourceName.dirty || resourceName.touched)" class="msg-invalid">
+                        <div *ngIf="resourceName.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="address" class="col-sm-4 col-form-label"><strong>Address</strong></label>
+                    <div class="col-sm-8">
+                      <input class="form-control" id="address" name="address" [(ngModel)]="model.address"
+                             #address="ngModel" maxlength="255"
+                             [ngClass]="{'is-invalid': f.submitted && address.invalid}">
+                      <div *ngIf="address.invalid && (address.dirty || address.touched)" class="msg-invalid">
+                        <div *ngIf="address.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="mobile" class="col-sm-4 col-form-label"><strong>Mobile Phone No.</strong></label>
+                    <div class="col-sm-8">
+                      <input class="form-control" id="mobile" name="mobile" [(ngModel)]="model.mobile"
+                             #mobile="ngModel" maxlength="255"
+                             [ngClass]="{'is-invalid': f.submitted && mobile.invalid}">
+                      <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="msg-invalid">
+                        <div *ngIf="mobile.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label"><strong>E-mail Address</strong></label>
+                    <div class="col-sm-8">
               <textarea rows="3" class="form-control" id="email" name="email"
                         [(ngModel)]="model.email"
                         #email="ngModel" maxlength="255"
                         [ngClass]="{'is-invalid': f.submitted && email.invalid}"></textarea>
-                <div *ngIf="email.invalid && (email.dirty || email.touched)" class="msg-invalid">
-                  <div *ngIf="email.errors.maxlength">Too long.</div>
+                      <div *ngIf="email.invalid && (email.dirty || email.touched)" class="msg-invalid">
+                        <div *ngIf="email.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-sm-6">
+                  <div class="form-group row">
+                    <label for="bankName" class="col-sm-4 col-form-label"><strong>Bank Name</strong></label>
+                    <div class="col-sm-8">
+                      <input class="form-control" name="bankName" id="bankName" [(ngModel)]="model.bankName"
+                             required #bankName="ngModel" maxlength="255"
+                             [ngClass]="{'is-invalid': f.submitted && bankName.invalid}">
+                      <div *ngIf="bankName.invalid && (bankName.dirty || bankName.touched)" class="msg-invalid">
+                        <div *ngIf="bankName.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="accountNumber" class="col-sm-4 col-form-label"><strong>Account Number</strong></label>
+                    <div class="col-sm-8">
+                      <input class="form-control" name="accountNumber" id="accountNumber" [(ngModel)]="model.account"
+                             required #bankAccount="ngModel" maxlength="255"
+                             [ngClass]="{'is-invalid': f.submitted && bankAccount.invalid}">
+                      <div *ngIf="bankAccount.invalid && (bankAccount.dirty || bankAccount.touched)" class="msg-invalid">
+                        <div *ngIf="bankAccount.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="depositor" class="col-sm-4 col-form-label"><strong>Depositor Name</strong></label>
+                    <div class="col-sm-8">
+                      <input class="form-control" name="depositor" id="depositor" [(ngModel)]="model.depositor"
+                             required #depositor="ngModel" maxlength="255"
+                             [ngClass]="{'is-invalid': f.submitted && depositor.invalid}">
+                      <div *ngIf="depositor.invalid && (depositor.dirty || depositor.touched)" class="msg-invalid">
+                        <div *ngIf="depositor.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="swiftCode" class="col-sm-4 col-form-label"><strong>Swift Code</strong></label>
+                    <div class="col-sm-8">
+                      <input class="form-control" id="swiftCode" name="swiftCode" [(ngModel)]="model.swiftCode"
+                             required #swiftCode="ngModel" maxlength="255"
+                             [ngClass]="{'is-invalid': f.submitted && swiftCode.invalid}">
+                      <div *ngIf="swiftCode.invalid && (swiftCode.dirty || swiftCode.touched)" class="msg-invalid">
+                        <div *ngIf="swiftCode.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="paPal" class="col-sm-4 col-form-label"><strong>PayPal Address</strong></label>
+                    <div class="col-sm-8">
+                      <input class="form-control" id="paPal" name="paPal" [(ngModel)]="model.payPal"
+                             required #paPal="ngModel" maxlength="255"
+                             [ngClass]="{'is-invalid': f.submitted && paPal.invalid}">
+                      <div *ngIf="paPal.invalid && (paPal.dirty || paPal.touched)" class="msg-invalid">
+                        <div *ngIf="paPal.errors.maxlength">Too long.</div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <div class="form-group row">
-              <label for="bankName" class="col-sm-4 col-form-label"><strong>Bank Name</strong></label>
-              <div class="col-sm-8">
-                <input class="form-control" name="bankName" id="bankName" [(ngModel)]="model.bankName"
-                       required #bankName="ngModel" maxlength="255"
-                       [ngClass]="{'is-invalid': f.submitted && bankName.invalid}">
-                <div *ngIf="bankName.invalid && (bankName.dirty || bankName.touched)" class="msg-invalid">
-                  <div *ngIf="bankName.errors.maxlength">Too long.</div>
-                </div>
+              <div class="row">
+                <table class="table table-sm table-bordered table-striped invoice-table">
+                  <thead class="bg-primary">
+                  <tr>
+                    <th>Order Date</th>
+                    <th>PO Number</th>
+                    <th>Project Name</th>
+                    <th>Quantity</th>
+                    <th>Unit Price</th>
+                    <th>Total Amount</th>
+                    <th>PM name</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let po of model.purchaseOrders">
+                    <td>{{po.ho | date}}</td>
+                    <td>{{po.poNo}}</td>
+                    <td *ngIf="po.project">{{po.project.name}}</td>
+                    <td>{{po.totalRep}}</td>
+                    <td>{{po.unitPrice}}</td>
+                    <td>{{po.total}}</td>
+                    <td *ngIf="po.project && po.project.pmVtc">{{po.project.pmVtc.name}}</td>
+                  </tr>
+                  <tr class="bg-success invoice-summary">
+                    <td colspan="7" class="text-right">
+                      <span>Total</span>
+                      <span>{{model.total}}</span>
+                      <span>{{model.currency}}</span>
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
               </div>
-            </div>
-            <div class="form-group row">
-              <label for="accountNumber" class="col-sm-4 col-form-label"><strong>Account Number</strong></label>
-              <div class="col-sm-8">
-                <input class="form-control" name="accountNumber" id="accountNumber" [(ngModel)]="model.account"
-                       required #bankAccount="ngModel" maxlength="255"
-                       [ngClass]="{'is-invalid': f.submitted && bankAccount.invalid}">
-                <div *ngIf="bankAccount.invalid && (bankAccount.dirty || bankAccount.touched)" class="msg-invalid">
-                  <div *ngIf="bankAccount.errors.maxlength">Too long.</div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="depositor" class="col-sm-4 col-form-label"><strong>Depositor Name</strong></label>
-              <div class="col-sm-8">
-                <input class="form-control" name="depositor" id="depositor" [(ngModel)]="model.depositor"
-                       required #depositor="ngModel" maxlength="255"
-                       [ngClass]="{'is-invalid': f.submitted && depositor.invalid}">
-                <div *ngIf="depositor.invalid && (depositor.dirty || depositor.touched)" class="msg-invalid">
-                  <div *ngIf="depositor.errors.maxlength">Too long.</div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="swiftCode" class="col-sm-4 col-form-label"><strong>Swift Code</strong></label>
-              <div class="col-sm-8">
-                <input class="form-control" id="swiftCode" name="swiftCode" [(ngModel)]="model.swiftCode"
-                       required #swiftCode="ngModel" maxlength="255"
-                       [ngClass]="{'is-invalid': f.submitted && swiftCode.invalid}">
-                <div *ngIf="swiftCode.invalid && (swiftCode.dirty || swiftCode.touched)" class="msg-invalid">
-                  <div *ngIf="swiftCode.errors.maxlength">Too long.</div>
-                </div>
-              </div>
-            </div>
-            <div class="form-group row">
-              <label for="paPal" class="col-sm-4 col-form-label"><strong>PayPal Address</strong></label>
-              <div class="col-sm-8">
-                <input class="form-control" id="paPal" name="paPal" [(ngModel)]="model.payPal"
-                       required #paPal="ngModel" maxlength="255"
-                       [ngClass]="{'is-invalid': f.submitted && paPal.invalid}">
-                <div *ngIf="paPal.invalid && (paPal.dirty || paPal.touched)" class="msg-invalid">
-                  <div *ngIf="paPal.errors.maxlength">Too long.</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <table class="table table-sm table-bordered table-striped invoice-table">
-            <thead class="bg-primary">
-            <tr>
-              <th>Order Date</th>
-              <th>PO Number</th>
-              <th>Project Name</th>
-              <th>Quantity</th>
-              <th>Unit Price</th>
-              <th>Total Amount</th>
-              <th>PM name</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr *ngFor="let po of model.purchaseOrders">
-              <td>{{po.ho | date}}</td>
-              <td>{{po.poNo}}</td>
-              <td *ngIf="po.project">{{po.project.name}}</td>
-              <td>{{po.totalRep}}</td>
-              <td>{{po.unitPrice}}</td>
-              <td>{{po.total}}</td>
-              <td *ngIf="po.project && po.project.pmVtc">{{po.project.pmVtc.name}}</td>
-            </tr>
-            <tr class="bg-success invoice-summary">
-              <td colspan="7" class="text-right">
-                <span>Total</span>
-                <span>{{model.total}}</span>
-                <span>{{model.currency}}</span>
-              </td>
-            </tr>
-            </tbody>
-          </table>
-        </div>
 
-        <div class="text-center">
-          <button class="btn btn-primary ml-1 mr-1" [disabled]="f.invalid"><i class="fa fa-circle"></i> Submit</button>
-          <button type="button" class="btn btn-secondary ml-1 mr-1" *ngIf="model.id"
-                  (click)="download()"><i class="fa fa-download"></i> Download
-          </button>
+              <div class="text-center">
+                <button class="btn btn-primary ml-1 mr-1" [disabled]="f.invalid"><i class="fa fa-circle"></i> Submit</button>
+                <button type="button" class="btn btn-secondary ml-1 mr-1" *ngIf="model.id"
+                        (click)="download()"><i class="fa fa-download"></i> Download
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
     </fieldset>
   </form>
 </div>
