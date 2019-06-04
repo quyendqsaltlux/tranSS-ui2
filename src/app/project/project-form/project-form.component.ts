@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, OnInit, ViewChild} from '@angular/core';
 import {ProjectService} from '../../service/project.service';
 import {ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {NgForm} from '@angular/forms';
 import {focusDuplicatedFields} from '../../util/dom-util';
 import {EmployeeSearchComponent} from '../../share/employee-search/employee-search.component';
@@ -103,7 +103,7 @@ export class ProjectFormComponent implements OnInit {
     const initialState = {
       title: _title
     };
-    this.bsModalRef = this.modalService.show(EmployeeSearchComponent);
+    this.bsModalRef = this.modalService.show(EmployeeSearchComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.closeBtnName = 'Cancel';
   }
 

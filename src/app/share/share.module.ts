@@ -7,7 +7,6 @@ import {FormsModule} from '@angular/forms';
 import {AlertModule, BsDatepickerModule, BsDropdownModule, CollapseModule, ModalModule, PaginationModule, PopoverModule, ProgressbarModule, TabsModule, TypeaheadModule} from 'ngx-bootstrap';
 import {MyDatatableComponent} from './my-datatable/my-datatable.component';
 import {EmployeeSearchComponent} from './employee-search/employee-search.component';
-import {CandidateSearchComponent} from './candidate-search/candidate-search.component';
 import {AssignmentStatusPipe} from '../pipe/assignmentStatus.pipe';
 import {AutofocusDirective} from '../directive/autofocus.directive';
 import {ProgressPipe} from '../pipe/progress.pipe';
@@ -37,7 +36,6 @@ import {RegexPatternPie} from './pipe/regex-pattern.pie';
     AssignmentStatusPipe,
     MyDatatableComponent,
     EmployeeSearchComponent,
-    CandidateSearchComponent,
     AutofocusDirective,
     ProjectProgressPipe,
     MigrateTypePipe,
