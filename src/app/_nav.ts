@@ -42,27 +42,35 @@ export const navItems: NavData[] = [
   //     text: 'NEW'
   //   }
   // },
-  // {
-  //   title: true,
-  //   name: 'Admin'
-  // },
+  {
+    title: true,
+    name: 'Admin'
+  },
   {
     name: 'Import data',
     url: '/migrate',
     icon: 'fa fa-download'
   },
   {
+    title: true,
+    name: 'Resource Management'
+  },
+  {
     name: 'Resources',
-    url: '/resources',
+    url: '/resources/search',
     icon: 'fa fa-address-book'
   },
   {
-    name: 'Test waiting',
+    name: 'Unevaluated',
     url: '/resources/test-waiting/list',
     icon: 'fa fa-address-book'
   },
   {
-    name: 'Production list',
+    title: true,
+    name: 'Production'
+  },
+  {
+    name: 'Productions',
     url: '/projects',
     icon: 'fa fa-tasks'
   },
