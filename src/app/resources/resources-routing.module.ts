@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {CandidateListComponent} from './candidate-list/candidate-list.component';
 import {CandidateFormComponent} from './candidate-form/candidate-form.component';
 import {AbilitiesComponent} from './abilities/abilities.component';
 import {ProjectHistoryComponent} from './project-history/project-history.component';
@@ -18,7 +17,6 @@ const routes: Routes = [
     },
     children: [
       {path: '', redirectTo: 'search', pathMatch: 'full'},
-      {path: 'list', component: CandidateListComponent, data: {title: 'List'}},
       {path: 'search', component: ResourceSearchComponent, data: {title: 'List'}},
       {path: 'new', component: CandidateFormComponent, data: {title: 'New'}},
       {path: 'edit/:id', component: CandidateFormComponent, data: {title: 'Edit'}},

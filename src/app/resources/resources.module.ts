@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {CandidateFormComponent} from './candidate-form/candidate-form.component';
-import {CandidateListComponent} from './candidate-list/candidate-list.component';
 import {ResourcesRoutingModule} from './resources-routing.module';
 import {AbilityComponent} from './ability/ability.component';
 import {CandidateTypePipe} from '../pipe/candidate-type.pipe';
@@ -13,12 +12,11 @@ import {PaymentComponent} from './payment/payment.component';
 import {GeneralCommentComponent} from '../evaluation/general-comment/general-comment.component';
 import {OtherNoteComponent} from '../evaluation/other-note/other-note.component';
 import {EvaluationModule} from '../evaluation/evaluation.module';
-import { ResourceSearchComponent } from './resource-search/resource-search.component';
+import {ResourceSearchComponent} from './resource-search/resource-search.component';
 
 @NgModule({
   declarations: [
     CandidateFormComponent,
-    CandidateListComponent,
     AbilityComponent,
     CandidateTypePipe,
     AttachmentComponent,

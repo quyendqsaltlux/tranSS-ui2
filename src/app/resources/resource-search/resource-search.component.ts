@@ -149,15 +149,15 @@ export class ResourceSearchComponent implements OnInit {
   }
 
   gotoEditForm(index) {
-    this.route.navigate(['/resources/edit/' + this.modelList[index].id]);
+    this.route.navigate(['/resources/edit/' + this.modelList[index].candidate.id]);
   }
 
   onViewHistory(index) {
-    this.route.navigate(['/resources/' + this.modelList[index].id + '/project-history']);
+    this.route.navigate(['/resources/' + this.modelList[index].candidate.id + '/project-history']);
   }
 
   onViewRates(index) {
-    this.route.navigate(['/resources/' + this.modelList[index].id + '/abilities']);
+    this.route.navigate(['/resources/' + this.modelList[index].candidate.id + '/abilities']);
   }
 
   getModelList() {

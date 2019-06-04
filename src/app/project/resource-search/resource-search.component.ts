@@ -61,6 +61,7 @@ export class ResourceSearchComponent implements OnInit {
   onSelect(event: TypeaheadMatch): void {
     this.selectedOption = event.item;
     this.model.candidateCode = this.selectedOption.code;
+    this.model.candidateId = this.selectedOption.id;
   }
 
   onChangeAbility(ability) {

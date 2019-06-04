@@ -31,7 +31,6 @@ export class ProjectAssignmentComponent implements OnInit {
   bsModalRef: BsModalRef;
   subscriptions: Subscription[] = [];
   model: ProjectAssignmentReq = {} as ProjectAssignmentReq;
-  isShowReviewForm = false;
   star = 5;
   private repSubjects: Subject<string>[] = [];
   repSubjectFields = [];
@@ -93,19 +92,6 @@ export class ProjectAssignmentComponent implements OnInit {
     });
   }
 
-  onChangeConfirmStatus(status) {
-    if (status === this.assignment.status) {
-      return;
-    }
-    this.projectAssignmentService.changeStatus(this.assignment.id, status).subscribe((resp) => {
-        this.toastr.success('Assigned successfully!');
-        this.assignment = {...resp.body};
-      },
-      ((err) => {
-        this.toastr.error(err.error.message, 'Fail to Assign!', {timeOut: 10000} as Partial<IndividualConfig>);
-      }));
-  }
-
   onChangeProgress(progress) {
     if (progress === this.assignment.progress) {
       return;
@@ -118,10 +104,6 @@ export class ProjectAssignmentComponent implements OnInit {
       ((err) => {
         this.toastr.error(err.error.message, 'Fail to Change progress!', {timeOut: 10000} as Partial<IndividualConfig>);
       }));
-  }
-
-  onToggleReviewForm(e) {
-    this.isShowReviewForm = !this.isShowReviewForm;
   }
 
   onDeleteResource() {
