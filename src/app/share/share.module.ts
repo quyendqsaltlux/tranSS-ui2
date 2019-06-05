@@ -27,7 +27,8 @@ import {AuditPoActionsCellComponent} from './ag-grid/audit-po-actions-cell/audit
 import {InvoiceActionsCellComponent} from './ag-grid/invoice-actions-cell/invoice-actions-cell.component';
 import {TestWaitingEvaluatePipe} from '../pipe/test-waiting-evaluate.pipe';
 import {ResourceActionsCellComponent} from './ag-grid/resource-actions-cell/resource-actions-cell.component';
-import {InternalCheckCellComponent} from "./ag-grid/internal-check-cell/internal-check-cell.component";
+import {InternalCheckCellComponent} from './ag-grid/internal-check-cell/internal-check-cell.component';
+import {RegexPatternPie} from '../pipe/regex-pattern.pie';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import {InternalCheckCellComponent} from "./ag-grid/internal-check-cell/internal
     AuditPoActionsCellComponent,
     InvoiceActionsCellComponent,
     TestWaitingEvaluatePipe,
-    InternalCheckCellComponent
+    InternalCheckCellComponent,
+    RegexPatternPie
 
   ],
   imports: [
@@ -122,7 +124,8 @@ import {InternalCheckCellComponent} from "./ag-grid/internal-check-cell/internal
     AuditPoActionsCellComponent,
     InvoiceActionsCellComponent,
     TestWaitingEvaluatePipe,
-    InternalCheckCellComponent
+    InternalCheckCellComponent,
+    RegexPatternPie
   ],
   entryComponents: [
     EmployeeSearchComponent
