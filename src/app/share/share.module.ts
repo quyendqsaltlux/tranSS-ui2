@@ -16,7 +16,6 @@ import {MigrateTypePipe} from '../pipe/migrate-type.pipe';
 import {AgGridModule} from 'ag-grid-angular';
 import {ActionsColRendererComponent} from './ag-grid/actions-col-renderer.component';
 import {UnitPipe} from '../pipe/unit.pipe';
-import {CandidateActionsColRendererComponent} from './ag-grid/candidate-actions-col-renderer.component';
 import {AbilityCellComponent} from './ag-grid/ability-cell/ability-cell.component';
 import {AbilityFilterComponent} from './ag-grid/ability-filter/ability-filter.component';
 import {DateCellComponent} from './ag-grid/date-cell/date-cell.component';
@@ -27,6 +26,7 @@ import {OptionsCellComponent} from './ag-grid/options-cell/options-cell.componen
 import {AuditPoActionsCellComponent} from './ag-grid/audit-po-actions-cell/audit-po-actions-cell.component';
 import {InvoiceActionsCellComponent} from './ag-grid/invoice-actions-cell/invoice-actions-cell.component';
 import {TestWaitingEvaluatePipe} from '../pipe/test-waiting-evaluate.pipe';
+import {ResourceActionsCellComponent} from './ag-grid/resource-actions-cell/resource-actions-cell.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +40,7 @@ import {TestWaitingEvaluatePipe} from '../pipe/test-waiting-evaluate.pipe';
     ProjectProgressPipe,
     MigrateTypePipe,
     ActionsColRendererComponent,
-    CandidateActionsColRendererComponent,
+    ResourceActionsCellComponent,
     UnitPipe,
     AbilityCellComponent,
     AbilityFilterComponent,
@@ -71,7 +71,7 @@ import {TestWaitingEvaluatePipe} from '../pipe/test-waiting-evaluate.pipe';
     BarRatingModule,
     AgGridModule.withComponents([
       ActionsColRendererComponent,
-      CandidateActionsColRendererComponent,
+      ResourceActionsCellComponent,
       AbilityCellComponent,
       AbilityFilterComponent,
       DateCellComponent,
@@ -108,7 +108,7 @@ import {TestWaitingEvaluatePipe} from '../pipe/test-waiting-evaluate.pipe';
     MigrateTypePipe,
     AgGridModule,
     ActionsColRendererComponent,
-    CandidateActionsColRendererComponent,
+    ResourceActionsCellComponent,
     AbilityCellComponent,
     AbilityFilterComponent,
     DateCellComponent,

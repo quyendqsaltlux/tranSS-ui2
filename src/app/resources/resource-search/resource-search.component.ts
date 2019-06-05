@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {separateFiltersFromGrid} from '../../util/http-util';
-import {CandidateActionsColRendererComponent} from '../../share/ag-grid/candidate-actions-col-renderer.component';
+import {ResourceActionsCellComponent} from '../../share/ag-grid/resource-actions-cell/resource-actions-cell.component';
 import {Router} from '@angular/router';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
 import {CandidateAbilityService} from '../../service/candidate-ability.service';
@@ -135,7 +135,7 @@ export class ResourceSearchComponent implements OnInit {
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
-      actionRender: CandidateActionsColRendererComponent,
+      actionRender: ResourceActionsCellComponent,
       dateRender: DateCellComponent,
     };
   }

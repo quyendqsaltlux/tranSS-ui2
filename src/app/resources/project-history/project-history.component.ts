@@ -4,8 +4,8 @@ import {FILTER_TYPE_ROOT} from '../../share/my-datatable/my-datatable.component'
 import {separateFiltersFromGrid} from '../../util/http-util';
 import * as _ from 'lodash';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
-import {CandidateActionsColRendererComponent} from '../../share/ag-grid/candidate-actions-col-renderer.component';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
+import {ResourceActionsCellComponent} from '../../share/ag-grid/resource-actions-cell/resource-actions-cell.component';
 
 @Component({
   selector: 'app-project-history',
@@ -112,7 +112,7 @@ export class ProjectHistoryComponent implements OnInit {
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
-      actionRender: CandidateActionsColRendererComponent,
+      actionRender: ResourceActionsCellComponent,
       dateRender: DateCellComponent,
     };
   }

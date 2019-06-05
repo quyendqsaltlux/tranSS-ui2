@@ -3,10 +3,10 @@ import {ICellRendererAngularComp} from 'ag-grid-angular';
 
 @Component({
   selector: 'app-child-cell',
-  templateUrl: './candidate-actions-col-renderer.component.html',
+  templateUrl: './resource-actions-cell.component.html',
   styles: []
 })
-export class CandidateActionsColRendererComponent implements ICellRendererAngularComp {
+export class ResourceActionsCellComponent implements ICellRendererAngularComp {
   public params: any;
 
   agInit(params: any): void {
