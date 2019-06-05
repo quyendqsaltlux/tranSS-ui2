@@ -33,7 +33,16 @@ export class ChangePasswordComponent implements OnInit {
         this.toastr.success('Save successfully!');
       },
       (err) => {
+        console.log(err);
+        if (err.error) {
+          this.toastr.error(err.error.message, 'Fail to change password', {timeOut: 10000} as Partial<GlobalConfig>);
+          return;
+        }
         this.toastr.error('Fail to save!', '', {timeOut: 10000} as Partial<GlobalConfig>);
       });
+  }
+
+  isNewPassSame() {
+    return this.passwordNewConfirm === this.model.passwordNew;
   }
 }
