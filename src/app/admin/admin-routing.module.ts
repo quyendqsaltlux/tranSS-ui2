@@ -14,7 +14,7 @@ const routes: Routes = [
     },
     children: [
       {path: '', redirectTo: 'migrate', pathMatch: 'full'},
-      {path: 'migrate', component: MigrateDataComponent, data: {title: 'Migrate data'}},
+      {path: 'migrate', component: MigrateDataComponent, data: {title: 'Import data'}},
     ]
   }
 ];

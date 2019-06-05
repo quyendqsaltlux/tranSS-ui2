@@ -56,7 +56,7 @@ export const navItems: NavData[] = [
     name: 'Resource Management'
   },
   {
-    name: 'Resources',
+    name: 'RDB',
     url: '/resources/search',
     icon: 'fa fa-address-book'
   },

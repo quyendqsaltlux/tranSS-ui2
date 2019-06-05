@@ -14,7 +14,7 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      title: 'Candidate Management',
+      title: 'Resource Management',
       roles: ['ROLE_ADMIN', 'ROLE_PM', 'ROLE_RM']
     },
     children: [

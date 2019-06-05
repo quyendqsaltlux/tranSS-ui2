@@ -23,7 +23,7 @@ export class MigrateTypePipe implements PipeTransform {
       case 'ASSIGNMENTS':
         return '<i class="fa fa-user text-primary"></i> Assignment';
       case 'TEST_WAITING':
-        return '<i class="fa fa-user text-primary"></i> Unevaluated resource';
+        return '<i class="fa fa-minus-square-o text-primary"></i> Unevaluated resource';
     }
   }
 
