@@ -3,7 +3,7 @@ import {GlobalConfig, ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
 import {UsersService} from '../../service/users.service';
 import {Password} from '../../model/Password';
-import {PrincipleService} from "../../service/principle.service";
+import {PrincipleService} from '../../service/principle.service';
 
 @Component({
   selector: 'app-change-password',
@@ -14,6 +14,7 @@ export class ChangePasswordComponent implements OnInit {
   id = null;
   model: Password = {} as Password;
   currentUser;
+  passwordNewConfirm;
 
   constructor(private userService: UsersService,
               private toastr: ToastrService,
