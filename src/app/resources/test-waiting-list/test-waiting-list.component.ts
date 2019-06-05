@@ -26,7 +26,7 @@ export class TestWaitingListComponent implements OnInit {
     {headerName: 'TestInvitation', field: 'testInvitation'},
     {headerName: 'HB Receipt', field: 'hbReceipt', width: 160, type: 'dateColumn'},
     {headerName: 'HB Files', field: 'hbFiles'},
-    {headerName: 'Internal Check', field: 'internalCheck'},
+    {headerName: 'Internal Check', field: 'internalCheck', cellClass: ['lowercase']},
     {headerName: 'Test Evaluation', field: 'testEvaluation', cellClass: ['lowercase']},
     {headerName: 'Comments', field: 'comments'},
     {headerName: 'Other Note', field: 'otherNote'},

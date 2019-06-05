@@ -2,7 +2,7 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {GlobalConfig, ToastrService} from 'ngx-toastr';
 import {ActivatedRoute, Router} from '@angular/router';
-import {BsModalRef, BsModalService} from 'ngx-bootstrap';
+import {BsModalRef} from 'ngx-bootstrap';
 import {TestWaitingService} from '../../service/test-waiting.service';
 import {TestWaiting} from '../../model/TestWaiting';
 
