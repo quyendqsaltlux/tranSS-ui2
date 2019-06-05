@@ -18,9 +18,9 @@ export class MigrateTypePipe implements PipeTransform {
       case 'KOREA_PAYMENT':
         return '<i class="fa fa-dollar text-primary"></i> Korea payments';
       case 'OVERSEA_PAYMENT':
-        return '<i class="fa fa-dollar text-primary"></i> Korea payments';
+        return '<i class="fa fa-dollar text-primary"></i> Oversea payments';
       case 'ASSIGNMENTS':
-        return '<i class="fa fa-user text-primary"></i> Korea payments';
+        return '<i class="fa fa-user text-primary"></i> Assignment';
     }
   }
 

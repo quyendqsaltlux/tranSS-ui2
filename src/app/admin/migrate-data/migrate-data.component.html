@@ -8,6 +8,7 @@
       <button class="btn btn-primary" (click)="migrateKoreaPayment()" [disabled]="isDone('KOREA_PAYMENT')"><i class="fa fa-dollar"></i> Import Korea payments</button>
       <button class="btn btn-primary" (click)="migrateOverseaPayment()" [disabled]="isDone('OVERSEA_PAYMENT')"><i class="fa fa-dollar"></i> Import Oversea payments</button>
       <button class="btn btn-primary" (click)="migrateAssignmentFromFile()" [disabled]="isDone('ASSIGNMENTS')"><i class="fa fa-user"></i> Import Assignments</button>
+      <button class="btn btn-primary" (click)="migrateTestWaitingFromFile()"><i class="fa fa-minus-square-o"></i> Import Unevaluated resource</button>
     </div>
   </div>
 
