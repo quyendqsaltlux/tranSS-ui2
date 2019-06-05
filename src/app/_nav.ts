@@ -61,7 +61,7 @@ export const navItems: NavData[] = [
     icon: 'fa fa-address-book'
   },
   {
-    name: 'Unevaluated',
+    name: 'Tracking test',
     url: '/resources/test-waiting/list',
     icon: 'fa fa-minus-square-o'
   },
