@@ -5,6 +5,7 @@ import {separateFiltersFromGrid} from '../../util/http-util';
 import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-renderer.component';
 import {Router} from '@angular/router';
 import {TestWaitingService} from '../../service/test-waiting.service';
+import {InternalCheckCellComponent} from '../../share/ag-grid/internal-check-cell/internal-check-cell.component';
 
 @Component({
   selector: 'app-test-waiting-list',
@@ -20,16 +21,16 @@ export class TestWaitingListComponent implements OnInit {
     {headerName: 'Source', field: 'source'},
     {headerName: 'Target', field: 'target'},
     {headerName: 'Name', field: 'name'},
-    {headerName: 'Contact', field: 'contact'},
-    {headerName: 'TestContents', field: 'testContents'},
+    {headerName: 'Contact', field: 'contact', width: 200},
+    {headerName: 'TestContents', field: 'testContents', width: 200},
     {headerName: 'Tool', field: 'tool'},
     {headerName: 'TestInvitation', field: 'testInvitation'},
     {headerName: 'HB Receipt', field: 'hbReceipt', width: 160, type: 'dateColumn'},
     {headerName: 'HB Files', field: 'hbFiles'},
-    {headerName: 'Internal Check', field: 'internalCheck', cellClass: ['lowercase']},
+    {headerName: 'Internal Check', field: 'internalCheck', cellClass: ['lowercase'], cellRenderer: 'internalCheckRender', cellRendererParams: {renderField: 'internalCheck'}},
     {headerName: 'Test Evaluation', field: 'testEvaluation', cellClass: ['lowercase']},
     {headerName: 'Comments', field: 'comments'},
-    {headerName: 'Other Note', field: 'otherNote'},
+    {headerName: 'Other Note', field: 'otherNote', width: 300},
   ];
   /*AG_GRID*/
   gridApi;
@@ -115,7 +116,8 @@ export class TestWaitingListComponent implements OnInit {
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
-      actionRender: ActionsColRendererComponent
+      actionRender: ActionsColRendererComponent,
+      internalCheckRender: InternalCheckCellComponent
     };
   }
 

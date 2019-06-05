@@ -27,6 +27,7 @@ import {AuditPoActionsCellComponent} from './ag-grid/audit-po-actions-cell/audit
 import {InvoiceActionsCellComponent} from './ag-grid/invoice-actions-cell/invoice-actions-cell.component';
 import {TestWaitingEvaluatePipe} from '../pipe/test-waiting-evaluate.pipe';
 import {ResourceActionsCellComponent} from './ag-grid/resource-actions-cell/resource-actions-cell.component';
+import {InternalCheckCellComponent} from "./ag-grid/internal-check-cell/internal-check-cell.component";
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import {ResourceActionsCellComponent} from './ag-grid/resource-actions-cell/reso
     OptionsCellComponent,
     AuditPoActionsCellComponent,
     InvoiceActionsCellComponent,
-    TestWaitingEvaluatePipe
+    TestWaitingEvaluatePipe,
+    InternalCheckCellComponent
 
   ],
   imports: [
@@ -80,7 +82,8 @@ import {ResourceActionsCellComponent} from './ag-grid/resource-actions-cell/reso
       PercentCellComponent,
       OptionsCellComponent,
       AuditPoActionsCellComponent,
-      InvoiceActionsCellComponent
+      InvoiceActionsCellComponent,
+      InternalCheckCellComponent
     ])
   ],
   exports: [
@@ -118,7 +121,8 @@ import {ResourceActionsCellComponent} from './ag-grid/resource-actions-cell/reso
     OptionsCellComponent,
     AuditPoActionsCellComponent,
     InvoiceActionsCellComponent,
-    TestWaitingEvaluatePipe
+    TestWaitingEvaluatePipe,
+    InternalCheckCellComponent
   ],
   entryComponents: [
     EmployeeSearchComponent
