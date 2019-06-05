@@ -38,5 +38,8 @@ export class UsersService {
   updateProfile(profile: any): Observable<HttpResponse<any>> {
     return this.http.post<HttpResponse<any>>(API_PATH + '/updateProfile/', profile, {observe: 'response'});
   }
+  updatePassword(password: any): Observable<HttpResponse<any>> {
+    return this.http.post<HttpResponse<any>>(API_PATH + '/updatePassword/', password, {observe: 'response'});
+  }
 
 }

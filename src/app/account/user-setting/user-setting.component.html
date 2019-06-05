@@ -1,41 +1,45 @@
 <div class="animated fadeIn">
   <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
-    <div class="card">
-      <div class="card-header sm">
-        <strong>Setting</strong>
-        <div class="pull-right">
-          <button type="submit" class="btn btn-primary btn-sm mr-1 ml-1" [disabled]="f.invalid">Save</button>
-          <a class="btn btn-secondary btn-sm mr-1 ml-1" routerLink="/projects/list">Cancel</a>
-        </div>
-      </div>
-
-      <div class="card-body">
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="row>">
-              <!--DEPARTMENT-->
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <label for="username">User name</label>
-                  <input type="text" class="form-control" id="username" [(ngModel)]="model.username" name="username" disabled>
-                </div>
+    <div class="card card-body">
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="card">
+            <div class="card-header sm">
+              <strong>Setting</strong>
+              <div class="pull-right">
+                <button type="submit" class="btn btn-primary btn-sm mr-1 ml-1" [disabled]="f.invalid">Save</button>
               </div>
-              <!--PASSWORD-->
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <label for="email">Email</label>
-                  <input type="text" class="form-control" id="email" [(ngModel)]="model.email" name="email">
+            </div>
+            <div class="card-body">
+              <div class="row>">
+                <!--User name-->
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="username">User name</label>
+                    <input type="text" class="form-control" id="username" [(ngModel)]="model.username" name="username" disabled>
+                  </div>
                 </div>
-              </div>
-              <!--PASSWORD-->
-              <div class="col-sm-12">
-                <div class="form-group">
-                  <label for="tel">Tel</label>
-                  <input type="text" class="form-control" id="tel" [(ngModel)]="model.tel" name="tel">
+                <!--Email-->
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" [(ngModel)]="model.email" name="email">
+                  </div>
+                </div>
+                <!--Tel-->
+                <div class="col-sm-12">
+                  <div class="form-group">
+                    <label for="tel">Tel</label>
+                    <input type="text" class="form-control" id="tel" [(ngModel)]="model.tel" name="tel">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+
+        <div class="col-sm-4">
+          <app-change-password></app-change-password>
         </div>
       </div>
     </div>
