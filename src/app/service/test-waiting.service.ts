@@ -33,6 +33,6 @@ export class TestWaitingService {
   }
 
   findById(id: any): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(API_PATH + 'findById/' + id, {observe: 'response'});
+    return this.http.get<HttpResponse<any>>(API_PATH + '/findById/' + id, {observe: 'response'});
   }
 }

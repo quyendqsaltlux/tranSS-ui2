@@ -31,7 +31,6 @@ export class TestWaitingFormComponent implements OnInit {
         this.model = resp.body;
       });
     } else {
-      console.log(this.model.testEvaluation);
       this.model.testEvaluation = 'UNEVALUATED';
     }
   }
