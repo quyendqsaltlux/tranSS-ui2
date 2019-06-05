@@ -6,6 +6,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class MigrateTypePipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
+    console.log(value);
     switch (value) {
       case 'USERS':
         return '<i class="fa fa-users text-primary"></i> Users';

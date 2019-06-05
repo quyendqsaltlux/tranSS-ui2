@@ -17,19 +17,19 @@ export class TestWaitingListComponent implements OnInit {
   columnDefs = [
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
     {headerName: 'Code', field: 'code'},
-    {headerName: 'source', field: 'source'},
-    {headerName: 'target', field: 'target'},
-    {headerName: 'name', field: 'name'},
-    {headerName: 'contact', field: 'contact'},
-    {headerName: 'testContents', field: 'testContents'},
-    {headerName: 'tool', field: 'tool'},
-    {headerName: 'testInvitation', field: 'testInvitation'},
-    {headerName: 'hbReceipt', field: 'hbReceipt', width: 160, type: 'dateColumn'},
-    {headerName: 'hbFiles', field: 'hbFiles'},
-    {headerName: 'internalCheck', field: 'internalCheck'},
-    {headerName: 'testEvaluation', field: 'testEvaluation'},
-    {headerName: 'comments', field: 'comments'},
-    {headerName: 'otherNote', field: 'otherNote'},
+    {headerName: 'Source', field: 'source'},
+    {headerName: 'Target', field: 'target'},
+    {headerName: 'Name', field: 'name'},
+    {headerName: 'Contact', field: 'contact'},
+    {headerName: 'TestContents', field: 'testContents'},
+    {headerName: 'Tool', field: 'tool'},
+    {headerName: 'TestInvitation', field: 'testInvitation'},
+    {headerName: 'HB Receipt', field: 'hbReceipt', width: 160, type: 'dateColumn'},
+    {headerName: 'HB Files', field: 'hbFiles'},
+    {headerName: 'Internal Check', field: 'internalCheck'},
+    {headerName: 'Test Evaluation', field: 'testEvaluation', cellClass: ['lowercase']},
+    {headerName: 'Comments', field: 'comments'},
+    {headerName: 'Other Note', field: 'otherNote'},
   ];
   /*AG_GRID*/
   gridApi;
@@ -124,10 +124,8 @@ export class TestWaitingListComponent implements OnInit {
   }
 
   getModelList() {
-
     this.testWaitingService.search(this.page, this.size, this.keyWord,
-      this.sortConfig.field, this.sortConfig.order,
-      this.filter, this.pmFilter)
+      this.sortConfig.field, this.sortConfig.order, this.filter)
       .subscribe((resp => {
         if (!resp || !resp.body) {
           this.modelList = [];

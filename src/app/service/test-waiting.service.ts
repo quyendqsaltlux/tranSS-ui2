@@ -19,13 +19,13 @@ export class TestWaitingService {
     return this.http.post<HttpResponse<any>>(API_PATH, projectAssignment, {observe: 'response'});
   }
 
-  search(candidateTestId, page, size, keyWord, orderBy, sortDirection, filters = []): Observable<HttpResponse<any>> {
+  search(page, size, keyWord, orderBy, sortDirection, filters = []): Observable<HttpResponse<any>> {
     const path = buildPathParams(page, size, keyWord, orderBy, sortDirection);
     const params = {
       rootFilters: filters,
       joinFilters: []
     };
-    return this.http.post<HttpResponse<any>>(API_PATH + '/search/' + candidateTestId + '/' + path, params, {observe: 'response'});
+    return this.http.post<HttpResponse<any>>(API_PATH + '/search/' + path, params, {observe: 'response'});
   }
 
   deleteById(id: any): Observable<any> {

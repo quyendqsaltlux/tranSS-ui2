@@ -26,7 +26,6 @@ import {PercentCellComponent} from './ag-grid/percent-cell/percent-cell.componen
 import {OptionsCellComponent} from './ag-grid/options-cell/options-cell.component';
 import {AuditPoActionsCellComponent} from './ag-grid/audit-po-actions-cell/audit-po-actions-cell.component';
 import {InvoiceActionsCellComponent} from './ag-grid/invoice-actions-cell/invoice-actions-cell.component';
-import {RegexPatternPie} from './pipe/regex-pattern.pie';
 
 @NgModule({
   declarations: [
@@ -51,7 +50,6 @@ import {RegexPatternPie} from './pipe/regex-pattern.pie';
     OptionsCellComponent,
     AuditPoActionsCellComponent,
     InvoiceActionsCellComponent,
-    RegexPatternPie
 
   ],
   imports: [
@@ -118,7 +116,6 @@ import {RegexPatternPie} from './pipe/regex-pattern.pie';
     OptionsCellComponent,
     AuditPoActionsCellComponent,
     InvoiceActionsCellComponent,
-    RegexPatternPie
   ],
   entryComponents: [
     EmployeeSearchComponent
