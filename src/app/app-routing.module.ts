@@ -88,6 +88,10 @@ export const routes: Routes = [
         path: 'invoices',
         loadChildren: './invoice/invoice.module#InvoiceModule'
       },
+      {
+        path: 'account',
+        loadChildren: './account/account.module#AccountModule'
+      },
     ]
   },
   {path: '**', component: P404Component}

@@ -70,7 +70,7 @@ export const navItems: NavData[] = [
     name: 'Production'
   },
   {
-    name: 'Productions',
+    name: 'Production list',
     url: '/projects',
     icon: 'fa fa-list-ol'
   },
@@ -83,5 +83,14 @@ export const navItems: NavData[] = [
     name: 'Invoices',
     url: '/invoices',
     icon: 'fa fa-money'
-  }
+  },
+  {
+    title: true,
+    name: 'Account'
+  },
+  {
+    name: 'Setting',
+    url: '/account/user-setting',
+    icon: 'fa fa-cog'
+  },
 ];
