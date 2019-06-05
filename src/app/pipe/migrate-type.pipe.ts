@@ -21,6 +21,8 @@ export class MigrateTypePipe implements PipeTransform {
         return '<i class="fa fa-dollar text-primary"></i> Oversea payments';
       case 'ASSIGNMENTS':
         return '<i class="fa fa-user text-primary"></i> Assignment';
+      case 'TEST_WAITING':
+        return '<i class="fa fa-user text-primary"></i> Unevaluated resource';
     }
   }
 
