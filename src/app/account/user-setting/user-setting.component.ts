@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {BsModalRef} from 'ngx-bootstrap';
 import {UsersService} from '../../service/users.service';
 import {PrincipleService} from '../../service/principle.service';
+import {MyAccount} from '../../model/MyAccount';
 
 @Component({
   selector: 'app-user-setting',
@@ -16,7 +17,7 @@ export class UserSettingComponent implements OnInit {
   @ViewChild('f') candidateForm: NgForm;
   bsModalRef: BsModalRef;
   id = null;
-  model: Account = {} as Account;
+  model: MyAccount = {} as MyAccount;
   currentUser;
 
   constructor(private userService: UsersService,
