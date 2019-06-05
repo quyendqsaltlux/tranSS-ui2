@@ -11,7 +11,7 @@ import {ServerOffComponent} from './views/error/server-off/server-off.component'
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'resources',
     pathMatch: 'full',
   },
   {

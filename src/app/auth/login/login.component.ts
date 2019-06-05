@@ -3,7 +3,6 @@ import {NgForm} from '@angular/forms';
 import {Router} from '@angular/router';
 import {PrincipleService} from '../../service/principle.service';
 import {AuthService} from '../../service/auth.service';
-import {ToastrService} from 'ngx-toastr';
 import {UserService} from '../../service/user.service';
 
 @Component({
@@ -18,13 +17,12 @@ export class LoginComponent implements OnInit {
   constructor(private  authService: AuthService,
               private principleService: PrincipleService,
               private router: Router,
-              private toastr: ToastrService,
               private userService: UserService) {
   }
 
   ngOnInit() {
     if (this.principleService.hasToken()) {
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['']);
     }
   }
 
@@ -39,8 +37,7 @@ export class LoginComponent implements OnInit {
           if (resp && resp.body) {
             this.principleService.setUserInfo(resp.body);
           }
-          this.toastr.success('Login successfully!');
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['']);
         });
       }
     });
