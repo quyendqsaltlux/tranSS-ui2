@@ -6,8 +6,8 @@ import {ProjectHistoryComponent} from './project-history/project-history.compone
 import {AuthGuard} from '../gaurd/AuthGuard';
 import {RoleGuard} from '../gaurd/RoleGuard';
 import {ResourceSearchComponent} from './resource-search/resource-search.component';
-import {TestWaitingFormComponent} from "./test-waiting-form/test-waiting-form.component";
-import {TestWaitingListComponent} from "./test-waiting-list/test-waiting-list.component";
+import {TestWaitingFormComponent} from './test-waiting-form/test-waiting-form.component';
+import {TestWaitingListComponent} from './test-waiting-list/test-waiting-list.component';
 
 const routes: Routes = [
   {
@@ -24,8 +24,8 @@ const routes: Routes = [
       {path: 'edit/:id', component: CandidateFormComponent, data: {title: 'Edit'}},
       {path: ':candidateId/abilities', component: AbilitiesComponent, data: {title: 'Rates'}},
       {path: ':candidateId/project-history', component: ProjectHistoryComponent, data: {title: 'Project history'}},
-      {path: 'test-waiting/list', component: TestWaitingListComponent, data: {title: 'Test waiting list'}},
-      {path: 'test-waiting/:testWaiting/form', component: TestWaitingFormComponent, data: {title: 'Test waiting form'}},
+      {path: 'test-waiting/list', component: TestWaitingListComponent, data: {title: 'Unevaluated resource list'}},
+      {path: 'test-waiting/edit/:testWaitingId', component: TestWaitingFormComponent, data: {title: 'Unevaluated resource form'}},
     ]
   }
 ];

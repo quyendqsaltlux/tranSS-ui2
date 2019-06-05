@@ -31,4 +31,8 @@ export class TestWaitingService {
   deleteById(id: any): Observable<any> {
     return this.http.delete(API_PATH + '/' + id, {observe: 'response'});
   }
+
+  findById(id: any): Observable<HttpResponse<any>> {
+    return this.http.get<HttpResponse<any>>(API_PATH + 'findById/' + id, {observe: 'response'});
+  }
 }

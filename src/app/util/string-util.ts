@@ -1,3 +1,5 @@
+import {GlobalConfig} from "ngx-toastr";
+
 export function getFileName(value) {
   if (!value) {
     return value;

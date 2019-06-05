@@ -1,3 +1,256 @@
-<p>
-  test-waiting-form works!
-</p>
+<div class="animated fadeIn">
+  <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+    <div class="card">
+      <div class="card-header main-title">
+        <strong>Unevaluated resource form</strong>
+        <div class="pull-right">
+          <button type="submit" class="btn btn-sm btn-primary mr-1 ml-1" [disabled]="f.invalid"><i class="fa fa-dot-circle-o"></i> Save</button>
+          <a class="btn btn-sm btn-secondary mr-1 ml-1" routerLink="/resources/list"><i class="fa fa-remove"></i> Cancel</a>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="card-body">
+          <div class="row">
+            <!--Code-->
+            <div class="col-sm-12 col-md-2">
+              <div class="form-group">
+                <label for="Code">Code<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control form-control" id="Code"
+                       name="Code"
+                       [(ngModel)]="model.code"
+                       required maxlength="255"
+                       #code="ngModel"
+                       [ngClass]="{'is-invalid': f.submitted && code.invalid}">
+                <div *ngIf="code.invalid && (code.dirty || code.touched)" class="msg-invalid">
+                  <div *ngIf="code.errors.required">This field is required.</div>
+                  <div *ngIf="code.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--Source-->
+            <div class="col-sm-12 col-md-2">
+              <div class="form-group">
+                <label for="Source">Source<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control form-control" id="Source"
+                       name="Source"
+                       [(ngModel)]="model.source"
+                       required maxlength="255"
+                       #source="ngModel"
+                       [ngClass]="{'is-invalid': f.submitted && source.invalid}">
+                <div *ngIf="source.invalid && (source.dirty || source.touched)" class="msg-invalid">
+                  <div *ngIf="source.errors.required">This field is required.</div>
+                  <div *ngIf="source.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--Target-->
+            <div class="col-sm-12 col-md-2">
+              <div class="form-group">
+                <label for="Source">Target<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control form-control" id="Target"
+                       name="Target"
+                       [(ngModel)]="model.target"
+                       required maxlength="255"
+                       #target="ngModel"
+                       [ngClass]="{'is-invalid': f.submitted && target.invalid}">
+                <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
+                  <div *ngIf="target.errors.required">This field is required.</div>
+                  <div *ngIf="target.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--Name-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="name">Name<span class="text-danger"> *</span></label>
+                <input type="text" class="form-control form-control" id="name"
+                       name="Name"
+                       [(ngModel)]="model.name"
+                       required maxlength="255"
+                       #name="ngModel"
+                       [ngClass]="{'is-invalid': f.submitted && name.invalid}">
+                <div *ngIf="name.invalid && (name.dirty || name.touched)" class="msg-invalid">
+                  <div *ngIf="name.errors.required">This field is required.</div>
+                  <div *ngIf="name.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--contact-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="contact">Contact</label>
+                <input type="text" class="form-control form-control" id="contact"
+                       name="contact"
+                       [(ngModel)]="model.contact"
+                       maxlength="255"
+                       #contact="ngModel"
+                       [ngClass]="{'is-invalid': f.submitted && contact.invalid}">
+                <div *ngIf="contact.invalid && (contact.dirty || contact.touched)" class="msg-invalid">
+                  <div *ngIf="contact.errors.required">This field is required.</div>
+                  <div *ngIf="contact.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--testContents-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="testContents">Test Contents</label>
+                <input type="text" class="form-control form-control" id="testContents"
+                       name="testContents"
+                       [(ngModel)]="model.testContents"
+                       maxlength="255"
+                       #testContents="ngModel"
+                       [ngClass]="{'is-invalid': f.submitted && testContents.invalid}">
+                <div *ngIf="testContents.invalid && (testContents.dirty || testContents.touched)" class="msg-invalid">
+                  <div *ngIf="testContents.errors.required">This field is required.</div>
+                  <div *ngIf="testContents.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--tool-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="tool">Tool</label>
+                <input type="text" class="form-control form-control" id="tool"
+                       name="tool"
+                       [(ngModel)]="model.tool"
+                       maxlength="255"
+                       #tool="ngModel"
+                       [ngClass]="{'is-invalid': f.submitted && tool.invalid}">
+                <div *ngIf="tool.invalid && (tool.dirty || tool.touched)" class="msg-invalid">
+                  <div *ngIf="tool.errors.required">This field is required.</div>
+                  <div *ngIf="tool.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--testInvitation-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="testInvitation">Test Invitation</label>
+                <input type="date" class="form-control" id="testInvitation"
+                       name="testInvitation" [(ngModel)]="model.testInvitation">
+              </div>
+            </div>
+            <!--testSending-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="testSending">Test Sending</label>
+                <input type="date" class="form-control" id="testSending"
+                       name="testSending" [(ngModel)]="model.testSending">
+              </div>
+            </div>
+            <!--hbReceipt-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="hbReceipt">HB Receipt</label>
+                <input type="date" class="form-control" id="hbReceipt"
+                       name="hbReceipt" [(ngModel)]="model.hbReceipt">
+              </div>
+            </div>
+            <!--hb Files-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="hbFiles">HB Files</label>
+                <input type="text" class="form-control form-control" id="hbFiles"
+                       name="hbFiles"
+                       [(ngModel)]="model.hbFiles"
+                       maxlength="255"
+                       #hbFiles="ngModel"
+                       [ngClass]="{'is-invalid': f.submitted && hbFiles.invalid}">
+                <div *ngIf="hbFiles.invalid && (hbFiles.dirty || hbFiles.touched)" class="msg-invalid">
+                  <div *ngIf="hbFiles.errors.required">This field is required.</div>
+                  <div *ngIf="hbFiles.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--internalCheck-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label>Internal Check</label>
+                <ng-select [(ngModel)]="model.internalCheck" [searchable]="false" [clearable]="false"
+                           #internalCheck="ngModel" name="internalCheck"
+                           [ngClass]="{'is-invalid': f.submitted && internalCheck.invalid}">
+                  <ng-option [value]="'NOT_QUALIFIED'">Not Qualified</ng-option>
+                  <ng-option [value]="'QUALIFIED'">Qualified</ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <!--testEvaluation-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label>TestEvaluation<span class="text-danger"> *</span></label>
+                <ng-select [(ngModel)]="model.testEvaluation" [searchable]="false" [clearable]="false"
+                           #testEvaluation="ngModel" require name="testEvaluation"
+                           [ngClass]="{'is-invalid': f.submitted && testEvaluation.invalid}">
+                  <ng-option [value]="'UNEVALUATED'">Unevaluated</ng-option>
+                  <ng-option [value]="'EVALUATED'">Evaluated</ng-option>
+                  <ng-option [value]="'PASS'">Pass</ng-option>
+                  <ng-option [value]="'FAIL'">Fail</ng-option>
+                </ng-select>
+              </div>
+            </div>
+
+            <!--attachment-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="attachment">Attachment</label>
+                <input type="text" class="form-control form-control" id="attachment"
+                       name="attachment"
+                       [(ngModel)]="model.attachment"
+                       maxlength="255"
+                       #attachment="ngModel"
+                       [ngClass]="{'is-invalid': f.submitted && attachment.invalid}">
+                <div *ngIf="attachment.invalid && (attachment.dirty || attachment.touched)" class="msg-invalid">
+                  <div *ngIf="attachment.errors.required">This field is required.</div>
+                  <div *ngIf="attachment.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--comments-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="comments">Comments</label>
+                <textarea type="text" class="form-control form-control" id="comments"
+                          name="comments"
+                          [(ngModel)]="model.comments"
+                          maxlength="255"
+                          #comments="ngModel"
+                          [ngClass]="{'is-invalid': f.submitted && comments.invalid}"
+                          rows="3"></textarea>
+                <div *ngIf="comments.invalid && (comments.dirty || comments.touched)" class="msg-invalid">
+                  <div *ngIf="comments.errors.required">This field is required.</div>
+                  <div *ngIf="comments.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--otherNote-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="otherNote">Other Note</label>
+                <textarea type="text" class="form-control form-control" id="otherNote"
+                          name="otherNote"
+                          [(ngModel)]="model.otherNote"
+                          maxlength="255"
+                          #otherNote="ngModel"
+                          [ngClass]="{'is-invalid': f.submitted && otherNote.invalid}"
+                          rows="3"></textarea>
+                <div *ngIf="otherNote.invalid && (otherNote.dirty || otherNote.touched)" class="msg-invalid">
+                  <div *ngIf="otherNote.errors.required">This field is required.</div>
+                  <div *ngIf="otherNote.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+<ng-template #template>
+  <div class="modal-body text-center">
+    <h5>Do you want to delete this Unevaluated Resource?</h5>
+    <button type="button" class="btn btn-danger ml-1 mr-1" (click)="confirm()">Yes</button>
+    <button type="button" class="btn btn-primary ml-1 mr-1" (click)="decline()">No</button>
+  </div>
+</ng-template>

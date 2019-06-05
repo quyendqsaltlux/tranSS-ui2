@@ -120,7 +120,7 @@ export class TestWaitingListComponent implements OnInit {
   }
 
   gotoEditForm(index) {
-    this.route.navigate(['/projects/edit/' + this.modelList[index].id]);
+    this.route.navigate(['/resources/test-waiting/edit/' + this.modelList[index].id]);
   }
 
   getModelList() {
