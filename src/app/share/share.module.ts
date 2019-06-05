@@ -26,6 +26,7 @@ import {PercentCellComponent} from './ag-grid/percent-cell/percent-cell.componen
 import {OptionsCellComponent} from './ag-grid/options-cell/options-cell.component';
 import {AuditPoActionsCellComponent} from './ag-grid/audit-po-actions-cell/audit-po-actions-cell.component';
 import {InvoiceActionsCellComponent} from './ag-grid/invoice-actions-cell/invoice-actions-cell.component';
+import {TestWaitingEvaluatePipe} from '../pipe/test-waiting-evaluate.pipe';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import {InvoiceActionsCellComponent} from './ag-grid/invoice-actions-cell/invoic
     OptionsCellComponent,
     AuditPoActionsCellComponent,
     InvoiceActionsCellComponent,
+    TestWaitingEvaluatePipe
 
   ],
   imports: [
@@ -116,6 +118,7 @@ import {InvoiceActionsCellComponent} from './ag-grid/invoice-actions-cell/invoic
     OptionsCellComponent,
     AuditPoActionsCellComponent,
     InvoiceActionsCellComponent,
+    TestWaitingEvaluatePipe
   ],
   entryComponents: [
     EmployeeSearchComponent

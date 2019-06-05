@@ -1,18 +1,16 @@
 import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
-  name: 'migrateType'
+  name: 'test-waiting-internal-check'
 })
 export class TestWaitingEvaluatePipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
     switch (value) {
-      case 'PASS':
+      case 'QUALIFIED':
         return 'Pass';
-      case 'FAIL':
+      case 'NOT_QUALIFIED':
         return 'Fail';
-      case 'UNEVALUATED':
-        return 'Unevaluated';
     }
   }
 

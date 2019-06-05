@@ -13,9 +13,9 @@ export class MigrateTypePipe implements PipeTransform {
       case 'RESOURCES':
         return '<i class="fa fa-address-book text-primary"></i> Resources';
       case 'FINISHED_PROJECTS':
-        return '<i class="fa fa-tasks text-primary"></i> Finished projects';
+        return '<i class="fa fa-list-ol text-primary"></i> Finished projects';
       case 'ONGOING_PROJECTS':
-        return '<i class="fa fa-tasks text-primary"></i> Ongoing projects';
+        return '<i class="fa fa-list-ol text-primary"></i> Ongoing projects';
       case 'KOREA_PAYMENT':
         return '<i class="fa fa-dollar text-primary"></i> Korea payments';
       case 'OVERSEA_PAYMENT':
