@@ -32,7 +32,7 @@ export class ResourceSearchComponent implements OnInit {
     {headerName: 'Rate (word/char)', field: 'rateUnit'},
     {headerName: 'Rate Hour', field: 'rate2', width: 80},
     {headerName: '(hour)', field: 'rate2unit'},
-    {headerName: 'minimumCharge', field: 'minimumCharge', type: 'numericColumn'},
+    {headerName: 'Minimum Charge', field: 'minimumCharge', type: 'numericColumn'},
     {headerName: 'Evaluation', field: 'evaluateAvg'},
     {headerName: 'Currency', field: 'currency', width: 80},
     {headerName: 'CAT Tool', field: 'candidate.catTool'},
