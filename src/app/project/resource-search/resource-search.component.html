@@ -87,7 +87,7 @@
   <div class="d-flex mb-1" *ngIf="model.externalResource || model.useCustomTask">
     <!--TASK-->
     <div class="form-group mw110 flex-grow-1 mb-1">
-      <label for="task">Task<span class="text-danger"> *</span></label>{{!viewControl.ableToChange}}
+      <label for="task">Task<span class="text-danger"> *</span></label>
       <ng-select [(ngModel)]="model.task" [searchable]="false" [clearable]="false" name="task" id="task"
                  #task="ngModel" class="sm"
                  required  [disabled]="!viewControl.ableToChange"

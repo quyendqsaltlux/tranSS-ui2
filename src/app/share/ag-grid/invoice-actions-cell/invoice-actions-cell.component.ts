@@ -27,6 +27,10 @@ export class InvoiceActionsCellComponent implements ICellRendererAngularComp {
     this.params.context.componentParent.onMarkConfirm(this.params.node.rowIndex);
   }
 
+  onMarkUnConfirm() {
+    this.params.context.componentParent.onMarkUnConfirm(this.params.node.rowIndex);
+  }
+
   refresh(): boolean {
     return false;
   }

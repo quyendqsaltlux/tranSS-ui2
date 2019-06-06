@@ -1,3 +1,5 @@
-<button type="button" class="btn ag-grid-action-icon" (click)="onEdit()" title="Edit"><i class="fa fa-edit text-warning"></i></button>
+<button type="button" class="btn ag-grid-action-icon" *ngIf="isConfirmed" (click)="onEdit()" title="View"><i class="fa fa-eye text-warning"></i></button>
+<button type="button" class="btn ag-grid-action-icon" *ngIf="!isConfirmed" (click)="onEdit()" title="Edit"><i class="fa fa-edit text-warning"></i></button>
 <button type="button" class="btn ag-grid-action-icon" *ngIf="!isConfirmed" (click)="onDelete()" title="Delete"><i class="fa fa-trash text-danger"></i></button>
 <button type="button" class="btn ag-grid-action-icon" *ngIf="!isConfirmed" (click)="onMarkConfirm()" title="Confirm"><i class="fa fa-gavel text-success"></i></button>
+<button type="button" class="btn ag-grid-action-icon" *ngIf="isConfirmed" (click)="onMarkUnConfirm()" title="Confirm"><i class="fa fa-gavel text-danger"></i></button>

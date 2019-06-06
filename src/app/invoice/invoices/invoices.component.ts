@@ -64,6 +64,7 @@ export class InvoicesComponent implements OnInit {
   candidateFilter = [];
   deleteId = -1;
   confirmId = -1;
+  confirmValue = null;
 
   currentUser;
 
@@ -132,7 +133,11 @@ export class InvoicesComponent implements OnInit {
   }
 
   onMarkConfirm(index) {
-    this.openModalConfirm(this.template2, this.modelList[index].id);
+    this.openModalConfirm(this.template2, this.modelList[index].id, true);
+  }
+
+  onMarkUnConfirm(index) {
+    this.openModalConfirm(this.template2, this.modelList[index].id, false);
   }
 
   onDelete(index) {
@@ -220,8 +225,9 @@ export class InvoicesComponent implements OnInit {
     this.modalRef.hide();
   }
 
-  openModalConfirm(template: TemplateRef<any>, id) {
+  openModalConfirm(template: TemplateRef<any>, id, value) {
     this.confirmId = id;
+    this.confirmValue = value;
     this.modalRef = this.modalService.show(template, {class: 'modal-sm'} as ModalOptions);
   }
 
@@ -231,8 +237,13 @@ export class InvoicesComponent implements OnInit {
       return;
     }
 
-    this.invoiceService.markConfirm(this.confirmId).subscribe((resp) => {
-      this.toastr.success('Confirmed successfully!');
+    this.invoiceService.markConfirm(this.confirmId, this.confirmValue).subscribe((resp) => {
+      if (this.confirmValue === true) {
+        this.toastr.success('Confirmed successfully!');
+      } else {
+        this.toastr.success('Un-confirmed successfully!');
+      }
+      this.getModelList();
     }, error2 => this.toastr.error('Fail to confirm'));
   }
 
