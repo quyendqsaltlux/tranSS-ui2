@@ -6,6 +6,7 @@ import {separateFiltersFromGrid} from '../../util/http-util';
 import {EQUAL} from '../../AppConstant';
 import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-renderer.component';
 import {Router} from '@angular/router';
+import {ProjectUrgentCellComponent} from '../../share/ag-grid/project-urgent-cell/project-urgent-cell.component';
 
 @Component({
   selector: 'app-projects',
@@ -17,7 +18,7 @@ export class ProjectsComponent implements OnInit {
   JOIN_FILTER_COLS = ['pm.code'];
   columnDefs = [
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
-    {headerName: 'No', field: 'no', pinned: 'left', filter: true, width: 120},
+    {headerName: 'No', field: 'no', pinned: 'left', filter: true, width: 120, cellRenderer: 'projectUrgentCell', cellRendererParams: {renderField: 'no'}},
     {headerName: 'Request Date', field: 'requestDate', type: 'dateColumn', width: 160},
     {headerName: 'Due Date', field: 'dueDate', width: 160, type: 'dateColumn'},
     {headerName: 'Due Time', field: 'dueTime'},
@@ -125,7 +126,8 @@ export class ProjectsComponent implements OnInit {
     this.sortingOrder = ['desc', 'asc'];
     this.context = {componentParent: this};
     this.frameworkComponents = {
-      actionRender: ActionsColRendererComponent
+      actionRender: ActionsColRendererComponent,
+      projectUrgentCell: ProjectUrgentCellComponent,
     };
   }
 
