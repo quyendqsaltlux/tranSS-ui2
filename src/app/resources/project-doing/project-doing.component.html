@@ -1,3 +1,40 @@
-<p>
-  project-doing works!
-</p>
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <div class="w100">
+    <ag-grid-angular
+      #agGrid
+      id="myGrid"
+      class="ag-theme-balham ag-grid-custom haft"
+      [context]="context"
+      [frameworkComponents]="frameworkComponents"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [columnTypes]="columnTypes"
+      [rowData]="modelList"
+      [animateRows]="true"
+      [sortingOrder]="sortingOrder"
+      [floatingFilter]="false"
+      (gridReady)="onGridReady($event)"
+      (filterChanged)="onGridFilterChange($event)"
+      (sortChanged)="onGridSortChanged($event)"
+    ></ag-grid-angular>
+  </div>
+</div>
+<div class="modal-footer">
+  <span class="pull-left"> Total: {{totalItems}}</span>
+  <div class="pull-right">
+    <pagination [totalItems]="totalItems" class="pagination" *ngIf="totalItems>0"
+                [(ngModel)]="page"
+                [maxSize]="5"
+                [itemsPerPage]="size"
+                (pageChanged)="pageChanged()"
+                previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"
+                [boundaryLinks]="true" [rotate]="false" (numPages)="numPages = $event">
+    </pagination>
+  </div>
+</div>

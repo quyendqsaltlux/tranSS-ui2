@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
 import {CandidateAbilityService} from '../../service/candidate-ability.service';
 import {SortParam} from '../../model/SortParam';
+import {ResourceCodeCellComponent} from '../../share/ag-grid/resource-code-cell/resource-code-cell.component';
 
 @Component({
   selector: 'app-resource-search',
@@ -20,7 +21,7 @@ export class ResourceSearchComponent implements OnInit {
     'candidate.country', 'candidate.address'];
   columnDefs = [
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 90, sortable: false},
-    {headerName: 'Code', field: 'candidate.code', pinned: 'left', width: 100},
+    {headerName: 'Code', field: 'candidate.code', pinned: 'left', width: 100, cellRenderer: 'codeRender'},
     {headerName: 'Grade', field: 'candidate.grade', pinned: 'left', width: 70},
     {headerName: 'name', field: 'candidate.name', pinned: 'left', width: 150},
     {headerName: 'majorField', field: 'candidate.majorField', pinned: 'left'},
@@ -137,6 +138,7 @@ export class ResourceSearchComponent implements OnInit {
     this.frameworkComponents = {
       actionRender: ResourceActionsCellComponent,
       dateRender: DateCellComponent,
+      codeRender: ResourceCodeCellComponent,
     };
   }
 
