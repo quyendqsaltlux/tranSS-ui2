@@ -25,6 +25,10 @@ export class ResourceActionsCellComponent implements ICellRendererAngularComp {
     this.params.context.componentParent.onViewRates(this.params.node.rowIndex);
   }
 
+  onDelete() {
+    this.params.context.componentParent.onDelete(this.params.node.rowIndex);
+  }
+
   refresh(): boolean {
     return false;
   }

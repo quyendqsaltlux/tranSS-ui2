@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {separateFiltersFromGrid} from '../../util/http-util';
 import {ResourceActionsCellComponent} from '../../share/ag-grid/resource-actions-cell/resource-actions-cell.component';
 import {Router} from '@angular/router';
@@ -6,6 +6,9 @@ import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.compone
 import {CandidateAbilityService} from '../../service/candidate-ability.service';
 import {SortParam} from '../../model/SortParam';
 import {ResourceCodeCellComponent} from '../../share/ag-grid/resource-code-cell/resource-code-cell.component';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
+import {ToastrService} from 'ngx-toastr';
+import {CandidateService} from '../../service/candidate.service';
 
 @Component({
   selector: 'app-resource-search',
@@ -13,6 +16,7 @@ import {ResourceCodeCellComponent} from '../../share/ag-grid/resource-code-cell/
   styleUrls: ['./resource-search.component.scss']
 })
 export class ResourceSearchComponent implements OnInit {
+  @ViewChild('template') template: TemplateRef<any>;
   JOIN_FILTER_COLS = ['candidate.code', 'candidate.grade',
     'candidate.name', 'candidate.majorField',
     'candidate.email', 'candidate.mobile', 'candidate.catTool',
@@ -58,6 +62,7 @@ export class ResourceSearchComponent implements OnInit {
   frameworkComponents;
   sortingOrder;
 
+  modalRef: BsModalRef;
   modelList = [];
   keyWord: string;
   page = 1;
@@ -68,9 +73,13 @@ export class ResourceSearchComponent implements OnInit {
   filter = [];
   joinFilter = [];
   sorts: SortParam[] = [];
+  deleteId = -1;
 
   constructor(private  abilityService: CandidateAbilityService,
-              public route: Router) {
+              private  candidateService: CandidateService,
+              private route: Router,
+              private toastr: ToastrService,
+              private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -160,6 +169,32 @@ export class ResourceSearchComponent implements OnInit {
 
   onViewRates(index) {
     this.route.navigate(['/resources/' + this.modelList[index].candidate.id + '/abilities']);
+  }
+
+  onDelete(index) {
+    this.openModal(this.template, this.modelList[index].candidate.id);
+  }
+
+  openModal(template: TemplateRef<any>, id) {
+    this.deleteId = id;
+    this.modalRef = this.modalService.show(template, {class: 'modal-sm'} as ModalOptions);
+  }
+
+  confirm(): void {
+    this.modalRef.hide();
+    if (this.deleteId < 0) {
+      return;
+    }
+    this.candidateService.deleteById(this.deleteId).subscribe((resp) => {
+      this.toastr.success('Delete successfully!');
+      this.onFilter();
+    }, (error1 => {
+      this.toastr.error('Fail to delete!');
+    }));
+  }
+
+  decline(): void {
+    this.modalRef.hide();
   }
 
   getModelList() {

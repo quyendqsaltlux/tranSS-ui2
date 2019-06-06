@@ -48,8 +48,8 @@ export class CandidateService {
     return this.http.get<HttpResponse<any>>(API_PATH + '/findById/' + id, {observe: 'response'});
   }
 
-  findByCode(code: string): Observable<HttpResponse<any>> {
-    return this.http.get<HttpResponse<any>>(API_PATH + '/' + code, {observe: 'response'});
+  deleteById(id: any): Observable<any> {
+    return this.http.delete(API_PATH + '/' + id, {observe: 'response'});
   }
 
   findResourceForProject(code: string): Observable<HttpResponse<any>> {
