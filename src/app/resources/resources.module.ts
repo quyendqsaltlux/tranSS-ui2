@@ -15,6 +15,7 @@ import {EvaluationModule} from '../evaluation/evaluation.module';
 import {ResourceSearchComponent} from './resource-search/resource-search.component';
 import {TestWaitingFormComponent} from './test-waiting-form/test-waiting-form.component';
 import {TestWaitingListComponent} from './test-waiting-list/test-waiting-list.component';
+import {ProjectDoingComponent} from './project-doing/project-doing.component';
 
 @NgModule({
   declarations: [
@@ -28,14 +29,19 @@ import {TestWaitingListComponent} from './test-waiting-list/test-waiting-list.co
     PaymentComponent,
     ResourceSearchComponent,
     TestWaitingFormComponent,
-    TestWaitingListComponent
+    TestWaitingListComponent,
+    ProjectDoingComponent
   ],
   imports: [
     ResourcesRoutingModule,
     ShareModule,
     EvaluationModule
   ],
-  entryComponents: [AttachmentComponent, GeneralCommentComponent, OtherNoteComponent],
+  entryComponents: [
+    AttachmentComponent,
+    GeneralCommentComponent,
+    OtherNoteComponent,
+    ProjectDoingComponent],
 })
 export class ResourcesModule {
 }

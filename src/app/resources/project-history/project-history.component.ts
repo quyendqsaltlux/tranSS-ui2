@@ -40,7 +40,10 @@ export class ProjectHistoryComponent implements OnInit {
     {headerName: 'Target', field: 'target', width: 70},
     {headerName: 'Task', field: 'task'},
     {headerName: 'Total', field: 'total', type: 'numericColumn'},
+    {headerName: 'HO', field: 'ho', width: 160, type: 'dateColumn'},
+    {headerName: 'HB', field: 'hb', width: 160, type: 'dateColumn'},
     {headerName: 'Comment', field: 'review'},
+    {headerName: 'Star', field: 'star'},
   ];
   /*AG_GRID*/
   gridApi;
