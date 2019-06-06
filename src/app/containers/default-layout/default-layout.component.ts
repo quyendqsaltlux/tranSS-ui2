@@ -1,4 +1,4 @@
-import {Component, Inject, OnDestroy} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {navItems} from '../../_nav';
 import {PrincipleService} from '../../service/principle.service';
@@ -8,11 +8,14 @@ import {Router} from '@angular/router';
   selector: 'app-dashboard',
   templateUrl: './default-layout.component.html'
 })
-export class DefaultLayoutComponent implements OnDestroy {
+export class DefaultLayoutComponent implements OnDestroy, OnInit {
+
   public navItems = navItems;
   public sidebarMinimized = true;
   private changes: MutationObserver;
   public element: HTMLElement;
+
+  currentUser;
 
   constructor(private principleService: PrincipleService,
               private router: Router,
@@ -22,10 +25,14 @@ export class DefaultLayoutComponent implements OnDestroy {
       this.sidebarMinimized = _document.body.classList.contains('sidebar-minimized');
     });
     this.element = _document.body;
-    this.changes.observe(<Element>this.element, {
+    this.changes.observe(this.element as Element, {
       attributes: true,
       attributeFilter: ['class']
     });
+  }
+
+  ngOnInit(): void {
+    this.currentUser = this.principleService.getUserInfo();
   }
 
   ngOnDestroy(): void {
