@@ -15,15 +15,16 @@ export class ProjectDoingComponent implements OnInit {
 
   columnDefs = [
     {headerName: 'Project Code', field: 'projectCode', pinned: 'left', width: 150},
-    {headerName: 'Contents', field: 'contents', width: 200},
-    {headerName: 'Field', field: 'field'},
-    {headerName: 'Client', field: 'client'},
+    {headerName: 'Contents', field: 'project.contents', width: 200},
+    {headerName: 'Field', field: 'project.field'},
+    {headerName: 'Client', field: 'project.client'},
     {headerName: 'Source', field: 'source', width: 70},
     {headerName: 'Target', field: 'target', width: 70},
     {headerName: 'Task', field: 'task'},
     {headerName: 'Total', field: 'total', type: 'numericColumn'},
     {headerName: 'HO', field: 'ho', width: 160, type: 'dateColumn'},
     {headerName: 'HB', field: 'hb', width: 160, type: 'dateColumn'},
+    {headerName: 'Progress', field: 'progress'},
   ];
   /*AG_GRID*/
   gridApi;

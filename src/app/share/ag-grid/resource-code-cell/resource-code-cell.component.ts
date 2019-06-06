@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ICellRendererAngularComp} from 'ag-grid-angular';
-import {ProjectDoingComponent} from "../../../resources/project-doing/project-doing.component";
-import {BsModalRef, BsModalService, ModalOptions} from "ngx-bootstrap";
+import {ProjectDoingComponent} from '../../../resources/project-doing/project-doing.component';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-date-cell',
