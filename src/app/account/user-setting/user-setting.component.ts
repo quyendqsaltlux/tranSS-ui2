@@ -6,7 +6,11 @@ import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {UsersService} from '../../service/users.service';
 import {PrincipleService} from '../../service/principle.service';
 import {MyAccount} from '../../model/MyAccount';
-import {AttachmentComponent} from "../../resources/attachment/attachment.component";
+import {AvatarUploaderComponent} from '../avatar-uploader/avatar-uploader.component';
+import {AVATAR_FOLDER} from '../../AppConstant';
+import {environment} from '../../../environments/environment.prod';
+
+const API = environment.api;
 
 @Component({
   selector: 'app-user-setting',
@@ -49,11 +53,10 @@ export class UserSettingComponent implements OnInit {
 
   openCvModal() {
     const initialState = {
-      title: 'Upload CV',
-      folder: 'CV'
+      title: 'Upload Avatar',
+      folder: AVATAR_FOLDER
     };
-    this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState} as ModalOptions);
-    this.bsModalRef.content.closeBtnName = 'Close';
+    this.bsModalRef = this.modalService.show(AvatarUploaderComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.event.subscribe(result => {
       if (result && result.data) {
         this.model.avatar = result.data;

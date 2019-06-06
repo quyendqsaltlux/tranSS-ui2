@@ -1,0 +1,21 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{title}}</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <input type="file" id="cv" name="cv" class="form-control-file" #cv (change)="onCVChanged($event.target.files)" *ngIf="!isMultiple">
+  <input multiple type="file" id="cv" name="cv" class="form-control-file" #cv (change)="onCVChanged($event.target.files)" *ngIf="isMultiple">
+
+  <div class="msg-invalid">
+    <div *ngIf="isRequired">Please select file.</div>
+    <div *ngIf="isDuplicatedCv">File is existed or empty. PLease change the file name or update file content.</div>
+    <div *ngIf="isTooLarge">File is too large. Maximum size is 2MB.</div>
+  </div>
+
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-default" (click)="onCancel()">Close</button>
+  <button type="submit" class="btn btn-success" (click)="onSubmit()">Submit</button>
+</div>

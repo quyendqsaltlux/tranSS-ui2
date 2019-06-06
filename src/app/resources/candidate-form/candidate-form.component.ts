@@ -10,6 +10,7 @@ import {getFileName} from '../../util/string-util';
 import {Candidate} from '../../model/Candidate';
 import {PaymentComponent} from '../payment/payment.component';
 import {FileUploadService} from '../../service/file-upload.service';
+import {CV_FOLDER, DIPLOMA_FOLDER, OTHER_ATTACHMENTS_FOLDER} from '../../AppConstant';
 
 @Component({
   selector: 'app-candidate-form',
@@ -77,7 +78,7 @@ export class CandidateFormComponent implements OnInit {
   openCvModal() {
     const initialState = {
       title: 'Upload CV',
-      folder: 'CV'
+      folder: CV_FOLDER
     };
     this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.closeBtnName = 'Close';
@@ -91,7 +92,7 @@ export class CandidateFormComponent implements OnInit {
   openAttachmentModal() {
     const initialState = {
       title: 'Upload Attachments',
-      folder: 'OTHER_ATTACHMENTS',
+      folder: OTHER_ATTACHMENTS_FOLDER,
       isMultiple: true,
     };
     this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState} as ModalOptions);
@@ -111,7 +112,7 @@ export class CandidateFormComponent implements OnInit {
   openDiplomaModal() {
     const initialState = {
       title: 'Upload Diploma',
-      folder: 'DIPLOMA'
+      folder: DIPLOMA_FOLDER
     };
     this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.event.subscribe(result => {
