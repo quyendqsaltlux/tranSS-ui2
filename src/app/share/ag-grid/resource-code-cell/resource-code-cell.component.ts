@@ -28,7 +28,7 @@ export class ResourceCodeCellComponent implements ICellRendererAngularComp {
 
   findDoingProjects() {
     const initialState = {
-      title: 'Assigned projects',
+      title: 'On-going projects',
       candidateId: this.params.data.candidate.id
     };
     this.bsModalRef = this.modalService.show(ProjectDoingComponent, {initialState, class: 'modal-xl'} as ModalOptions);

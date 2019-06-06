@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {separateFiltersFromGrid} from '../../util/http-util';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
 import {ResourceActionsCellComponent} from '../../share/ag-grid/resource-actions-cell/resource-actions-cell.component';
@@ -14,21 +12,7 @@ export class ProjectDoingComponent implements OnInit {
   candidateId = null;
   ignoreFilter = true;
   modelList = [];
-  keyWord: string;
-  page = 1;
-  size = 10;
-  numPages = 0;
-  totalItems = 0;
-  sortConfig: {
-    field: string,
-    order: string
-  } = {
-    field: null,
-    order: null
-  };
-  filter = [];
 
-  JOIN_FILTER_COLS = [];
   columnDefs = [
     {headerName: 'Project Code', field: 'projectCode', pinned: 'left', width: 150},
     {headerName: 'Contents', field: 'contents', width: 200},
@@ -55,19 +39,11 @@ export class ProjectDoingComponent implements OnInit {
 
   ngOnInit() {
     this.initTable();
-    this.getModelList();
   }
 
   onGridReady(params) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    this.getModelList();
-  }
-
-  onGridSortChanged(event) {
-    const sortState = this.gridApi.getSortModel();
-    this.sortConfig.order = sortState[0].sort;
-    this.sortConfig.field = sortState[0].colId;
     this.getModelList();
   }
 
@@ -114,55 +90,15 @@ export class ProjectDoingComponent implements OnInit {
     };
   }
 
-  onGridFilterChange(event) {
-    const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
-    const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
-    this.filter = [...separatedFilter.root];
-    this.getModelList();
-  }
-
   getModelList() {
-    this.assignmentService.search(this.candidateId, this.page, this.size, this.keyWord,
-      this.sortConfig.field, this.sortConfig.order, this.filter, []
-    )
-      .subscribe((resp => {
-        if (!resp || !resp.body) {
-          this.modelList = [];
-          this.totalItems = 0;
-          this.numPages = 0;
-          return;
-        }
-        this.modelList = resp.body.content;
-        this.totalItems = resp.body.totalElements;
-        this.numPages = resp.body.totalPages;
-
-        this.ignoreFilter = false;
-      }));
-  }
-
-  onClickSearch() {
-    this.page = 1;
-    this.getModelList();
-  }
-
-  onFilter() {
-    if (this.ignoreFilter) {
-      return;
-    }
-    this.page = 1;
-    this.getModelList();
-  }
-
-  pageChanged(event) {
-    setTimeout((e) => {
-      this.getModelList();
-    }, 0);
-  }
-
-  toggleSort(sortData) {
-    this.sortConfig.field = sortData.field;
-    this.sortConfig.order = sortData.order;
-    this.getModelList();
+    this.assignmentService.getListByCandidate(this.candidateId).subscribe((resp => {
+      if (!resp || !resp.body) {
+        this.modelList = [];
+        return;
+      }
+      this.modelList = resp.body;
+      console.log(this.modelList);
+    }));
   }
 
 }
