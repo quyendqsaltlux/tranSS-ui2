@@ -26,6 +26,12 @@ export class PrincipleService {
     return JSON.parse(sessionStorage.getItem('userInfo'));
   }
 
+  public isPMLeader() {
+    const user = JSON.parse(sessionStorage.getItem('userInfo'));
+    const found = user.roles.findIndex((role) => role === 'ROLE_PM_LEADER');
+    return found >= 0;
+  }
+
   public logout() {
     sessionStorage.removeItem('token');
   }

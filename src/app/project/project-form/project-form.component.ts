@@ -10,6 +10,7 @@ import {combineLatest, Subscription} from 'rxjs';
 import {O, X} from '../../AppConstant';
 import * as _ from 'lodash';
 import {Project} from '../../model/Project';
+import {PrincipleService} from '../../service/principle.service';
 
 @Component({
   selector: 'app-project-form',
@@ -24,16 +25,19 @@ export class ProjectFormComponent implements OnInit {
   id = null;
   model: Project = {} as Project;
   loadProjectDone = false;
+  currentUser;
 
   constructor(private projectService: ProjectService,
               private toastr: ToastrService,
               private route: ActivatedRoute,
               public router: Router,
+              private principleService: PrincipleService,
               private modalService: BsModalService,
               private changeDetection: ChangeDetectorRef) {
   }
 
   ngOnInit() {
+    this.currentUser = this.principleService.getUserInfo();
     this.id = +this.route.snapshot.paramMap.get('id');
     if (this.id) {
       this.projectService.findById(this.id).subscribe((resp) => {
@@ -44,6 +48,10 @@ export class ProjectFormComponent implements OnInit {
     } else {
       this.model.progressStatus = 'ON_GOING';
     }
+  }
+
+  isAllowEdit() {
+    return this.currentUser.code === this.model.pmVtc || this.principleService.isPMLeader();
   }
 
   extractModelFromApi(model) {

@@ -1,368 +1,373 @@
-<div class="animated fadeIn">
-  <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
-    <div class="card">
-      <div class="card-header sm">
-        <strong>Project</strong>
-        <div class="pull-right">
-          <button type="submit" class="btn btn-primary btn-sm mr-1 ml-1" [disabled]="f.invalid">Save</button>
-          <a class="btn btn-secondary btn-sm mr-1 ml-1" routerLink="/projects/list">Cancel</a>
-        </div>
-      </div>
-      <div class="card-body">
-
-        <div class="row">
-
-          <div class="pr-1 col-sm-6">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="card">
-                  <div class="card-header sm">
-                    <strong>Basic info</strong>
-                  </div>
-                  <div class="card-body">
-                    <div class="row">
-                      <!--DEPARTMENT-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="no">No</label>
-                          <input type="text" class="form-control" id="no" [(ngModel)]="model.no" name="no" disabled>
-                        </div>
-                      </div>
-                      <!--NO-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="company">Company<span class="text-danger"> *</span></label>
-                          <ng-select [(ngModel)]="model.company" [searchable]="false" [clearable]="false"
-                                     name="company" id="company" #company="ngModel" required
-                                     [ngClass]="{'is-invalid': f.submitted && category.invalid}">
-                            <ng-option [value]="'P'">Saltlux</ng-option>
-                            <ng-option [value]="'SP'">Saltlux partner</ng-option>
-                          </ng-select>
-                        </div>
-                      </div>
-                      <!--CODE-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="code">Code<span class="text-danger"> *</span></label>
-                          <input type="text" class="form-control" id="code" placeholder="Ex: ITP19_0532"
-                                 name="code" [(ngModel)]="model.code" maxlength="255" required
-                                 #code="ngModel" [readonly]="model.isOld"
-                                 [ngClass]="{'is-invalid': f.submitted && code.invalid}">
-                          <div *ngIf="code.invalid && (code.dirty || code.touched)" class="msg-invalid">
-                            <div *ngIf="code.errors.maxlength">Too long.</div>
-                            <div *ngIf="code.errors.conflict">Duplicated.</div>
-                          </div>
-                        </div>
-                      </div>
-                      <!--Category-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="category">Category<span class="text-danger"> *</span></label>
-                          <ng-select [(ngModel)]="model.category" [searchable]="false" [clearable]="false"
-                                     name="category" id="category" #category="ngModel" required
-                                     [ngClass]="{'is-invalid': f.submitted && category.invalid}">
-                            <ng-option [value]="'OSP'">OSP</ng-option>
-                            <ng-option [value]="'Private'">Private</ng-option>
-                            <ng-option [value]="'Public'">Public</ng-option>
-                          </ng-select>
-                        </div>
-                      </div>
-                      <!--Folder name-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="folderName">Folder Name</label>
-                          <input type="text" class="form-control" id="folderName" placeholder=""
-                                 [(ngModel)]="model.folderName" name="folderName">
-                        </div>
-                      </div>
-                      <!--Client-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="client">Client</label>
-                          <input type="text" class="form-control" id="client" placeholder=""
-                                 [(ngModel)]="model.client" name="client">
-                        </div>
-                      </div>
-
-                      <!--TARGET-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="target">Target</label>
-                          <input type="text" class="form-control" id="target" placeholder="Ex: EN2KO"
-                                 name="target" [(ngModel)]="model.target"
-                                 #target="ngModel"
-                                 [ngClass]="{'is-invalid': f.submitted && target.invalid}">
-                          <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
-                            <div *ngIf="target.errors.maxlength">Too long.</div>
-                            <div *ngIf="target.errors.conflict">Duplicated.</div>
-                          </div>
-                        </div>
-                      </div>
-                      <!--Unit-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="unit">Unit</label>
-                          <ng-select [(ngModel)]="model.unit" [searchable]="false" [clearable]="false"
-                                     name="unit" id="unit" #unit="ngModel"
-                                     [ngClass]="{'is-invalid': f.submitted && unit.invalid}">
-                            <ng-option [value]="'Word'">Word</ng-option>
-                            <ng-option [value]="'Character'">Character</ng-option>
-                            <ng-option [value]="'Hour'">Hour</ng-option>
-                            <ng-option [value]="'Page'">Page</ng-option>
-                          </ng-select>
-                        </div>
-                      </div>
-
-                      <!--Total Volume-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="totalVolume">Total Volume</label>
-                          <input type="text" class="form-control" id="totalVolume" placeholder="Ex: ITP19_0532"
-                                 name="totalVolume" [(ngModel)]="model.totalVolume"
-                                 #totalVolume="ngModel"
-                                 [ngClass]="{'is-invalid': f.submitted && totalVolume.invalid}">
-                          <div *ngIf="totalVolume.invalid && (totalVolume.dirty || totalVolume.touched)" class="msg-invalid">
-                            <div *ngIf="totalVolume.errors.maxlength">Too long.</div>
-                            <div *ngIf="totalVolume.errors.conflict">Duplicated.</div>
-                          </div>
-                        </div>
-                      </div>
-                      <!--Content-->
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label for="content">Contents</label>
-                          <textarea type="text" class="form-control" id="content" placeholder=""
-                                    name="content" [(ngModel)]="model.contents" rows="3"></textarea>
-                        </div>
-                      </div>
-                      <!--Remark-->
-                      <div class="col-sm-12 col-md-6">
-                        <div class="form-group">
-                          <label for="remark">Remark</label>
-                          <textarea type="text" class="form-control" id="remark" placeholder="Ex: ITP19_0532"
-                                    name="remark" [(ngModel)]="model.remark" rows="3"></textarea>
-                        </div>
-                      </div>
-                      <!--Progress status-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="progressStatus">Progress</label>
-                          <ng-select [(ngModel)]="model.progressStatus" [searchable]="false" [clearable]="false"
-                                     name="progressStatus" id="progressStatus" #progressStatus="ngModel">
-                            <ng-template ng-label-tmp let-item="item">
-                              <span *ngIf="item === 'FINISHED'"><i class="fa fa-check text-success"></i> {{item}}</span>
-                              <span *ngIf="item === 'HOLD'"><i class="fa fa-warning text-warning"></i> {{item}}</span>
-                              <span *ngIf="item === 'ON_GOING'"><i class="fa fa-refresh"></i> {{item}}</span>
-                            </ng-template>
-
-                            <ng-option [value]="'FINISHED'">Finished</ng-option>
-                            <ng-option [value]="'HOLD'">Hold</ng-option>
-                            <ng-option [value]="'ON_GOING'">On Going</ng-option>
-                          </ng-select>
-                        </div>
-                      </div>
-                      <!--Remark-->
-                      <div class="col-sm-12 col-md-8">
-                        <div class="form-group">
-                          <label for="field">Field</label>
-                          <input type="text" class="form-control" id="field"
-                                    name="field" [(ngModel)]="model.field">
-                        </div>
-                      </div>
-                      <!--References-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label class="col-form-label">References</label>
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="reference" name="reference"
-                                   [(ngModel)]="model.reference">
-                            <label class="custom-control-label" for="reference">Yes</label>
-                          </div>
-                        </div>
-                      </div>
-                      <!--Termbase-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label class="col-form-label">Termbase</label>
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="termbase" name="termbase"
-                                   [(ngModel)]="model.termbase">
-                            <label class="custom-control-label" for="termbase">Yes</label>
-                          </div>
-                        </div>
-                      </div>
-                      <!--Instruction-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label class="col-form-label">Instruction</label>
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="instruction" name="instruction"
-                                   [(ngModel)]="model.instruction">
-                            <label class="custom-control-label" for="instruction">Yes</label>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
-          </div>
-
-          <div class="pl-1 col-sm-6">
-            <div class="row">
-              <div class="col-sm-12">
-                <div class="card">
-                  <div class="card-header sm">
-                    <strong>HQ</strong>
-                  </div>
-                  <div class="card-body">
-                    <div class="row">
-                      <!--Request date-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="reqDate">Request date</label>
-                          <input type="date" class="form-control" id="reqDate" placeholder="Ex:"
-                                 name="reqDate" [(ngModel)]="model.requestDate">
-                        </div>
-                      </div>
-                      <!--Due date-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="dueDate">Due date</label>
-                          <input type="date" class="form-control" id="dueDate" placeholder="Ex:"
-                                 name="dueDate" [(ngModel)]="model.dueDate">
-                        </div>
-                      </div>
-
-                      <!--Due Time-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="dueTime">Due Time</label>
-                          <input type="text" class="form-control" id="dueTime" placeholder="Ex: 11AM (KST)"
-                                 name="dueTime" [(ngModel)]="model.dueTime">
-                        </div>
-                      </div>
-
-                      <!--PM-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="pm">PM<span class="text-danger"> *</span></label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="pm" placeholder="Ex: MIC"
-                                   aria-label="Recipient's username" aria-describedby="basic-addon2"
-                                   [(ngModel)]="model.pmCode" name="pm"
-                                   required readonly
-                                   #pm="ngModel"
-                                   [ngClass]="{'is-invalid': f.submitted && pm.invalid}">
-                            <div class="input-group-append">
-                              <button class="btn btn-secondary" type="button" (click)="openEmployeesModal('pmCode', 'Select PM')">Select</button>
-                            </div>
-                          </div>
-                          <div *ngIf="pm.invalid && (pm.dirty || pm.touched)" class="msg-invalid">
-                            <div *ngIf="pm.errors.required">This field is required.</div>
-                            <div *ngIf="pm.errors.maxlength">Too long.</div>
-                            <div *ngIf="pm.errors.conflict">Duplicated.</div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!--Suggested candidate-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="suggestedCandidate">Suggested resource</label>
-                          <input type="text" class="form-control" id="suggestedCandidate" name="suggestedCandidate" placeholder="Ex: MIC"
-                                 [(ngModel)]="model.suggestedCandidate" maxlength="255"
-                                 #suggestedCandidate="ngModel"
-                                 [ngClass]="{'is-invalid': f.submitted && suggestedCandidate.invalid}">
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-sm-12">
-                <div class="card">
-                  <div class="card-header sm">
-                    <strong>VTC</strong>
-                  </div>
-                  <div class="card-body">
-                    <div class="row">
-                      <!--HO-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="ho">HO</label>
-                          <input type="date" class="form-control" id="ho" placeholder="Ex:"
-                                 name="ho" [(ngModel)]="model.ho">
-                        </div>
-                      </div>
-
-                      <!--HB-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="hb">HB</label>
-                          <input type="date" class="form-control" id="hb" placeholder="Ex:"
-                                 name="hb" [(ngModel)]="model.hb">
-                        </div>
-                      </div>
-                      <!--Review Schedule-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="reviewSchedule">Review Schedule</label>
-                          <input type="date" class="form-control" id="reviewSchedule" placeholder="Ex:"
-                                 name="reviewSchedule" [(ngModel)]="model.reviewSchedule">
-                        </div>
-                      </div>
-
-                      <!--Review Schedule-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="finalDelivery">Final Delivery</label>
-                          <input type="date" class="form-control" id="finalDelivery" placeholder="Ex:"
-                                 name="finalDelivery" [(ngModel)]="model.finalDelivery">
-                        </div>
-                      </div>
-
-                      <!--PM-->
-                      <div class="col-sm-12 col-md-4">
-                        <div class="form-group">
-                          <label for="pmVtc">PM (VTC)</label>
-                          <div class="input-group">
-                            <input type="text" class="form-control" id="pmVtc" placeholder="Ex: TAM"
-                                   aria-label="Recipient's username" aria-describedby="basic-addon1"
-                                   [(ngModel)]="model.pmVtc" name="pmVtc"
-                                   #pmVtc="ngModel" readonly
-                                   [ngClass]="{'is-invalid': f.submitted && pmVtc.invalid}">
-                            <div class="input-group-append">
-                              <button class="btn btn-secondary" type="button" (click)="openEmployeesModal('pmVtc', 'Select PM (VTC)')">Select</button>
-                            </div>
-                          </div>
-                          <div *ngIf="pmVtc.invalid && (pmVtc.dirty || pmVtc.touched)" class="msg-invalid">
-                            <div *ngIf="pmVtc.errors.required">This field is required.</div>
-                            <div *ngIf="pmVtc.errors.maxlength">Too long.</div>
-                            <div *ngIf="pmVtc.errors.conflict">Duplicated.</div>
-                          </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
+<fieldset [disabled]="!isAllowEdit()">{{principleService.isPMLeader()}}
+  <div class="animated fadeIn">
+    <form #f="ngForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="card">
+        <div class="card-header sm">
+          <strong>Project</strong>
+          <div class="pull-right">
+            <button type="submit" class="btn btn-primary btn-sm mr-1 ml-1" [disabled]="f.invalid">Save</button>
+            <a class="btn btn-secondary btn-sm mr-1 ml-1" routerLink="/projects/list">Cancel</a>
           </div>
         </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="pr-1 col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card">
+                    <div class="card-header sm">
+                      <strong>Basic info</strong>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <!--DEPARTMENT-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="no">No</label>
+                            <input type="text" class="form-control" id="no" [(ngModel)]="model.no" name="no" disabled>
+                          </div>
+                        </div>
+                        <!--NO-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="company">Company<span class="text-danger"> *</span></label>
+                            <ng-select [(ngModel)]="model.company" [searchable]="false" [clearable]="false"
+                                       name="company" id="company" #company="ngModel" required
+                                       [disabled]="!isAllowEdit()"
+                                       [ngClass]="{'is-invalid': f.submitted && category.invalid}">
+                              <ng-option [value]="'P'">Saltlux</ng-option>
+                              <ng-option [value]="'SP'">Saltlux partner</ng-option>
+                            </ng-select>
+                          </div>
+                        </div>
+                        <!--CODE-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="code">Code<span class="text-danger"> *</span></label>
+                            <input type="text" class="form-control" id="code" placeholder="Ex: ITP19_0532"
+                                   name="code" [(ngModel)]="model.code" maxlength="255" required
+                                   #code="ngModel" [readonly]="model.isOld"
+                                   [ngClass]="{'is-invalid': f.submitted && code.invalid}">
+                            <div *ngIf="code.invalid && (code.dirty || code.touched)" class="msg-invalid">
+                              <div *ngIf="code.errors.maxlength">Too long.</div>
+                              <div *ngIf="code.errors.conflict">Duplicated.</div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Category-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="category">Category<span class="text-danger"> *</span></label>
+                            <ng-select [(ngModel)]="model.category" [searchable]="false" [clearable]="false"
+                                       name="category" id="category" #category="ngModel" required
+                                       [disabled]="!isAllowEdit()"
+                                       [ngClass]="{'is-invalid': f.submitted && category.invalid}">
+                              <ng-option [value]="'OSP'">OSP</ng-option>
+                              <ng-option [value]="'Private'">Private</ng-option>
+                              <ng-option [value]="'Public'">Public</ng-option>
+                            </ng-select>
+                          </div>
+                        </div>
+                        <!--Folder name-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="folderName">Folder Name</label>
+                            <input type="text" class="form-control" id="folderName" placeholder=""
+                                   [(ngModel)]="model.folderName" name="folderName">
+                          </div>
+                        </div>
+                        <!--Client-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="client">Client</label>
+                            <input type="text" class="form-control" id="client" placeholder=""
+                                   [(ngModel)]="model.client" name="client">
+                          </div>
+                        </div>
 
+                        <!--TARGET-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="target">Target</label>
+                            <input type="text" class="form-control" id="target" placeholder="Ex: EN2KO"
+                                   name="target" [(ngModel)]="model.target"
+                                   #target="ngModel"
+                                   [ngClass]="{'is-invalid': f.submitted && target.invalid}">
+                            <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
+                              <div *ngIf="target.errors.maxlength">Too long.</div>
+                              <div *ngIf="target.errors.conflict">Duplicated.</div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Unit-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="unit">Unit</label>
+                            <ng-select [(ngModel)]="model.unit" [searchable]="false" [clearable]="false"
+                                       name="unit" id="unit" #unit="ngModel"
+                                       [disabled]="!isAllowEdit()"
+                                       [ngClass]="{'is-invalid': f.submitted && unit.invalid}">
+                              <ng-option [value]="'Word'">Word</ng-option>
+                              <ng-option [value]="'Character'">Character</ng-option>
+                              <ng-option [value]="'Hour'">Hour</ng-option>
+                              <ng-option [value]="'Page'">Page</ng-option>
+                            </ng-select>
+                          </div>
+                        </div>
+
+                        <!--Total Volume-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="totalVolume">Total Volume</label>
+                            <input type="text" class="form-control" id="totalVolume" placeholder="Ex: ITP19_0532"
+                                   name="totalVolume" [(ngModel)]="model.totalVolume"
+                                   #totalVolume="ngModel"
+                                   [ngClass]="{'is-invalid': f.submitted && totalVolume.invalid}">
+                            <div *ngIf="totalVolume.invalid && (totalVolume.dirty || totalVolume.touched)" class="msg-invalid">
+                              <div *ngIf="totalVolume.errors.maxlength">Too long.</div>
+                              <div *ngIf="totalVolume.errors.conflict">Duplicated.</div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Content-->
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-group">
+                            <label for="content">Contents</label>
+                            <textarea type="text" class="form-control" id="content" placeholder=""
+                                      name="content" [(ngModel)]="model.contents" rows="3"></textarea>
+                          </div>
+                        </div>
+                        <!--Remark-->
+                        <div class="col-sm-12 col-md-6">
+                          <div class="form-group">
+                            <label for="remark">Remark</label>
+                            <textarea type="text" class="form-control" id="remark" placeholder="Ex: ITP19_0532"
+                                      name="remark" [(ngModel)]="model.remark" rows="3"></textarea>
+                          </div>
+                        </div>
+                        <!--Progress status-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="progressStatus">Progress</label>
+                            <ng-select [(ngModel)]="model.progressStatus" [searchable]="false" [clearable]="false"
+                                       [disabled]="!isAllowEdit()"
+                                       name="progressStatus" id="progressStatus" #progressStatus="ngModel">
+                              <ng-template ng-label-tmp let-item="item">
+                                <span *ngIf="item === 'FINISHED'"><i class="fa fa-check text-success"></i> {{item}}</span>
+                                <span *ngIf="item === 'HOLD'"><i class="fa fa-warning text-warning"></i> {{item}}</span>
+                                <span *ngIf="item === 'ON_GOING'"><i class="fa fa-refresh"></i> {{item}}</span>
+                              </ng-template>
+
+                              <ng-option [value]="'FINISHED'">Finished</ng-option>
+                              <ng-option [value]="'HOLD'">Hold</ng-option>
+                              <ng-option [value]="'ON_GOING'">On Going</ng-option>
+                            </ng-select>
+                          </div>
+                        </div>
+                        <!--Remark-->
+                        <div class="col-sm-12 col-md-8">
+                          <div class="form-group">
+                            <label for="field">Field</label>
+                            <input type="text" class="form-control" id="field"
+                                   name="field" [(ngModel)]="model.field">
+                          </div>
+                        </div>
+                        <!--References-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label class="col-form-label">References</label>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="reference" name="reference"
+                                     [(ngModel)]="model.reference">
+                              <label class="custom-control-label" for="reference">Yes</label>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Termbase-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label class="col-form-label">Termbase</label>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="termbase" name="termbase"
+                                     [(ngModel)]="model.termbase">
+                              <label class="custom-control-label" for="termbase">Yes</label>
+                            </div>
+                          </div>
+                        </div>
+                        <!--Instruction-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label class="col-form-label">Instruction</label>
+                            <div class="custom-control custom-checkbox">
+                              <input type="checkbox" class="custom-control-input" id="instruction" name="instruction"
+                                     [(ngModel)]="model.instruction">
+                              <label class="custom-control-label" for="instruction">Yes</label>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="pl-1 col-sm-6">
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card">
+                    <div class="card-header sm">
+                      <strong>HQ</strong>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <!--Request date-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="reqDate">Request date</label>
+                            <input type="date" class="form-control" id="reqDate" placeholder="Ex:"
+                                   name="reqDate" [(ngModel)]="model.requestDate">
+                          </div>
+                        </div>
+                        <!--Due date-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="dueDate">Due date</label>
+                            <input type="date" class="form-control" id="dueDate" placeholder="Ex:"
+                                   name="dueDate" [(ngModel)]="model.dueDate">
+                          </div>
+                        </div>
+
+                        <!--Due Time-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="dueTime">Due Time</label>
+                            <input type="text" class="form-control" id="dueTime" placeholder="Ex: 11AM (KST)"
+                                   name="dueTime" [(ngModel)]="model.dueTime">
+                          </div>
+                        </div>
+
+                        <!--PM-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="pm">PM<span class="text-danger"> *</span></label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" id="pm" placeholder="Ex: MIC"
+                                     aria-label="Recipient's username" aria-describedby="basic-addon2"
+                                     [(ngModel)]="model.pmCode" name="pm"
+                                     required readonly
+                                     #pm="ngModel"
+                                     [ngClass]="{'is-invalid': f.submitted && pm.invalid}">
+                              <div class="input-group-append">
+                                <button class="btn btn-secondary" type="button" (click)="openEmployeesModal('pmCode', 'Select PM')">Select</button>
+                              </div>
+                            </div>
+                            <div *ngIf="pm.invalid && (pm.dirty || pm.touched)" class="msg-invalid">
+                              <div *ngIf="pm.errors.required">This field is required.</div>
+                              <div *ngIf="pm.errors.maxlength">Too long.</div>
+                              <div *ngIf="pm.errors.conflict">Duplicated.</div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <!--Suggested candidate-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="suggestedCandidate">Suggested resource</label>
+                            <input type="text" class="form-control" id="suggestedCandidate" name="suggestedCandidate" placeholder="Ex: MIC"
+                                   [(ngModel)]="model.suggestedCandidate" maxlength="255"
+                                   #suggestedCandidate="ngModel"
+                                   [ngClass]="{'is-invalid': f.submitted && suggestedCandidate.invalid}">
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-12">
+                  <div class="card">
+                    <div class="card-header sm">
+                      <strong>VTC</strong>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <!--HO-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="ho">HO</label>
+                            <input type="date" class="form-control" id="ho" placeholder="Ex:"
+                                   name="ho" [(ngModel)]="model.ho">
+                          </div>
+                        </div>
+
+                        <!--HB-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="hb">HB</label>
+                            <input type="date" class="form-control" id="hb" placeholder="Ex:"
+                                   name="hb" [(ngModel)]="model.hb">
+                          </div>
+                        </div>
+                        <!--Review Schedule-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="reviewSchedule">Review Schedule</label>
+                            <input type="date" class="form-control" id="reviewSchedule" placeholder="Ex:"
+                                   name="reviewSchedule" [(ngModel)]="model.reviewSchedule">
+                          </div>
+                        </div>
+
+                        <!--Review Schedule-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="finalDelivery">Final Delivery</label>
+                            <input type="date" class="form-control" id="finalDelivery" placeholder="Ex:"
+                                   name="finalDelivery" [(ngModel)]="model.finalDelivery">
+                          </div>
+                        </div>
+
+                        <!--PM-->
+                        <div class="col-sm-12 col-md-4">
+                          <div class="form-group">
+                            <label for="pmVtc">PM (VTC)</label>
+                            <div class="input-group">
+                              <input type="text" class="form-control" id="pmVtc" placeholder="Ex: TAM"
+                                     aria-label="Recipient's username" aria-describedby="basic-addon1"
+                                     [(ngModel)]="model.pmVtc" name="pmVtc"
+                                     #pmVtc="ngModel" readonly
+                                     [ngClass]="{'is-invalid': f.submitted && pmVtc.invalid}">
+                              <div class="input-group-append">
+                                <button class="btn btn-secondary" type="button" (click)="openEmployeesModal('pmVtc', 'Select PM (VTC)')">Select</button>
+                              </div>
+                            </div>
+                            <div *ngIf="pmVtc.invalid && (pmVtc.dirty || pmVtc.touched)" class="msg-invalid">
+                              <div *ngIf="pmVtc.errors.required">This field is required.</div>
+                              <div *ngIf="pmVtc.errors.maxlength">Too long.</div>
+                              <div *ngIf="pmVtc.errors.conflict">Duplicated.</div>
+                            </div>
+                          </div>
+                        </div>
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </form>
-</div>
+    </form>
+  </div>
 
-<app-project-assignment-list *ngIf="id && loadProjectDone" [projectId]="id" [projectCode]="model.code">
-
-</app-project-assignment-list>
+  <div *ngIf="!model.pmVtc" class="alert alert-warning" role="alert">
+    Resource assignment is allowed once PM VTC is selected.
+  </div>
+  <app-project-assignment-list *ngIf="id && loadProjectDone && model.pmVtc" [projectId]="id" [projectCode]="model.code">
+  </app-project-assignment-list>
+</fieldset>

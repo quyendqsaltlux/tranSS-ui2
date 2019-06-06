@@ -13,6 +13,7 @@ export class ProjectAssignmentListComponent implements OnInit {
   modalRef: BsModalRef;
   @Input() projectId;
   @Input() projectCode;
+  @Input() isOwnerOrNotAssign;
   assignments: any = [];
   viewControl = {
     ableToChange: true

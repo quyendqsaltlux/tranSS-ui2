@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {ICellRendererAngularComp} from 'ag-grid-angular';
-import moment from 'moment';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-date-cell',

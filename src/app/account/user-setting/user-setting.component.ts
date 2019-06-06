@@ -8,9 +8,6 @@ import {PrincipleService} from '../../service/principle.service';
 import {MyAccount} from '../../model/MyAccount';
 import {AvatarUploaderComponent} from '../avatar-uploader/avatar-uploader.component';
 import {AVATAR_FOLDER} from '../../AppConstant';
-import {environment} from '../../../environments/environment.prod';
-
-const API = environment.api;
 
 @Component({
   selector: 'app-user-setting',
