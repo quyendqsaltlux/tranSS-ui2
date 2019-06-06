@@ -2,10 +2,11 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from '@angular/forms';
 import {GlobalConfig, ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
-import {BsModalRef} from 'ngx-bootstrap';
+import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 import {UsersService} from '../../service/users.service';
 import {PrincipleService} from '../../service/principle.service';
 import {MyAccount} from '../../model/MyAccount';
+import {AttachmentComponent} from "../../resources/attachment/attachment.component";
 
 @Component({
   selector: 'app-user-setting',
@@ -23,7 +24,8 @@ export class UserSettingComponent implements OnInit {
   constructor(private userService: UsersService,
               private toastr: ToastrService,
               private principleService: PrincipleService,
-              public router: Router) {
+              public router: Router,
+              private modalService: BsModalService) {
   }
 
   ngOnInit() {
@@ -43,5 +45,19 @@ export class UserSettingComponent implements OnInit {
       (err) => {
         this.toastr.error('Fail to save!', '', {timeOut: 10000} as Partial<GlobalConfig>);
       });
+  }
+
+  openCvModal() {
+    const initialState = {
+      title: 'Upload CV',
+      folder: 'CV'
+    };
+    this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState} as ModalOptions);
+    this.bsModalRef.content.closeBtnName = 'Close';
+    this.bsModalRef.content.event.subscribe(result => {
+      if (result && result.data) {
+        this.model.avatar = result.data;
+      }
+    });
   }
 }

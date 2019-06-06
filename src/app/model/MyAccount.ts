@@ -4,4 +4,5 @@ export interface MyAccount {
   username: string;
   email: string;
   tel: string;
+  avatar?: string;
 }
