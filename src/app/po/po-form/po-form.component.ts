@@ -40,8 +40,20 @@ export class PoFormComponent implements OnInit {
   getModel() {
     this.poService.findById(this.poId).subscribe((resp) => {
       this.model = resp.body as PODefault;
+      this.roundTotalByCurrency(this.model.currency);
       this.isShowForm = true;
     });
+  }
+
+  roundTotalByCurrency(currency) {
+    if (!currency) {
+      return;
+    }
+    let suffix = 2;
+    if ('KWR' === currency) {
+      suffix = 0;
+    }
+    this.model.assignment.total = Number((this.model.assignment.total).toFixed(suffix));
   }
 
   getDefaultPo() {
@@ -49,6 +61,7 @@ export class PoFormComponent implements OnInit {
       this.defaultPo = resp.body;
       this.model = {...this.defaultPo} as PODefault;
       this.model.currency = this.defaultPo.assignment.ability ? this.defaultPo.assignment.ability.currency : null;
+      this.roundTotalByCurrency(this.model.currency);
       this.isShowForm = true;
     }, () => {
       this.toastr.error('Fail to get default purchase order data');

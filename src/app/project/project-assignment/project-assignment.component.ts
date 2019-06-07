@@ -193,14 +193,16 @@ export class ProjectAssignmentComponent implements OnInit {
   }
 
   onNetOrHourChanged() {
-    if (!this.model.externalResource) {
-      this.model.unitPrice = this.getUnitPrice(this.currentAbility, this.model.netOrHour);
-    }
-    this.updateTotalMoney();
+    setTimeout(() => {
+      if (!this.model.externalResource) {
+        this.model.unitPrice = this.getUnitPrice(this.currentAbility, this.model.netOrHour);
+      }
+      this.updateTotalMoney();
+    }, 0);
   }
 
   updateTotalMoney() {
-    this.model.total = this.model.netOrHour * this.model.unitPrice;
+    this.model.total = Number(( this.model.netOrHour * this.model.unitPrice).toFixed(2));
   }
 
   onSelectTaskSourceTarget(ability) {

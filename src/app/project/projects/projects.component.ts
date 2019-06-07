@@ -37,7 +37,7 @@ export class ProjectsComponent implements OnInit {
     {headerName: 'Total Volume', field: 'totalVolume', type: 'numericColumn', width: 100},
     {headerName: 'Unit', field: 'unit', width: 70},
     {headerName: 'Target', field: 'target', width: 100},
-    {headerName: 'Progress', field: 'progressStatus', filter: false, width: 100},
+    {headerName: 'Status', field: 'progressStatus', filter: false, width: 100},
     {headerName: 'PM VTC', field: 'pmVtc', width: 100},
     {headerName: 'HO', field: 'ho', width: 160, type: 'dateColumn'},
     {headerName: 'HB', field: 'hb', width: 160, type: 'dateColumn'},
