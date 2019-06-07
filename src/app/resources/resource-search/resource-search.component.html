@@ -5,33 +5,16 @@
         <div class="card-body toolbar">
           <!--NEW-->
           <a class="btn btn-sm btn-success" routerLink="/resources/new"> <i class="fa fa-plus"></i> New Resource</a>
-          <!--FILTER-->
-          <div class="btn-group btn-group-sm pull-right" dropdown placement="bottom right">
-            <button dropdownToggle type="button" class="btn btn-sm btn-outline-secondary ml-1 dropdown-toggle"><i class="fa fa-cog"></i></button>
-            <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
-              <li role="menuitem">
-                <a class="dropdown-item">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="option1" id="checkbox1"
-                           [(ngModel)]="showOtherAbility" (change)="onToggleShowOtherAbility()">
-                    <label class="form-check-label" for="checkbox1">
-                      Show other resources' rate info when filtering
-                    </label>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <!--SEARCH-->
-          <div class="d-inline-block pull-right">
-            <div class="input-prepend input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text cursor-pointer" (click)="onClickSearch()"><i class="fa fa-search"></i></span>
-              </div>
-              <input id="prependedInput" class="form-control form-control-sm custom-search-input" size="16" type="text"
-                     placeholder="Search" (keydown.enter)="onClickSearch()" [(ngModel)]="keyWord">
-            </div>
-          </div>
+          <!--&lt;!&ndash;SEARCH&ndash;&gt;-->
+          <!--<div class="d-inline-block pull-right">-->
+            <!--<div class="input-prepend input-group">-->
+              <!--<div class="input-group-prepend">-->
+                <!--<span class="input-group-text cursor-pointer" (click)="onClickSearch()"><i class="fa fa-search"></i></span>-->
+              <!--</div>-->
+              <!--<input id="prependedInput" class="form-control form-control-sm custom-search-input" size="16" type="text"-->
+                     <!--placeholder="Search" (keydown.enter)="onClickSearch()" [(ngModel)]="keyWord">-->
+            <!--</div>-->
+          <!--</div>-->
         </div>
       </div>
     </div>
