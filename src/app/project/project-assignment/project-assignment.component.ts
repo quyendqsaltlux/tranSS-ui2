@@ -258,7 +258,7 @@ export class ProjectAssignmentComponent implements OnInit {
         sum += a * b;
       }
     }
-    return sum / 100;
+    return Number((sum / 100).toFixed(2));
   }
 
   onToggleExternalResource() {
