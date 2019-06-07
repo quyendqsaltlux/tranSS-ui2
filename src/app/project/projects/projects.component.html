@@ -4,17 +4,18 @@
       <div class="card mb-0 rounded-0">
         <div class="card-body toolbar">
           <!--NEW-->
-          <a class="btn btn-sm btn-success" routerLink="/projects/new"> <i class="fa fa-plus"></i> New Project</a>
+          <a class="btn btn-sm btn-success" routerLink="/projects/new"
+             *ngIf="isAllowCreate()"> <i class="fa fa-plus"></i> New Project</a>
           <!--SEARCH-->
-          <div class="d-inline-block pull-right">
-            <div class="input-prepend input-group">
-              <div class="input-group-prepend">
-                <span class="input-group-text cursor-pointer" (click)="onClickSearch()"><i class="fa fa-search"></i></span>
-              </div>
-              <input id="prependedInput" class="form-control form-control-sm custom-search-input" size="16" type="text"
-                     placeholder="Search" (keydown.enter)="onClickSearch()" [(ngModel)]="keyWord">
-            </div>
-          </div>
+          <!--<div class="d-inline-block pull-right">-->
+            <!--<div class="input-prepend input-group">-->
+              <!--<div class="input-group-prepend">-->
+                <!--<span class="input-group-text cursor-pointer" (click)="onClickSearch()"><i class="fa fa-search"></i></span>-->
+              <!--</div>-->
+              <!--<input id="prependedInput" class="form-control form-control-sm custom-search-input" size="16" type="text"-->
+                     <!--placeholder="Search" (keydown.enter)="onClickSearch()" [(ngModel)]="keyWord">-->
+            <!--</div>-->
+          <!--</div>-->
           <!--TABS-->
           <div class="btn-group pull-right mr-2" role="group">
             <button type="button" class="btn btn-sm btn-secondary" [class.bg-primary]="activedTab === 'ON_GOING'" (click)="onClickTab('ON_GOING')">

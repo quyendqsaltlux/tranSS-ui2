@@ -8,6 +8,7 @@ import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-rende
 import {Router} from '@angular/router';
 import {ProjectUrgentCellComponent} from '../../share/ag-grid/project-urgent-cell/project-urgent-cell.component';
 import {ProgressCellComponent} from '../../share/ag-grid/progress-cell/progress-cell.component';
+import {PrincipleService} from "../../service/principle.service";
 
 @Component({
   selector: 'app-projects',
@@ -77,11 +78,16 @@ export class ProjectsComponent implements OnInit {
   constructor(private  projectService: ProjectService,
               private toastr: ToastrService,
               public route: Router,
+              private principleService: PrincipleService,
               private modalService: BsModalService) {
   }
 
   ngOnInit() {
     this.initTable();
+  }
+
+  isAllowCreate() {
+    return this.principleService.isPMLeader();
   }
 
   onGridReady(params) {
