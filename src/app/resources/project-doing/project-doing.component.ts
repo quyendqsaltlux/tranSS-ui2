@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
 import {DateCellComponent} from '../../share/ag-grid/date-cell/date-cell.component';
 import {ResourceActionsCellComponent} from '../../share/ag-grid/resource-actions-cell/resource-actions-cell.component';
+import {BsModalRef} from 'ngx-bootstrap';
 
 @Component({
   selector: 'app-project-doing',
@@ -10,7 +11,7 @@ import {ResourceActionsCellComponent} from '../../share/ag-grid/resource-actions
 })
 export class ProjectDoingComponent implements OnInit {
   candidateId = null;
-  ignoreFilter = true;
+  title;
   modelList = [];
 
   columnDefs = [
@@ -35,7 +36,8 @@ export class ProjectDoingComponent implements OnInit {
   frameworkComponents;
   sortingOrder;
 
-  constructor(private  assignmentService: ProjectAssignmentService) {
+  constructor(public bsModalRef: BsModalRef,
+              private  assignmentService: ProjectAssignmentService) {
   }
 
   ngOnInit() {
