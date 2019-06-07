@@ -18,7 +18,14 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'list', pathMatch: 'full'},
       {path: 'list', component: ProjectsComponent, data: {title: 'List'}},
-      {path: 'new', component: ProjectFormComponent, data: {title: 'New'}},
+      {
+        path: 'new', component: ProjectFormComponent,
+        data: {
+          title: 'New',
+          roles: ['ROLE_PM_LEADER']
+        },
+        canActivate: [AuthGuard, RoleGuard],
+      },
       {path: 'edit/:id', component: ProjectFormComponent, data: {title: 'Edit'}},
       {path: 'assignments', component: ProjectAssignmentListComponent, data: {title: 'Project assignments'}},
       {path: ':id/assign', component: ProjectAssignmentComponent, data: {title: 'Assign resources to project'}},
