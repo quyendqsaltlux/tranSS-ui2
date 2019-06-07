@@ -21,10 +21,8 @@ const routes: Routes = [
       {
         path: 'new', component: ProjectFormComponent,
         data: {
-          title: 'New',
-          roles: ['ROLE_PM_LEADER']
-        },
-        canActivate: [AuthGuard, RoleGuard],
+          title: 'New'
+        }
       },
       {path: 'edit/:id', component: ProjectFormComponent, data: {title: 'Edit'}},
       {path: 'assignments', component: ProjectAssignmentListComponent, data: {title: 'Project assignments'}},

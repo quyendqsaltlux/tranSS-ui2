@@ -69,7 +69,6 @@ import {ProgressCellComponent} from './ag-grid/progress-cell/progress-cell.compo
     FormsModule,
     CollapseModule.forRoot(),
     PaginationModule.forRoot(),
-    BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     PopoverModule.forRoot(),
     TabsModule,

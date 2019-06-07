@@ -333,11 +333,11 @@
                         <!--PM-->
                         <div class="col-sm-12 col-md-4">
                           <div class="form-group">
-                            <label for="pmVtc">PM (VTC)</label>
+                            <label for="pmVtc">PM (VTC)<span class="text-danger"> *</span></label>
                             <div class="input-group">
                               <input type="text" class="form-control" id="pmVtc" placeholder="Ex: TAM"
                                      aria-label="Recipient's username" aria-describedby="basic-addon1"
-                                     [(ngModel)]="model.pmVtc" name="pmVtc"
+                                     [(ngModel)]="model.pmVtc" name="pmVtc" required
                                      #pmVtc="ngModel" readonly
                                      [ngClass]="{'is-invalid': f.submitted && pmVtc.invalid}">
                               <div class="input-group-append">
