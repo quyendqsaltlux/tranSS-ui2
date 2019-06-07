@@ -15,7 +15,6 @@
   <div class="card">
     <div class="card-header">
       <strong>Rates</strong>
-      <small>form</small>
       <div class="pull-right">
         <button type="button" class="btn btn-sm btn-success mr-1 ml-1" (click)="newAbility()" [disabled]="hasOneNewAbility()">
           <i class="fa fa-plus"></i> New Rate
@@ -26,6 +25,10 @@
       </div>
     </div>
     <div class="card-body">
+      <alert type="warning" class="mb-2" *ngIf="!abilities || abilities.length==0">
+        <strong>Note.</strong> Create at least one rate otherwise this resource will be invalid.
+      </alert>
+
       <div class="table-responsive mh350">
         <ng-container *ngFor="let ability of abilities; let index=index">
           <app-ability [ability]="ability" [index]="index" (_onDelete)="onDeleteAbility($event)"
