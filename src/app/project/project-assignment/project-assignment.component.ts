@@ -9,6 +9,7 @@ import {Router} from '@angular/router';
 import {NgForm} from '@angular/forms';
 import {FLOAT_REGEX} from '../../AppConstant';
 import {PoService} from '../../service/po.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-project-assignment',
@@ -78,8 +79,16 @@ export class ProjectAssignmentComponent implements OnInit {
     this.model.projectCode = this.projectCode;
   }
 
+  buildParam(model) {
+    const params = _.cloneDeep(model);
+    params.candidateId = params.candidate ? params.candidate.id : null;
+    delete params.candidate;
+    delete params.ability;
+    return params;
+  }
+
   onSubmit() {
-    this.projectAssignmentService.create(this.model).subscribe((resp) => {
+    this.projectAssignmentService.create(this.buildParam(this.model)).subscribe((resp) => {
       this.toastr.success('Assigned successfully!');
       this.saveDone.emit(true);
     }, (err) => {
