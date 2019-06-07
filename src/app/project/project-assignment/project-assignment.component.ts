@@ -256,6 +256,10 @@ export class ProjectAssignmentComponent implements OnInit {
     this.resetWfAndRepAndOther();
   }
 
+  onToggleUseCustomTask() {
+    this.model.abilityId = null;
+  }
+
   resetWfAndRepAndOther() {
     const size = this.wrepFields.length;
     let index: number;

@@ -26,6 +26,7 @@ export class ResourceSearchComponent implements OnInit {
   @Input() viewControl;
   @Output() selectTaskSourceTarget: EventEmitter<any> = new EventEmitter();
   @Output() toggleExternalResource: EventEmitter<any> = new EventEmitter();
+  @Output() toggleUseCustomTask: EventEmitter<any> = new EventEmitter();
   selectedAbility;
 
   constructor(private resourceService: CandidateService) {
@@ -76,7 +77,16 @@ export class ResourceSearchComponent implements OnInit {
   }
 
   onToggleUseCustomTask() {
-    this.onChangeAbility(this.selectedOption.abilities[this.selectedAbility]);
+    setTimeout(() => {
+      if (this.model.useCustomTask) {
+        this.selectedAbility = null;
+        this.toggleUseCustomTask.emit(true);
+        return;
+      }
+
+      this.selectedAbility = this.selectedOption.abilities[0].id;
+      this.onChangeAbility(this.selectedOption.abilities[0]);
+    }, 0);
   }
 
   onToggleExternalResource() {
