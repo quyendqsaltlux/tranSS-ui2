@@ -50,7 +50,7 @@ export class PoFormComponent implements OnInit {
       return;
     }
     let suffix = 2;
-    if ('KWR' === currency) {
+    if ('KRW' === currency) {
       suffix = 0;
     }
     this.model.assignment.total = Number((this.model.assignment.total).toFixed(suffix));
