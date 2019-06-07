@@ -31,6 +31,7 @@ import {InternalCheckCellComponent} from './ag-grid/internal-check-cell/internal
 import {RegexPatternPie} from '../pipe/regex-pattern.pie';
 import {ProjectUrgentCellComponent} from './ag-grid/project-urgent-cell/project-urgent-cell.component';
 import {ResourceCodeCellComponent} from './ag-grid/resource-code-cell/resource-code-cell.component';
+import {ProgressCellComponent} from './ag-grid/progress-cell/progress-cell.component';
 
 @NgModule({
   declarations: [
@@ -59,8 +60,8 @@ import {ResourceCodeCellComponent} from './ag-grid/resource-code-cell/resource-c
     InternalCheckCellComponent,
     RegexPatternPie,
     ProjectUrgentCellComponent,
-    ResourceCodeCellComponent
-
+    ResourceCodeCellComponent,
+    ProgressCellComponent
   ],
   imports: [
     CommonModule,
@@ -91,7 +92,8 @@ import {ResourceCodeCellComponent} from './ag-grid/resource-code-cell/resource-c
       InvoiceActionsCellComponent,
       InternalCheckCellComponent,
       ProjectUrgentCellComponent,
-      ResourceCodeCellComponent
+      ResourceCodeCellComponent,
+      ProgressCellComponent
     ])
   ],
   exports: [
@@ -133,7 +135,8 @@ import {ResourceCodeCellComponent} from './ag-grid/resource-code-cell/resource-c
     InternalCheckCellComponent,
     RegexPatternPie,
     ProjectUrgentCellComponent,
-    ResourceCodeCellComponent
+    ResourceCodeCellComponent,
+    ProgressCellComponent
   ],
   entryComponents: [
     EmployeeSearchComponent
