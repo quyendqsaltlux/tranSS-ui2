@@ -93,7 +93,7 @@ export class ProjectAssignmentComponent implements OnInit {
   }
 
   onChangeProgress(progress) {
-    if (progress === this.assignment.progress) {
+    if (!this.viewControl.ableToChange || progress === this.assignment.progress) {
       return;
     }
     this.projectAssignmentService.changeProgress(this.assignment.id, progress).subscribe((resp) => {
@@ -111,6 +111,9 @@ export class ProjectAssignmentComponent implements OnInit {
   }
 
   openNewGeneralCommentModal() {
+    if (!this.viewControl.ableToChange) {
+      return;
+    }
     const _combine = combineLatest(
       this.modalService.onHide,
       this.modalService.onHidden
