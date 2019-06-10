@@ -6,6 +6,7 @@ import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-rende
 import {Router} from '@angular/router';
 import {TestWaitingService} from '../../service/test-waiting.service';
 import {InternalCheckCellComponent} from '../../share/ag-grid/internal-check-cell/internal-check-cell.component';
+import {EQUAL} from '../../AppConstant';
 
 @Component({
   selector: 'app-test-waiting-list',
@@ -14,7 +15,7 @@ import {InternalCheckCellComponent} from '../../share/ag-grid/internal-check-cel
 })
 export class TestWaitingListComponent implements OnInit {
   @ViewChild('template') template: TemplateRef<any>;
-  JOIN_FILTER_COLS = ['pm.code'];
+  JOIN_FILTER_COLS = [];
   columnDefs = [
     {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
     {headerName: 'Code', field: 'code'},
@@ -41,7 +42,7 @@ export class TestWaitingListComponent implements OnInit {
   frameworkComponents;
   sortingOrder;
 
-  activedTab = 'ON_GOING';
+  activedTab = 'SHORT_LIST';
   ignoreFilter = true;
   modalRef: BsModalRef;
   modelList = [];
@@ -59,7 +60,6 @@ export class TestWaitingListComponent implements OnInit {
   };
 
   filter = [];
-  pmFilter = [];
   deleteId = -1;
 
   constructor(private  testWaitingService: TestWaitingService,
@@ -125,7 +125,20 @@ export class TestWaitingListComponent implements OnInit {
     this.route.navigate(['/resources/test-waiting/edit/' + this.modelList[index].id]);
   }
 
+  /**
+   * Change value of progress status like active tab
+   */
+  injectTabFilter() {
+    const tabFilter = this.filter.find((item) => item.field === 'isShortList');
+    if (tabFilter) {
+      tabFilter.value = 'SHORT_LIST' === this.activedTab ? 1 : 0;
+    } else {
+      this.filter.push({operation: EQUAL, value: 'SHORT_LIST' === this.activedTab ? 1 : 0, field: 'isShortList'});
+    }
+  }
+
   getModelList() {
+    this.injectTabFilter();
     this.testWaitingService.search(this.page, this.size, this.keyWord,
       this.sortConfig.field, this.sortConfig.order, this.filter)
       .subscribe((resp => {
@@ -166,7 +179,6 @@ export class TestWaitingListComponent implements OnInit {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
     const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
     this.filter = [...separatedFilter.root];
-    this.pmFilter = [...separatedFilter.join];
     this.getModelList();
   }
 
