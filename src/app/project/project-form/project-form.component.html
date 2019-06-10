@@ -133,7 +133,7 @@
                         <div class="col-sm-12 col-md-6">
                           <div class="form-group">
                             <label for="content">Contents</label>
-                            <textarea type="text" class="form-control" id="content" placeholder=""
+                            <textarea type="text" class="form-control" id="content" maxlength="255"
                                       name="content" [(ngModel)]="model.contents" rows="3"></textarea>
                           </div>
                         </div>
@@ -141,7 +141,7 @@
                         <div class="col-sm-12 col-md-6">
                           <div class="form-group">
                             <label for="remark">Remark</label>
-                            <textarea type="text" class="form-control" id="remark" placeholder="Ex: ITP19_0532"
+                            <textarea type="text" class="form-control" id="remark" maxlength="1023"
                                       name="remark" [(ngModel)]="model.remark" rows="3"></textarea>
                           </div>
                         </div>
@@ -168,7 +168,7 @@
                         <div class="col-sm-12 col-md-8">
                           <div class="form-group">
                             <label for="field">Field</label>
-                            <input type="text" class="form-control" id="field"
+                            <input type="text" class="form-control" id="field" maxlength="255"
                                    name="field" [(ngModel)]="model.field">
                           </div>
                         </div>
