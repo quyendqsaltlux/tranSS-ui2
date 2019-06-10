@@ -7,7 +7,7 @@ import {NgForm} from '@angular/forms';
 import {focusDuplicatedFields} from '../../util/dom-util';
 import {EmployeeSearchComponent} from '../../share/employee-search/employee-search.component';
 import {combineLatest, Subscription} from 'rxjs';
-import {O, X} from '../../AppConstant';
+import {FLOAT_REGEX, O, X} from '../../AppConstant';
 import * as _ from 'lodash';
 import {Project} from '../../model/Project';
 import {PrincipleService} from '../../service/principle.service';
@@ -26,6 +26,7 @@ export class ProjectFormComponent implements OnInit {
   model: Project = {} as Project;
   loadProjectDone = false;
   currentUser;
+  _FLOAT_REGEX = FLOAT_REGEX;
 
   constructor(private projectService: ProjectService,
               private toastr: ToastrService,

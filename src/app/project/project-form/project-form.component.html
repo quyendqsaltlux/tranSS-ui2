@@ -90,7 +90,7 @@
                           <div class="form-group">
                             <label for="target">Target</label>
                             <input type="text" class="form-control" id="target" placeholder="Ex: EN2KO"
-                                   name="target" [(ngModel)]="model.target"
+                                   name="target" [(ngModel)]="model.target" maxlength="31"
                                    #target="ngModel"
                                    [ngClass]="{'is-invalid': f.submitted && target.invalid}">
                             <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
@@ -119,13 +119,13 @@
                         <div class="col-sm-12 col-md-4">
                           <div class="form-group">
                             <label for="totalVolume">Total Volume</label>
-                            <input type="text" class="form-control" id="totalVolume" placeholder="Ex: ITP19_0532"
+                            <input type="text" class="form-control" id="totalVolume" placeholder="Ex: 1200"
                                    name="totalVolume" [(ngModel)]="model.totalVolume"
                                    #totalVolume="ngModel"
-                                   [ngClass]="{'is-invalid': f.submitted && totalVolume.invalid}">
+                                   [pattern]="_FLOAT_REGEX"
+                                   [ngClass]="{'is-invalid': (totalVolume.dirty || totalVolume.touched) && totalVolume.invalid}">
                             <div *ngIf="totalVolume.invalid && (totalVolume.dirty || totalVolume.touched)" class="msg-invalid">
                               <div *ngIf="totalVolume.errors.maxlength">Too long.</div>
-                              <div *ngIf="totalVolume.errors.conflict">Duplicated.</div>
                             </div>
                           </div>
                         </div>
