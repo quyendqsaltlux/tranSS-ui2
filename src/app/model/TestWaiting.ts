@@ -13,7 +13,15 @@ export interface TestWaiting {
   hbFiles: string;
   internalCheck: string;
   testEvaluation: string;
+  testResult: string;
   comments: string;
   otherNote: string;
   attachment: string;
+  expectedRateRange: string;
+  field: string;
+  processStatus: string;
+  catTool: string;
+  isShortList: boolean;
+  negotiationDate: Date;
+  shortListDate: Date;
 }

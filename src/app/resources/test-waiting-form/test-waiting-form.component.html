@@ -14,11 +14,11 @@
             <!--Code-->
             <div class="col-sm-12 col-md-2">
               <div class="form-group">
-                <label for="Code">Code<span class="text-danger"> *</span></label>
+                <label for="Code">Code</label>
                 <input type="text" class="form-control form-control" id="Code"
                        name="Code"
                        [(ngModel)]="model.code"
-                       required maxlength="255"
+                       maxlength="255"
                        #code="ngModel"
                        [ngClass]="{'is-invalid': f.submitted && code.invalid}">
                 <div *ngIf="code.invalid && (code.dirty || code.touched)" class="msg-invalid">
@@ -28,7 +28,7 @@
               </div>
             </div>
             <!--Source-->
-            <div class="col-sm-12 col-md-2">
+            <div class="col-sm-12 col-md-1">
               <div class="form-group">
                 <label for="Source">Source<span class="text-danger"> *</span></label>
                 <input type="text" class="form-control form-control" id="Source"
@@ -44,7 +44,7 @@
               </div>
             </div>
             <!--Target-->
-            <div class="col-sm-12 col-md-2">
+            <div class="col-sm-12 col-md-1">
               <div class="form-group">
                 <label for="Source">Target<span class="text-danger"> *</span></label>
                 <input type="text" class="form-control form-control" id="Target"
@@ -108,7 +108,7 @@
               </div>
             </div>
             <!--tool-->
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-2">
               <div class="form-group">
                 <label for="tool">Tool</label>
                 <input type="text" class="form-control form-control" id="tool"
@@ -148,7 +148,7 @@
               </div>
             </div>
             <!--hb Files-->
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-2">
               <div class="form-group">
                 <label for="hbFiles">HB Files</label>
                 <input type="text" class="form-control form-control" id="hbFiles"
@@ -164,7 +164,7 @@
               </div>
             </div>
             <!--internalCheck-->
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-2">
               <div class="form-group">
                 <label>Internal Check</label>
                 <ng-select [(ngModel)]="model.internalCheck" [searchable]="false" [clearable]="false"
@@ -176,22 +176,31 @@
               </div>
             </div>
             <!--testEvaluation-->
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-2">
               <div class="form-group">
-                <label>TestEvaluation<span class="text-danger"> *</span></label>
+                <label>Test Evaluation</label>
                 <ng-select [(ngModel)]="model.testEvaluation" [searchable]="false" [clearable]="false"
                            #testEvaluation="ngModel" require name="testEvaluation"
                            [ngClass]="{'is-invalid': f.submitted && testEvaluation.invalid}">
                   <ng-option [value]="'UNEVALUATED'">Unevaluated</ng-option>
                   <ng-option [value]="'EVALUATED'">Evaluated</ng-option>
+                </ng-select>
+              </div>
+            </div>
+            <!--testResult-->
+            <div class="col-sm-12 col-md-2">
+              <div class="form-group">
+                <label>Test Result</label>
+                <ng-select [(ngModel)]="model.testResult" [searchable]="false" [clearable]="false"
+                           #testResult="ngModel" require name="testResult"
+                           [ngClass]="{'is-invalid': f.submitted && testResult.invalid}">
                   <ng-option [value]="'PASS'">Pass</ng-option>
                   <ng-option [value]="'FAIL'">Fail</ng-option>
                 </ng-select>
               </div>
             </div>
-
             <!--attachment-->
-            <div class="col-sm-12 col-md-3">
+            <div class="col-sm-12 col-md-2">
               <div class="form-group">
                 <label for="attachment">Attachment</label>
                 <input type="text" class="form-control form-control" id="attachment"
@@ -206,6 +215,90 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <div class="row">
+            <!--isShortList-->
+            <div class="col-sm-12 col-md-1">
+              <div class="form-group">
+                <label class="col-form-label invisible">isShortList</label>
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="isShortList" name="isShortList"
+                         [(ngModel)]="model.isShortList">
+                  <label class="custom-control-label" for="isShortList">is Short list</label>
+                </div>
+              </div>
+            </div>
+            <ng-container *ngIf="model.isShortList">
+              <!--ShortList Date-->
+              <div class="col-sm-12 col-md-2">
+                <div class="form-group">
+                  <label for="shortListDate">ShortList Date</label>
+                  <input type="date" class="form-control" id="shortListDate"
+                         name="shortListDate" [(ngModel)]="model.shortListDate">
+                </div>
+              </div>
+              <!--Negotiation Date-->
+              <div class="col-sm-12 col-md-2">
+                <div class="form-group">
+                  <label for="negotiationDate">Negotiation Date</label>
+                  <input type="date" class="form-control" id="negotiationDate"
+                         name="negotiationDate" [(ngModel)]="model.negotiationDate">
+                </div>
+              </div>
+              <!--field-->
+              <div class="col-sm-12 col-md-2">
+                <div class="form-group">
+                  <label for="field">Field</label>
+                  <input type="text" class="form-control form-control" id="field"
+                         name="field"
+                         [(ngModel)]="model.field"
+                         maxlength="255"
+                         #field="ngModel"
+                         [ngClass]="{'is-invalid': f.submitted && field.invalid}">
+                  <div *ngIf="field.invalid && (field.dirty || field.touched)" class="msg-invalid">
+                    <div *ngIf="field.errors.required">This field is required.</div>
+                    <div *ngIf="field.errors.maxlength">Too long.</div>
+                  </div>
+                </div>
+              </div>
+              <!--processStatus-->
+              <div class="col-sm-12 col-md-2">
+                <div class="form-group">
+                  <label for="processStatus">Process Status</label>
+                  <input type="text" class="form-control form-control" id="processStatus"
+                         name="processStatus"
+                         [(ngModel)]="model.processStatus"
+                         maxlength="63"
+                         #processStatus="ngModel"
+                         [ngClass]="{'is-invalid': f.submitted && processStatus.invalid}">
+                  <div *ngIf="processStatus.invalid && (processStatus.dirty || processStatus.touched)" class="msg-invalid">
+                    <div *ngIf="processStatus.errors.required">This processStatus is required.</div>
+                    <div *ngIf="processStatus.errors.maxlength">Too long.</div>
+                  </div>
+                </div>
+              </div>
+              <!--Expected Rate Range-->
+              <div class="col-sm-12 col-md-3">
+                <div class="form-group">
+                  <label for="expectedRateRange">Expected Rate Range</label>
+                  <textarea type="text" class="form-control form-control" id="expectedRateRange"
+                            name="expectedRateRange"
+                            [(ngModel)]="model.expectedRateRange"
+                            maxlength="1023"
+                            #expectedRateRange="ngModel"
+                            [ngClass]="{'is-invalid': f.submitted && expectedRateRange.invalid}"
+                            rows="3"></textarea>
+                  <div *ngIf="expectedRateRange.invalid && (expectedRateRange.dirty || expectedRateRange.touched)" class="msg-invalid">
+                    <div *ngIf="expectedRateRange.errors.required">This field is required.</div>
+                    <div *ngIf="expectedRateRange.errors.maxlength">Too long.</div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+
+          <div class="row">
             <!--comments-->
             <div class="col-sm-12 col-md-3">
               <div class="form-group">
@@ -240,7 +333,6 @@
                 </div>
               </div>
             </div>
-
           </div>
         </div>
       </div>
