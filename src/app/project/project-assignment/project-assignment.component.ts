@@ -91,7 +91,21 @@ export class ProjectAssignmentComponent implements OnInit {
     return params;
   }
 
+  isFormValid() {
+    if (this.model.externalResource) {
+      return !this.f.invalid && this.model.externalResourceName && this.model.task && this.model.source && this.model.target;
+    }
+    if (this.model.useCustomTask) {
+      return !this.f.invalid && this.model.task && this.model.source && this.model.target;
+    }
+
+    return !this.f.invalid;
+  }
+
   onSubmit() {
+    if (!this.isFormValid()) {
+      return;
+    }
     this.projectAssignmentService.create(this.buildParam(this.model)).subscribe((resp) => {
       this.toastr.success('Assigned successfully!');
       this.saveDone.emit(true);
