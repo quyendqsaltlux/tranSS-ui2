@@ -8,6 +8,7 @@ import {ProjectAssignmentComponent} from './project-assignment/project-assignmen
 import {AssignmentInfoComponent} from './assignment-info/assignment-info.component';
 import {EvaluationModule} from '../evaluation/evaluation.module';
 import {ResourceSearchComponent} from './resource-search/resource-search.component';
+import {PoModule} from "../po/po.module";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {ResourceSearchComponent} from './resource-search/resource-search.compone
   imports: [
     ProjectRoutingModule,
     ShareModule,
-    EvaluationModule
+    EvaluationModule,
+    PoModule
   ]
 })
 export class ProjectModule {

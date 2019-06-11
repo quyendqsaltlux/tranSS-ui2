@@ -23,7 +23,7 @@ export class ResourceSearchComponent implements OnInit {
 
   @Input() model;
   @Input() f;
-  @Input() viewControl;
+  @Input() unableToChange;
   @Output() selectTaskSourceTarget: EventEmitter<any> = new EventEmitter();
   @Output() toggleExternalResource: EventEmitter<any> = new EventEmitter();
   @Output() toggleUseCustomTask: EventEmitter<any> = new EventEmitter();

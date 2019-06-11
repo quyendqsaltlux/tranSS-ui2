@@ -52,4 +52,5 @@ export interface ProjectAssignmentReq {
   project?: any;
   progress?: any;
   invoiceId?: any;
+  poId?: any;
 }

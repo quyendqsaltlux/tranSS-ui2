@@ -1,135 +1,135 @@
 <div class="card card-body mb-0 p-2">
-  <!--externalResource-->
-  <div>
-    <div class="d-flex mb-1 align-items-center">
-      <div>
-        <label class="mb-0 switch switch-sm switch-primary">
-          <input type="checkbox" class="switch-input" id="externalResource" name="externalResource"
-                 [(ngModel)]="model.externalResource"
-                 (change)="onToggleExternalResource()">
-          <span class="switch-slider"></span>
-        </label>
-      </div>
-      <label class="ml-2" for="externalResource">Use resource not in RDB</label>
-    </div>
-
-    <div class="form-group mb-0" *ngIf="model.externalResource">
-      <label for="externalResourceName">External resource name</label>
-      <input id="externalResourceName" name="externalResourceName" [(ngModel)]="model.externalResourceName" required
-             [ngClass]="{'is-invalid': f.submitted && externalResourceName.invalid}"
-             #externalResourceName="ngModel" class="form-control form-control-sm">
-      <div *ngIf="externalResourceName.invalid && (externalResourceName.dirty || externalResourceName.touched)" class="msg-invalid">
-        <div *ngIf="externalResourceName.errors.required">Required</div>
-      </div>
-    </div>
-
-  </div>
-
-  <ng-container *ngIf="!model.externalResource">
-    <input [(ngModel)]="asyncSelected"
-           [typeaheadAsync]="true"
-           [typeahead]="dataSource"
-           (typeaheadLoading)="changeTypeaheadLoading($event)"
-           (typeaheadOnSelect)="typeaheadOnSelect($event)"
-           [typeaheadOptionsLimit]="10"
-           typeaheadOptionField="name"
-           typeaheadWaitMs="500"
-           (typeaheadNoResults)="typeaheadNoResults($event)"
-           (typeaheadOnSelect)="onSelect($event)"
-           [typeaheadItemTemplate]="customItemTemplate"
-           [typeaheadScrollable]="true"
-           [typeaheadSelectFirstItem]="true"
-           placeholder="search"
-           class="form-control form-control-sm">
-    <div *ngIf="typeaheadLoading">Searching...</div>
-
-    <div class="alert alert-danger" *ngIf="noResult">No Results Found</div>
-    <div class="mb-0 mt-1" *ngIf="selectedOption">
-      <div class="media">
-        <img *ngIf="selectedOption.avatar" class="mr-3" [src]="selectedOption.avatar" alt="Avatar" width="{{AVATAR_SIZE_MEDIUM}}" height="{{AVATAR_SIZE_MEDIUM}}">
-        <img *ngIf="!selectedOption.avatar" class="mr-3" src="assets/img/avatars/default_avatar.png" alt="Avatar" width="{{AVATAR_SIZE_MEDIUM}}" height="{{AVATAR_SIZE_MEDIUM}}">
-        <div class="media-body">
-          <h6 class="mb-1">{{selectedOption.name}}</h6>
-          <div class="mt-0"><span>({{selectedOption.code}})</span></div>
-        </div>
-      </div>
-      <!--SELECT ABILITY-->
-      <div class="mt-1" *ngIf="!model.useCustomTask">
-        <ng-select [(ngModel)]="selectedAbility" [clearable]="false" name="ability" id="ability" class="sm"
-                   #ability="ngModel" [disabled]="!viewControl.ableToChange"
-                   required
-                   [items]="selectedOption.abilities"
-                   bindLabel="task" bindValue="id"
-                   (change)="onChangeAbility($event)">
-          <ng-template ng-label-tmp let-item="item">
-            {{item.task}} {{item.sourceLanguage}} -> {{item.targetLanguage}} ({{item.projectType}})
-          </ng-template>
-          <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
-            {{item.task}}: {{item.sourceLanguage}} -> {{item.targetLanguage}} ({{item.projectType}})
-          </ng-template>
-        </ng-select>
-      </div>
-      <!--ALLOW CUSTOM TASK-->
-      <div class="d-flex mt-2 align-items-center">
+  <fieldset [disabled]="unableToChange">
+    <div>
+      <div class="d-flex mb-1 align-items-center">
         <div>
           <label class="mb-0 switch switch-sm switch-primary">
-            <input type="checkbox" class="switch-input" id="useCustomTask" name="useCustomTask"
-                   [(ngModel)]="model.useCustomTask" (change)="onToggleUseCustomTask()">
+            <input type="checkbox" class="switch-input" id="externalResource" name="externalResource"
+                   [(ngModel)]="model.externalResource"
+                   (change)="onToggleExternalResource()">
             <span class="switch-slider"></span>
           </label>
         </div>
-        <label class="ml-2" for="useCustomTask">Customize task</label>
+        <label class="ml-2" for="externalResource">Use resource not in RDB</label>
+      </div>
+
+      <div class="form-group mb-0" *ngIf="model.externalResource">
+        <label for="externalResourceName">External resource name</label>
+        <input id="externalResourceName" name="externalResourceName" [(ngModel)]="model.externalResourceName" required
+               [ngClass]="{'is-invalid': f.submitted && externalResourceName.invalid}"
+               #externalResourceName="ngModel" class="form-control form-control-sm">
+        <div *ngIf="externalResourceName.invalid && (externalResourceName.dirty || externalResourceName.touched)" class="msg-invalid">
+          <div *ngIf="externalResourceName.errors.required">Required</div>
+        </div>
       </div>
 
     </div>
-  </ng-container>
 
-  <div class="d-flex mb-1" *ngIf="model.externalResource || model.useCustomTask">
-    <!--TASK-->
-    <div class="form-group mw110 flex-grow-1 mb-1">
-      <label for="task">Task<span class="text-danger"> *</span></label>
-      <ng-select [(ngModel)]="model.task" [searchable]="false" [clearable]="false" name="task" id="task"
-                 #task="ngModel" class="sm"
-                 required  [disabled]="!viewControl.ableToChange"
-                 [ngClass]="{'is-invalid': f.submitted && task.invalid}">
-        <ng-option [value]="'All'">All</ng-option>
-        <ng-option [value]="'DTP'">DTP</ng-option>
-        <ng-option [value]="'Translation'">Translation</ng-option>
-        <ng-option [value]="'Editing'">Editing</ng-option>
-        <ng-option [value]="'Proofreading'">Proofreading</ng-option>
-      </ng-select>
-      <div *ngIf="task.invalid && (task.dirty || task.touched)" class="msg-invalid">
-        <div *ngIf="task.errors.conflict">Duplicated.</div>
-      </div>
-    </div>
-    <!--SOURCE-->
-    <div class="form-group language mb-1">
-      <label for="source">Source<span class="text-danger"> *</span></label>
-      <input class=" form-control form-control-sm" id="source" name="source"
-             required maxlength="127"
-             [(ngModel)]="model.source"
-             #source="ngModel"
-             [ngClass]="{'is-invalid': f.submitted && source.invalid}">
-      <div *ngIf="source.invalid && (source.dirty || source.touched)" class="msg-invalid">
-        <div *ngIf="source.errors.maxlength">Too long.</div>
-        <div *ngIf="source.errors.conflict">Duplicated.</div>
-      </div>
-    </div>
-    <!--TARGET-->
-    <div class="form-group language mb-1">
-      <label for="target">Target<span class="text-danger"> *</span></label>
-      <input type="text" class=" form-control form-control-sm" id="target" name="target"
-             required maxlength="127"
-             [(ngModel)]="model.target"
-             #target="ngModel"
-             [ngClass]="{'is-invalid': f.submitted && target.invalid}">
-      <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
-        <div *ngIf="target.errors.maxlength">Too long.</div>
-        <div *ngIf="target.errors.conflict">Duplicated.</div>
-      </div>
-    </div>
-  </div>
+    <ng-container *ngIf="!model.externalResource">
+      <input [(ngModel)]="asyncSelected"
+             [typeaheadAsync]="true"
+             [typeahead]="dataSource"
+             (typeaheadLoading)="changeTypeaheadLoading($event)"
+             (typeaheadOnSelect)="typeaheadOnSelect($event)"
+             [typeaheadOptionsLimit]="10"
+             typeaheadOptionField="name"
+             typeaheadWaitMs="500"
+             (typeaheadNoResults)="typeaheadNoResults($event)"
+             (typeaheadOnSelect)="onSelect($event)"
+             [typeaheadItemTemplate]="customItemTemplate"
+             [typeaheadScrollable]="true"
+             [typeaheadSelectFirstItem]="true"
+             placeholder="search"
+             class="form-control form-control-sm">
+      <div *ngIf="typeaheadLoading">Searching...</div>
 
+      <div class="alert alert-danger" *ngIf="noResult">No Results Found</div>
+      <div class="mb-0 mt-1" *ngIf="selectedOption">
+        <div class="media">
+          <img *ngIf="selectedOption.avatar" class="mr-3" [src]="selectedOption.avatar" alt="Avatar" width="{{AVATAR_SIZE_MEDIUM}}" height="{{AVATAR_SIZE_MEDIUM}}">
+          <img *ngIf="!selectedOption.avatar" class="mr-3" src="assets/img/avatars/default_avatar.png" alt="Avatar" width="{{AVATAR_SIZE_MEDIUM}}" height="{{AVATAR_SIZE_MEDIUM}}">
+          <div class="media-body">
+            <h6 class="mb-1">{{selectedOption.name}}</h6>
+            <div class="mt-0"><span>({{selectedOption.code}})</span></div>
+          </div>
+        </div>
+        <!--SELECT ABILITY-->
+        <div class="mt-1" *ngIf="!model.useCustomTask">
+          <ng-select [(ngModel)]="selectedAbility" [clearable]="false" name="ability" id="ability" class="sm"
+                     #ability="ngModel" [disabled]="unableToChange"
+                     required
+                     [items]="selectedOption.abilities"
+                     bindLabel="task" bindValue="id"
+                     (change)="onChangeAbility($event)">
+            <ng-template ng-label-tmp let-item="item">
+              {{item.task}} {{item.sourceLanguage}} -> {{item.targetLanguage}} ({{item.projectType}})
+            </ng-template>
+            <ng-template ng-option-tmp let-item="item" let-index="index" let-search="searchTerm">
+              {{item.task}}: {{item.sourceLanguage}} -> {{item.targetLanguage}} ({{item.projectType}})
+            </ng-template>
+          </ng-select>
+        </div>
+        <!--ALLOW CUSTOM TASK-->
+        <div class="d-flex mt-2 align-items-center">
+          <div>
+            <label class="mb-0 switch switch-sm switch-primary">
+              <input type="checkbox" class="switch-input" id="useCustomTask" name="useCustomTask"
+                     [(ngModel)]="model.useCustomTask" (change)="onToggleUseCustomTask()">
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+          <label class="ml-2" for="useCustomTask">Customize task</label>
+        </div>
+
+      </div>
+    </ng-container>
+
+    <div class="d-flex mb-1" *ngIf="model.externalResource || model.useCustomTask">
+      <!--TASK-->
+      <div class="form-group mw110 flex-grow-1 mb-1">
+        <label for="task">Task<span class="text-danger"> *</span></label>
+        <ng-select [(ngModel)]="model.task" [searchable]="false" [clearable]="false" name="task" id="task"
+                   #task="ngModel" class="sm"
+                   required [disabled]="unableToChange"
+                   [ngClass]="{'is-invalid': f.submitted && task.invalid}">
+          <ng-option [value]="'All'">All</ng-option>
+          <ng-option [value]="'DTP'">DTP</ng-option>
+          <ng-option [value]="'Translation'">Translation</ng-option>
+          <ng-option [value]="'Editing'">Editing</ng-option>
+          <ng-option [value]="'Proofreading'">Proofreading</ng-option>
+        </ng-select>
+        <div *ngIf="task.invalid && (task.dirty || task.touched)" class="msg-invalid">
+          <div *ngIf="task.errors.conflict">Duplicated.</div>
+        </div>
+      </div>
+      <!--SOURCE-->
+      <div class="form-group language mb-1">
+        <label for="source">Source<span class="text-danger"> *</span></label>
+        <input class=" form-control form-control-sm" id="source" name="source"
+               required maxlength="127"
+               [(ngModel)]="model.source"
+               #source="ngModel"
+               [ngClass]="{'is-invalid': f.submitted && source.invalid}">
+        <div *ngIf="source.invalid && (source.dirty || source.touched)" class="msg-invalid">
+          <div *ngIf="source.errors.maxlength">Too long.</div>
+          <div *ngIf="source.errors.conflict">Duplicated.</div>
+        </div>
+      </div>
+      <!--TARGET-->
+      <div class="form-group language mb-1">
+        <label for="target">Target<span class="text-danger"> *</span></label>
+        <input type="text" class=" form-control form-control-sm" id="target" name="target"
+               required maxlength="127"
+               [(ngModel)]="model.target"
+               #target="ngModel"
+               [ngClass]="{'is-invalid': f.submitted && target.invalid}">
+        <div *ngIf="target.invalid && (target.dirty || target.touched)" class="msg-invalid">
+          <div *ngIf="target.errors.maxlength">Too long.</div>
+          <div *ngIf="target.errors.conflict">Duplicated.</div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
 </div>
 
 <ng-template #customItemTemplate let-model="item" let-index="index">

@@ -63,7 +63,6 @@ export class PaymentComponent implements OnInit {
     };
     this.bsModalRef = this.modalService.show(AttachmentComponent, {initialState} as ModalOptions);
     this.bsModalRef.content.event.subscribe(result => {
-      console.log(result);
       if (result && result.data) {
         this.payment.attachment = result.data;
       }

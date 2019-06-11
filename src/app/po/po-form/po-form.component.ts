@@ -1,6 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PoService} from '../../service/po.service';
-import {ActivatedRoute} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {PODefault} from '../../model/PODefaullt';
 import {POReq} from '../../model/POReq';
@@ -17,19 +16,14 @@ export class PoFormComponent implements OnInit {
   defaultPo;
   model: PODefault = {} as PODefault;
   isShowForm = false;
+  updated = false;
 
-  constructor(private route: ActivatedRoute,
-              private toastr: ToastrService,
+  constructor(private toastr: ToastrService,
               private  poService: PoService) {
   }
 
   ngOnInit() {
     this.isShowForm = false;
-    this.assignmentId = +this.route.snapshot.paramMap.get('assignmentId');
-    this.poId = +this.route.snapshot.paramMap.get('poId');
-    if (isNaN(this.poId)) {
-      this.poId = null;
-    }
     if (!this.poId) {
       this.getDefaultPo();
     } else {
@@ -73,6 +67,7 @@ export class PoFormComponent implements OnInit {
     this.poService.create(param, this.assignmentId).subscribe((resp => {
       this.model.id = resp.body.id;
       this.model.code = resp.body.code;
+      this.updated = true;
       this.toastr.success('Save PO successfully!');
     }), (error2 => {
       this.toastr.error('Fail to save!');

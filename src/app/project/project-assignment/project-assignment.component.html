@@ -10,204 +10,206 @@
                   <div class="resource-search mr-1 ml-1">
                     <app-project-resoure-search [model]="model"
                                                 [f]="f"
-                                                [viewControl]="viewControl"
+                                                [unableToChange]="!viewControl.ableToChange || model.poId && model.poId > 0"
                                                 (selectTaskSourceTarget)="onSelectTaskSourceTarget($event)"
                                                 (toggleExternalResource)="onToggleExternalResource()"
                                                 (toggleUseCustomTask)="onToggleUseCustomTask()"
                     >
                     </app-project-resoure-search>
                   </div>
-                  <div class="card card-body mr-1 ml-1 mb-0">
-                    <!--ROW 2-->
-                    <div class="d-flex form-left">
-                      <div class="form-group w80">
-                        <label for="reprep">Rep.</label>
-                        <input class=" form-control form-control-sm" id="reprep" name="reprep"
-                               [(ngModel)]="model.reprep" #reprep="ngModel" min="0" max="100" required
-                               [pattern]="_FLOAT_REGEX"
-                               (ngModelChange)="onRepInputChanged()"
-                               [ngClass]="{'is-invalid': reprep.invalid && (reprep.dirty || reprep.touched)}">
-                        <div *ngIf="reprep.invalid && (reprep.dirty || reprep.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="rep100">Rep 100 %</label>
-                        <input class=" form-control form-control-sm" id="rep100" name="rep100"
-                               [(ngModel)]="model.rep100" #rep100="ngModel" min="0" max="100"
-                               [pattern]="_FLOAT_REGEX" required
-                               (ngModelChange)="onRepInputChanged()"
-                               [ngClass]="{'is-invalid': rep100.invalid && (rep100.dirty || rep100.touched)}">
-                        <div *ngIf="rep100.invalid && (rep100.dirty || rep100.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="rep99_95">Rep 99~95 %</label>
-                        <input class=" form-control form-control-sm" id="rep99_95" name="rep99_95"
-                               [(ngModel)]="model.rep99_95" #rep99_95="ngModel" min="0" max="100"
-                               [pattern]="_FLOAT_REGEX" required
-                               (ngModelChange)="onRepInputChanged()"
-                               [ngClass]="{'is-invalid': rep99_95.invalid && (rep99_95.dirty || rep99_95.touched)}">
-                        <div *ngIf="rep99_95.invalid && (rep99_95.dirty || rep99_95.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="rep94_85">Rep 94~85 %</label>
-                        <input class=" form-control form-control-sm" id="rep94_85" name="rep94_85"
-                               [(ngModel)]="model.rep94_85" #rep94_85="ngModel" min="0" max="100"
-                               [pattern]="_FLOAT_REGEX" required
-                               (ngModelChange)="onRepInputChanged()"
-                               [ngClass]="{'is-invalid': rep94_85.invalid && (rep94_85.dirty || rep94_85.touched)}">
-                        <div *ngIf="rep94_85.invalid && (rep94_85.dirty || rep94_85.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="rep84_75">Rep 84~75 %</label>
-                        <input class=" form-control form-control-sm" id="rep84_75" name="rep84_75"
-                               [(ngModel)]="model.rep84_75" #rep84_75="ngModel" min="0" max="1000000000"
-                               [pattern]="_FLOAT_REGEX" required
-                               (ngModelChange)="onRepInputChanged()"
-                               [ngClass]="{'is-invalid': rep84_75.invalid && (rep84_75.dirty || rep84_75.touched)}">
-                        <div *ngIf="rep84_75.invalid && (rep84_75.dirty || rep84_75.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="repnoMatch">New/Hour</label>
-                        <input class=" form-control form-control-sm" id="repnoMatch" name="repnoMatch"
-                               [(ngModel)]="model.repnoMatch" #repnoMatch="ngModel" min="0"
-                               [pattern]="_FLOAT_REGEX" required
-                               (ngModelChange)="onRepInputChanged()"
-                               [ngClass]="{'is-invalid': repnoMatch.invalid && (repnoMatch.dirty || repnoMatch.touched)}">
-                        <div *ngIf="repnoMatch.invalid && (repnoMatch.dirty || repnoMatch.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="totalRep">Total Rep</label>
-                        <input readonly class="form-control form-control-sm" id="totalRep" name="totalRep"
-                               [pattern]="_FLOAT_REGEX" required
-                               [(ngModel)]="model.totalRep" #totalRep="ngModel"
-                               [ngClass]="{'is-invalid': totalRep.invalid && (totalRep.dirty || totalRep.touched)}">
-                        <div *ngIf="totalRep.invalid && (totalRep.dirty || totalRep.touched)" class="msg-invalid">Type a number</div>
-                      </div>
+                  <fieldset [disabled]="model.poId && model.poId > 0">
+                    <div class="card card-body mr-1 ml-1 mb-0">
+                      <!--ROW 2-->
+                      <div class="d-flex form-left">
+                        <div class="form-group w80">
+                          <label for="reprep">Rep.</label>
+                          <input class=" form-control form-control-sm" id="reprep" name="reprep"
+                                 [(ngModel)]="model.reprep" #reprep="ngModel" min="0" max="100" required
+                                 [pattern]="_FLOAT_REGEX"
+                                 (ngModelChange)="onRepInputChanged()"
+                                 [ngClass]="{'is-invalid': reprep.invalid && (reprep.dirty || reprep.touched)}">
+                          <div *ngIf="reprep.invalid && (reprep.dirty || reprep.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="rep100">Rep 100 %</label>
+                          <input class=" form-control form-control-sm" id="rep100" name="rep100"
+                                 [(ngModel)]="model.rep100" #rep100="ngModel" min="0" max="100"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 (ngModelChange)="onRepInputChanged()"
+                                 [ngClass]="{'is-invalid': rep100.invalid && (rep100.dirty || rep100.touched)}">
+                          <div *ngIf="rep100.invalid && (rep100.dirty || rep100.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="rep99_95">Rep 99~95 %</label>
+                          <input class=" form-control form-control-sm" id="rep99_95" name="rep99_95"
+                                 [(ngModel)]="model.rep99_95" #rep99_95="ngModel" min="0" max="100"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 (ngModelChange)="onRepInputChanged()"
+                                 [ngClass]="{'is-invalid': rep99_95.invalid && (rep99_95.dirty || rep99_95.touched)}">
+                          <div *ngIf="rep99_95.invalid && (rep99_95.dirty || rep99_95.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="rep94_85">Rep 94~85 %</label>
+                          <input class=" form-control form-control-sm" id="rep94_85" name="rep94_85"
+                                 [(ngModel)]="model.rep94_85" #rep94_85="ngModel" min="0" max="100"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 (ngModelChange)="onRepInputChanged()"
+                                 [ngClass]="{'is-invalid': rep94_85.invalid && (rep94_85.dirty || rep94_85.touched)}">
+                          <div *ngIf="rep94_85.invalid && (rep94_85.dirty || rep94_85.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="rep84_75">Rep 84~75 %</label>
+                          <input class=" form-control form-control-sm" id="rep84_75" name="rep84_75"
+                                 [(ngModel)]="model.rep84_75" #rep84_75="ngModel" min="0" max="1000000000"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 (ngModelChange)="onRepInputChanged()"
+                                 [ngClass]="{'is-invalid': rep84_75.invalid && (rep84_75.dirty || rep84_75.touched)}">
+                          <div *ngIf="rep84_75.invalid && (rep84_75.dirty || rep84_75.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="repnoMatch">New/Hour</label>
+                          <input class=" form-control form-control-sm" id="repnoMatch" name="repnoMatch"
+                                 [(ngModel)]="model.repnoMatch" #repnoMatch="ngModel" min="0"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 (ngModelChange)="onRepInputChanged()"
+                                 [ngClass]="{'is-invalid': repnoMatch.invalid && (repnoMatch.dirty || repnoMatch.touched)}">
+                          <div *ngIf="repnoMatch.invalid && (repnoMatch.dirty || repnoMatch.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="totalRep">Total Rep</label>
+                          <input readonly class="form-control form-control-sm" id="totalRep" name="totalRep"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 [(ngModel)]="model.totalRep" #totalRep="ngModel"
+                                 [ngClass]="{'is-invalid': totalRep.invalid && (totalRep.dirty || totalRep.touched)}">
+                          <div *ngIf="totalRep.invalid && (totalRep.dirty || totalRep.touched)" class="msg-invalid">Type a number</div>
+                        </div>
 
-                      <div class="form-group w80">
-                        <label for="unitPrice">Unit price</label>
-                        <input class=" form-control form-control-sm" id="unitPrice" name="unitPrice"
-                               [(ngModel)]="model.unitPrice" #unitPrice="ngModel" min="0" max="100" required
-                               [pattern]="_FLOAT_REGEX"
-                               (ngModelChange)="onUnitPriceChanged()" [readonly]="!model.externalResource"
-                               [ngClass]="{'is-invalid': unitPrice.invalid && (unitPrice.dirty || unitPrice.touched)}">
-                        <div *ngIf="unitPrice.invalid && (unitPrice.dirty || unitPrice.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                    </div>
-
-                    <!--ROW 3-->
-                    <div class="d-flex form-left">
-                      <div class="form-group w80">
-                        <label for="wrep">Wf Rep.</label>
-                        <input class=" form-control form-control-sm" id="wrep" name="wrep"
-                               (ngModelChange)="onWfInputChanged()"
-                               [pattern]="_FLOAT_REGEX" required
-                               [(ngModel)]="model.wrep" #wrep="ngModel" min="0" max="100"
-                               [ngClass]="{'is-invalid': wrep.invalid && (wrep.dirty || wrep.touched)}">
-                        <div *ngIf="wrep.invalid && (wrep.dirty || wrep.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="w100">Wf 100</label>
-                        <input class=" form-control form-control-sm" id="w100" name="w100"
-                               (ngModelChange)="onWfInputChanged()"
-                               [pattern]="_FLOAT_REGEX" required
-                               [(ngModel)]="model.w100" #w100="ngModel" min="0" max="100"
-                               [ngClass]="{'is-invalid': w100.invalid && (w100.dirty || w100.touched)}">
-                        <div *ngIf="w100.invalid && (w100.dirty || w100.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="w99_95">Wf 99~95</label>
-                        <input class=" form-control form-control-sm" id="w99_95" name="w99_95"
-                               [readonly]="!model.useCustomTask && !model.externalResource" (ngModelChange)="onWfInputChanged()"
-                               [pattern]="_FLOAT_REGEX" required
-                               [(ngModel)]="model.w99_95" #w99_95="ngModel" min="0" max="100"
-                               [ngClass]="{'is-invalid': w99_95.invalid && (w99_95.dirty || w99_95.touched)}">
-                        <div *ngIf="w99_95.invalid && (w99_95.dirty || w99_95.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="w94_85">Wf 94~85</label>
-                        <input class=" form-control form-control-sm" id="w94_85" name="w94_85"
-                               [readonly]="!model.useCustomTask && !model.externalResource"
-                               (ngModelChange)="onWfInputChanged()"
-                               [pattern]="_FLOAT_REGEX" required
-                               [(ngModel)]="model.w94_85" #w94_85="ngModel" min="0" max="100"
-                               [ngClass]="{'is-invalid': w94_85.invalid && (w94_85.dirty || w94_85.touched)}">
-                        <div *ngIf="w94_85.invalid && (w94_85.dirty || w94_85.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="w84_75">Wf 84~75</label>
-                        <input class=" form-control form-control-sm" id="w84_75" name="w84_75"
-                               [pattern]="_FLOAT_REGEX" required
-                               [readonly]="!model.useCustomTask && !model.externalResource"
-                               (ngModelChange)="onWfInputChanged()"
-                               [(ngModel)]="model.w84_75" #w84_75="ngModel" min="0" max="100"
-                               [ngClass]="{'is-invalid': w84_75.invalid && (w84_75.dirty || w84_75.touched)}">
-                        <div *ngIf="w84_75.invalid && (w84_75.dirty || w84_75.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="wnoMatch">Wf New</label>
-                        <input class=" form-control form-control-sm" id="wnoMatch" name="wnoMatch"
-                               [readonly]="!model.useCustomTask && !model.externalResource"
-                               (ngModelChange)="onWfInputChanged()"
-                               [pattern]="_FLOAT_REGEX" required
-                               [(ngModel)]="model.wnoMatch" #wnoMatch="ngModel" min="0" max="100"
-                               [ngClass]="{'is-invalid': wnoMatch.invalid && (wnoMatch.dirty || wnoMatch.touched)}">
-                        <div *ngIf="wnoMatch.invalid && (wnoMatch.dirty || wnoMatch.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <div class="form-group w80">
-                        <label for="netOrHour">Net/Hour</label>
-                        <input [readonly]="isComputeNetHourManually()"
-                               class="form-control form-control-sm" id="netOrHour" name="netOrHour"
-                               [pattern]="_FLOAT_REGEX" required
-                               (ngModelChange)="onNetOrHourChanged()" min="0"
-                               [(ngModel)]="model.netOrHour" #netOrHour="ngModel"
-                               [ngClass]="{'is-invalid': netOrHour.invalid && (netOrHour.dirty || netOrHour.touched)}">
-                        <div *ngIf="netOrHour.invalid && (netOrHour.dirty || netOrHour.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                      <!--TOTAL-->
-                      <div class="form-group w80">
-                        <label for="total">Total<span class="text-danger"> *</span></label>
-                        <input class=" form-control form-control-sm" id="total" name="total"
-                               required min="0" readonly
-                               [pattern]="_FLOAT_REGEX"
-                               [(ngModel)]="model.total" #total="ngModel"
-                               [ngClass]="{'is-invalid': total.invalid && (total.dirty || total.touched)}">
-                        <div *ngIf="total.invalid && (total.dirty || total.touched)" class="msg-invalid">Type a number</div>
-                      </div>
-                    </div>
-
-                    <!--CONFIG ROW-->
-                    <div class="d-flex form-left">
-
-                      <div class="form-group ml-1 mr-1">
-                        <label for="netOrHour">Compute Net/Hour manually</label>
-                        <div>
-                          <label class="ml-1 switch switch-sm switch-primary">
-                            <input type="checkbox" class="switch-input" name="notAutoComputeNetHour"
-                                   [(ngModel)]="model.notAutoComputeNetHour"
-                                   (change)="onToggleAutoComputeNetOrHour()">
-                            <span class="switch-slider"></span>
-                          </label>
+                        <div class="form-group w80">
+                          <label for="unitPrice">Unit price</label>
+                          <input class=" form-control form-control-sm" id="unitPrice" name="unitPrice"
+                                 [(ngModel)]="model.unitPrice" #unitPrice="ngModel" min="0" max="100" required
+                                 [pattern]="_FLOAT_REGEX"
+                                 (ngModelChange)="onUnitPriceChanged()" [readonly]="!model.externalResource"
+                                 [ngClass]="{'is-invalid': unitPrice.invalid && (unitPrice.dirty || unitPrice.touched)}">
+                          <div *ngIf="unitPrice.invalid && (unitPrice.dirty || unitPrice.touched)" class="msg-invalid">Type a number</div>
                         </div>
                       </div>
-                      <!--Request date-->
-                      <div class="form-group date">
-                        <label for="ho">HO<span class="text-danger"> *</span></label>
-                        <input type="date" class=" form-control form-control-sm" required id="ho" name="ho" [(ngModel)]="model.ho">
+
+                      <!--ROW 3-->
+                      <div class="d-flex form-left">
+                        <div class="form-group w80">
+                          <label for="wrep">Wf Rep.</label>
+                          <input class=" form-control form-control-sm" id="wrep" name="wrep"
+                                 (ngModelChange)="onWfInputChanged()"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 [(ngModel)]="model.wrep" #wrep="ngModel" min="0" max="100"
+                                 [ngClass]="{'is-invalid': wrep.invalid && (wrep.dirty || wrep.touched)}">
+                          <div *ngIf="wrep.invalid && (wrep.dirty || wrep.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="w100">Wf 100</label>
+                          <input class=" form-control form-control-sm" id="w100" name="w100"
+                                 (ngModelChange)="onWfInputChanged()"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 [(ngModel)]="model.w100" #w100="ngModel" min="0" max="100"
+                                 [ngClass]="{'is-invalid': w100.invalid && (w100.dirty || w100.touched)}">
+                          <div *ngIf="w100.invalid && (w100.dirty || w100.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="w99_95">Wf 99~95</label>
+                          <input class=" form-control form-control-sm" id="w99_95" name="w99_95"
+                                 [readonly]="!model.useCustomTask && !model.externalResource" (ngModelChange)="onWfInputChanged()"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 [(ngModel)]="model.w99_95" #w99_95="ngModel" min="0" max="100"
+                                 [ngClass]="{'is-invalid': w99_95.invalid && (w99_95.dirty || w99_95.touched)}">
+                          <div *ngIf="w99_95.invalid && (w99_95.dirty || w99_95.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="w94_85">Wf 94~85</label>
+                          <input class=" form-control form-control-sm" id="w94_85" name="w94_85"
+                                 [readonly]="!model.useCustomTask && !model.externalResource"
+                                 (ngModelChange)="onWfInputChanged()"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 [(ngModel)]="model.w94_85" #w94_85="ngModel" min="0" max="100"
+                                 [ngClass]="{'is-invalid': w94_85.invalid && (w94_85.dirty || w94_85.touched)}">
+                          <div *ngIf="w94_85.invalid && (w94_85.dirty || w94_85.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="w84_75">Wf 84~75</label>
+                          <input class=" form-control form-control-sm" id="w84_75" name="w84_75"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 [readonly]="!model.useCustomTask && !model.externalResource"
+                                 (ngModelChange)="onWfInputChanged()"
+                                 [(ngModel)]="model.w84_75" #w84_75="ngModel" min="0" max="100"
+                                 [ngClass]="{'is-invalid': w84_75.invalid && (w84_75.dirty || w84_75.touched)}">
+                          <div *ngIf="w84_75.invalid && (w84_75.dirty || w84_75.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="wnoMatch">Wf New</label>
+                          <input class=" form-control form-control-sm" id="wnoMatch" name="wnoMatch"
+                                 [readonly]="!model.useCustomTask && !model.externalResource"
+                                 (ngModelChange)="onWfInputChanged()"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 [(ngModel)]="model.wnoMatch" #wnoMatch="ngModel" min="0" max="100"
+                                 [ngClass]="{'is-invalid': wnoMatch.invalid && (wnoMatch.dirty || wnoMatch.touched)}">
+                          <div *ngIf="wnoMatch.invalid && (wnoMatch.dirty || wnoMatch.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <div class="form-group w80">
+                          <label for="netOrHour">Net/Hour</label>
+                          <input [readonly]="isComputeNetHourManually()"
+                                 class="form-control form-control-sm" id="netOrHour" name="netOrHour"
+                                 [pattern]="_FLOAT_REGEX" required
+                                 (ngModelChange)="onNetOrHourChanged()" min="0"
+                                 [(ngModel)]="model.netOrHour" #netOrHour="ngModel"
+                                 [ngClass]="{'is-invalid': netOrHour.invalid && (netOrHour.dirty || netOrHour.touched)}">
+                          <div *ngIf="netOrHour.invalid && (netOrHour.dirty || netOrHour.touched)" class="msg-invalid">Type a number</div>
+                        </div>
+                        <!--TOTAL-->
+                        <div class="form-group w80">
+                          <label for="total">Total<span class="text-danger"> *</span></label>
+                          <input class=" form-control form-control-sm" id="total" name="total"
+                                 required min="0" readonly
+                                 [pattern]="_FLOAT_REGEX"
+                                 [(ngModel)]="model.total" #total="ngModel"
+                                 [ngClass]="{'is-invalid': total.invalid && (total.dirty || total.touched)}">
+                          <div *ngIf="total.invalid && (total.dirty || total.touched)" class="msg-invalid">Type a number</div>
+                        </div>
                       </div>
-                      <!--Request date-->
-                      <div class="form-group date">
-                        <label for="hb">HB<span class="text-danger"> *</span></label>
-                        <input type="date" class=" form-control form-control-sm" required id="hb" name="hb" [(ngModel)]="model.hb">
-                      </div>
-                      <!--ASSIGN BTN-->
-                      <div class="form-group w80">
-                        <label><span class="invisible">.</span></label>
-                        <div>
-                          <button type="submit" class="btn btn-sm btn-primary text-nowrap" [disabled]="f.invalid">Assign <i class="fa fa-arrow-right"></i></button>
+
+                      <!--CONFIG ROW-->
+                      <div class="d-flex form-left">
+
+                        <div class="form-group ml-1 mr-1">
+                          <label for="netOrHour">Compute Net/Hour manually</label>
+                          <div>
+                            <label class="ml-1 switch switch-sm switch-primary">
+                              <input type="checkbox" class="switch-input" name="notAutoComputeNetHour"
+                                     [(ngModel)]="model.notAutoComputeNetHour"
+                                     (change)="onToggleAutoComputeNetOrHour()">
+                              <span class="switch-slider"></span>
+                            </label>
+                          </div>
+                        </div>
+                        <!--Request date-->
+                        <div class="form-group date">
+                          <label for="ho">HO<span class="text-danger"> *</span></label>
+                          <input type="date" class=" form-control form-control-sm" required id="ho" name="ho" [(ngModel)]="model.ho">
+                        </div>
+                        <!--Request date-->
+                        <div class="form-group date">
+                          <label for="hb">HB<span class="text-danger"> *</span></label>
+                          <input type="date" class=" form-control form-control-sm" required id="hb" name="hb" [(ngModel)]="model.hb">
+                        </div>
+                        <!--ASSIGN BTN-->
+                        <div class="form-group w80">
+                          <label><span class="invisible">.</span></label>
+                          <div>
+                            <button type="submit" class="btn btn-sm btn-primary text-nowrap" [disabled]="f.invalid">Assign <i class="fa fa-arrow-right"></i></button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </fieldset>
                 </div>
                 <!--CONFIRM STATUS & PROGRESS-->
                 <div class="card card-body mb-0">
@@ -224,14 +226,14 @@
                         <button [disabled]="assignment.poId" type="button" class="btn btn-sm btn-ghost-light" (click)="onDeleteResource()">
                           <i class="fa fa-trash-o text-danger"></i>
                         </button>
-                        <button type="button" class=" btn btn-sm btn-ghost-light" (click)="goToPo(assignment.id, assignment.poId)">
+                        <button type="button" class=" btn btn-sm btn-ghost-light" (click)="openPoModal(assignment.id, assignment.poId)">
                           <i class="fa fa-file-o text-success"> PO</i>
                         </button>
-                        <button type="button"  *ngIf="assignment.poId" class=" btn btn-sm btn-ghost-light" (click)="deletePo(assignment.poId)">
+                        <button type="button" *ngIf="assignment.poId" class=" btn btn-sm btn-ghost-light" (click)="deletePo(assignment.poId)">
                           <i class="fa fa-trash-o text-danger"> PO</i>
                         </button>
                       </div>
-                      <div class="cursor-pointer" *ngIf="assignment.progress === 'FINISHED'" (click)="openNewGeneralCommentModal()">
+                      <div class="cursor-pointer" *ngIf="assignment.progress === 'FINISHED'" (click)="openNewSpecificCommentModal()">
                         <button type="button" class="btn btn-ghost-light btn-sm" *ngIf="!assignment.star"><span class="text-primary">Evaluate</span></button>
                         <ng-container *ngIf="assignment.star && assignment.star > 0">
                           <span>{{assignment.star}} <i class="fa fa-star text-warning"></i></span>

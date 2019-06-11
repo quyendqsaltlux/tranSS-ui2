@@ -135,7 +135,6 @@ export class GeneralCommentListComponent implements OnInit {
 
   onGridFilterChange(event) {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
-    console.log(filters);
     const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
     this.rootFilter = [...separatedFilter.root];
     this.joinFilter = [...separatedFilter.join];

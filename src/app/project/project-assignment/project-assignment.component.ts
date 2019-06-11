@@ -10,6 +10,7 @@ import {NgForm} from '@angular/forms';
 import {FLOAT_REGEX} from '../../AppConstant';
 import {PoService} from '../../service/po.service';
 import * as _ from 'lodash';
+import {PoFormComponent} from '../../po/po-form/po-form.component';
 
 @Component({
   selector: 'app-project-assignment',
@@ -31,6 +32,7 @@ export class ProjectAssignmentComponent implements OnInit {
 
   bsModalRef: BsModalRef;
   subscriptions: Subscription[] = [];
+  poSubscriptions: Subscription[] = [];
   model: ProjectAssignmentReq = {} as ProjectAssignmentReq;
   star = 5;
   private repSubjects: Subject<string>[] = [];
@@ -119,7 +121,7 @@ export class ProjectAssignmentComponent implements OnInit {
     this.deleteItem.emit(this.index);
   }
 
-  openNewGeneralCommentModal() {
+  openNewSpecificCommentModal() {
     if (!this.viewControl.ableToChange) {
       return;
     }
@@ -135,7 +137,7 @@ export class ProjectAssignmentComponent implements OnInit {
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((reason: string) => {
         this.onModalClose(this.bsModalRef.content);
-        this.unsubscribe();
+        this.subscriptions = this._unsubscribe(this.subscriptions);
       })
     );
 
@@ -148,21 +150,47 @@ export class ProjectAssignmentComponent implements OnInit {
     this.bsModalRef = this.modalService.show(SpecificCommentComponent, {initialState} as ModalOptions);
   }
 
-  unsubscribe() {
-    this.subscriptions.forEach((subscription: Subscription) => {
+  _unsubscribe(subscriptions) {
+    subscriptions.forEach((subscription: Subscription) => {
       subscription.unsubscribe();
     });
-    this.subscriptions = [];
+    return [];
+  }
+
+  onPoModalClose(modalContent) {
+    if (modalContent.updated) {
+      this.saveDone.emit(true);
+    }
   }
 
   onModalClose(modalContent) {
   }
 
-  goToPo(assignmentId, poId) {
-    this.route.navigate([])
-      .then(result => {
-        window.open('#/purchaseOrders/' + assignmentId + '/form/' + poId, '_blank');
-      });
+  openPoModal(_assignmentId, _poId) {
+    const _combine = combineLatest(
+      this.modalService.onHide,
+      this.modalService.onHidden
+    ).subscribe(() => this.changeDetection.markForCheck());
+
+    this.poSubscriptions.push(
+      this.modalService.onHide.subscribe((reason: string) => {
+      })
+    );
+    this.poSubscriptions.push(
+      this.modalService.onHidden.subscribe((reason: string) => {
+        this.onPoModalClose(this.bsModalRef.content);
+        this.poSubscriptions = this._unsubscribe(this.poSubscriptions);
+      })
+    );
+
+    this.poSubscriptions.push(_combine);
+
+    const initialState = {
+      title: 'Purchase Order',
+      assignmentId: _assignmentId,
+      poId: _poId
+    };
+    this.bsModalRef = this.modalService.show(PoFormComponent, {initialState, class: 'modal-xl'} as ModalOptions);
   }
 
   deletePo(poId) {
