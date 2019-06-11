@@ -29,21 +29,22 @@ export class ProjectHistoryComponent implements OnInit {
     order: null
   };
   filter = [];
+  projectFilters = [];
 
-  JOIN_FILTER_COLS = [];
+  JOIN_FILTER_COLS = ['project.contents', 'project.field', 'project.client'];
   columnDefs = [
     {headerName: 'Project Code', field: 'projectCode', pinned: 'left', width: 150},
-    {headerName: 'Contents', field: 'contents', width: 200},
-    {headerName: 'Field', field: 'field'},
-    {headerName: 'Client', field: 'client'},
+    {headerName: 'Contents', field: 'project.contents', width: 200},
+    {headerName: 'Field', field: 'project.field'},
+    {headerName: 'Client', field: 'project.client'},
     {headerName: 'Source', field: 'source', width: 70},
     {headerName: 'Target', field: 'target', width: 70},
     {headerName: 'Task', field: 'task'},
     {headerName: 'Total', field: 'total', type: 'numericColumn'},
     {headerName: 'HO', field: 'ho', width: 160, type: 'dateColumn'},
     {headerName: 'HB', field: 'hb', width: 160, type: 'dateColumn'},
-    {headerName: 'Comment', field: 'review'},
-    {headerName: 'Star', field: 'star'},
+    {headerName: 'Comment', field: 'specificComment.comment', filter: false},
+    {headerName: 'Star', field: 'specificComment.star', filter: false},
   ];
   /*AG_GRID*/
   gridApi;
@@ -124,12 +125,13 @@ export class ProjectHistoryComponent implements OnInit {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
     const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
     this.filter = [...separatedFilter.root];
+    this.projectFilters = [...separatedFilter.join];
     this.getModelList();
   }
 
   getModelList() {
     this.assignmentService.search(this.candidateId, this.page, this.size, this.keyWord,
-      this.sortConfig.field, this.sortConfig.order, this.filter, []
+      this.sortConfig.field, this.sortConfig.order, this.filter, this.projectFilters
     )
       .subscribe((resp => {
         if (!resp || !resp.body) {
