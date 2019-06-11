@@ -1,4 +1,4 @@
-import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {ChangeDetectorRef, Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild} from '@angular/core';
 import {ProjectAssignmentReq} from '../../model/ProjectAssignmenReq';
 import {ProjectAssignmentService} from '../../service/project-assignment.service';
 import {IndividualConfig, ToastrService} from 'ngx-toastr';
@@ -18,6 +18,7 @@ import {PoFormComponent} from '../../po/po-form/po-form.component';
   styleUrls: ['./project-assignment.component.scss']
 })
 export class ProjectAssignmentComponent implements OnInit {
+  @ViewChild('template') template: TemplateRef<any>;
   _FLOAT_REGEX = FLOAT_REGEX;
   @ViewChild('f') f: NgForm;
   @Input() index;
@@ -30,7 +31,7 @@ export class ProjectAssignmentComponent implements OnInit {
 
   currentAbility;
 
-  bsModalRef: BsModalRef;
+  modalRef: BsModalRef;
   subscriptions: Subscription[] = [];
   poSubscriptions: Subscription[] = [];
   model: ProjectAssignmentReq = {} as ProjectAssignmentReq;
@@ -52,6 +53,7 @@ export class ProjectAssignmentComponent implements OnInit {
     ON_GOING: 2,
     FINISHED: 3,
   };
+  deleteId = -1;
 
   constructor(private  projectAssignmentService: ProjectAssignmentService,
               private poService: PoService,
@@ -136,7 +138,7 @@ export class ProjectAssignmentComponent implements OnInit {
     );
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((reason: string) => {
-        this.onModalClose(this.bsModalRef.content);
+        this.onModalClose(this.modalRef.content);
         this.subscriptions = this._unsubscribe(this.subscriptions);
       })
     );
@@ -147,7 +149,7 @@ export class ProjectAssignmentComponent implements OnInit {
       title: 'Specific comment',
       assignmentId: this.assignment.id
     };
-    this.bsModalRef = this.modalService.show(SpecificCommentComponent, {initialState} as ModalOptions);
+    this.modalRef = this.modalService.show(SpecificCommentComponent, {initialState} as ModalOptions);
   }
 
   _unsubscribe(subscriptions) {
@@ -178,7 +180,7 @@ export class ProjectAssignmentComponent implements OnInit {
     );
     this.poSubscriptions.push(
       this.modalService.onHidden.subscribe((reason: string) => {
-        this.onPoModalClose(this.bsModalRef.content);
+        this.onPoModalClose(this.modalRef.content);
         this.poSubscriptions = this._unsubscribe(this.poSubscriptions);
       })
     );
@@ -190,13 +192,13 @@ export class ProjectAssignmentComponent implements OnInit {
       assignmentId: _assignmentId,
       poId: _poId
     };
-    this.bsModalRef = this.modalService.show(PoFormComponent, {initialState, class: 'modal-xl'} as ModalOptions);
+    this.modalRef = this.modalService.show(PoFormComponent, {initialState, class: 'modal-xl'} as ModalOptions);
   }
 
   deletePo(poId) {
     this.poService.deleteById(poId).subscribe((resp) => {
       this.toastr.success('Delete Po successfully!');
-      this.assignment.poId = null;
+      this.saveDone.emit(true);
     }, (error2) => this.toastr.error('Fail to delete Po!'));
   }
 
@@ -318,5 +320,22 @@ export class ProjectAssignmentComponent implements OnInit {
 
   onClickStone(myStone) {
     this.onChangeProgress(myStone.value);
+  }
+
+  openModalDeletePo(id) {
+    this.deleteId = id;
+    this.modalRef = this.modalService.show(this.template, {class: 'modal-sm'} as ModalOptions);
+  }
+
+  confirmDeletePo(): void {
+    this.modalRef.hide();
+    if (this.deleteId < 0) {
+      return;
+    }
+    this.deletePo(this.deleteId);
+  }
+
+  declineDeletePo(): void {
+    this.modalRef.hide();
   }
 }
