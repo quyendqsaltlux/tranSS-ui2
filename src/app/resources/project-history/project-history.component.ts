@@ -31,12 +31,12 @@ export class ProjectHistoryComponent implements OnInit {
   filter = [];
   projectFilters = [];
 
-  JOIN_FILTER_COLS = ['project.contents', 'project.field', 'project.client'];
+  JOIN_FILTER_COLS = [];
   columnDefs = [
     {headerName: 'Project Code', field: 'projectCode', pinned: 'left', width: 150},
-    {headerName: 'Contents', field: 'project.contents', width: 200},
-    {headerName: 'Field', field: 'project.field'},
-    {headerName: 'Client', field: 'project.client'},
+    {headerName: 'Contents', field: 'project.contents', width: 200, filter: false},
+    {headerName: 'Field', field: 'project.field', filter: false},
+    {headerName: 'Client', field: 'project.client', filter: false},
     {headerName: 'Source', field: 'source', width: 70},
     {headerName: 'Target', field: 'target', width: 70},
     {headerName: 'Task', field: 'task'},
@@ -125,13 +125,12 @@ export class ProjectHistoryComponent implements OnInit {
     const filters = this.gridApi != null ? this.gridApi.getFilterModel() : null;
     const separatedFilter = separateFiltersFromGrid(filters, this.JOIN_FILTER_COLS);
     this.filter = [...separatedFilter.root];
-    this.projectFilters = [...separatedFilter.join];
     this.getModelList();
   }
 
   getModelList() {
     this.assignmentService.search(this.candidateId, this.page, this.size, this.keyWord,
-      this.sortConfig.field, this.sortConfig.order, this.filter, this.projectFilters
+      this.sortConfig.field, this.sortConfig.order, this.filter, []
     )
       .subscribe((resp => {
         if (!resp || !resp.body) {
