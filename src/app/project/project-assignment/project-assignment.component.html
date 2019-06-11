@@ -13,7 +13,7 @@
                                                 [unableToChange]="!viewControl.ableToChange || model.poId && model.poId > 0"
                                                 (selectTaskSourceTarget)="onSelectTaskSourceTarget($event)"
                                                 (toggleExternalResource)="onToggleExternalResource()"
-                                                (toggleUseCustomTask)="onToggleUseCustomTask()"
+                                                (toggleUseCustomTask)="onToggleUseCustomTask($event)"
                     >
                     </app-project-resoure-search>
                   </div>
@@ -89,7 +89,7 @@
                           <input class=" form-control form-control-sm" id="unitPrice" name="unitPrice"
                                  [(ngModel)]="model.unitPrice" #unitPrice="ngModel" min="0" max="100" required
                                  [pattern]="_FLOAT_REGEX"
-                                 (ngModelChange)="onUnitPriceChanged()" [readonly]="!model.externalResource"
+                                 (ngModelChange)="onUnitPriceChanged()" [readonly]="!model.externalResource && !model.useCustomTask"
                                  [ngClass]="{'is-invalid': unitPrice.invalid && (unitPrice.dirty || unitPrice.touched)}">
                           <div *ngIf="unitPrice.invalid && (unitPrice.dirty || unitPrice.touched)" class="msg-invalid">Type a number</div>
                         </div>

@@ -83,6 +83,7 @@ export class ResourceSearchComponent implements OnInit {
         this.toggleUseCustomTask.emit(true);
         return;
       }
+      this.toggleUseCustomTask.emit(false);
 
       this.selectedAbility = this.selectedOption.abilities[0].id;
       this.onChangeAbility(this.selectedOption.abilities[0]);

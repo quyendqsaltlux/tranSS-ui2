@@ -295,7 +295,7 @@ export class ProjectAssignmentComponent implements OnInit {
     this.resetWfAndRepAndOther();
   }
 
-  onToggleUseCustomTask() {
+  onToggleUseCustomTask(event) {
     this.model.abilityId = null;
   }
 
