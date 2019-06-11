@@ -18,7 +18,7 @@ export class ProjectHistoryComponent implements OnInit {
   modelList = [];
   keyWord: string;
   page = 1;
-  size = 10;
+  size = 100;
   numPages = 0;
   totalItems = 0;
   sortConfig: {
