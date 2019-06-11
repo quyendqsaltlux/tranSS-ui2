@@ -165,7 +165,6 @@ export class SpecificCommentViewComponent implements OnInit {
     );
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((reason: string) => {
-        console.log(reason);
         this.onModalClose(this.bsModalRef.content);
         this.unsubscribe();
       })
@@ -173,7 +172,6 @@ export class SpecificCommentViewComponent implements OnInit {
 
     this.subscriptions.push(_combine);
 
-    console.log(data);
     const comment = {...data};
     delete comment.assignment;
     const initialState = {
@@ -208,7 +206,7 @@ export class SpecificCommentViewComponent implements OnInit {
     if (this.deleteId < 0) {
       return;
     }
-    this.evaluationService.deleteGeneralComment(this.deleteId).subscribe((resp) => {
+    this.evaluationService.deleteSpecificComment(this.deleteId).subscribe((resp) => {
         this.toastr.success('Delete successfully!');
         this.getModelList();
       },
