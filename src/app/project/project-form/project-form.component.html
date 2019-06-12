@@ -24,7 +24,8 @@
                         <div class="col-sm-12 col-md-4">
                           <div class="form-group">
                             <label for="no">No</label>
-                            <input type="text" class="form-control" id="no" [(ngModel)]="model.no" name="no" disabled>
+                            <input type="text" class="form-control" id="no" [(ngModel)]="model.no" name="no" disabled
+                                   maxlength="255">
                           </div>
                         </div>
                         <!--NO-->
@@ -72,7 +73,7 @@
                         <div class="col-sm-12 col-md-4">
                           <div class="form-group">
                             <label for="folderName">Folder Name</label>
-                            <input type="text" class="form-control" id="folderName" placeholder=""
+                            <input type="text" class="form-control" id="folderName" maxlength="255"
                                    [(ngModel)]="model.folderName" name="folderName">
                           </div>
                         </div>
@@ -80,7 +81,7 @@
                         <div class="col-sm-12 col-md-4">
                           <div class="form-group">
                             <label for="client">Client</label>
-                            <input type="text" class="form-control" id="client" placeholder=""
+                            <input type="text" class="form-control" id="client" maxlength="255"
                                    [(ngModel)]="model.client" name="client">
                           </div>
                         </div>
@@ -119,9 +120,9 @@
                         <div class="col-sm-12 col-md-4">
                           <div class="form-group">
                             <label for="totalVolume">Total Volume</label>
-                            <input type="text" class="form-control" id="totalVolume" placeholder="Ex: 1200"
+                            <input type="text" class="form-control" id="totalVolume"
                                    name="totalVolume" [(ngModel)]="model.totalVolume"
-                                   #totalVolume="ngModel"
+                                   #totalVolume="ngModel" maxlength="20"
                                    [pattern]="_FLOAT_REGEX"
                                    [ngClass]="{'is-invalid': (totalVolume.dirty || totalVolume.touched) && totalVolume.invalid}">
                             <div *ngIf="totalVolume.invalid && (totalVolume.dirty || totalVolume.touched)" class="msg-invalid">
@@ -252,7 +253,7 @@
                         <!--PM-->
                         <div class="col-sm-12 col-md-4">
                           <div class="form-group">
-                            <label for="pm">PM<span class="text-danger"> *</span></label>
+                            <label for="pm">Assigning PM<span class="text-danger"> *</span></label>
                             <div class="input-group">
                               <input type="text" class="form-control" id="pm" placeholder="Ex: MIC"
                                      aria-label="Recipient's username" aria-describedby="basic-addon2"
@@ -333,7 +334,7 @@
                         <!--PM-->
                         <div class="col-sm-12 col-md-4">
                           <div class="form-group">
-                            <label for="pmVtc">PM (VTC)<span class="text-danger"> *</span></label>
+                            <label for="pmVtc">Performing PM<span class="text-danger"> *</span></label>
                             <div class="input-group">
                               <input type="text" class="form-control" id="pmVtc" placeholder="Ex: TAM"
                                      aria-label="Recipient's username" aria-describedby="basic-addon1"
