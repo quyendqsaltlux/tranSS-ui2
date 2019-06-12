@@ -51,7 +51,7 @@
                       <div class="col-sm-12 col-md-4">
                         <div class="form-group">
                           <label for="code">Code</label>
-                          <input type="text" class="form-control" id="code" readonly name="code" [(ngModel)]="model.code">
+                          <input type="text" class="form-control" id="code" readonly name="code" [(ngModel)]="model.code" maxlength="255">
                         </div>
                       </div>
                       <!--GRADE-->
@@ -72,9 +72,9 @@
                       <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                           <label for="cName">Name<span class="text-danger"> *</span></label>
-                          <input type="text" class="form-control" id="cName" placeholder="Ex: John"
+                          <input type="text" class="form-control" id="cName"
                                  [(ngModel)]="model.name" name="name"
-                                 required
+                                 required maxlength="255"
                                  #name="ngModel"
                                  [ngClass]="{'is-invalid': f.submitted && name.invalid}">
                           <div *ngIf="name.invalid && (name.dirty || name.touched)" class="msg-invalid">
@@ -88,14 +88,15 @@
                       <div class="col-sm-12 col-md-12">
                         <div class="form-group">
                           <label for="majorField">Major field</label>
-                          <input type="text" class="form-control" id="majorField" placeholder="" name="majorField" [(ngModel)]="model.majorField">
+                          <input type="text" class="form-control" id="majorField" name="majorField"
+                                 [(ngModel)]="model.majorField" maxlength="255">
                         </div>
                       </div>
                       <!--CAT TOOL-->
                       <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                           <label for="catTool">CAT tool</label>
-                          <textarea type="text" class="form-control" id="catTool" placeholder="" rows="1"
+                          <textarea type="text" class="form-control" id="catTool" placeholder="" rows="1" maxlength="1023"
                                     name="catTool" [(ngModel)]="model.catTool"></textarea>
                         </div>
                       </div>
@@ -103,14 +104,15 @@
                       <div class="col-sm-12 col-md-6">
                         <div class="form-group">
                           <label for="cAvailableTime">Available time</label>
-                          <input type="text" class="form-control" id="cAvailableTime" placeholder="Ex:"
+                          <input type="text" class="form-control" id="cAvailableTime" maxlength="255"
                                  name="availableTime" [(ngModel)]="model.availableTime">
                         </div>
                       </div>
                       <!--REMARK-->
                       <div class="form-group col-sm-12">
                         <label for="cRemark">Remark</label>
-                        <textarea id="cRemark" rows="2" class="form-control" placeholder="Content.."
+                        <textarea id="cRemark" rows="2" class="form-control"
+                                  maxlength="1023"
                                   name="remark" [(ngModel)]="model.remark">
                     </textarea>
                       </div>
@@ -124,8 +126,8 @@
                       <div class="4col-sm-12 col-md-4">
                         <div class="form-group">
                           <label for="personalId">Personal Id</label>
-                          <input type="text" class="form-control" id="personalId" placeholder="Ex: 123456789"
-                                 name="personalId" [(ngModel)]="model.personalId"
+                          <input type="text" class="form-control" id="personalId"
+                                 name="personalId" [(ngModel)]="model.personalId" maxlength="255"
                                  #personalId="ngModel"
                                  [ngClass]="{'is-invalid': f.submitted && personalId.invalid}">
                           <div *ngIf="personalId.invalid && (personalId.dirty || personalId.touched)" class="msg-invalid">
@@ -148,7 +150,7 @@
                       <div class="col-sm-12 col-md-4">
                         <div class="form-group">
                           <label for="cNativeLanguage">Native Language</label>
-                          <input type="text" class="form-control" id="cNativeLanguage" placeholder="Ex: Korea"
+                          <input type="text" class="form-control" id="cNativeLanguage" maxlength="255"
                                  name="nativeLanguage" [(ngModel)]="model.nativeLanguage">
                         </div>
                       </div>
@@ -156,8 +158,7 @@
                       <div class="col-sm-12 col-md-4">
                         <div class="form-group">
                           <label for="cCountry">Country</label>
-                          <input type="text" class="form-control" id="cCountry" placeholder="Ex: Korea"
-                                 name="country" [(ngModel)]="model.country">
+                          <input type="text" class="form-control" id="cCountry" maxlength="255" name="country" [(ngModel)]="model.country">
                         </div>
                       </div>
                       <!--REGISTERED DATE-->
@@ -186,8 +187,8 @@
                       <div class="col-sm-12 col-md-4">
                         <div class="form-group">
                           <label for="education">Education</label>
-                          <input type="text" class="form-control" id="education" placeholder="Ex: Bachelor"
-                                 name="education" [(ngModel)]="model.education">
+                          <input type="text" class="form-control" id="education"
+                                 maxlength="255" name="education" [(ngModel)]="model.education">
                         </div>
                       </div>
                       <!--DIPLOMA-->
@@ -264,8 +265,9 @@
                       <div class="col-sm-12 col-md-4">
                         <div class="form-group">
                           <label for="email">Email</label>
-                          <input type="email" class="form-control" id="email" placeholder="Ex: john@gmail.com"
+                          <input type="email" class="form-control" id="email"
                                  name="email" [(ngModel)]="model.email"
+                                 maxlength="255"
                                  #email="ngModel"
                                  [ngClass]="{'is-invalid': f.submitted && email.invalid}">
                           <div *ngIf="email.invalid && (email.dirty || email.touched)" class="msg-invalid">
@@ -278,8 +280,8 @@
                       <div class="col-sm-12 col-md-4">
                         <div class="form-group">
                           <label for="email2">Email 2</label>
-                          <input type="email" class="form-control" id="email2" placeholder="Ex: john2@gmail.com"
-                                 name="email2" [(ngModel)]="model.email2"
+                          <input type="email" class="form-control" id="email2"
+                                 name="email2" [(ngModel)]="model.email2" maxlength="255"
                                  #email2="ngModel"
                                  [ngClass]="{'is-invalid': f.submitted && email2.invalid}">
                           <div *ngIf="email2.invalid && (email2.dirty || email2.touched)" class="msg-invalid">
@@ -294,7 +296,7 @@
                           <label for="mobile">Mobile phone</label>
                           <input type="text" class="form-control" id="mobile"
                                  name="mobile" [(ngModel)]="model.mobile"
-                                 #mobile="ngModel"
+                                 #mobile="ngModel" maxlength="32"
                                  [ngClass]="{'is-invalid': f.submitted && mobile.invalid}">
                           <div *ngIf="mobile.invalid && (mobile.dirty || mobile.touched)" class="msg-invalid">
                             <div *ngIf="mobile.errors.maxlength">Too long.</div>
@@ -308,7 +310,7 @@
                           <label for="messenger">Messenger</label>
                           <input type="text" class="form-control" id="messenger"
                                  name="messenger" [(ngModel)]="model.messenger"
-                                 #messenger="ngModel"
+                                 #messenger="ngModel" maxlength="255"
                                  [ngClass]="{'is-invalid': f.submitted && messenger.invalid}">
                           <div *ngIf="messenger.invalid && (messenger.dirty || messenger.touched)" class="msg-invalid">
                             <div *ngIf="messenger.errors.maxlength">Too long.</div>
@@ -322,7 +324,7 @@
                           <label for="skype">Skype</label>
                           <input type="text" class="form-control" id="skype"
                                  name="skype" [(ngModel)]="model.skype"
-                                 #skype="ngModel"
+                                 #skype="ngModel" maxlength="255"
                                  [ngClass]="{'is-invalid': f.submitted && skype.invalid}">
                           <div *ngIf="skype.invalid && (skype.dirty || skype.touched)" class="msg-invalid">
                             <div *ngIf="skype.errors.maxlength">Too long.</div>
@@ -333,10 +335,10 @@
                       <!--SOCIAL PAGES-->
                       <div class="col-sm-12 col-md-4">
                         <div class="form-group">
-                          <label for="socialpages">Scocial pages</label>
+                          <label for="socialpages">Social pages</label>
                           <input type="text" class="form-control" id="socialpages"
                                  name="socialpages" [(ngModel)]="model.socialpages"
-                                 #socialpages="ngModel"
+                                 #socialpages="ngModel" maxlength="255"
                                  [ngClass]="{'is-invalid': f.submitted && socialpages.invalid}">
                           <div *ngIf="socialpages.invalid && (socialpages.dirty || socialpages.touched)" class="msg-invalid">
                             <div *ngIf="socialpages.errors.maxlength">Too long.</div>
@@ -349,7 +351,7 @@
                         <div class="form-group">
                           <label for="cAddress">Address</label>
                           <textarea type="text" class="form-control" id="cAddress" placeholder="" rows="2"
-                                    name="address" [(ngModel)]="model.address"></textarea>
+                                    maxlength="512" name="address" [(ngModel)]="model.address"></textarea>
                         </div>
                       </div>
                     </div>
