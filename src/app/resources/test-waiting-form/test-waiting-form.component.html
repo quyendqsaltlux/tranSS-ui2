@@ -14,9 +14,9 @@
             <!--Code-->
             <div class="col-sm-12 col-md-2">
               <div class="form-group">
-                <label for="Code">Code</label>
-                <input type="text" class="form-control form-control" id="Code"
-                       name="Code"
+                <label for="code">Code</label>
+                <input type="text" class="form-control form-control" id="code"
+                       name="code"
                        [(ngModel)]="model.code"
                        maxlength="32"
                        #code="ngModel"
@@ -24,6 +24,7 @@
                 <div *ngIf="code.invalid && (code.dirty || code.touched)" class="msg-invalid">
                   <div *ngIf="code.errors.required">This field is required.</div>
                   <div *ngIf="code.errors.maxlength">Too long.</div>
+                  <div *ngIf="code.errors.conflict">Duplicated.</div>
                 </div>
               </div>
             </div>

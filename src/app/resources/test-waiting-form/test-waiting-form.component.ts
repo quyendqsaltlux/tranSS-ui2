@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {BsModalRef} from 'ngx-bootstrap';
 import {TestWaitingService} from '../../service/test-waiting.service';
 import {TestWaiting} from '../../model/TestWaiting';
+import {focusDuplicatedFields} from '../../util/dom-util';
 
 @Component({
   selector: 'app-test-waiting-form',
@@ -14,6 +15,7 @@ import {TestWaiting} from '../../model/TestWaiting';
 export class TestWaitingFormComponent implements OnInit {
   @ViewChild('downloadLink') private downloadLink: ElementRef;
   @ViewChild('f') candidateForm: NgForm;
+  @ViewChild('codeRef') codeRef: ElementRef;
   bsModalRef: BsModalRef;
   id = null;
   model: TestWaiting = {} as TestWaiting;
@@ -43,7 +45,13 @@ export class TestWaitingFormComponent implements OnInit {
         this.router.navigate(['/resources/test-waiting/list']);
       },
       (err) => {
+        if (err.status === 409) {
+          this.toastr.error('Fail to save!', '', {timeOut: 10000} as Partial<GlobalConfig>);
+          focusDuplicatedFields(['code'], this.candidateForm);
+          return;
+        }
         this.toastr.error('Fail to save!', '', {timeOut: 10000} as Partial<GlobalConfig>);
-      });
+      }
+    );
   }
 }

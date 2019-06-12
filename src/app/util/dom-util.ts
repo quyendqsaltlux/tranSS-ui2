@@ -14,7 +14,7 @@ export function focusDuplicatedFields(fields, ngForm: NgForm) {
     return;
   }
   fields.forEach((field) => {
-    ngForm.form.controls[field].setErrors({'conflict': true});
+    ngForm.form.controls[field].setErrors({conflict: true});
   });
   focusByName(fields[0]);
 }
