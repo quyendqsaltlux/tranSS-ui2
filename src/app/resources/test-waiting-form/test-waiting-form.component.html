@@ -29,7 +29,7 @@
               </div>
             </div>
             <!--Source-->
-            <div class="col-sm-12 col-md-1">
+            <div class="col-sm-12 col-md-2">
               <div class="form-group">
                 <label for="Source">Source<span class="text-danger"> *</span></label>
                 <input type="text" class="form-control form-control" id="Source"
@@ -45,7 +45,7 @@
               </div>
             </div>
             <!--Target-->
-            <div class="col-sm-12 col-md-1">
+            <div class="col-sm-12 col-md-2">
               <div class="form-group">
                 <label for="Source">Target<span class="text-danger"> *</span></label>
                 <input type="text" class="form-control form-control" id="Target"
@@ -216,6 +216,41 @@
                 </div>
               </div>
             </div>
+
+            <!--comments-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="comments">Comments</label>
+                <textarea type="text" class="form-control form-control" id="comments"
+                          name="comments"
+                          [(ngModel)]="model.comments"
+                          maxlength="255"
+                          #comments="ngModel"
+                          [ngClass]="{'is-invalid': f.submitted && comments.invalid}"
+                          rows="3"></textarea>
+                <div *ngIf="comments.invalid && (comments.dirty || comments.touched)" class="msg-invalid">
+                  <div *ngIf="comments.errors.required">This field is required.</div>
+                  <div *ngIf="comments.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
+            <!--otherNote-->
+            <div class="col-sm-12 col-md-3">
+              <div class="form-group">
+                <label for="otherNote">Other Note</label>
+                <textarea type="text" class="form-control form-control" id="otherNote"
+                          name="otherNote"
+                          [(ngModel)]="model.otherNote"
+                          maxlength="255"
+                          #otherNote="ngModel"
+                          [ngClass]="{'is-invalid': f.submitted && otherNote.invalid}"
+                          rows="3"></textarea>
+                <div *ngIf="otherNote.invalid && (otherNote.dirty || otherNote.touched)" class="msg-invalid">
+                  <div *ngIf="otherNote.errors.required">This field is required.</div>
+                  <div *ngIf="otherNote.errors.maxlength">Too long.</div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <div class="row">
@@ -299,42 +334,6 @@
             </ng-container>
           </div>
 
-          <div class="row">
-            <!--comments-->
-            <div class="col-sm-12 col-md-3">
-              <div class="form-group">
-                <label for="comments">Comments</label>
-                <textarea type="text" class="form-control form-control" id="comments"
-                          name="comments"
-                          [(ngModel)]="model.comments"
-                          maxlength="255"
-                          #comments="ngModel"
-                          [ngClass]="{'is-invalid': f.submitted && comments.invalid}"
-                          rows="3"></textarea>
-                <div *ngIf="comments.invalid && (comments.dirty || comments.touched)" class="msg-invalid">
-                  <div *ngIf="comments.errors.required">This field is required.</div>
-                  <div *ngIf="comments.errors.maxlength">Too long.</div>
-                </div>
-              </div>
-            </div>
-            <!--otherNote-->
-            <div class="col-sm-12 col-md-3">
-              <div class="form-group">
-                <label for="otherNote">Other Note</label>
-                <textarea type="text" class="form-control form-control" id="otherNote"
-                          name="otherNote"
-                          [(ngModel)]="model.otherNote"
-                          maxlength="255"
-                          #otherNote="ngModel"
-                          [ngClass]="{'is-invalid': f.submitted && otherNote.invalid}"
-                          rows="3"></textarea>
-                <div *ngIf="otherNote.invalid && (otherNote.dirty || otherNote.touched)" class="msg-invalid">
-                  <div *ngIf="otherNote.errors.required">This field is required.</div>
-                  <div *ngIf="otherNote.errors.maxlength">Too long.</div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
