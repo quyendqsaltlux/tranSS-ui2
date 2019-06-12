@@ -15,8 +15,9 @@ export class TestWaitingService {
   constructor(private http: HttpClient) {
   }
 
-  create(projectAssignment: any): Observable<HttpResponse<any>> {
-    return this.http.post<HttpResponse<any>>(API_PATH, projectAssignment, {observe: 'response'});
+  create(model: any): Observable<HttpResponse<any>> {
+    model.isShortList = model.isShortList ? 1 : 0;
+    return this.http.post<HttpResponse<any>>(API_PATH, model, {observe: 'response'});
   }
 
   search(page, size, keyWord, orderBy, sortDirection, filters = []): Observable<HttpResponse<any>> {
