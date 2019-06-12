@@ -18,7 +18,7 @@
                 <input type="text" class="form-control form-control" id="Code"
                        name="Code"
                        [(ngModel)]="model.code"
-                       maxlength="255"
+                       maxlength="32"
                        #code="ngModel"
                        [ngClass]="{'is-invalid': f.submitted && code.invalid}">
                 <div *ngIf="code.invalid && (code.dirty || code.touched)" class="msg-invalid">

@@ -31,6 +31,7 @@ export class TestWaitingFormComponent implements OnInit {
         this.model = resp.body;
       });
     } else {
+      this.model.isShortList = true;
       this.model.testEvaluation = 'UNEVALUATED';
     }
   }
