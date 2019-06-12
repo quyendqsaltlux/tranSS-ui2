@@ -1,10 +1,8 @@
-import {GlobalConfig} from "ngx-toastr";
-
 export function getFileName(value) {
   if (!value) {
     return value;
   }
-  const items = value.split('\\');
+  const items = value.split('/');
   return items && items.length > 0 ? items[items.length - 1] : value;
 }
 
