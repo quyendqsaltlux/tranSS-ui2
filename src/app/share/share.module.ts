@@ -4,7 +4,7 @@ import {FileNamePipe} from '../pipe/file-name.pipe';
 import {LmToPipe} from '../pipe/lm-to.pipe';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {FormsModule} from '@angular/forms';
-import {AlertModule, BsDatepickerModule, BsDropdownModule, CollapseModule, ModalModule, PaginationModule, PopoverModule, ProgressbarModule, TabsModule, TypeaheadModule} from 'ngx-bootstrap';
+import {AlertModule, BsDatepickerModule, BsDropdownModule, CollapseModule, ModalModule, PaginationModule, PopoverModule, ProgressbarModule, TabsModule, TimepickerModule, TypeaheadModule} from 'ngx-bootstrap';
 import {MyDatatableComponent} from './my-datatable/my-datatable.component';
 import {EmployeeSearchComponent} from './employee-search/employee-search.component';
 import {AssignmentStatusPipe} from '../pipe/assignmentStatus.pipe';
@@ -73,6 +73,7 @@ import {ProgressCellComponent} from './ag-grid/progress-cell/progress-cell.compo
     PopoverModule.forRoot(),
     TabsModule,
     BsDatepickerModule.forRoot(),
+    TimepickerModule.forRoot(),
     TypeaheadModule.forRoot(),
     ProgressbarModule.forRoot(),
     AlertModule.forRoot(),
@@ -111,6 +112,7 @@ import {ProgressCellComponent} from './ag-grid/progress-cell/progress-cell.compo
     AssignmentStatusPipe,
     MyDatatableComponent,
     BsDatepickerModule,
+    TimepickerModule,
     TypeaheadModule,
     ProgressbarModule,
     AutofocusDirective,

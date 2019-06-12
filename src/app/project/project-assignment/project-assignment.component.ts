@@ -35,6 +35,10 @@ export class ProjectAssignmentComponent implements OnInit {
   subscriptions: Subscription[] = [];
   poSubscriptions: Subscription[] = [];
   model: ProjectAssignmentReq = {} as ProjectAssignmentReq;
+
+  hoTime: Date = new Date();
+  hbTime: Date = new Date();
+
   star = 5;
   private repSubjects: Subject<string>[] = [];
   repSubjectFields = [];

@@ -193,7 +193,12 @@
                         <!--Request date-->
                         <div class="form-group date">
                           <label for="ho">HO<span class="text-danger"> *</span></label>
-                          <input type="date" class=" form-control form-control-sm" required id="ho" name="ho" [(ngModel)]="model.ho">
+                          <div>
+                            <input type="text" class="form-control form-control-sm"
+                                   [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' }"
+                                   bsDatepicker [(ngModel)]="model.ho" required id="ho" name="ho"/>
+                            <timepicker [(ngModel)]="hoTime" id="hoTime" name="hoTime"></timepicker>
+                          </div>
                         </div>
                         <!--Request date-->
                         <div class="form-group date">
