@@ -19,7 +19,7 @@ export class ActionsColRendererComponent implements ICellRendererAngularComp {
   }
 
   isAllowEdit() {
-    return this.principleService.isPMLeader || this.currentUser.code === this.pmVtc;
+    return this.principleService.isPMLeader() || this.currentUser.code === this.pmVtc;
   }
 
   constructor(private  principleService: PrincipleService) {
