@@ -128,7 +128,7 @@
                 <h4 class="text-center">{{model.assignment.unitPrice}}</h4>
               </td>
               <td colspan="3">
-                <ng-container *ngIf="model.assignment.externalResource || model.assignment.useCustomTask">
+                <ng-container *ngIf="model.assignment.externalResource">
                   <ng-select [(ngModel)]="model.currency" [searchable]="false" [clearable]="false"
                              [dropdownPosition]="'top'" class="po-currency"
                              name="currency" id="currency"
@@ -140,7 +140,7 @@
                     <ng-option [value]="'CAD'">CAD</ng-option>
                   </ng-select>
                 </ng-container>
-                <ng-container *ngIf="!model.assignment.externalResource && !model.assignment.useCustomTask">
+                <ng-container *ngIf="!model.assignment.externalResource">
                   <h4 class="text-center">{{model.currency}}</h4>
                 </ng-container>
               </td>

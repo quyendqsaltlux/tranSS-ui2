@@ -107,7 +107,7 @@
         <div class="form-group language mb-1">
           <label for="source">Source<span class="text-danger"> *</span></label>
           <input class=" form-control form-control-sm" id="source" name="source"
-                 required maxlength="127"
+                 required maxlength="10"
                  [(ngModel)]="model.source"
                  #source="ngModel"
                  [ngClass]="{'is-invalid': f.submitted && source.invalid}">
@@ -120,7 +120,7 @@
         <div class="form-group language mb-1">
           <label for="target">Target<span class="text-danger"> *</span></label>
           <input type="text" class=" form-control form-control-sm" id="target" name="target"
-                 required maxlength="127"
+                 required maxlength="10"
                  [(ngModel)]="model.target"
                  #target="ngModel"
                  [ngClass]="{'is-invalid': f.submitted && target.invalid}">

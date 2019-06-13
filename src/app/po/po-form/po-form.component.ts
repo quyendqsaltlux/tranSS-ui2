@@ -54,7 +54,7 @@ export class PoFormComponent implements OnInit {
     this.poService.getDefaultPo(this.assignmentId).subscribe((resp) => {
       this.defaultPo = resp.body;
       this.model = {...this.defaultPo} as PODefault;
-      this.model.currency = this.defaultPo.assignment.ability ? this.defaultPo.assignment.ability.currency : null;
+      this.model.currency = this.defaultPo.currency;
       this.roundTotalByCurrency(this.model.currency);
       this.isShowForm = true;
     }, () => {
