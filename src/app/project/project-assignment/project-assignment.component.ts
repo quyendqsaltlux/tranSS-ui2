@@ -88,6 +88,9 @@ export class ProjectAssignmentComponent implements OnInit {
     params.candidateId = params.candidate ? params.candidate.id : null;
     delete params.candidate;
     delete params.ability;
+    if (!this.model.externalResource) {
+      delete  this.model.externalResourceName;
+    }
     return params;
   }
 
