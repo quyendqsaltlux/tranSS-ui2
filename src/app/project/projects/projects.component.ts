@@ -8,7 +8,7 @@ import {ActionsColRendererComponent} from '../../share/ag-grid/actions-col-rende
 import {Router} from '@angular/router';
 import {ProjectUrgentCellComponent} from '../../share/ag-grid/project-urgent-cell/project-urgent-cell.component';
 import {ProgressCellComponent} from '../../share/ag-grid/progress-cell/progress-cell.component';
-import {PrincipleService} from "../../service/principle.service";
+import {PrincipleService} from '../../service/principle.service';
 
 @Component({
   selector: 'app-projects',
@@ -19,7 +19,7 @@ export class ProjectsComponent implements OnInit {
   @ViewChild('template') template: TemplateRef<any>;
   JOIN_FILTER_COLS = ['pm.code'];
   columnDefs = [
-    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 90, sortable: false, cellClass: ['text-center']},
+    {headerName: 'Actions', colId: 'rowActions', cellRenderer: 'actionRender', pinned: 'left', filter: false, width: 90, sortable: false},
     {headerName: 'Progress', field: 'progressPoint', pinned: 'left', filter: false, width: 120, cellRenderer: 'progressCell', cellRendererParams: {renderField: 'progressPoint'}},
     {headerName: 'No', field: 'no', pinned: 'left', filter: true, width: 120, cellRenderer: 'projectUrgentCell', cellRendererParams: {renderField: 'no'}},
     {headerName: 'Request Date', field: 'requestDate', type: 'dateColumn', width: 160},
@@ -39,7 +39,7 @@ export class ProjectsComponent implements OnInit {
     {headerName: 'Unit', field: 'unit', width: 70},
     {headerName: 'Target', field: 'target', width: 100},
     {headerName: 'Status', field: 'progressStatus', filter: false, width: 100},
-    {headerName: 'Performing PM', field: 'pmVtc', width: 100},
+    {headerName: 'Performing PM', field: 'pmVtc', width: 150},
     {headerName: 'HO', field: 'ho', width: 160, type: 'dateColumn'},
     {headerName: 'HB', field: 'hb', width: 160, type: 'dateColumn'},
     {headerName: 'Review Schedule', width: 160, field: 'reviewSchedule', type: 'dateColumn'},
@@ -229,6 +229,10 @@ export class ProjectsComponent implements OnInit {
         this.onFilter();
       },
       (error1 => {
+        if (error1.status === 400) {
+          this.toastr.error('Can not delete project includes resources');
+          return;
+        }
         this.toastr.error('Fail to delete!');
       }));
   }

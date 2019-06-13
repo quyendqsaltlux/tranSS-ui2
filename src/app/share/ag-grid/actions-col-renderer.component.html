@@ -1,2 +1,2 @@
 <button type="button" class="btn ag-grid-action-icon" (click)="onEdit()" title="Edit"><i class="fa fa-edit text-warning"></i></button>
-<button type="button" class="btn ag-grid-action-icon" (click)="onDelete()" title="Delete"><i class="fa fa-trash text-danger"></i></button>
+<button type="button" class="btn ag-grid-action-icon" (click)="onDelete()" title="Delete" *ngIf="isAllowEdit()"><i class="fa fa-trash text-danger"></i></button>

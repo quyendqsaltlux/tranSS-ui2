@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ICellRendererAngularComp} from 'ag-grid-angular';
+import {PrincipleService} from '../../service/principle.service';
 
 @Component({
   selector: 'app-child-cell',
@@ -8,9 +9,20 @@ import {ICellRendererAngularComp} from 'ag-grid-angular';
 })
 export class ActionsColRendererComponent implements ICellRendererAngularComp {
   public params: any;
+  currentUser;
+  pmVtc;
 
   agInit(params: any): void {
     this.params = params;
+    this.pmVtc = this.params.data['pmVtc'];
+    this.currentUser = this.principleService.getUserInfo();
+  }
+
+  isAllowEdit() {
+    return this.principleService.isPMLeader || this.currentUser.code === this.pmVtc;
+  }
+
+  constructor(private  principleService: PrincipleService) {
   }
 
   onEdit() {
