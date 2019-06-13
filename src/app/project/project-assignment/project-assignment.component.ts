@@ -247,7 +247,7 @@ export class ProjectAssignmentComponent implements OnInit {
 
   onNetOrHourChanged() {
     setTimeout(() => {
-      if (!this.model.externalResource) {
+      if (!this.model.externalResource && !this.model.useCustomTask) {
         this.model.unitPrice = this.getUnitPrice(this.currentAbility, this.model.netOrHour);
       }
       this.updateTotalMoney();
