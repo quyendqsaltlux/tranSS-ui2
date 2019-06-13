@@ -32,6 +32,8 @@ import {RegexPatternPie} from '../pipe/regex-pattern.pie';
 import {ProjectUrgentCellComponent} from './ag-grid/project-urgent-cell/project-urgent-cell.component';
 import {ResourceCodeCellComponent} from './ag-grid/resource-code-cell/resource-code-cell.component';
 import {ProgressCellComponent} from './ag-grid/progress-cell/progress-cell.component';
+import {ForbiddenValidatorDirective} from '../validation/forbidden-name.directive';
+import {PercentDirective} from '../validation/percent.directive';
 
 @NgModule({
   declarations: [
@@ -61,7 +63,9 @@ import {ProgressCellComponent} from './ag-grid/progress-cell/progress-cell.compo
     RegexPatternPie,
     ProjectUrgentCellComponent,
     ResourceCodeCellComponent,
-    ProgressCellComponent
+    ProgressCellComponent,
+    ForbiddenValidatorDirective,
+    PercentDirective
   ],
   imports: [
     CommonModule,
@@ -135,7 +139,9 @@ import {ProgressCellComponent} from './ag-grid/progress-cell/progress-cell.compo
     RegexPatternPie,
     ProjectUrgentCellComponent,
     ResourceCodeCellComponent,
-    ProgressCellComponent
+    ProgressCellComponent,
+    ForbiddenValidatorDirective,
+    PercentDirective
   ],
   entryComponents: [
     EmployeeSearchComponent

@@ -60,8 +60,8 @@
                         <div class="form-group w80">
                           <label for="rep84_75">Rep 84~75 %</label>
                           <input class=" form-control form-control-sm" id="rep84_75" name="rep84_75"
-                                 [(ngModel)]="model.rep84_75" #rep84_75="ngModel" min="0" max="1000000000"
-                                 [pattern]="_FLOAT_REGEX" required
+                                 [(ngModel)]="model.rep84_75" #rep84_75="ngModel"
+                                 [pattern]="_FLOAT_REGEX" required maxlength="7"
                                  (ngModelChange)="onRepInputChanged()"
                                  [ngClass]="{'is-invalid': rep84_75.invalid && (rep84_75.dirty || rep84_75.touched)}">
                           <div *ngIf="rep84_75.invalid && (rep84_75.dirty || rep84_75.touched)" class="msg-invalid">Type a number</div>
@@ -70,7 +70,7 @@
                           <label for="repnoMatch">New/Hour</label>
                           <input class=" form-control form-control-sm" id="repnoMatch" name="repnoMatch"
                                  [(ngModel)]="model.repnoMatch" #repnoMatch="ngModel" min="0"
-                                 [pattern]="_FLOAT_REGEX" required
+                                 [pattern]="_FLOAT_REGEX" required maxlength="5"
                                  (ngModelChange)="onRepInputChanged()"
                                  [ngClass]="{'is-invalid': repnoMatch.invalid && (repnoMatch.dirty || repnoMatch.touched)}">
                           <div *ngIf="repnoMatch.invalid && (repnoMatch.dirty || repnoMatch.touched)" class="msg-invalid">Type a number</div>
@@ -94,72 +94,83 @@
                           <div *ngIf="unitPrice.invalid && (unitPrice.dirty || unitPrice.touched)" class="msg-invalid">Type a number</div>
                         </div>
                       </div>
-
                       <!--ROW 3-->
                       <div class="d-flex form-left">
                         <div class="form-group w80">
                           <label for="wrep">Wf Rep.</label>
                           <input class=" form-control form-control-sm" id="wrep" name="wrep"
-                                 (ngModelChange)="onWfInputChanged()"
-                                 [pattern]="_FLOAT_REGEX" required
-                                 [(ngModel)]="model.wrep" #wrep="ngModel"maxlength="3"
+                                 (ngModelChange)="onWfInputChanged($event)"
+                                 [pattern]="_FLOAT_REGEX" required appPercent="{{_FLOAT_REGEX}}"
+                                 [(ngModel)]="model.wrep" #wrep="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': wrep.invalid && (wrep.dirty || wrep.touched)}">
-                          <div *ngIf="wrep.invalid && (wrep.dirty || wrep.touched)" class="msg-invalid">Type a number</div>
+                          <div *ngIf="wrep.invalid && (wrep.dirty || wrep.touched)" class="msg-invalid">
+                            <p *ngIf="wrep.errors.pattern || wrep.errors.appPercent">0-100 (%) only</p>
+                          </div>
                         </div>
                         <div class="form-group w80">
                           <label for="w100">Wf 100</label>
                           <input class=" form-control form-control-sm" id="w100" name="w100"
-                                 (ngModelChange)="onWfInputChanged()"
+                                 (ngModelChange)="onWfInputChanged($event)"  appPercent="{{_FLOAT_REGEX}}"
                                  [pattern]="_FLOAT_REGEX" required
-                                 [(ngModel)]="model.w100" #w100="ngModel"maxlength="3"
+                                 [(ngModel)]="model.w100" #w100="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': w100.invalid && (w100.dirty || w100.touched)}">
-                          <div *ngIf="w100.invalid && (w100.dirty || w100.touched)" class="msg-invalid">Type a number</div>
+                          <div *ngIf="w100.invalid && (w100.dirty || w100.touched)" class="msg-invalid">
+                            <p *ngIf="w100.errors.pattern || w100.errors.appPercent">0-100 (%) only</p>
+                          </div>
                         </div>
                         <div class="form-group w80">
                           <label for="w99_95">Wf 99~95</label>
                           <input class=" form-control form-control-sm" id="w99_95" name="w99_95"
-                                 [readonly]="!model.useCustomTask && !model.externalResource" (ngModelChange)="onWfInputChanged()"
-                                 [pattern]="_FLOAT_REGEX" required
-                                 [(ngModel)]="model.w99_95" #w99_95="ngModel"maxlength="3"
+                                 [readonly]="!model.useCustomTask && !model.externalResource" (ngModelChange)="onWfInputChanged($event)"
+                                 [pattern]="_FLOAT_REGEX" required  appPercent="{{_FLOAT_REGEX}}"
+                                 [(ngModel)]="model.w99_95" #w99_95="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': w99_95.invalid && (w99_95.dirty || w99_95.touched)}">
-                          <div *ngIf="w99_95.invalid && (w99_95.dirty || w99_95.touched)" class="msg-invalid">Type a number</div>
+                          <div *ngIf="w99_95.invalid && (w99_95.dirty || w99_95.touched)" class="msg-invalid">
+                            <p *ngIf="w99_95.errors.pattern || w99_95.errors.appPercent">0-100 (%) only</p>
+                          </div>
                         </div>
                         <div class="form-group w80">
                           <label for="w94_85">Wf 94~85</label>
                           <input class=" form-control form-control-sm" id="w94_85" name="w94_85"
                                  [readonly]="!model.useCustomTask && !model.externalResource"
-                                 (ngModelChange)="onWfInputChanged()"
-                                 [pattern]="_FLOAT_REGEX" required
-                                 [(ngModel)]="model.w94_85" #w94_85="ngModel"maxlength="3"
+                                 (ngModelChange)="onWfInputChanged($event)"
+                                 [pattern]="_FLOAT_REGEX" required  appPercent="{{_FLOAT_REGEX}}"
+                                 [(ngModel)]="model.w94_85" #w94_85="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': w94_85.invalid && (w94_85.dirty || w94_85.touched)}">
-                          <div *ngIf="w94_85.invalid && (w94_85.dirty || w94_85.touched)" class="msg-invalid">Type a number</div>
+                          <div *ngIf="w94_85.invalid && (w94_85.dirty || w94_85.touched)" class="msg-invalid">
+                            <p *ngIf="w94_85.errors.pattern || w94_85.errors.appPercent">0-100 (%) only</p>
+                          </div>
                         </div>
                         <div class="form-group w80">
                           <label for="w84_75">Wf 84~75</label>
                           <input class=" form-control form-control-sm" id="w84_75" name="w84_75"
-                                 [pattern]="_FLOAT_REGEX" required
+                                 [pattern]="_FLOAT_REGEX" required  appPercent="{{_FLOAT_REGEX}}"
                                  [readonly]="!model.useCustomTask && !model.externalResource"
-                                 (ngModelChange)="onWfInputChanged()"
-                                 [(ngModel)]="model.w84_75" #w84_75="ngModel"maxlength="3"
+                                 (ngModelChange)="onWfInputChanged($event)"
+                                 [(ngModel)]="model.w84_75" #w84_75="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': w84_75.invalid && (w84_75.dirty || w84_75.touched)}">
-                          <div *ngIf="w84_75.invalid && (w84_75.dirty || w84_75.touched)" class="msg-invalid">Type a number</div>
+                          <div *ngIf="w84_75.invalid && (w84_75.dirty || w84_75.touched)" class="msg-invalid">
+                            <p *ngIf="w84_75.errors.pattern || w84_75.errors.appPercent">0-100 (%) only</p>
+                          </div>
                         </div>
                         <div class="form-group w80">
                           <label for="wnoMatch">Wf New</label>
                           <input class=" form-control form-control-sm" id="wnoMatch" name="wnoMatch"
                                  [readonly]="!model.useCustomTask && !model.externalResource"
-                                 (ngModelChange)="onWfInputChanged()"
-                                 [pattern]="_FLOAT_REGEX" required
-                                 [(ngModel)]="model.wnoMatch" #wnoMatch="ngModel"maxlength="3"
+                                 (ngModelChange)="onWfInputChanged($event)"
+                                 [pattern]="_FLOAT_REGEX" required  appPercent="{{_FLOAT_REGEX}}"
+                                 [(ngModel)]="model.wnoMatch" #wnoMatch="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': wnoMatch.invalid && (wnoMatch.dirty || wnoMatch.touched)}">
-                          <div *ngIf="wnoMatch.invalid && (wnoMatch.dirty || wnoMatch.touched)" class="msg-invalid">Type a number</div>
+                          <div *ngIf="wnoMatch.invalid && (wnoMatch.dirty || wnoMatch.touched)" class="msg-invalid">
+                            <p *ngIf="wnoMatch.errors.pattern || wnoMatch.errors.appPercent">0-100 (%) only</p>
+                          </div>
                         </div>
                         <div class="form-group w80">
                           <label for="netOrHour">Net/Hour</label>
                           <input [readonly]="isComputeNetHourManually()"
                                  class="form-control form-control-sm" id="netOrHour" name="netOrHour"
                                  [pattern]="_FLOAT_REGEX" required
-                                 (ngModelChange)="onNetOrHourChanged()" maxlength="7"
+                                 (ngModelChange)="onNetOrHourChanged()" maxlength="10"
                                  [(ngModel)]="model.netOrHour" #netOrHour="ngModel"
                                  [ngClass]="{'is-invalid': netOrHour.invalid && (netOrHour.dirty || netOrHour.touched)}">
                           <div *ngIf="netOrHour.invalid && (netOrHour.dirty || netOrHour.touched)" class="msg-invalid">Type a number</div>
