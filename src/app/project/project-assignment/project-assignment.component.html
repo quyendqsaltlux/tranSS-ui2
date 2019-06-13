@@ -99,7 +99,7 @@
                         <div class="form-group w80">
                           <label for="wrep">Wf Rep.</label>
                           <input class=" form-control form-control-sm" id="wrep" name="wrep"
-                                 (ngModelChange)="onWfInputChanged($event)"
+                                 (ngModelChange)="onWfInputChanged()"
                                  [pattern]="_FLOAT_REGEX" required appPercent="{{_FLOAT_REGEX}}"
                                  [(ngModel)]="model.wrep" #wrep="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': wrep.invalid && (wrep.dirty || wrep.touched)}">
@@ -110,7 +110,7 @@
                         <div class="form-group w80">
                           <label for="w100">Wf 100</label>
                           <input class=" form-control form-control-sm" id="w100" name="w100"
-                                 (ngModelChange)="onWfInputChanged($event)"  appPercent="{{_FLOAT_REGEX}}"
+                                 (ngModelChange)="onWfInputChanged()"  appPercent="{{_FLOAT_REGEX}}"
                                  [pattern]="_FLOAT_REGEX" required
                                  [(ngModel)]="model.w100" #w100="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': w100.invalid && (w100.dirty || w100.touched)}">
@@ -121,7 +121,7 @@
                         <div class="form-group w80">
                           <label for="w99_95">Wf 99~95</label>
                           <input class=" form-control form-control-sm" id="w99_95" name="w99_95"
-                                 [readonly]="!model.useCustomTask && !model.externalResource" (ngModelChange)="onWfInputChanged($event)"
+                                 [readonly]="!model.useCustomTask && !model.externalResource" (ngModelChange)="onWfInputChanged()"
                                  [pattern]="_FLOAT_REGEX" required  appPercent="{{_FLOAT_REGEX}}"
                                  [(ngModel)]="model.w99_95" #w99_95="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': w99_95.invalid && (w99_95.dirty || w99_95.touched)}">
@@ -133,7 +133,7 @@
                           <label for="w94_85">Wf 94~85</label>
                           <input class=" form-control form-control-sm" id="w94_85" name="w94_85"
                                  [readonly]="!model.useCustomTask && !model.externalResource"
-                                 (ngModelChange)="onWfInputChanged($event)"
+                                 (ngModelChange)="onWfInputChanged()"
                                  [pattern]="_FLOAT_REGEX" required  appPercent="{{_FLOAT_REGEX}}"
                                  [(ngModel)]="model.w94_85" #w94_85="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': w94_85.invalid && (w94_85.dirty || w94_85.touched)}">
@@ -146,7 +146,7 @@
                           <input class=" form-control form-control-sm" id="w84_75" name="w84_75"
                                  [pattern]="_FLOAT_REGEX" required  appPercent="{{_FLOAT_REGEX}}"
                                  [readonly]="!model.useCustomTask && !model.externalResource"
-                                 (ngModelChange)="onWfInputChanged($event)"
+                                 (ngModelChange)="onWfInputChanged()"
                                  [(ngModel)]="model.w84_75" #w84_75="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': w84_75.invalid && (w84_75.dirty || w84_75.touched)}">
                           <div *ngIf="w84_75.invalid && (w84_75.dirty || w84_75.touched)" class="msg-invalid">
@@ -157,7 +157,7 @@
                           <label for="wnoMatch">Wf New</label>
                           <input class=" form-control form-control-sm" id="wnoMatch" name="wnoMatch"
                                  [readonly]="!model.useCustomTask && !model.externalResource"
-                                 (ngModelChange)="onWfInputChanged($event)"
+                                 (ngModelChange)="onWfInputChanged()"
                                  [pattern]="_FLOAT_REGEX" required  appPercent="{{_FLOAT_REGEX}}"
                                  [(ngModel)]="model.wnoMatch" #wnoMatch="ngModel" maxlength="5"
                                  [ngClass]="{'is-invalid': wnoMatch.invalid && (wnoMatch.dirty || wnoMatch.touched)}">
