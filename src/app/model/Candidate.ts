@@ -18,9 +18,6 @@ export interface Candidate {
   catTool: string;
   dailyCapacity: string;
   majorField: string;
-  // bank: string;
-  // payPal: string;
-  // copyOfBankBook: boolean;
   payment: Payment;
   defaultCurrency: string;
   diploma: string;
@@ -33,4 +30,5 @@ export interface Candidate {
   education: string;
   attachments: string[];
   abilities: any[];
+  currency: string;
 }

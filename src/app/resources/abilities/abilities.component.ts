@@ -20,6 +20,7 @@ export class AbilitiesComponent implements OnInit, AfterViewInit {
   alerts = [];
   deleteIndex = -1;
   modalRef: BsModalRef;
+  currency: string;
 
   constructor(private route: ActivatedRoute,
               private abilityService: CandidateAbilityService,
@@ -43,9 +44,10 @@ export class AbilitiesComponent implements OnInit, AfterViewInit {
 
   getListAbilities() {
     this.abilityService.getList(this.candidateId).subscribe((resp) => {
-      this.abilities = resp.body;
+      this.abilities = resp.body.abilities;
+      this.currency = resp.body.currency;
     }, (err) => {
-      this.toastr.error('Fail to get data');
+      this.toastr.error('Fail to get rates data');
     });
   }
 

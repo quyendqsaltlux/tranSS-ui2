@@ -139,14 +139,8 @@
           </ng-select>
         </td>
         <!--currency-->
-        <td>
-          <ng-select [(ngModel)]="model.currency" [searchable]="false" [clearable]="false" name="currency" id="currency"
-                     #currency="ngModel" class="sm" required [ngClass]="{'is-invalid': f.submitted && currency.invalid}">
-            <ng-option [value]="'USD'">USD</ng-option>
-            <ng-option [value]="'EUR'">EUR</ng-option>
-            <ng-option [value]="'KRW'">KRW</ng-option>
-            <ng-option [value]="'CAD'">CAD</ng-option>
-          </ng-select>
+        <td class="text-center">
+          <label>{{currency}}</label>
         </td>
         <!--MINIMUM VOLUM-->
         <td>

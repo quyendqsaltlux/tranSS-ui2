@@ -14,6 +14,7 @@ import {BsModalRef, BsModalService, ModalOptions} from 'ngx-bootstrap';
 export class AbilityComponent implements OnInit {
   @ViewChild('f') f: NgForm;
   @Input() ability: any;
+  @Input() currency: any;
   @Input() index: number;
   @Output() _onDelete: EventEmitter<any> = new EventEmitter();
   candidateId = null;
@@ -24,7 +25,6 @@ export class AbilityComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private abilityService: CandidateAbilityService,
-              private toastr: ToastrService,
               private modalService: BsModalService) {
   }
 

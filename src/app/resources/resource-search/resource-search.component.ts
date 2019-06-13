@@ -17,7 +17,9 @@ import {CandidateService} from '../../service/candidate.service';
 })
 export class ResourceSearchComponent implements OnInit {
   @ViewChild('template') template: TemplateRef<any>;
-  JOIN_FILTER_COLS = ['candidate.code', 'candidate.grade',
+  JOIN_FILTER_COLS = [
+    'candidate.currency',
+    'candidate.code', 'candidate.grade',
     'candidate.name', 'candidate.majorField',
     'candidate.email', 'candidate.mobile', 'candidate.catTool',
     'candidate.messenger', 'candidate.socialpages',
@@ -40,7 +42,7 @@ export class ResourceSearchComponent implements OnInit {
     {headerName: 'Minimum Volume', field: 'minimumVolum', type: 'numericColumn'},
     {headerName: 'Minimum Charge', field: 'minimumCharge', type: 'numericColumn'},
     {headerName: 'Evaluation', field: 'evaluateAvg'},
-    {headerName: 'Currency', field: 'currency', width: 80},
+    {headerName: 'Currency', field: 'candidate.currency', width: 80},
     {headerName: 'CAT Tool', field: 'candidate.catTool'},
     {headerName: 'Email', field: 'candidate.email', width: 250},
     {headerName: 'Mobile', field: 'candidate.mobile'},

@@ -32,6 +32,7 @@
       <div class="table-responsive mh350">
         <ng-container *ngFor="let ability of abilities; let index=index">
           <app-ability [ability]="ability" [index]="index" (_onDelete)="onDeleteAbility($event)"
+                       [currency]="currency"
                        (saveOk)="onSaveOK($event)"></app-ability>
         </ng-container>
         <div class=" mt-3">
