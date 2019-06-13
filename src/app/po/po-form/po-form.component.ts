@@ -17,6 +17,7 @@ export class PoFormComponent implements OnInit {
   model: PODefault = {} as PODefault;
   isShowForm = false;
   updated = false;
+  originalTotal: number;
 
   constructor(private toastr: ToastrService,
               private  poService: PoService) {
@@ -34,12 +35,13 @@ export class PoFormComponent implements OnInit {
   getModel() {
     this.poService.findById(this.poId).subscribe((resp) => {
       this.model = resp.body as PODefault;
-      this.roundTotalByCurrency(this.model.currency);
+      this.originalTotal = this.model.assignment.total;
+      this.model.assignment.total = this.roundTotalByCurrency(this.model.currency);
       this.isShowForm = true;
     });
   }
 
-  roundTotalByCurrency(currency) {
+  roundTotalByCurrency(currency, total?): number {
     if (!currency) {
       return;
     }
@@ -47,7 +49,10 @@ export class PoFormComponent implements OnInit {
     if ('KRW' === currency) {
       suffix = 0;
     }
-    this.model.assignment.total = Number((this.model.assignment.total).toFixed(suffix));
+    if (!total) {
+      return Number((this.model.assignment.total).toFixed(suffix));
+    }
+    return Number((total).toFixed(suffix));
   }
 
   getDefaultPo() {
@@ -55,11 +60,18 @@ export class PoFormComponent implements OnInit {
       this.defaultPo = resp.body;
       this.model = {...this.defaultPo} as PODefault;
       this.model.currency = this.defaultPo.currency;
-      this.roundTotalByCurrency(this.model.currency);
+      this.originalTotal = this.model.assignment.total;
+      this.model.assignment.total = this.roundTotalByCurrency(this.model.currency);
       this.isShowForm = true;
     }, () => {
       this.toastr.error('Fail to get default purchase order data');
     });
+  }
+
+  onChangeCurrency() {
+    setTimeout(() => {
+      this.model.assignment.total = this.roundTotalByCurrency(this.model.currency, this.originalTotal);
+    }, 0);
   }
 
   onSubmit() {
