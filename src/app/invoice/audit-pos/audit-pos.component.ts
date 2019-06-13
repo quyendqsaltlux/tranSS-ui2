@@ -202,7 +202,4 @@ export class AuditPosComponent implements OnInit {
     }, error2 => this.toastr.error('Fail to generate!'));
   }
 
-  onClickGenerateInvoice() {
-    this.generateInvoices();
-  }
 }
