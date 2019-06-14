@@ -59,6 +59,7 @@ export class InvoiceFormComponent implements OnInit {
       .subscribe((resp) => {
         this.defaultInvoice = resp.body;
         this.model = this.extractModel(this.defaultInvoice);
+        console.log(this.model);
         this.isShowForm = true;
       }, () => {
         this.toastr.error('Fail to get default purchase order data');
@@ -73,6 +74,8 @@ export class InvoiceFormComponent implements OnInit {
     if (defaultMode.candidate) {
       model.resourceName = defaultMode.resourceName;
       model.address = defaultMode.candidate.address;
+      model.mobile = defaultMode.candidate.mobile;
+      model.email = defaultMode.candidate.email;
       if (defaultMode.candidate.payment) {
         model.bankName = defaultMode.candidate.payment.bankName;
         model.account = defaultMode.candidate.payment.account;
