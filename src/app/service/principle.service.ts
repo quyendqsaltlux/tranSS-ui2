@@ -32,6 +32,12 @@ export class PrincipleService {
     return found >= 0;
   }
 
+  public isAdmin() {
+    const user = JSON.parse(sessionStorage.getItem('userInfo'));
+    const found = user.roles.findIndex((role) => role === 'ROLE_ADMIN');
+    return found >= 0;
+  }
+
   public logout() {
     sessionStorage.removeItem('token');
   }

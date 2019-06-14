@@ -54,7 +54,7 @@ export class ProjectFormComponent implements OnInit {
   isAllowEdit() {
     return !this.model.id || this.model.id <= 0 ||
       this.currentUser.code === this.model.pmVtc ||
-      this.principleService.isPMLeader();
+      this.principleService.isPMLeader() || this.principleService.isAdmin();
   }
 
   extractModelFromApi(model) {
