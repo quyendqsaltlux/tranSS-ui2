@@ -258,7 +258,8 @@ export class ProjectAssignmentComponent implements OnInit {
   }
 
   updateTotalMoney() {
-    this.model.total = Number(( this.model.netOrHour * this.model.unitPrice).toFixed(2));
+    // this.model.total = Number(( this.model.netOrHour * this.model.unitPrice).toFixed(2));
+    this.model.total = Number( this.model.netOrHour * this.model.unitPrice);
   }
 
   onSelectTaskSourceTarget(ability) {
@@ -305,7 +306,8 @@ export class ProjectAssignmentComponent implements OnInit {
         sum += a * b;
       }
     }
-    return Number((sum / 100).toFixed(2));
+    // return Number((sum / 100).toFixed(2));
+    return Number(sum / 100);
   }
 
   onToggleExternalResource() {
