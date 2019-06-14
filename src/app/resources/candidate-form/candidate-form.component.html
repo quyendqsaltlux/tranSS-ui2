@@ -172,7 +172,7 @@
 
                       <div class="col-sm-12 col-md-4">
                         <div class="form-group">
-                          <label for="currency">Currency</label>
+                          <label for="currency">Currency<span class="text-danger"> *</span></label>
                           <ng-select [(ngModel)]="model.currency" [searchable]="false" [clearable]="false" name="currency" id="currency"
                                      #currency="ngModel" required [ngClass]="{'is-invalid': f.submitted && currency.invalid}">
                             <ng-option [value]="'USD'">USD</ng-option>

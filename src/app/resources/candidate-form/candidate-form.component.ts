@@ -43,6 +43,10 @@ export class CandidateFormComponent implements OnInit {
           this.paymentComponent.payment = this.model.payment;
         }
       });
+    } else {
+      this.model.currency = 'USD';
+      this.model.grade = 'A';
+      this.model.type = 'TF';
     }
   }
 
